@@ -74,6 +74,7 @@ public class Archivo {
 	 *              null.
 	 * @return retorna la lista de apostadores del archivo.
 	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<Apostador> leerArchivo(File file) {
 		ArrayList<Apostador> apostador = new ArrayList<Apostador>();
 		if (file.length() != 0) {
