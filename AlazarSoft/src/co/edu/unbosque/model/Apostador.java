@@ -1,7 +1,10 @@
 package co.edu.unbosque.model;
 
-public class Apostador {
+import java.io.Serializable;
 
+public class Apostador implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	String nombre = "";
 	String cedula = "";
 	String sede = "";
