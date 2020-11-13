@@ -4,46 +4,71 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-public class PanelActualizarBorrarGamer extends JPanel {
+public class PanelActualizarBorrarApostador extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final String COMMAND_ACTUALIZAR = "ACTUALIZAR";
 	private final String COMMAND_BORRAR = "BORRAR";
-	private JLabel etiquetaID;
-	private JLabel etiquetaNickName;
-	private JComboBox<String> comboID;
-	private JScrollPane scroll;
-	private JTextField campoTextoNickName;
+	private JLabel etiquetaNombre;
+	private JLabel etiquetaCedula;
+	private JLabel etiquetaSede;
+	private JLabel etiquetaDireccion;
+	private JLabel etiquetaCelular;
+	private JComboBox<String> comboCedula;
+	private JComboBox<String> comboSede;
+	private JScrollPane scrollCedula;
+	private JScrollPane scrollSede;
+	private JTextField campoTextoNombre;
+	private JTextField campoTextoDireccion;
+	private JTextField campoTextoCelular;
 	private JButton botonActualizar;
 	private JButton botonBorrar;
 	private JPanel panelIngreso;
 	private JPanel panelBotones;
 
-	public PanelActualizarBorrarGamer() {
+	public PanelActualizarBorrarApostador() {
 
-		setBorder(new TitledBorder("Actualizar datos gamer"));
+		setBorder(new TitledBorder("Actualizar/Borrar apostadores"));
 		setLayout(new BorderLayout());
 		panelIngreso = new JPanel();
-		panelIngreso.setLayout(new GridLayout(4, 1));
+		panelIngreso.setLayout(new GridLayout(5, 2));
 
-		etiquetaID = new JLabel("ID");
-		etiquetaNickName = new JLabel("NickName");
+		etiquetaCedula = new JLabel("Cédula");
+		etiquetaNombre = new JLabel("Nombre completo");
+		etiquetaSede = new JLabel("Sede");
+		etiquetaDireccion = new JLabel("Dirección");
+		etiquetaCelular = new JLabel("Celular");
 
-		comboID = new JComboBox<String>();
-		scroll = new JScrollPane(comboID);
-		campoTextoNickName = new JTextField();
+		comboCedula = new JComboBox<String>();
+		scrollCedula = new JScrollPane(comboCedula);
+		comboSede = new JComboBox<String>();
+		scrollSede = new JScrollPane(comboSede);
 
-		panelIngreso.add(etiquetaID);
-		panelIngreso.add(scroll);
+		campoTextoNombre = new JTextField();
+		campoTextoDireccion = new JTextField();
+		campoTextoCelular = new JTextField();
 
-		panelIngreso.add(etiquetaNickName);
-		panelIngreso.add(campoTextoNickName);
+		panelIngreso.add(etiquetaSede);
+		panelIngreso.add(scrollSede);
+
+		panelIngreso.add(etiquetaCedula);
+		panelIngreso.add(scrollCedula);
+
+		panelIngreso.add(etiquetaNombre);
+		panelIngreso.add(campoTextoNombre);
+
+		panelIngreso.add(etiquetaDireccion);
+		panelIngreso.add(campoTextoDireccion);
+
+		panelIngreso.add(etiquetaCelular);
+		panelIngreso.add(campoTextoCelular);
 
 		panelBotones = new JPanel();
 		panelBotones.setLayout(new GridLayout(1, 2));
@@ -64,8 +89,8 @@ public class PanelActualizarBorrarGamer extends JPanel {
 	public String[] verificarEntradasActualizar() {
 		String[] salida = new String[4];
 		salida[0] = "0";
-		String id = (String) comboID.getSelectedItem();
-		String nickName = campoTextoNickName.getText();
+		String id = (String) comboCedula.getSelectedItem();
+		String nickName = campoTextoNombre.getText();
 		if (!nickName.equals("") && !id.equals("Seleccione")) {
 			if (nickName.length() == 8) {
 				salida[1] = nickName;
@@ -85,8 +110,8 @@ public class PanelActualizarBorrarGamer extends JPanel {
 	public String[] verificarEntradasBorrar() {
 		String[] salida = new String[3];
 		salida[0] = "0";
-		if (!comboID.getSelectedItem().equals("Seleccione")) {
-			salida[1] = (String) comboID.getSelectedItem();
+		if (!comboCedula.getSelectedItem().equals("Seleccione")) {
+			salida[1] = (String) comboCedula.getSelectedItem();
 			salida[2] = "Se ha borrado el jugador";
 		} else {
 			salida[0] = "1";
@@ -96,47 +121,47 @@ public class PanelActualizarBorrarGamer extends JPanel {
 	}
 
 	public void borrarCampos() {
-		this.campoTextoNickName.setText("");
-		this.comboID.setSelectedIndex(0);
+		this.campoTextoNombre.setText("");
+		this.comboCedula.setSelectedIndex(0);
 	}
 
 	public void cargarId(String[] data) {
-		this.comboID.removeAllItems();
-		this.comboID.addItem("Seleccione");
+		this.comboCedula.removeAllItems();
+		this.comboCedula.addItem("Seleccione");
 		for (int i = 0; i < data.length; i++)
-			this.comboID.addItem(data[i]);
+			this.comboCedula.addItem(data[i]);
 	}
 
 	public JLabel getEtiquetaID() {
-		return etiquetaID;
+		return etiquetaCedula;
 	}
 
 	public void setEtiquetaID(JLabel etiquetaID) {
-		this.etiquetaID = etiquetaID;
+		this.etiquetaCedula = etiquetaID;
 	}
 
 	public JLabel getEtiquetaNickName() {
-		return etiquetaNickName;
+		return etiquetaNombre;
 	}
 
 	public void setEtiquetaNickName(JLabel etiquetaNickName) {
-		this.etiquetaNickName = etiquetaNickName;
+		this.etiquetaNombre = etiquetaNickName;
 	}
 
 	public JComboBox<String> getComboID() {
-		return comboID;
+		return comboCedula;
 	}
 
 	public void setComboID(JComboBox<String> comboID) {
-		this.comboID = comboID;
+		this.comboCedula = comboID;
 	}
 
 	public JTextField getCampoTextoNickName() {
-		return campoTextoNickName;
+		return campoTextoNombre;
 	}
 
 	public void setCampoTextoNickName(JTextField campoTextoNickName) {
-		this.campoTextoNickName = campoTextoNickName;
+		this.campoTextoNombre = campoTextoNickName;
 	}
 
 	public JButton getBotonActualizar() {
@@ -184,11 +209,10 @@ public class PanelActualizarBorrarGamer extends JPanel {
 	}
 
 	public JScrollPane getScroll() {
-		return scroll;
+		return scrollCedula;
 	}
 
 	public void setScroll(JScrollPane scroll) {
-		this.scroll = scroll;
+		this.scrollCedula = scroll;
 	}
-
 }

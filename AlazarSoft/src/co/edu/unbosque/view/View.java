@@ -10,8 +10,8 @@ public class View extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTabbedPane pestanas;
 	private PanelCrearGamer panelCrearGamer;
-	private PanelActualizarBorrarGamer panelActualizarGamer;
-	private PanelLeerGamer panelLeerGamer;
+	private PanelActualizarBorrarApostador panelActualizarGamer;
+	private PanelInformacionApostadores panelLeerGamer;
 	private PanelIngresoDatosJuego panelIngresoDatosJuegos;
 	private PanelMostrarRegistroJuegos panelMostrarRegistrosJuegos;
 
@@ -26,8 +26,8 @@ public class View extends JFrame {
 
 		pestanas = new JTabbedPane();
 		panelCrearGamer = new PanelCrearGamer();
-		panelActualizarGamer = new PanelActualizarBorrarGamer();
-		panelLeerGamer = new PanelLeerGamer();
+		panelActualizarGamer = new PanelActualizarBorrarApostador();
+		panelLeerGamer = new PanelInformacionApostadores();
 		panelIngresoDatosJuegos = new PanelIngresoDatosJuego();
 		panelMostrarRegistrosJuegos = new PanelMostrarRegistroJuegos();
 
@@ -84,19 +84,19 @@ public class View extends JFrame {
 		this.panelCrearGamer = panelCrearGamer;
 	}
 
-	public PanelActualizarBorrarGamer getPanelActualizarGamer() {
+	public PanelActualizarBorrarApostador getPanelActualizarGamer() {
 		return panelActualizarGamer;
 	}
 
-	public void setPanelActualizarGamer(PanelActualizarBorrarGamer panelActualizarGamer) {
+	public void setPanelActualizarGamer(PanelActualizarBorrarApostador panelActualizarGamer) {
 		this.panelActualizarGamer = panelActualizarGamer;
 	}
 
-	public PanelLeerGamer getPanelLeerGamer() {
+	public PanelInformacionApostadores getPanelLeerGamer() {
 		return panelLeerGamer;
 	}
 
-	public void setPanelLeerGamer(PanelLeerGamer panelLeerGamer) {
+	public void setPanelLeerGamer(PanelInformacionApostadores panelLeerGamer) {
 		this.panelLeerGamer = panelLeerGamer;
 	}
 
