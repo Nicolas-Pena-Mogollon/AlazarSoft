@@ -2,38 +2,41 @@ package co.edu.unbosque.view;
 
 import java.awt.BorderLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class PanelLeerGamer extends JPanel {
+public class PanelInformacionApostadores extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final String COMMAND_LEER = "LEER";
 	private JButton botonLeer;
-	private JTable tabla;
-	private DefaultTableModel modeloTabla;
+	private JTable tablaApostadores;
+	private DefaultTableModel modeloTablaApostadores;
 	private JScrollPane scroll;
 
-	public PanelLeerGamer() {
-		setBorder(new TitledBorder("Leer gamer"));
+	public PanelInformacionApostadores() {
+		setBorder(new TitledBorder("Información Apostadores"));
 		setLayout(new BorderLayout());
+
+		modeloTablaApostadores = new DefaultTableModel();
+		modeloTablaApostadores.fireTableStructureChanged();
+		tablaApostadores = new JTable(modeloTablaApostadores);
+		tablaApostadores.setEnabled(false);
+
+		modeloTablaApostadores.addColumn("Cédula");
+		modeloTablaApostadores.addColumn("Nombre");
+		modeloTablaApostadores.addColumn("Dirección");
+		modeloTablaApostadores.addColumn("Celular");
+		modeloTablaApostadores.addColumn("Sede");
+
+		scroll = new JScrollPane(tablaApostadores);
+
 		botonLeer = new JButton();
-
-		modeloTabla = new DefaultTableModel();
-		modeloTabla.fireTableStructureChanged();
-		tabla = new JTable(modeloTabla);
-		tabla.setEnabled(false);
-		
-		modeloTabla.addColumn("ID");
-		modeloTabla.addColumn("NickName");
-		modeloTabla.addColumn("Puntos");
-
-		scroll = new JScrollPane(tabla);
-
-		botonLeer = new JButton("Leer Gamers");
+		botonLeer = new JButton("Mostrar información");
 		botonLeer.setActionCommand(COMMAND_LEER);
 
 		this.add(scroll, BorderLayout.CENTER);
@@ -42,9 +45,9 @@ public class PanelLeerGamer extends JPanel {
 	}
 
 	public void actualizarTabla(String[][] data) {
-		modeloTabla.setRowCount(0);
+		modeloTablaApostadores.setRowCount(0);
 		for (int i = 0; i < data.length; i++) {
-			modeloTabla.addRow(data[i]);
+			modeloTablaApostadores.addRow(data[i]);
 		}
 	}
 
@@ -57,19 +60,19 @@ public class PanelLeerGamer extends JPanel {
 	}
 
 	public JTable getTabla() {
-		return tabla;
+		return tablaApostadores;
 	}
 
 	public void setTabla(JTable tabla) {
-		this.tabla = tabla;
+		this.tablaApostadores = tabla;
 	}
 
 	public DefaultTableModel getModeloTabla() {
-		return modeloTabla;
+		return modeloTablaApostadores;
 	}
 
 	public void setModeloTabla(DefaultTableModel modeloTabla) {
-		this.modeloTabla = modeloTabla;
+		this.modeloTablaApostadores = modeloTabla;
 	}
 
 	public JScrollPane getScroll() {
