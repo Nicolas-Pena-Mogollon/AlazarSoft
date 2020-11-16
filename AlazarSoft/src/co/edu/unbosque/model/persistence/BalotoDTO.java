@@ -1,7 +1,5 @@
 package co.edu.unbosque.model.persistence;
 
-import java.sql.Date;
-
 public class BalotoDTO extends Apuesta {
 
 	private static final long serialVersionUID = 1L;
