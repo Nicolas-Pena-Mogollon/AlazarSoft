@@ -1,129 +1,41 @@
 package co.edu.unbosque.view;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import javax.swing.JTabbedPane;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
-
-public class PanelSede extends JPanel {
+public class PanelSede extends JTabbedPane {
 
 	private static final long serialVersionUID = 1L;
-	private final String COMMAND_GUARDAR = "GUARDAR_DATOS_SEDE";
-	private JLabel etiquetaNombreSede;
-	private JLabel etiquetaNumeroEmpleado;
-	private JTextField campoTextoNombreSede;
-	private JTextField campoTextoNumeroEmpleado;
-	private JButton botonSede;
-	private JPanel panelSede;
+	private PanelSedeCrear panelSedeCrear;
+	private PanelSedeModificar panelSedeModificar;
 
 	public PanelSede() {
 
-		setBorder(new TitledBorder("Ingreso de datos de la sede"));
-		setLayout(new BorderLayout());
-		panelSede = new JPanel();
-		panelSede.setLayout(new GridLayout(2, 2));
+		panelSedeCrear = new PanelSedeCrear();
+		panelSedeModificar = new PanelSedeModificar();
 
-		etiquetaNombreSede = new JLabel("Nombre de la sede: ");
-		etiquetaNumeroEmpleado = new JLabel("Número de empleados: ");
-
-		campoTextoNombreSede = new JTextField();
-		campoTextoNumeroEmpleado = new JTextField();
-
-		panelSede.add(etiquetaNombreSede);
-		panelSede.add(campoTextoNombreSede);
-
-		panelSede.add(etiquetaNumeroEmpleado);
-		panelSede.add(campoTextoNumeroEmpleado);
-
-		botonSede = new JButton("Crear Registro");
-		botonSede.setActionCommand(COMMAND_GUARDAR);
-
-		this.add(panelSede, BorderLayout.CENTER);
-		this.add(botonSede, BorderLayout.PAGE_END);
+		this.add(panelSedeCrear, "Añadir apostadores");
+		this.add(panelSedeModificar, "Actualizar/Borrar información apostadores");
 
 	}
 
-	public String[] verificarEntradasIngresoSedes() {
-		String[] salida = new String[4];
-		salida[0] = "0";
-		if (!campoTextoNombreSede.getText().equals("") && !campoTextoNumeroEmpleado.getText().equals("")) {
-			String ubicacion = campoTextoNombreSede.getText();
-			String numEmpleados = campoTextoNumeroEmpleado.getText();
-			try {
-				if (Integer.parseInt(numEmpleados) <= 0) {
-					salida[0] = "1";
-					salida[1] = "Valor de presupuesto inválido";
-				} else {
-					salida[1] = ubicacion;
-					salida[2] = numEmpleados;
-					salida[3] = "Configuración guardada";
-				}
-			} catch (NumberFormatException e) {
-				salida[0] = "1";
-				salida[1] = "Valor numérico inválido";
-			}
-		} else {
-			salida[0] = "1";
-			salida[1] = "Los campos deben ser completados";
-		}
-		return salida;
+	public PanelSedeCrear getPanelSedeCrear() {
+		return panelSedeCrear;
 	}
 
-	public JLabel getEtiquetaNombreSede() {
-		return etiquetaNombreSede;
+	public void setPanelSedeCrear(PanelSedeCrear panelSedeCrear) {
+		this.panelSedeCrear = panelSedeCrear;
 	}
 
-	public void setEtiquetaNombreSede(JLabel etiquetaNombreSede) {
-		this.etiquetaNombreSede = etiquetaNombreSede;
+	public PanelSedeModificar getPanelSedeModificar() {
+		return panelSedeModificar;
 	}
 
-	public JLabel getEtiquetaNumeroEmpleado() {
-		return etiquetaNumeroEmpleado;
+	public void setPanelSedeModificar(PanelSedeModificar panelSedeModificar) {
+		this.panelSedeModificar = panelSedeModificar;
 	}
 
-	public void setEtiquetaNumeroEmpleado(JLabel etiquetaNumeroEmpleado) {
-		this.etiquetaNumeroEmpleado = etiquetaNumeroEmpleado;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
-	public JTextField getCampoTextoNombreSede() {
-		return campoTextoNombreSede;
-	}
-
-	public void setCampoTextoNombreSede(JTextField campoTextoNombreSede) {
-		this.campoTextoNombreSede = campoTextoNombreSede;
-	}
-
-	public JTextField getCampoTextoNumeroEmpleado() {
-		return campoTextoNumeroEmpleado;
-	}
-
-	public void setCampoTextoNumeroEmpleado(JTextField campoTextoNumeroEmpleado) {
-		this.campoTextoNumeroEmpleado = campoTextoNumeroEmpleado;
-	}
-
-	public JButton getBotonSede() {
-		return botonSede;
-	}
-
-	public void setBotonSede(JButton botonSede) {
-		this.botonSede = botonSede;
-	}
-
-	public JPanel getPanelSede() {
-		return panelSede;
-	}
-
-	public void setPanelSede(JPanel panelSede) {
-		this.panelSede = panelSede;
-	}
-
-	public String getCOMMAND_GUARDAR() {
-		return COMMAND_GUARDAR;
-	}
-	
-	
 }

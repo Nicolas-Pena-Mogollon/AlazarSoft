@@ -10,8 +10,8 @@ import co.edu.unbosque.controller.Controller;
 public class View extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private PanelMenuCasaApuestas panelMenuCasaApuestas;
 	private PanelIngresoCasaApuestas panelIngresoCasaApuestas;
+	private PanelMenuCasaApuestas panelMenuCasaApuestas;
 	private PanelApostadores panelApostadores;
 	private PanelApuesta panelApuesta;
 	private PanelSede panelSede;
@@ -26,11 +26,11 @@ public class View extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 
-		panelMenuCasaApuestas = new PanelMenuCasaApuestas();
 		panelIngresoCasaApuestas = new PanelIngresoCasaApuestas();
 		panelApostadores = new PanelApostadores();
 		panelSede = new PanelSede();
 		panelApuesta = new PanelApuesta();
+		panelMenuCasaApuestas = new PanelMenuCasaApuestas();
 
 		splitPane = new JSplitPane();
 		splitPane.setEnabled(false);
@@ -44,8 +44,9 @@ public class View extends JFrame {
 		panelMenuCasaApuestas.getBotonPlanesPremiacion().addActionListener(control);
 		panelMenuCasaApuestas.getBotonConsultasReportes().addActionListener(control);
 		panelIngresoCasaApuestas.getBotonGuardar().addActionListener(control);
-		revalidate();
+		panelSede.getPanelSedeModificar().getBotonActualizar().addActionListener(control);
 		repaint();
+		revalidate();
 
 	}
 

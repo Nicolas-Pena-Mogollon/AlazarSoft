@@ -53,17 +53,6 @@ public class SedesDAO {
 
 	}
 
-	public String borrarSede(int id) {
-		for (int i = 0; i < dataSedes.size(); i++) {
-			if (id == dataSedes.get(i).getIdUbicacion()) {
-				dataSedes.remove(i);
-			}
-		}
-		sedeFile.escribirRegistroSede(dataSedes);
-		return "Registro borrado";
-	}
-
-
 	public ArrayList<SedesDTO> getDataSedes() {
 		return dataSedes;
 	}
