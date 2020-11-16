@@ -27,7 +27,7 @@ public class PanelSedeCrear extends JPanel {
 		panelSede = new JPanel();
 		panelSede.setLayout(new GridLayout(2, 2));
 
-		etiquetaNombreSede = new JLabel("Nombre de la sede: ");
+		etiquetaNombreSede = new JLabel("Ubicación de la Sede: ");
 		etiquetaNumeroEmpleado = new JLabel("Número de empleados: ");
 
 		campoTextoNombreSede = new JTextField();
