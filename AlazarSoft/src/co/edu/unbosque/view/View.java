@@ -31,9 +31,9 @@ public class View extends JFrame {
 
 
 		// Esto es temporal
-		panelApostadores.setVisible(false);
+		panelApostadores.setVisible(true);
 		panelIngresoCasaApuestas.setVisible(false);
-		panelSede.setVisible(true);
+		panelSede.setVisible(false);
 		panelIngresoCasaApuestas.getBotonGuardar().addActionListener(control);
 		panelSede.getPanelSedeModificar().getBotonActualizar().addActionListener(control);
 
