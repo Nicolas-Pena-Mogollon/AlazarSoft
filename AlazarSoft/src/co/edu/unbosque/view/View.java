@@ -9,10 +9,11 @@ import co.edu.unbosque.controller.Controller;
 public class View extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private PanelActualizarBorrarApostador panelActualizarGamer;
-	private PanelInformacionApostadores panelLeerGamer;
+	private PanelActualizarBorrarApostador panelActualizarBorrarApostador;
+	private PanelInformacionApostadores panelInformacionApostadores;
 	private PanelIngresoCasaApuestas panelIngresoCasaApuestas;
 	private PanelMostrarRegistroJuegos panelMostrarRegistrosJuegos;
+	private PanelSede panelSede;
 
 	public View(Controller control) {
 
@@ -23,27 +24,31 @@ public class View extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 
-		panelActualizarGamer = new PanelActualizarBorrarApostador();
-		panelLeerGamer = new PanelInformacionApostadores();
+		panelActualizarBorrarApostador = new PanelActualizarBorrarApostador();
+		panelInformacionApostadores = new PanelInformacionApostadores();
 		panelIngresoCasaApuestas = new PanelIngresoCasaApuestas();
 		panelMostrarRegistrosJuegos = new PanelMostrarRegistroJuegos();
+		panelSede = new PanelSede();
 
 		getContentPane().add(panelIngresoCasaApuestas);
-		getContentPane().add(panelLeerGamer);
-		getContentPane().add(panelActualizarGamer);
+		getContentPane().add(panelInformacionApostadores);
+		getContentPane().add(panelActualizarBorrarApostador);
 		getContentPane().add(panelMostrarRegistrosJuegos);
+		getContentPane().add(panelSede);
 
 		// Esto es temporal
-		panelActualizarGamer.setVisible(false);
-		panelLeerGamer.setVisible(false);
+		panelActualizarBorrarApostador.setVisible(false);
+		panelInformacionApostadores.setVisible(false);
 		panelMostrarRegistrosJuegos.setVisible(false);
+		panelSede.setVisible(false);
 		panelIngresoCasaApuestas.setVisible(true);
 
-		panelActualizarGamer.getBotonActualizar().addActionListener(control);
-		panelActualizarGamer.getBotonBorrar().addActionListener(control);
-		panelLeerGamer.getBotonLeer().addActionListener(control);
+		panelActualizarBorrarApostador.getBotonActualizar().addActionListener(control);
+		panelActualizarBorrarApostador.getBotonBorrar().addActionListener(control);
+		panelInformacionApostadores.getBotonLeer().addActionListener(control);
 		panelIngresoCasaApuestas.getBotonGuardar().addActionListener(control);
 		panelMostrarRegistrosJuegos.getBotonLeer().addActionListener(control);
+		panelSede.getBotonSede().addActionListener(control);
 
 	}
 
@@ -52,7 +57,7 @@ public class View extends JFrame {
 	}
 
 	public boolean mostrarMensajeAdvertencia() {
-		int entrada = JOptionPane.showConfirmDialog(null, "Está seguro de querer borrar el gamer", "Advertencia",
+		int entrada = JOptionPane.showConfirmDialog(null, "", "Advertencia",
 				JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		if (entrada == 0) {
 			return true;
@@ -66,19 +71,19 @@ public class View extends JFrame {
 	}
 	
 	public PanelActualizarBorrarApostador getPanelActualizarGamer() {
-		return panelActualizarGamer;
+		return panelActualizarBorrarApostador;
 	}
 
 	public void setPanelActualizarGamer(PanelActualizarBorrarApostador panelActualizarGamer) {
-		this.panelActualizarGamer = panelActualizarGamer;
+		this.panelActualizarBorrarApostador = panelActualizarGamer;
 	}
 
 	public PanelInformacionApostadores getPanelLeerGamer() {
-		return panelLeerGamer;
+		return panelInformacionApostadores;
 	}
 
 	public void setPanelLeerGamer(PanelInformacionApostadores panelLeerGamer) {
-		this.panelLeerGamer = panelLeerGamer;
+		this.panelInformacionApostadores = panelLeerGamer;
 	}
 
 	public PanelIngresoCasaApuestas getPanelIngresoCasaApuestas() {

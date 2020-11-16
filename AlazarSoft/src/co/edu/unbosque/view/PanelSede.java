@@ -9,71 +9,58 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-public class PanelSede extends JPanel{
+public class PanelSede extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private final String COMMAND_INGRESAR = "GUARDAR_DATOS_CASA_APUESTAS";
-	private JLabel etiquetaNombreCasaApuestas;
-	private JLabel etiquetNumeroSedes;
-	private JLabel etiquetaPresupuesto;
-	private JTextField campoTextoNombreCasaApuestas;
-	private JTextField campoTextoNumeroSedes;
-	private JTextField campoTextoPresupuesto;
-	private JButton botonGuardar;
-	private JPanel panelIngreso;
+	private final String COMMAND_GUARDAR = "GUARDAR_DATOS_SEDE";
+	private JLabel etiquetaNombreSede;
+	private JLabel etiquetaNumeroEmpleado;
+	private JTextField campoTextoNombreSede;
+	private JTextField campoTextoNumeroEmpleado;
+	private JButton botonSede;
+	private JPanel panelSede;
 
 	public PanelSede() {
 
-		setBorder(new TitledBorder("Ingreso de los datos de la casa de apuestas"));
+		setBorder(new TitledBorder("Ingreso de datos de la sede"));
 		setLayout(new BorderLayout());
-		panelIngreso = new JPanel();
-		panelIngreso.setLayout(new GridLayout(4, 2));
+		panelSede = new JPanel();
+		panelSede.setLayout(new GridLayout(2, 2));
 
-		etiquetaNombreCasaApuestas = new JLabel("Nombre");
-		etiquetNumeroSedes = new JLabel("Número de sedes");
-		etiquetaPresupuesto = new JLabel("Presupuesto total");
+		etiquetaNombreSede = new JLabel("Nombre de la sede: ");
+		etiquetaNumeroEmpleado = new JLabel("Número de empleados: ");
 
-		campoTextoNombreCasaApuestas = new JTextField();
-		campoTextoNumeroSedes = new JTextField();
-		campoTextoPresupuesto = new JTextField();
+		campoTextoNombreSede = new JTextField();
+		campoTextoNumeroEmpleado = new JTextField();
 
-		panelIngreso.add(etiquetaNombreCasaApuestas);
-		panelIngreso.add(campoTextoNombreCasaApuestas);
+		panelSede.add(etiquetaNombreSede);
+		panelSede.add(campoTextoNombreSede);
 
-		panelIngreso.add(etiquetNumeroSedes);
-		panelIngreso.add(campoTextoNumeroSedes);
+		panelSede.add(etiquetaNumeroEmpleado);
+		panelSede.add(campoTextoNumeroEmpleado);
 
-		panelIngreso.add(etiquetaPresupuesto);
-		panelIngreso.add(campoTextoPresupuesto);
+		botonSede = new JButton("Crear Registro");
+		botonSede.setActionCommand(COMMAND_GUARDAR);
 
-		botonGuardar = new JButton("Guardar");
-		botonGuardar.setActionCommand(COMMAND_INGRESAR);
-
-		this.add(panelIngreso, BorderLayout.CENTER);
-		this.add(botonGuardar, BorderLayout.PAGE_END);
+		this.add(panelSede, BorderLayout.CENTER);
+		this.add(botonSede, BorderLayout.PAGE_END);
 
 	}
 
-	public String[] verificarEntradasIngresoDatosJuegos() {
-		String[] salida = new String[5];
+	public String[] verificarEntradasIngresoSedes() {
+		String[] salida = new String[4];
 		salida[0] = "0";
-		if (!campoTextoNombreCasaApuestas.getText().equals("") && !campoTextoNumeroSedes.getText().equals("")
-				&& !campoTextoPresupuesto.getText().equals("")) {
-			String nombre = campoTextoNombreCasaApuestas.getText();
-			String numSedes = campoTextoNumeroSedes.getText();
-			String presupuesto = campoTextoPresupuesto.getText();
+		if (!campoTextoNombreSede.getText().equals("") && !campoTextoNumeroEmpleado.getText().equals("")) {
+			String ubicacion = campoTextoNombreSede.getText();
+			String numEmpleados = campoTextoNumeroEmpleado.getText();
 			try {
-				if (Integer.parseInt(presupuesto) <= 0) {
+				if (Integer.parseInt(numEmpleados) <= 0) {
 					salida[0] = "1";
 					salida[1] = "Valor de presupuesto inválido";
-				} else if (Long.parseLong(numSedes) <= 0) {
-					salida[0] = "1";
-					salida[1] = "Valor del número de sedes inválido";
 				} else {
-					salida[1] = nombre;
-					salida[2] = numSedes;
-					salida[3] = presupuesto;
-					salida[4] = "Configuración guardada";
+					salida[1] = ubicacion;
+					salida[2] = numEmpleados;
+					salida[3] = "Configuración guardada";
 				}
 			} catch (NumberFormatException e) {
 				salida[0] = "1";
@@ -85,4 +72,58 @@ public class PanelSede extends JPanel{
 		}
 		return salida;
 	}
+
+	public JLabel getEtiquetaNombreSede() {
+		return etiquetaNombreSede;
+	}
+
+	public void setEtiquetaNombreSede(JLabel etiquetaNombreSede) {
+		this.etiquetaNombreSede = etiquetaNombreSede;
+	}
+
+	public JLabel getEtiquetaNumeroEmpleado() {
+		return etiquetaNumeroEmpleado;
+	}
+
+	public void setEtiquetaNumeroEmpleado(JLabel etiquetaNumeroEmpleado) {
+		this.etiquetaNumeroEmpleado = etiquetaNumeroEmpleado;
+	}
+
+	public JTextField getCampoTextoNombreSede() {
+		return campoTextoNombreSede;
+	}
+
+	public void setCampoTextoNombreSede(JTextField campoTextoNombreSede) {
+		this.campoTextoNombreSede = campoTextoNombreSede;
+	}
+
+	public JTextField getCampoTextoNumeroEmpleado() {
+		return campoTextoNumeroEmpleado;
+	}
+
+	public void setCampoTextoNumeroEmpleado(JTextField campoTextoNumeroEmpleado) {
+		this.campoTextoNumeroEmpleado = campoTextoNumeroEmpleado;
+	}
+
+	public JButton getBotonSede() {
+		return botonSede;
+	}
+
+	public void setBotonSede(JButton botonSede) {
+		this.botonSede = botonSede;
+	}
+
+	public JPanel getPanelSede() {
+		return panelSede;
+	}
+
+	public void setPanelSede(JPanel panelSede) {
+		this.panelSede = panelSede;
+	}
+
+	public String getCOMMAND_GUARDAR() {
+		return COMMAND_GUARDAR;
+	}
+	
+	
 }
