@@ -1,15 +1,14 @@
 package co.edu.unbosque.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridLayout;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 public class PanelApuesta extends JPanel {
@@ -76,5 +75,147 @@ public class PanelApuesta extends JPanel {
 		this.add(botonGuardarApuestaBaloto, BorderLayout.PAGE_END);
 
 	}
+
+	public JLabel getEtiquetaFecha() {
+		return etiquetaFecha;
+	}
+
+	public void setEtiquetaFecha(JLabel etiquetaFecha) {
+		this.etiquetaFecha = etiquetaFecha;
+	}
+
+	public JLabel getEtiquetaSede() {
+		return etiquetaSede;
+	}
+
+	public void setEtiquetaSede(JLabel etiquetaSede) {
+		this.etiquetaSede = etiquetaSede;
+	}
+
+	public JLabel getEtiquetaCedula() {
+		return etiquetaCedula;
+	}
+
+	public void setEtiquetaCedula(JLabel etiquetaCedula) {
+		this.etiquetaCedula = etiquetaCedula;
+	}
+
+	public JLabel getEtiquetaValorApuesta() {
+		return etiquetaValorApuesta;
+	}
+
+	public void setEtiquetaValorApuesta(JLabel etiquetaValorApuesta) {
+		this.etiquetaValorApuesta = etiquetaValorApuesta;
+	}
+
+	public JLabel getEtiquetaTipoApuesta() {
+		return etiquetaTipoApuesta;
+	}
+
+	public void setEtiquetaTipoApuesta(JLabel etiquetaTipoApuesta) {
+		this.etiquetaTipoApuesta = etiquetaTipoApuesta;
+	}
+
+	public JTextField getCampoTextoFecha() {
+		return campoTextoFecha;
+	}
+
+	public void setCampoTextoFecha(JTextField campoTextoFecha) {
+		this.campoTextoFecha = campoTextoFecha;
+	}
+
+	public JComboBox<String> getComboCedula() {
+		return comboCedula;
+	}
+
+	public void setComboCedula(JComboBox<String> comboCedula) {
+		this.comboCedula = comboCedula;
+	}
+
+	public JComboBox<String> getComboSede() {
+		return comboSede;
+	}
+
+	public void setComboSede(JComboBox<String> comboSede) {
+		this.comboSede = comboSede;
+	}
+
+	public JComboBox<String> getComboTiposApuesta() {
+		return comboTiposApuesta;
+	}
+
+	public void setComboTiposApuesta(JComboBox<String> comboTiposApuesta) {
+		this.comboTiposApuesta = comboTiposApuesta;
+	}
+
+	public JScrollPane getScrollCedula() {
+		return scrollCedula;
+	}
+
+	public void setScrollCedula(JScrollPane scrollCedula) {
+		this.scrollCedula = scrollCedula;
+	}
+
+	public JScrollPane getScrollSede() {
+		return scrollSede;
+	}
+
+	public void setScrollSede(JScrollPane scrollSede) {
+		this.scrollSede = scrollSede;
+	}
+
+	public JTextField getCampoTextoValorApuesta() {
+		return campoTextoValorApuesta;
+	}
+
+	public void setCampoTextoValorApuesta(JTextField campoTextoValorApuesta) {
+		this.campoTextoValorApuesta = campoTextoValorApuesta;
+	}
+
+	public JButton getBotonGuardarApuestaBaloto() {
+		return botonGuardarApuestaBaloto;
+	}
+
+	public void setBotonGuardarApuestaBaloto(JButton botonGuardarApuestaBaloto) {
+		this.botonGuardarApuestaBaloto = botonGuardarApuestaBaloto;
+	}
+
+	public JPanel getPanelIngreso() {
+		return panelIngreso;
+	}
+
+	public void setPanelIngreso(JPanel panelIngreso) {
+		this.panelIngreso = panelIngreso;
+	}
+
+	public PanelApuestaBaloto getPanelApuestaBaloto() {
+		return panelApuestaBaloto;
+	}
+
+	public void setPanelApuestaBaloto(PanelApuestaBaloto panelApuestaBaloto) {
+		this.panelApuestaBaloto = panelApuestaBaloto;
+	}
+
+	public PanelApuestaSuperAstro getPanelApuestaSuperAstro() {
+		return panelApuestaSuperAstro;
+	}
+
+	public void setPanelApuestaSuperAstro(PanelApuestaSuperAstro panelApuestaSuperAstro) {
+		this.panelApuestaSuperAstro = panelApuestaSuperAstro;
+	}
+
+	public PanelApuestaFutbol getPanelApuestaFutbol() {
+		return panelApuestaFutbol;
+	}
+
+	public void setPanelApuestaFutbol(PanelApuestaFutbol panelApuestaFutbol) {
+		this.panelApuestaFutbol = panelApuestaFutbol;
+	}
+
+	public String getCOMMAND_REGISTRAR_APUESTA_BALOTO() {
+		return COMMAND_REGISTRAR_APUESTA_BALOTO;
+	}
+	
+	
 
 }
