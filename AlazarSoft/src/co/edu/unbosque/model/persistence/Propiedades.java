@@ -2,7 +2,6 @@ package co.edu.unbosque.model.persistence;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.Properties;
 
 
@@ -26,7 +25,7 @@ public class Propiedades {
 		return datos;
 	}
 	
-	public String[] inicializarDatosPokemon(Properties pDatos) {
+	public String[] inicializarDatosPartido(Properties pDatos) {
 
 		partidos = new String[14];
 
