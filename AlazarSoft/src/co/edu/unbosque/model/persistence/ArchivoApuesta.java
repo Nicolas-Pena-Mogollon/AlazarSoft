@@ -12,8 +12,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import co.edu.unbosque.model.Apostador;
-
 /**
  * Clase Archivo
  */
@@ -74,6 +72,7 @@ public class ArchivoApuesta {
 	 *              null.
 	 * @return retorna la lista de apostadores del archivo.
 	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<BalotoDTO> leerArchivoBaloto(File file) {
 		ArrayList<BalotoDTO> balotoDTO = new ArrayList<BalotoDTO>();
 		if (file.length() != 0) {
@@ -131,6 +130,7 @@ public class ArchivoApuesta {
 	 *              null.
 	 * @return retorna la lista de apostadores del archivo.
 	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<SuperastroDTO> leerArchivoSuperastro(File file) {
 		ArrayList<SuperastroDTO> superastroDTO = new ArrayList<SuperastroDTO>();
 		if (file.length() != 0) {
@@ -188,6 +188,7 @@ public class ArchivoApuesta {
 	 *              null.
 	 * @return retorna la lista de apostadores del archivo.
 	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<MarcadoresDTO> leerArchivoMarcadores(File file) {
 		ArrayList<MarcadoresDTO> marcadoresDTO = new ArrayList<MarcadoresDTO>();
 		if (file.length() != 0) {

@@ -1,14 +1,14 @@
 package co.edu.unbosque.model.persistence;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 public class Apuesta implements Serializable{
 	
 	protected String nombreSede = "";
 	protected String cedula = "";
 	protected Date fecha = null;
-	protected String valorApuesta = "";
+	protected double valorApuesta = 0;
 	
 	public Apuesta() {
 		
@@ -16,7 +16,7 @@ public class Apuesta implements Serializable{
 	
 	
 
-	public Apuesta(String nombreSede, String cedula, Date fecha, String valorApuesta) {
+	public Apuesta(String nombreSede, String cedula, Date fecha, double valorApuesta) {
 		this.nombreSede = nombreSede;
 		this.cedula = cedula;
 		this.fecha = fecha;
@@ -70,14 +70,14 @@ public class Apuesta implements Serializable{
 	/**
 	 * @return the valorApuesta
 	 */
-	public String getValorApuesta() {
+	public double getValorApuesta() {
 		return valorApuesta;
 	}
 
 	/**
 	 * @param valorApuesta the valorApuesta to set
 	 */
-	public void setValorApuesta(String valorApuesta) {
+	public void setValorApuesta(double valorApuesta) {
 		this.valorApuesta = valorApuesta;
 	}
 	
