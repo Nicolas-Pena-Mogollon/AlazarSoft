@@ -33,7 +33,7 @@ public class SedeFile {
 
 	@SuppressWarnings("unchecked")
 	public ArrayList<SedesDTO> leerRegistroSede() {
-		if (file.exists()) {
+		if (!file.exists()) {
 			try {
 				inSede = new ObjectInputStream(new FileInputStream(file));
 				ArrayList<SedesDTO> gamerDatos = (ArrayList<SedesDTO>) inSede.readObject();
