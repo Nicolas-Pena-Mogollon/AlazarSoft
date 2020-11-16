@@ -9,7 +9,6 @@ import co.edu.unbosque.controller.Controller;
 public class View extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private PanelCrearGamer panelCrearGamer;
 	private PanelActualizarBorrarApostador panelActualizarGamer;
 	private PanelInformacionApostadores panelLeerGamer;
 	private PanelIngresoCasaApuestas panelIngresoCasaApuestas;
@@ -24,26 +23,22 @@ public class View extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 
-		panelCrearGamer = new PanelCrearGamer();
 		panelActualizarGamer = new PanelActualizarBorrarApostador();
 		panelLeerGamer = new PanelInformacionApostadores();
 		panelIngresoCasaApuestas = new PanelIngresoCasaApuestas();
 		panelMostrarRegistrosJuegos = new PanelMostrarRegistroJuegos();
 
 		getContentPane().add(panelIngresoCasaApuestas);
-		getContentPane().add(panelCrearGamer);
 		getContentPane().add(panelLeerGamer);
 		getContentPane().add(panelActualizarGamer);
 		getContentPane().add(panelMostrarRegistrosJuegos);
 
 		// Esto es temporal
-		panelCrearGamer.setVisible(false);
 		panelActualizarGamer.setVisible(false);
 		panelLeerGamer.setVisible(false);
 		panelMostrarRegistrosJuegos.setVisible(false);
 		panelIngresoCasaApuestas.setVisible(true);
 
-		panelCrearGamer.getBotonIngresar().addActionListener(control);
 		panelActualizarGamer.getBotonActualizar().addActionListener(control);
 		panelActualizarGamer.getBotonBorrar().addActionListener(control);
 		panelLeerGamer.getBotonLeer().addActionListener(control);
@@ -69,15 +64,7 @@ public class View extends JFrame {
 	public void mostrarMensajeInformacion(String message) {
 		JOptionPane.showMessageDialog(null, message, "Información", JOptionPane.INFORMATION_MESSAGE);
 	}
-
-	public PanelCrearGamer getPanelCrearGamer() {
-		return panelCrearGamer;
-	}
-
-	public void setPanelCrearGamer(PanelCrearGamer panelCrearGamer) {
-		this.panelCrearGamer = panelCrearGamer;
-	}
-
+	
 	public PanelActualizarBorrarApostador getPanelActualizarGamer() {
 		return panelActualizarGamer;
 	}

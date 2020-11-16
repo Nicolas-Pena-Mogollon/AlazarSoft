@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Apuesta implements Serializable{
-	
+	private static final long serialVersionUID = 1L;
 	protected String nombreSede = "";
 	protected String cedula = "";
 	protected Date fecha = null;
