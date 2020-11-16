@@ -9,8 +9,8 @@ public class View extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private PanelIngresoCasaApuestas panelIngresoCasaApuestas;
-	private PanelApostadores panelApostadores;
 	private PanelSede panelSede;
+	private PanelApostadores panelApostadores;
 
 	public View(Controller control) {
 
@@ -31,10 +31,12 @@ public class View extends JFrame {
 
 
 		// Esto es temporal
-		panelApostadores.setVisible(true);
+		panelApostadores.setVisible(false);
 		panelIngresoCasaApuestas.setVisible(false);
-		panelSede.setVisible(false);
+		panelSede.setVisible(true);
 		panelIngresoCasaApuestas.getBotonGuardar().addActionListener(control);
+		panelSede.getPanelSedeModificar().getBotonActualizar().addActionListener(control);
+
 
 	}
 
