@@ -1,7 +1,6 @@
 package co.edu.unbosque.view;
 
 import java.awt.CardLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import co.edu.unbosque.controller.Controller;
