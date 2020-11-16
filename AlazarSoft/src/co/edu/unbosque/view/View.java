@@ -1,51 +1,52 @@
 package co.edu.unbosque.view;
 
+import java.awt.CardLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
 import co.edu.unbosque.controller.Controller;
 
 public class View extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JTabbedPane pestanas;
 	private PanelCrearGamer panelCrearGamer;
 	private PanelActualizarBorrarApostador panelActualizarGamer;
 	private PanelInformacionApostadores panelLeerGamer;
-	private PanelIngresoDatosJuego panelIngresoDatosJuegos;
+	private PanelIngresoCasaApuestas panelIngresoCasaApuestas;
 	private PanelMostrarRegistroJuegos panelMostrarRegistrosJuegos;
 
 	public View(Controller control) {
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setLayout(new CardLayout());
 		this.setSize(800, 250);
-		this.setTitle("Gamers de Discord");
+		this.setTitle("Casa de apuestas");
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-		this.setResizable(false);
 
-		pestanas = new JTabbedPane();
 		panelCrearGamer = new PanelCrearGamer();
 		panelActualizarGamer = new PanelActualizarBorrarApostador();
 		panelLeerGamer = new PanelInformacionApostadores();
-		panelIngresoDatosJuegos = new PanelIngresoDatosJuego();
+		panelIngresoCasaApuestas = new PanelIngresoCasaApuestas();
 		panelMostrarRegistrosJuegos = new PanelMostrarRegistroJuegos();
 
-		pestanas.add(panelCrearGamer, "Crear Gamer");
-		pestanas.add(panelLeerGamer, "Leer Gamers");
-		pestanas.add(panelActualizarGamer, "Actualizar/Borrar Gamers");
-		pestanas.add(panelIngresoDatosJuegos, "Ingresar datos de juego");
-		pestanas.add(panelMostrarRegistrosJuegos, "Datos de los juegos");
+		getContentPane().add(panelIngresoCasaApuestas);
+		getContentPane().add(panelCrearGamer);
+		getContentPane().add(panelLeerGamer);
+		getContentPane().add(panelActualizarGamer);
+		getContentPane().add(panelMostrarRegistrosJuegos);
 
-		getContentPane().add(pestanas);
-		revalidate();
-		repaint();
+		panelCrearGamer.setVisible(false);
+		panelActualizarGamer.setVisible(false);
+		panelLeerGamer.setVisible(false);
+		panelMostrarRegistrosJuegos.setVisible(false);
+		panelIngresoCasaApuestas.setVisible(true);
 
 		panelCrearGamer.getBotonIngresar().addActionListener(control);
 		panelActualizarGamer.getBotonActualizar().addActionListener(control);
 		panelActualizarGamer.getBotonBorrar().addActionListener(control);
 		panelLeerGamer.getBotonLeer().addActionListener(control);
-		panelIngresoDatosJuegos.getBotonIngresar().addActionListener(control);
+		panelIngresoCasaApuestas.getBotonGuardar().addActionListener(control);
 		panelMostrarRegistrosJuegos.getBotonLeer().addActionListener(control);
 
 	}
@@ -66,14 +67,6 @@ public class View extends JFrame {
 
 	public void mostrarMensajeInformacion(String message) {
 		JOptionPane.showMessageDialog(null, message, "Información", JOptionPane.INFORMATION_MESSAGE);
-	}
-
-	public JTabbedPane getPestanas() {
-		return pestanas;
-	}
-
-	public void setPestanas(JTabbedPane pestanas) {
-		this.pestanas = pestanas;
 	}
 
 	public PanelCrearGamer getPanelCrearGamer() {
@@ -100,12 +93,12 @@ public class View extends JFrame {
 		this.panelLeerGamer = panelLeerGamer;
 	}
 
-	public PanelIngresoDatosJuego getPanelIngresoDatosJuegos() {
-		return panelIngresoDatosJuegos;
+	public PanelIngresoCasaApuestas getPanelIngresoCasaApuestas() {
+		return panelIngresoCasaApuestas;
 	}
 
-	public void setPanelIngresoDatosJuegos(PanelIngresoDatosJuego panelIngresoDatosJuegos) {
-		this.panelIngresoDatosJuegos = panelIngresoDatosJuegos;
+	public void setPanelIngresoCasaApuestas(PanelIngresoCasaApuestas panelIngresoCasaApuestas) {
+		this.panelIngresoCasaApuestas = panelIngresoCasaApuestas;
 	}
 
 	public PanelMostrarRegistroJuegos getPanelMostrarRegistrosJuegos() {
