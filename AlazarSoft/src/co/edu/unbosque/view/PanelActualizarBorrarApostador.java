@@ -14,20 +14,20 @@ import javax.swing.border.TitledBorder;
 public class PanelActualizarBorrarApostador extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private final String COMMAND_ACTUALIZAR = "ACTUALIZAR";
-	private final String COMMAND_BORRAR = "BORRAR";
+	private final String COMMAND_ACTUALIZAR = "ACTUALIZAR_INFO_APOSTADOR";
+	private final String COMMAND_BORRAR = "BORRAR_APOSTADOR";
 	private JLabel etiquetaNombre;
 	private JLabel etiquetaCedula;
 	private JLabel etiquetaSede;
 	private JLabel etiquetaDireccion;
 	private JLabel etiquetaCelular;
+	private JTextField campoTextoNombre;
+	private JTextField campoTextoDireccion;
+	private JTextField campoTextoCelular;
 	private JComboBox<String> comboCedula;
 	private JComboBox<String> comboSede;
 	private JScrollPane scrollCedula;
 	private JScrollPane scrollSede;
-	private JTextField campoTextoNombre;
-	private JTextField campoTextoDireccion;
-	private JTextField campoTextoCelular;
 	private JButton botonActualizar;
 	private JButton botonBorrar;
 	private JPanel panelIngreso;
@@ -86,20 +86,17 @@ public class PanelActualizarBorrarApostador extends JPanel {
 
 	}
 
-	public String[] verificarEntradasActualizar() {
-		String[] salida = new String[4];
+	public String[] verificarEntradasActualizarInformacionApostador() {
+		String[] salida = new String[6];
 		salida[0] = "0";
-		String id = (String) comboCedula.getSelectedItem();
-		String nickName = campoTextoNombre.getText();
-		if (!nickName.equals("") && !id.equals("Seleccione")) {
-			if (nickName.length() == 8) {
-				salida[1] = nickName;
-				salida[2] = id;
-				salida[3] = "Se ha actualizado la información del jugador";
-			} else {
-				salida[0] = "1";
-				salida[1] = "El nickName debe ser de 8 carácteres";
-			}
+		if ((!campoTextoNombre.getText().equals("") || !campoTextoDireccion.getText().equals("")
+				|| !campoTextoCelular.getText().equals("") || !comboSede.getSelectedItem().equals("Seleccione"))
+				&& !comboCedula.getSelectedItem().equals("Seleccione")) {
+			salida[1] = campoTextoNombre.getText();
+			salida[2] = campoTextoDireccion.getText();
+			salida[3] = campoTextoCelular.getText();
+			salida[4] = String.valueOf(comboSede.getSelectedItem());
+			salida[5] = String.valueOf(comboSede.getSelectedItem());
 		} else {
 			salida[0] = "1";
 			salida[1] = "Los campos deben ser completados";
@@ -107,12 +104,12 @@ public class PanelActualizarBorrarApostador extends JPanel {
 		return salida;
 	}
 
-	public String[] verificarEntradasBorrar() {
+	public String[] verificarEntradasBorrarInformacionApostador() {
 		String[] salida = new String[3];
 		salida[0] = "0";
 		if (!comboCedula.getSelectedItem().equals("Seleccione")) {
 			salida[1] = (String) comboCedula.getSelectedItem();
-			salida[2] = "Se ha borrado el jugador";
+			salida[2] = "Se ha borrado el apostador";
 		} else {
 			salida[0] = "1";
 			salida[1] = "Los campos deben ser completados";
@@ -132,36 +129,44 @@ public class PanelActualizarBorrarApostador extends JPanel {
 			this.comboCedula.addItem(data[i]);
 	}
 
-	public JLabel getEtiquetaID() {
-		return etiquetaCedula;
-	}
-
-	public void setEtiquetaID(JLabel etiquetaID) {
-		this.etiquetaCedula = etiquetaID;
-	}
-
-	public JLabel getEtiquetaNickName() {
-		return etiquetaNombre;
-	}
-
-	public void setEtiquetaNickName(JLabel etiquetaNickName) {
-		this.etiquetaNombre = etiquetaNickName;
-	}
-
-	public JComboBox<String> getComboID() {
+	public JComboBox<String> getComboCedula() {
 		return comboCedula;
 	}
 
-	public void setComboID(JComboBox<String> comboID) {
-		this.comboCedula = comboID;
+	public void setComboCedula(JComboBox<String> comboCedula) {
+		this.comboCedula = comboCedula;
 	}
 
-	public JTextField getCampoTextoNickName() {
+	public JComboBox<String> getComboSede() {
+		return comboSede;
+	}
+
+	public void setComboSede(JComboBox<String> comboSede) {
+		this.comboSede = comboSede;
+	}
+
+	public JTextField getCampoTextoNombre() {
 		return campoTextoNombre;
 	}
 
-	public void setCampoTextoNickName(JTextField campoTextoNickName) {
-		this.campoTextoNombre = campoTextoNickName;
+	public void setCampoTextoNombre(JTextField campoTextoNombre) {
+		this.campoTextoNombre = campoTextoNombre;
+	}
+
+	public JTextField getCampoTextoDireccion() {
+		return campoTextoDireccion;
+	}
+
+	public void setCampoTextoDireccion(JTextField campoTextoDireccion) {
+		this.campoTextoDireccion = campoTextoDireccion;
+	}
+
+	public JTextField getCampoTextoCelular() {
+		return campoTextoCelular;
+	}
+
+	public void setCampoTextoCelular(JTextField campoTextoCelular) {
+		this.campoTextoCelular = campoTextoCelular;
 	}
 
 	public JButton getBotonActualizar() {
@@ -180,26 +185,6 @@ public class PanelActualizarBorrarApostador extends JPanel {
 		this.botonBorrar = botonBorrar;
 	}
 
-	public JPanel getPanelIngreso() {
-		return panelIngreso;
-	}
-
-	public void setPanelIngreso(JPanel panelIngreso) {
-		this.panelIngreso = panelIngreso;
-	}
-
-	public JPanel getPanelBotones() {
-		return panelBotones;
-	}
-
-	public void setPanelBotones(JPanel panelBotones) {
-		this.panelBotones = panelBotones;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public String getCOMMAND_ACTUALIZAR() {
 		return COMMAND_ACTUALIZAR;
 	}
@@ -208,11 +193,4 @@ public class PanelActualizarBorrarApostador extends JPanel {
 		return COMMAND_BORRAR;
 	}
 
-	public JScrollPane getScroll() {
-		return scrollCedula;
-	}
-
-	public void setScroll(JScrollPane scroll) {
-		this.scrollCedula = scroll;
-	}
 }

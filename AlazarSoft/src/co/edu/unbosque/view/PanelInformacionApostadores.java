@@ -12,11 +12,11 @@ import javax.swing.table.DefaultTableModel;
 public class PanelInformacionApostadores extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private final String COMMAND_LEER = "LEER";
-	private JButton botonLeer;
-	private JTable tablaApostadores;
+	private final String COMMAND_LEER_INFORMACION_APOSTADORES = "LEER";
+	private JButton botonLeerInformacionApostadores;
+	private JTable tablaInformacionApostadores;
 	private DefaultTableModel modeloTablaApostadores;
-	private JScrollPane scroll;
+	private JScrollPane scrollTabalaInformacionApostadores;
 
 	public PanelInformacionApostadores() {
 		setBorder(new TitledBorder("Información Apostadores"));
@@ -24,8 +24,8 @@ public class PanelInformacionApostadores extends JPanel {
 
 		modeloTablaApostadores = new DefaultTableModel();
 		modeloTablaApostadores.fireTableStructureChanged();
-		tablaApostadores = new JTable(modeloTablaApostadores);
-		tablaApostadores.setEnabled(false);
+		tablaInformacionApostadores = new JTable(modeloTablaApostadores);
+		tablaInformacionApostadores.setEnabled(false);
 
 		modeloTablaApostadores.addColumn("Cédula");
 		modeloTablaApostadores.addColumn("Nombre");
@@ -33,14 +33,14 @@ public class PanelInformacionApostadores extends JPanel {
 		modeloTablaApostadores.addColumn("Celular");
 		modeloTablaApostadores.addColumn("Sede");
 
-		scroll = new JScrollPane(tablaApostadores);
+		scrollTabalaInformacionApostadores = new JScrollPane(tablaInformacionApostadores);
 
-		botonLeer = new JButton();
-		botonLeer = new JButton("Mostrar información");
-		botonLeer.setActionCommand(COMMAND_LEER);
+		botonLeerInformacionApostadores = new JButton();
+		botonLeerInformacionApostadores = new JButton("Mostrar información");
+		botonLeerInformacionApostadores.setActionCommand(COMMAND_LEER_INFORMACION_APOSTADORES);
 
-		this.add(scroll, BorderLayout.CENTER);
-		this.add(botonLeer, BorderLayout.PAGE_END);
+		this.add(scrollTabalaInformacionApostadores, BorderLayout.CENTER);
+		this.add(botonLeerInformacionApostadores, BorderLayout.PAGE_END);
 
 	}
 
@@ -51,44 +51,24 @@ public class PanelInformacionApostadores extends JPanel {
 		}
 	}
 
-	public JButton getBotonLeer() {
-		return botonLeer;
+	public JButton getBotonLeerInformacionApostadores() {
+		return botonLeerInformacionApostadores;
 	}
 
-	public void setBotonLeer(JButton botonLeer) {
-		this.botonLeer = botonLeer;
+	public void setBotonLeerInformacionApostadores(JButton botonLeerInformacionApostadores) {
+		this.botonLeerInformacionApostadores = botonLeerInformacionApostadores;
 	}
 
-	public JTable getTabla() {
-		return tablaApostadores;
+	public JTable getTablaInformacionApostadores() {
+		return tablaInformacionApostadores;
 	}
 
-	public void setTabla(JTable tabla) {
-		this.tablaApostadores = tabla;
+	public void setTablaInformacionApostadores(JTable tablaInformacionApostadores) {
+		this.tablaInformacionApostadores = tablaInformacionApostadores;
 	}
 
-	public DefaultTableModel getModeloTabla() {
-		return modeloTablaApostadores;
-	}
-
-	public void setModeloTabla(DefaultTableModel modeloTabla) {
-		this.modeloTablaApostadores = modeloTabla;
-	}
-
-	public JScrollPane getScroll() {
-		return scroll;
-	}
-
-	public void setScroll(JScrollPane scroll) {
-		this.scroll = scroll;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public String getCOMMAND_LEER() {
-		return COMMAND_LEER;
+	public String getCOMMAND_LEER_INFORMACION_APOSTADORES() {
+		return COMMAND_LEER_INFORMACION_APOSTADORES;
 	}
 
 }

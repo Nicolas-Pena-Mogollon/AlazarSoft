@@ -26,7 +26,6 @@ public class Controller implements ActionListener {
 
 	public void coordinarConfiguracionCasaApuestas() {
 		String[] entradas = vista.getPanelIngresoCasaApuestas().verificarEntradasIngresoDatosJuegos();
-
 		if (entradas[0].equals("0")) {
 			casaApuestas.guardarConfiguracionCasaDeApuestas(entradas[1], Integer.parseInt(entradas[2]),
 					Long.parseLong(entradas[3]));
@@ -36,5 +35,4 @@ public class Controller implements ActionListener {
 		}
 		vista.getPanelIngresoCasaApuestas().borrarCamposIngresoCasaApuestas();
 	}
-
 }

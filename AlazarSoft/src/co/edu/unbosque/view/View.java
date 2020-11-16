@@ -9,10 +9,8 @@ import co.edu.unbosque.controller.Controller;
 public class View extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private PanelActualizarBorrarApostador panelActualizarGamer;
-	private PanelInformacionApostadores panelLeerGamer;
 	private PanelIngresoCasaApuestas panelIngresoCasaApuestas;
-	private PanelMostrarRegistroJuegos panelMostrarRegistrosJuegos;
+	private PanelApostadores panelApostadores;
 
 	public View(Controller control) {
 
@@ -23,27 +21,18 @@ public class View extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 
-		panelActualizarGamer = new PanelActualizarBorrarApostador();
-		panelLeerGamer = new PanelInformacionApostadores();
-		panelIngresoCasaApuestas = new PanelIngresoCasaApuestas();
-		panelMostrarRegistrosJuegos = new PanelMostrarRegistroJuegos();
 
+		panelIngresoCasaApuestas = new PanelIngresoCasaApuestas();
+		panelApostadores= new PanelApostadores();
 		getContentPane().add(panelIngresoCasaApuestas);
-		getContentPane().add(panelLeerGamer);
-		getContentPane().add(panelActualizarGamer);
-		getContentPane().add(panelMostrarRegistrosJuegos);
+		getContentPane().add(panelApostadores);
+
 
 		// Esto es temporal
-		panelActualizarGamer.setVisible(false);
-		panelLeerGamer.setVisible(false);
-		panelMostrarRegistrosJuegos.setVisible(false);
-		panelIngresoCasaApuestas.setVisible(true);
+		panelApostadores.setVisible(true);
+		panelIngresoCasaApuestas.setVisible(false);
 
-		panelActualizarGamer.getBotonActualizar().addActionListener(control);
-		panelActualizarGamer.getBotonBorrar().addActionListener(control);
-		panelLeerGamer.getBotonLeer().addActionListener(control);
 		panelIngresoCasaApuestas.getBotonGuardar().addActionListener(control);
-		panelMostrarRegistrosJuegos.getBotonLeer().addActionListener(control);
 
 	}
 
@@ -64,22 +53,6 @@ public class View extends JFrame {
 	public void mostrarMensajeInformacion(String message) {
 		JOptionPane.showMessageDialog(null, message, "Información", JOptionPane.INFORMATION_MESSAGE);
 	}
-	
-	public PanelActualizarBorrarApostador getPanelActualizarGamer() {
-		return panelActualizarGamer;
-	}
-
-	public void setPanelActualizarGamer(PanelActualizarBorrarApostador panelActualizarGamer) {
-		this.panelActualizarGamer = panelActualizarGamer;
-	}
-
-	public PanelInformacionApostadores getPanelLeerGamer() {
-		return panelLeerGamer;
-	}
-
-	public void setPanelLeerGamer(PanelInformacionApostadores panelLeerGamer) {
-		this.panelLeerGamer = panelLeerGamer;
-	}
 
 	public PanelIngresoCasaApuestas getPanelIngresoCasaApuestas() {
 		return panelIngresoCasaApuestas;
@@ -87,14 +60,6 @@ public class View extends JFrame {
 
 	public void setPanelIngresoCasaApuestas(PanelIngresoCasaApuestas panelIngresoCasaApuestas) {
 		this.panelIngresoCasaApuestas = panelIngresoCasaApuestas;
-	}
-
-	public PanelMostrarRegistroJuegos getPanelMostrarRegistrosJuegos() {
-		return panelMostrarRegistrosJuegos;
-	}
-
-	public void setPanelMostrarRegistrosJuegos(PanelMostrarRegistroJuegos panelMostrarRegistrosJuegos) {
-		this.panelMostrarRegistrosJuegos = panelMostrarRegistrosJuegos;
 	}
 
 	public static long getSerialversionuid() {
