@@ -11,4 +11,19 @@ public class BalotoDTO extends Apuesta {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @return the numeroJuego
+	 */
+	public String getNumeroJuego() {
+		return numeroJuego;
+	}
+
+	/**
+	 * @param numeroJuego the numeroJuego to set
+	 */
+	public void setNumeroJuego(String numeroJuego) {
+		this.numeroJuego = numeroJuego;
+	}
+	
+	
 }
