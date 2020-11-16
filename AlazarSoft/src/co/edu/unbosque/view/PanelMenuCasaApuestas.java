@@ -8,6 +8,13 @@ import javax.swing.JPanel;
 public class PanelMenuCasaApuestas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private final String COMMAND_CONFIGURACION_CASA_APUESTAS = "CONFIGURACION_CASA_APUESTAS";
+	private final String COMMAND_GESTION_SEDES = "GESTION_SEDES";
+	private final String COMMAND_GESTION_APOSTADORES = "GESTION_APOSTADORES";
+	private final String COMMAND_GESTION_APUESTAS = "GESTION_APUESTAS";
+	private final String COMMAND_PLANES_PREMIACION = "PLANES_PREMIACION";
+	private final String COMMAND_CONSULTA_REPORTES = "CONSULTA_REPORTES";
+
 	private JButton botonConfiguracionCasaApuestas;
 	private JButton botonGestionSedes;
 	private JButton botonGestionApostadores;
@@ -32,6 +39,13 @@ public class PanelMenuCasaApuestas extends JPanel {
 		add(botonGestionApuestas);
 		add(botonPlanesPremiacion);
 		add(botonConsultasReportes);
+
+		botonConfiguracionCasaApuestas.setActionCommand(COMMAND_CONFIGURACION_CASA_APUESTAS);
+		botonGestionSedes.setActionCommand(COMMAND_GESTION_SEDES);
+		botonGestionApostadores.setActionCommand(COMMAND_GESTION_APOSTADORES);
+		botonGestionApuestas.setActionCommand(COMMAND_GESTION_APUESTAS);
+		botonPlanesPremiacion.setActionCommand(COMMAND_PLANES_PREMIACION);
+		botonConsultasReportes.setActionCommand(COMMAND_CONSULTA_REPORTES);
 
 	}
 
@@ -81,6 +95,34 @@ public class PanelMenuCasaApuestas extends JPanel {
 
 	public void setBotonConsultasReportes(JButton botonConsultasReportes) {
 		this.botonConsultasReportes = botonConsultasReportes;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public String getCOMMAND_CONFIGURACION_CASA_APUESTAS() {
+		return COMMAND_CONFIGURACION_CASA_APUESTAS;
+	}
+
+	public String getCOMMAND_GESTION_SEDES() {
+		return COMMAND_GESTION_SEDES;
+	}
+
+	public String getCOMMAND_GESTION_APOSTADORES() {
+		return COMMAND_GESTION_APOSTADORES;
+	}
+
+	public String getCOMMAND_GESTION_APUESTAS() {
+		return COMMAND_GESTION_APUESTAS;
+	}
+
+	public String getCOMMAND_PLANES_PREMIACION() {
+		return COMMAND_PLANES_PREMIACION;
+	}
+
+	public String getCOMMAND_CONSULTA_REPORTES() {
+		return COMMAND_CONSULTA_REPORTES;
 	}
 
 }

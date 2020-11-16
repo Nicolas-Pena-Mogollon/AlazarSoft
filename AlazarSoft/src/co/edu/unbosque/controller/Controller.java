@@ -19,9 +19,21 @@ public class Controller implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-
-		if (e.getActionCommand().equals(vista.getPanelIngresoCasaApuestas().getCOMMAND_INGRESAR()))
+		if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_CONFIGURACION_CASA_APUESTAS())) {
+			vista.getSplitPane().setRightComponent(vista.getPanelIngresoCasaApuestas());
+		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_SEDES())) {
+			vista.getSplitPane().setRightComponent(vista.getPanelSede());
+		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_APOSTADORES())) {
+			vista.getSplitPane().setRightComponent(vista.getPanelApostadores());
+		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_APUESTAS())) {
+			vista.getSplitPane().setRightComponent(vista.getPanelApuesta());
+		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_PLANES_PREMIACION())) {
+			// vista.getSplitPane().setRightComponent(vista.getPanelSede());
+		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_CONSULTA_REPORTES())) {
+			// vista.getSplitPane().setRightComponent(vista.getPanelSede());
+		} else if (e.getActionCommand().equals(vista.getPanelIngresoCasaApuestas().getCOMMAND_INGRESAR())) {
 			this.coordinarConfiguracionCasaApuestas();
+		}
 	}
 
 	public void coordinarConfiguracionCasaApuestas() {
@@ -35,7 +47,7 @@ public class Controller implements ActionListener {
 		}
 		vista.getPanelIngresoCasaApuestas().borrarCamposIngresoCasaApuestas();
 	}
-	
+
 	public void gestionApostadores() {
 	}
 }

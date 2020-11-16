@@ -20,14 +20,19 @@ public class PanelApuesta extends JPanel {
 	private JLabel etiquetaSede;
 	private JLabel etiquetaCedula;
 	private JLabel etiquetaValorApuesta;
+	private JLabel etiquetaTipoApuesta;
 	private JTextField campoTextoFecha;
 	private JComboBox<String> comboCedula;
 	private JComboBox<String> comboSede;
+	private JComboBox<String> comboTiposApuesta;
 	private JScrollPane scrollCedula;
 	private JScrollPane scrollSede;
 	private JTextField campoTextoValorApuesta;
 	private JButton botonGuardarApuestaBaloto;
 	private JPanel panelIngreso;
+	private PanelApuestaBaloto panelApuestaBaloto;
+	private PanelApuestaSuperAstro panelApuestaSuperAstro;
+	private PanelApuestaFutbol panelApuestaFutbol;
 
 	public PanelApuesta() {
 		setBorder(new TitledBorder("Registro apuestas baloto"));
@@ -39,12 +44,18 @@ public class PanelApuesta extends JPanel {
 		etiquetaSede = new JLabel("Sede");
 		etiquetaCedula = new JLabel("Cédula");
 		etiquetaValorApuesta = new JLabel("Valor de la apuesta");
+		etiquetaTipoApuesta = new JLabel("Tipo de apuesta");
 
 		campoTextoFecha = new JTextField();
 		comboCedula = new JComboBox<String>();
 		scrollCedula = new JScrollPane(comboCedula);
 		comboSede = new JComboBox<String>();
 		scrollSede = new JScrollPane(comboSede);
+		comboTiposApuesta = new JComboBox<String>();
+		comboTiposApuesta.addItem("Baloto");
+		comboTiposApuesta.addItem("Super Astro");
+		comboTiposApuesta.addItem("Fútbol");
+
 		campoTextoValorApuesta = new JTextField();
 
 		panelIngreso.add(etiquetaFecha);
@@ -55,6 +66,8 @@ public class PanelApuesta extends JPanel {
 		panelIngreso.add(scrollCedula);
 		panelIngreso.add(etiquetaValorApuesta);
 		panelIngreso.add(campoTextoValorApuesta);
+		panelIngreso.add(etiquetaTipoApuesta);
+		panelIngreso.add(comboTiposApuesta);
 
 		botonGuardarApuestaBaloto = new JButton("Registrar apuesta");
 		botonGuardarApuestaBaloto.setActionCommand(COMMAND_REGISTRAR_APUESTA_BALOTO);

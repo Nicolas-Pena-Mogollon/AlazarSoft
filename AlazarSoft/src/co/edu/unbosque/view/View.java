@@ -1,8 +1,10 @@
 package co.edu.unbosque.view;
 
-import java.awt.CardLayout;
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JSplitPane;
+
 import co.edu.unbosque.controller.Controller;
 
 public class View extends JFrame {
@@ -11,12 +13,14 @@ public class View extends JFrame {
 	private PanelMenuCasaApuestas panelMenuCasaApuestas;
 	private PanelIngresoCasaApuestas panelIngresoCasaApuestas;
 	private PanelApostadores panelApostadores;
+	private PanelApuesta panelApuesta;
 	private PanelSede panelSede;
+	private JSplitPane splitPane;
 
 	public View(Controller control) {
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setLayout(new CardLayout());
+		this.setLayout(new BorderLayout());
 		this.setSize(800, 250);
 		this.setTitle("Casa de apuestas");
 		this.setLocationRelativeTo(null);
@@ -24,19 +28,15 @@ public class View extends JFrame {
 
 		panelMenuCasaApuestas = new PanelMenuCasaApuestas();
 		panelIngresoCasaApuestas = new PanelIngresoCasaApuestas();
-		panelApostadores= new PanelApostadores();
+		panelApostadores = new PanelApostadores();
 		panelSede = new PanelSede();
-		getContentPane().add(panelIngresoCasaApuestas);
-		getContentPane().add(panelApostadores);
-		getContentPane().add(panelSede);
-		getContentPane().add(panelMenuCasaApuestas);
+		panelApuesta = new PanelApuesta();
 
-		// Esto es temporal
-		panelMenuCasaApuestas.setVisible(true);
-		panelApostadores.setVisible(false);
-		panelIngresoCasaApuestas.setVisible(false);
-		panelSede.setVisible(false);
-		
+		splitPane = new JSplitPane();
+		splitPane.setEnabled(false);
+		splitPane.setLeftComponent(panelMenuCasaApuestas);
+		splitPane.setRightComponent(panelApostadores);
+		getContentPane().add(splitPane);
 		panelMenuCasaApuestas.getBotonConfiguracionCasaApuestas().addActionListener(control);
 		panelMenuCasaApuestas.getBotonGestionSedes().addActionListener(control);
 		panelMenuCasaApuestas.getBotonGestionApostadores().addActionListener(control);
@@ -44,9 +44,8 @@ public class View extends JFrame {
 		panelMenuCasaApuestas.getBotonPlanesPremiacion().addActionListener(control);
 		panelMenuCasaApuestas.getBotonConsultasReportes().addActionListener(control);
 		panelIngresoCasaApuestas.getBotonGuardar().addActionListener(control);
-		
-
-
+		revalidate();
+		repaint();
 
 	}
 
@@ -55,8 +54,8 @@ public class View extends JFrame {
 	}
 
 	public boolean mostrarMensajeAdvertencia() {
-		int entrada = JOptionPane.showConfirmDialog(null, "", "Advertencia",
-				JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		int entrada = JOptionPane.showConfirmDialog(null, "", "Advertencia", JOptionPane.YES_NO_OPTION,
+				JOptionPane.WARNING_MESSAGE);
 		if (entrada == 0) {
 			return true;
 		} else {
@@ -68,6 +67,14 @@ public class View extends JFrame {
 		JOptionPane.showMessageDialog(null, message, "Información", JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	public PanelMenuCasaApuestas getPanelMenuCasaApuestas() {
+		return panelMenuCasaApuestas;
+	}
+
+	public void setPanelMenuCasaApuestas(PanelMenuCasaApuestas panelMenuCasaApuestas) {
+		this.panelMenuCasaApuestas = panelMenuCasaApuestas;
+	}
+
 	public PanelIngresoCasaApuestas getPanelIngresoCasaApuestas() {
 		return panelIngresoCasaApuestas;
 	}
@@ -76,8 +83,36 @@ public class View extends JFrame {
 		this.panelIngresoCasaApuestas = panelIngresoCasaApuestas;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public PanelApostadores getPanelApostadores() {
+		return panelApostadores;
+	}
+
+	public void setPanelApostadores(PanelApostadores panelApostadores) {
+		this.panelApostadores = panelApostadores;
+	}
+
+	public PanelSede getPanelSede() {
+		return panelSede;
+	}
+
+	public void setPanelSede(PanelSede panelSede) {
+		this.panelSede = panelSede;
+	}
+
+	public PanelApuesta getPanelApuesta() {
+		return panelApuesta;
+	}
+
+	public void setPanelApuesta(PanelApuesta panelApuesta) {
+		this.panelApuesta = panelApuesta;
+	}
+
+	public JSplitPane getSplitPane() {
+		return splitPane;
+	}
+
+	public void setSplitPane(JSplitPane splitPane) {
+		this.splitPane = splitPane;
 	}
 
 }
