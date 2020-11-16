@@ -5,12 +5,11 @@ import java.io.Serializable;
 public class SedesDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
+	private int idUbicacion;
 	private String ubicacion;
 	private int empleados;
-	private int idUbicacion;
 	
-	public SedesDTO(String ubicacion, int empleados, int idUbicacion) {
+	public SedesDTO(int idUbicacion,String ubicacion, int empleados) {
 		this.ubicacion = ubicacion;
 		this.empleados = empleados;
 		this.idUbicacion = idUbicacion;
