@@ -1,8 +1,8 @@
 package co.edu.unbosque.view;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;

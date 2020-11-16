@@ -11,6 +11,8 @@ public class Sede {
 
 	}
 	
+	
+	
 	public int generarIdSede() {
 		int idSede = sedesDao.getDataSedes().get(sedesDao.getDataSedes().size() - 1).getIdUbicacion() + 1;
 		return idSede;
