@@ -26,7 +26,7 @@ public class BalotoDAO {
 	public boolean crearApuestas(String nombre, String cedula, Date fecha, double valorApuesta, String numeroJuego,
 			ArrayList<BalotoDTO> lista, File file) {
 		BalotoDTO balotoDTO;
-		balotoDTO = new BalotoDTO(nombre, cedula, fecha, valorApuesta);
+		balotoDTO = new BalotoDTO(nombre, cedula, fecha, valorApuesta, numeroJuego);
 		lista.add(balotoDTO);
 		archivo.escribirArchivoBaloto(lista, file);
 		return true;
