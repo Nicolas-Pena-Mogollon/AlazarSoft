@@ -36,6 +36,7 @@ public class View extends JFrame {
 		getContentPane().add(panelActualizarGamer);
 		getContentPane().add(panelMostrarRegistrosJuegos);
 
+		// Esto es temporal
 		panelCrearGamer.setVisible(false);
 		panelActualizarGamer.setVisible(false);
 		panelLeerGamer.setVisible(false);

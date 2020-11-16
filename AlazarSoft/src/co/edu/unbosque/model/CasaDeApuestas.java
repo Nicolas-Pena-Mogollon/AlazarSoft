@@ -10,7 +10,6 @@ public class CasaDeApuestas {
 	private ArchivoConfiguracionCasaApuestas archivoConfiguracionCasaApuestas;
 
 	public CasaDeApuestas() {
-
 		archivoConfiguracionCasaApuestas = new ArchivoConfiguracionCasaApuestas();
 	}
 
