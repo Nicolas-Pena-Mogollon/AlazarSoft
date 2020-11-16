@@ -35,4 +35,7 @@ public class Controller implements ActionListener {
 		}
 		vista.getPanelIngresoCasaApuestas().borrarCamposIngresoCasaApuestas();
 	}
+	
+	public void gestionApostadores() {
+	}
 }
