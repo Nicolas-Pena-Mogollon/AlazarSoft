@@ -1,6 +1,5 @@
 package co.edu.unbosque.model.persistence;
 
-import java.sql.Date;
 
 public class BalotoDTO extends Apuesta {
 
