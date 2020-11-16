@@ -26,7 +26,7 @@ public class Propiedades {
 		return datos;
 	}
 	
-	public String[] inicializarDatosPokemon(Properties pDatos) {
+	public String[] inicializarDatosPartido(Properties pDatos) {
 
 		partidos = new String[14];
 
