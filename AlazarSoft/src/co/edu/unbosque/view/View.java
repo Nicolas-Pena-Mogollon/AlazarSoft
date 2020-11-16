@@ -10,6 +10,7 @@ public class View extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private PanelIngresoCasaApuestas panelIngresoCasaApuestas;
 	private PanelApostadores panelApostadores;
+	private PanelSede panelSede;
 
 	public View(Controller control) {
 
@@ -23,14 +24,16 @@ public class View extends JFrame {
 
 		panelIngresoCasaApuestas = new PanelIngresoCasaApuestas();
 		panelApostadores= new PanelApostadores();
+		panelSede = new PanelSede();
 		getContentPane().add(panelIngresoCasaApuestas);
 		getContentPane().add(panelApostadores);
+		getContentPane().add(panelSede);
 
 
 		// Esto es temporal
 		panelApostadores.setVisible(true);
 		panelIngresoCasaApuestas.setVisible(false);
-
+		panelSede.setVisible(false);
 		panelIngresoCasaApuestas.getBotonGuardar().addActionListener(control);
 
 	}
@@ -40,7 +43,7 @@ public class View extends JFrame {
 	}
 
 	public boolean mostrarMensajeAdvertencia() {
-		int entrada = JOptionPane.showConfirmDialog(null, "Está seguro de querer borrar el gamer", "Advertencia",
+		int entrada = JOptionPane.showConfirmDialog(null, "", "Advertencia",
 				JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		if (entrada == 0) {
 			return true;

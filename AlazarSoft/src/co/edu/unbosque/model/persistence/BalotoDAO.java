@@ -26,7 +26,7 @@ public class BalotoDAO {
 	public boolean crearApuestas(String nombre, String cedula, Date fecha, double valorApuesta, String numeroJuego,
 			ArrayList<BalotoDTO> lista, File file) {
 		BalotoDTO balotoDTO;
-		balotoDTO = new BalotoDTO(nombre, cedula, fecha, valorApuesta);
+		balotoDTO = new BalotoDTO(nombre, cedula, fecha, valorApuesta, numeroJuego);
 		lista.add(balotoDTO);
 		archivo.escribirArchivoBaloto(lista, file);
 		return true;
@@ -37,8 +37,8 @@ public class BalotoDAO {
 		for (int i = 0; i < lista.size(); i++) {
 			if (cedula.equals(lista.get(i).getCedula()) && fecha == lista.get(i).getFecha()) {
 				mensaje += "Sede: " + lista.get(i).getNombreSede() + "\n" + "Cedula: " + lista.get(i).getCedula() + "\n"
-						+ "Fecha: " + lista.get(i).getFecha() + "\n" + "Valor: " + lista.get(i).getValorApuesta()
-						+ "\n\n";
+						+ "Fecha: " + lista.get(i).getFecha() + "\n" + "Valor: " + lista.get(i).getValorApuesta() + "\n"
+						+ "Numero de juego: " + lista.get(i).getNumeroJuego() + "\n\n";
 			}
 		}
 		return mensaje;
