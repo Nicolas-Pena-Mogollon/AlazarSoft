@@ -8,6 +8,7 @@ import co.edu.unbosque.controller.Controller;
 public class View extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private PanelMenuCasaApuestas panelMenuCasaApuestas;
 	private PanelIngresoCasaApuestas panelIngresoCasaApuestas;
 	private PanelApostadores panelApostadores;
 	private PanelSede panelSede;
@@ -21,20 +22,29 @@ public class View extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 
-
+		panelMenuCasaApuestas = new PanelMenuCasaApuestas();
 		panelIngresoCasaApuestas = new PanelIngresoCasaApuestas();
 		panelApostadores= new PanelApostadores();
 		panelSede = new PanelSede();
 		getContentPane().add(panelIngresoCasaApuestas);
 		getContentPane().add(panelApostadores);
 		getContentPane().add(panelSede);
-
+		getContentPane().add(panelMenuCasaApuestas);
 
 		// Esto es temporal
-		panelApostadores.setVisible(true);
+		panelMenuCasaApuestas.setVisible(true);
+		panelApostadores.setVisible(false);
 		panelIngresoCasaApuestas.setVisible(false);
 		panelSede.setVisible(false);
-		panelIngresoCasaApuestas.getBotonGuardar().addActionListener(control);
+		
+		panelMenuCasaApuestas.getBotonConfiguracionCasaApuestas().addActionListener(control);
+		panelMenuCasaApuestas.getBotonGestionSedes().addActionListener(control);
+		panelMenuCasaApuestas.getBotonGestionApostadores().addActionListener(control);
+		panelMenuCasaApuestas.getBotonGestionApuestas().addActionListener(control);
+		panelMenuCasaApuestas.getBotonPlanesPremiacion().addActionListener(control);
+		panelMenuCasaApuestas.getBotonConsultasReportes().addActionListener(control);
+
+
 
 	}
 
