@@ -2,7 +2,6 @@ package co.edu.unbosque.model.persistence;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.Properties;
 
 
