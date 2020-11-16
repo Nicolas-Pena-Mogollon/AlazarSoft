@@ -43,6 +43,8 @@ public class View extends JFrame {
 		panelMenuCasaApuestas.getBotonGestionApuestas().addActionListener(control);
 		panelMenuCasaApuestas.getBotonPlanesPremiacion().addActionListener(control);
 		panelMenuCasaApuestas.getBotonConsultasReportes().addActionListener(control);
+		panelIngresoCasaApuestas.getBotonGuardar().addActionListener(control);
+		
 
 
 
