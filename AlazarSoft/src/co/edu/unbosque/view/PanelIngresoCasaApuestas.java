@@ -65,7 +65,7 @@ public class PanelIngresoCasaApuestas extends JPanel {
 				if (Integer.parseInt(presupuesto) <= 0) {
 					salida[0] = "1";
 					salida[1] = "Valor de presupuesto inválido";
-				} else if (Double.parseDouble(numSedes) <= 0) {
+				} else if (Long.parseLong(numSedes) <= 0) {
 					salida[0] = "1";
 					salida[1] = "Valor del número de sedes inválido";
 				} else {

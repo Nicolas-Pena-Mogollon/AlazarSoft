@@ -6,14 +6,14 @@ public class CasaDeApuestas {
 
 	private String nombreCasaApuestas;
 	private int numeroSedes;
-	private double presupuestoTotal;
+	private Long presupuestoTotal;
 	private ArchivoConfiguracionCasaApuestas archivoConfiguracionCasaApuestas;
 
 	public CasaDeApuestas() {
 		archivoConfiguracionCasaApuestas = new ArchivoConfiguracionCasaApuestas();
 	}
 
-	public void guardarConfiguracionCasaDeApuestas(String nombre, int numeroSedes, double presupuestoTotal) {
+	public void guardarConfiguracionCasaDeApuestas(String nombre, int numeroSedes, Long presupuestoTotal) {
 		this.nombreCasaApuestas = nombre;
 		this.numeroSedes = numeroSedes;
 		this.presupuestoTotal = presupuestoTotal;
@@ -38,11 +38,11 @@ public class CasaDeApuestas {
 		this.numeroSedes = numeroSedes;
 	}
 
-	public double getPresupuestoTotal() {
+	public Long getPresupuestoTotal() {
 		return presupuestoTotal;
 	}
 
-	public void setPresupuestoTotal(double presupuestoTotal) {
+	public void setPresupuestoTotal(Long presupuestoTotal) {
 		this.presupuestoTotal = presupuestoTotal;
 	}
 
