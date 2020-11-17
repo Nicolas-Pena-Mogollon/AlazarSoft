@@ -159,4 +159,17 @@ public class ApostadorDAO {
 		}
 		return verificar;
 	}
+
+	public boolean verificarNumeroTelefonico(ArrayList<ApostadorDTO> listaA, String celular) {
+		boolean verificar = false;
+		for (int i = 0; i < listaA.size(); i++) {
+			if (celular.equals(listaA.get(i).getCelular())) {
+				verificar = true;
+			} else {
+				verificar = false;
+			}
+
+		}
+		return verificar;
+	}
 }

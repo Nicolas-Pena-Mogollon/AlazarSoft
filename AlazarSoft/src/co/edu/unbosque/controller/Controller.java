@@ -91,13 +91,17 @@ public class Controller implements ActionListener {
 			try {
 				apostadorV.verificarCedula(cedula);
 				apostadorV.verificarCelular(celular);
-				if (apostador.agregarApostador(nombre, cedula, sede, direccion, celular, listaApostador,
-						fileApostador)) {
-					JOptionPane.showMessageDialog(null, "Registro correcto");
-					vista.getPanelApostadores().getPanelCrearApostador().limpiarCampos();
+				if (apostador.verificarNumeroTelefonico(listaApostador, celular)) {
+					JOptionPane.showMessageDialog(null, "El número telefónico ya se encuentra registrado");
 				} else {
-					JOptionPane.showMessageDialog(null, "El número de cedula ya se encuentra registrado");
+					if (apostador.agregarApostador(nombre, cedula, sede, direccion, celular, listaApostador,
+							fileApostador)) {
+						JOptionPane.showMessageDialog(null, "Registro correcto");
+						vista.getPanelApostadores().getPanelCrearApostador().limpiarCampos();
+					} else {
+						JOptionPane.showMessageDialog(null, "El número de cedula ya se encuentra registrado");
 
+					}
 				}
 			} catch (CedulaException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage());
