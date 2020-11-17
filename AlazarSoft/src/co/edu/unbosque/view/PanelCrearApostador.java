@@ -95,6 +95,14 @@ public class PanelCrearApostador extends JPanel {
 			return false;
 		}
 	}
+	
+	public void limpiarCampos() {
+		campoTextoCedula.setText("");
+		campoTextoCelular.setText("");
+		campoTextoDireccion.setText("");
+		campoTextoNombre.setText("");
+		comboSede.setSelectedItem(0);
+	}
 
 	public JTextField getCampoTextoCedula() {
 		return campoTextoCedula;
