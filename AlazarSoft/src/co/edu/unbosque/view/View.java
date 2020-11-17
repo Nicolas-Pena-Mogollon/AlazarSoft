@@ -53,6 +53,11 @@ public class View extends JFrame {
 		panelIngresoCasaApuestas.getBotonGuardar().addActionListener(control);
 		panelSede.getPanelSedeCrear().getBotonSede().addActionListener(control);
 		panelSede.getPanelSedeModificar().getBotonActualizar().addActionListener(control);
+		panelApostadores.getPanelCrearApostador().getBotonCrearApostador().addActionListener(control);
+		panelApostadores.getPanelActualizarBorrarApostador().getBotonActualizar().addActionListener(control);
+		panelApostadores.getPanelActualizarBorrarApostador().getBotonBorrar().addActionListener(control);
+		panelApostadores.getPanelInformacionApostadores().getBotonLeerInformacionApostadores()
+				.addActionListener(control);
 	}
 
 	public void mostrarMensajeError(String message) {

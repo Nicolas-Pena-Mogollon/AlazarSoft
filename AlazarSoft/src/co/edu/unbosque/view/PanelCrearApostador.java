@@ -11,14 +11,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-
-import co.edu.unbosque.model.Apostador;
 import co.edu.unbosque.model.persistence.SedesDTO;
 
 public class PanelCrearApostador extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private final String COMMAND_CREAR_APOSTADOR = "CREAR_APOSTADOR";
+	private final String COMMAND_CREAR_APOSTADOR = "CREACION_APOSTADOR";
 	private JLabel etiquetaNombre;
 	private JLabel etiquetaCedula;
 	private JLabel etiquetaSede;
@@ -79,15 +77,25 @@ public class PanelCrearApostador extends JPanel {
 		this.add(panelIngreso, BorderLayout.CENTER);
 		this.add(botonCrearApostador, BorderLayout.PAGE_END);
 	}
-	
+
 	public void cargarComboBox(ArrayList<SedesDTO> sede) {
 		comboSede.removeAllItems();
 		comboSede.addItem("Selecciona la sede");
-        for (int i = 0; i < sede.size(); i++) {
-        	comboSede.addItem(sede.get(i).getUbicacion());
-        }
-    }
-	
+		for (int i = 0; i < sede.size(); i++) {
+			comboSede.addItem(sede.get(i).getUbicacion());
+		}
+	}
+
+	public boolean verificarCamposVacios() {
+		if (!campoTextoCedula.getText().equals("") && !campoTextoCelular.getText().equals("")
+				&& !campoTextoDireccion.getText().equals("") && !campoTextoNombre.getText().equals("")
+				&& !comboSede.getSelectedItem().equals("Selecciona la sede")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public JTextField getCampoTextoCedula() {
 		return campoTextoCedula;
 	}

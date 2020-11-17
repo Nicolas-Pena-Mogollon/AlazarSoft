@@ -57,9 +57,9 @@ public class Controller implements ActionListener {
 			this.coordinarConfiguracionCasaApuestas();
 		} else if (e.getActionCommand().equals(vista.getPanelSede().getPanelSedeCrear().getCOMMAND_GUARDAR())) {
 			this.gestionSedes();
-		} else if (e.getActionCommand().equals(vista.getPanelApostadores().getPanelCrearApostador().getCOMMAND_CREAR_APOSTADOR())) {
+		} else if (e.getActionCommand()
+				.equals(vista.getPanelApostadores().getPanelCrearApostador().getCOMMAND_CREAR_APOSTADOR())) {
 			gestionApostadores();
-			System.out.println("Hola");
 		}
 	}
 
@@ -83,7 +83,7 @@ public class Controller implements ActionListener {
 		String celular = vista.getPanelApostadores().getPanelCrearApostador().getCampoTextoCelular().getText();
 		if (apostador.agregarApostador(nombre, cedula, sede, direccion, celular, listaApostador, fileApostador)) {
 			JOptionPane.showMessageDialog(null, "Registro correcto");
-		}else {
+		} else {
 			JOptionPane.showMessageDialog(null, "Se ha presentado un problema");
 
 		}
