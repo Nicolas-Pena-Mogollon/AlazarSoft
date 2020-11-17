@@ -60,6 +60,7 @@ public class Controller implements ActionListener {
 
 	public void gestionApostadores() {
 		String nombre = "";
+		String cedula = "";
 
 	}
 
