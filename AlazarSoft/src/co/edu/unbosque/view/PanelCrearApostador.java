@@ -2,6 +2,8 @@ package co.edu.unbosque.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -9,6 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import co.edu.unbosque.model.Apostador;
+import co.edu.unbosque.model.persistence.SedesDTO;
 
 public class PanelCrearApostador extends JPanel {
 
@@ -74,7 +79,15 @@ public class PanelCrearApostador extends JPanel {
 		this.add(panelIngreso, BorderLayout.CENTER);
 		this.add(botonCrearApostador, BorderLayout.PAGE_END);
 	}
-
+	
+	public void cargarComboBox(ArrayList<SedesDTO> sede) {
+		comboSede.removeAllItems();
+		comboSede.addItem("Selecciona la sede");
+        for (int i = 0; i < sede.size(); i++) {
+        	comboSede.addItem(sede.get(i).getUbicacion());
+        }
+    }
+	
 	public JTextField getCampoTextoCedula() {
 		return campoTextoCedula;
 	}

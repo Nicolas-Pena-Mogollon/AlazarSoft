@@ -2,11 +2,18 @@ package co.edu.unbosque.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import co.edu.unbosque.model.CasaDeApuestas;
 import co.edu.unbosque.model.Sede;
+import co.edu.unbosque.model.persistence.ApostadorDAO;
+import co.edu.unbosque.model.persistence.Archivo;
 import co.edu.unbosque.model.persistence.SedesDAO;
 import co.edu.unbosque.model.persistence.SedesDTO;
+import co.edu.unbosque.model.Apostador;
 import co.edu.unbosque.view.View;
 
 public class Controller implements ActionListener {
@@ -15,12 +22,20 @@ public class Controller implements ActionListener {
 	private View vista;
 	private SedesDAO sedes;
 	private Sede sede;
+	private ApostadorDAO apostador;
+	private File fileApostador = new File("Data\\apostadores.dat");
+	private ArrayList<Apostador> listaApostador;
+	private Archivo archivoApostador;
 
 	public Controller() {
 		vista = new View(this);
 		casaApuestas = new CasaDeApuestas();
 		sedes = new SedesDAO();
 		sede = new Sede();
+		apostador = new ApostadorDAO();
+		archivoApostador = new Archivo();
+		listaApostador = archivoApostador.leerArchivo(fileApostador);
+		vista.getPanelApostadores().getPanelCrearApostador().cargarComboBox(this.sedes.leerSede());
 	}
 
 	@Override
@@ -42,6 +57,9 @@ public class Controller implements ActionListener {
 			this.coordinarConfiguracionCasaApuestas();
 		} else if (e.getActionCommand().equals(vista.getPanelSede().getPanelSedeCrear().getCOMMAND_GUARDAR())) {
 			this.gestionSedes();
+		} else if (e.getActionCommand().equals(vista.getPanelApostadores().getPanelCrearApostador().getCOMMAND_CREAR_APOSTADOR())) {
+			gestionApostadores();
+			System.out.println("Hola");
 		}
 	}
 
@@ -58,8 +76,17 @@ public class Controller implements ActionListener {
 	}
 
 	public void gestionApostadores() {
-		String nombre = "";
-		String cedula = "";
+		String sede = vista.getPanelApostadores().getPanelCrearApostador().getComboSede().getSelectedItem().toString();
+		String cedula = vista.getPanelApostadores().getPanelCrearApostador().getCampoTextoCedula().getText();
+		String nombre = vista.getPanelApostadores().getPanelCrearApostador().getCampoTextoNombre().getText();
+		String direccion = vista.getPanelApostadores().getPanelCrearApostador().getCampoTextoDireccion().getText();
+		String celular = vista.getPanelApostadores().getPanelCrearApostador().getCampoTextoCelular().getText();
+		if (apostador.agregarApostador(nombre, cedula, sede, direccion, celular, listaApostador, fileApostador)) {
+			JOptionPane.showMessageDialog(null, "Registro correcto");
+		}else {
+			JOptionPane.showMessageDialog(null, "Se ha presentado un problema");
+
+		}
 
 	}
 
