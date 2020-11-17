@@ -37,6 +37,13 @@ public class View extends JFrame {
 		splitPane.setLeftComponent(panelMenuCasaApuestas);
 		splitPane.setRightComponent(panelApostadores);
 		getContentPane().add(splitPane);
+		asignarOyentes(control);
+		repaint();
+		revalidate();
+
+	}
+
+	public void asignarOyentes(Controller control) {
 		panelMenuCasaApuestas.getBotonConfiguracionCasaApuestas().addActionListener(control);
 		panelMenuCasaApuestas.getBotonGestionSedes().addActionListener(control);
 		panelMenuCasaApuestas.getBotonGestionApostadores().addActionListener(control);
@@ -44,10 +51,8 @@ public class View extends JFrame {
 		panelMenuCasaApuestas.getBotonPlanesPremiacion().addActionListener(control);
 		panelMenuCasaApuestas.getBotonConsultasReportes().addActionListener(control);
 		panelIngresoCasaApuestas.getBotonGuardar().addActionListener(control);
+		panelSede.getPanelSedeCrear().getBotonSede().addActionListener(control);
 		panelSede.getPanelSedeModificar().getBotonActualizar().addActionListener(control);
-		repaint();
-		revalidate();
-
 	}
 
 	public void mostrarMensajeError(String message) {

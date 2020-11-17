@@ -38,6 +38,8 @@ public class Controller implements ActionListener {
 			// vista.getSplitPane().setRightComponent(vista.getPanelSede());
 		} else if (e.getActionCommand().equals(vista.getPanelIngresoCasaApuestas().getCOMMAND_INGRESAR())) {
 			this.coordinarConfiguracionCasaApuestas();
+		} else if (e.getActionCommand().equals(vista.getPanelSede().getPanelSedeCrear().getCOMMAND_GUARDAR())) {
+			this.gestionSedes();
 		}
 	}
 
@@ -54,12 +56,13 @@ public class Controller implements ActionListener {
 	}
 
 	public void gestionApostadores() {
-	
+
 	}
-	
+
 	public void gestionSedes() {
-		String ubicacionSede = vista.getPanelSede().getPanelSedeCrear().getEtiquetaNombreSede().getText();
-		int numeroEmpleado = Integer.parseInt(vista.getPanelSede().getPanelSedeCrear().getEtiquetaNumeroEmpleado().getText());
+		String ubicacionSede = vista.getPanelSede().getPanelSedeCrear().getCampoTextoNombreSede().getText();
+		String empleados = vista.getPanelSede().getPanelSedeCrear().getCampoTextoNumeroEmpleado().getText();
+		int numeroEmpleado = Integer.parseInt(empleados);
 		SedesDTO sede = new SedesDTO(5, ubicacionSede, numeroEmpleado);
 		sedes.crearSede(sede);
 	}
