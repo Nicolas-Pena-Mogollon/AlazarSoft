@@ -94,6 +94,7 @@ public class Controller implements ActionListener {
 				if (apostador.agregarApostador(nombre, cedula, sede, direccion, celular, listaApostador,
 						fileApostador)) {
 					JOptionPane.showMessageDialog(null, "Registro correcto");
+					vista.getPanelApostadores().getPanelCrearApostador().limpiarCampos();
 				} else {
 					JOptionPane.showMessageDialog(null, "El número de cedula ya se encuentra registrado");
 
@@ -103,7 +104,6 @@ public class Controller implements ActionListener {
 			} catch (CelularException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
-			vista.getPanelApostadores().getPanelCrearApostador().limpiarCampos();
 		} else {
 			JOptionPane.showMessageDialog(null, "Verifique los campos");
 		}
