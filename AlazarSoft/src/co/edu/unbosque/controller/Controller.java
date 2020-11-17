@@ -10,10 +10,10 @@ import javax.swing.JOptionPane;
 import co.edu.unbosque.model.CasaDeApuestas;
 import co.edu.unbosque.model.Sede;
 import co.edu.unbosque.model.persistence.ApostadorDAO;
+import co.edu.unbosque.model.persistence.ApostadorDTO;
 import co.edu.unbosque.model.persistence.Archivo;
 import co.edu.unbosque.model.persistence.SedesDAO;
 import co.edu.unbosque.model.persistence.SedesDTO;
-import co.edu.unbosque.model.Apostador;
 import co.edu.unbosque.view.View;
 
 public class Controller implements ActionListener {
@@ -24,7 +24,7 @@ public class Controller implements ActionListener {
 	private Sede sede;
 	private ApostadorDAO apostador;
 	private File fileApostador = new File("Data\\apostadores.dat");
-	private ArrayList<Apostador> listaApostador;
+	private ArrayList<ApostadorDTO> listaApostador;
 	private Archivo archivoApostador;
 
 	public Controller() {
