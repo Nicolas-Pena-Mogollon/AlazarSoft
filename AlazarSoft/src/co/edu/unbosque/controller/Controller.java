@@ -2,7 +2,6 @@ package co.edu.unbosque.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import co.edu.unbosque.model.CasaDeApuestas;
 import co.edu.unbosque.model.Sede;
