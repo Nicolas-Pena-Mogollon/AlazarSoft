@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import co.edu.unbosque.model.CasaDeApuestas;
+import co.edu.unbosque.model.Sede;
 import co.edu.unbosque.model.persistence.SedesDAO;
 import co.edu.unbosque.model.persistence.SedesDTO;
 import co.edu.unbosque.view.View;
@@ -14,11 +15,13 @@ public class Controller implements ActionListener {
 	private CasaDeApuestas casaApuestas;
 	private View vista;
 	private SedesDAO sedes;
+	private Sede sede;
 
 	public Controller() {
 		vista = new View(this);
 		casaApuestas = new CasaDeApuestas();
 		sedes = new SedesDAO();
+		sede = new Sede();
 	}
 
 	@Override
@@ -64,7 +67,7 @@ public class Controller implements ActionListener {
 		String ubicacionSede = vista.getPanelSede().getPanelSedeCrear().getCampoTextoNombreSede().getText();
 		String empleados = vista.getPanelSede().getPanelSedeCrear().getCampoTextoNumeroEmpleado().getText();
 		int numeroEmpleado = Integer.parseInt(empleados);
-		SedesDTO sede = new SedesDTO(5, ubicacionSede, numeroEmpleado);
+		SedesDTO sede = new SedesDTO(this.sede.generarIdSede(), ubicacionSede, numeroEmpleado);
 		sedes.crearSede(sede);
 	}
 }
