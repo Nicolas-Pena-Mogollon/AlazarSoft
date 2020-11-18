@@ -31,7 +31,7 @@ public class Propiedades {
 
 		String partido = "";
 		
-		for (int i = 1; i < 15; i++) {
+		for (int i = 1; i < 14; i++) {
 
 			partido = pDatos.getProperty("partido" + i);
 			partidos[i] = partido;

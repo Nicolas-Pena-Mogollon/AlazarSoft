@@ -23,8 +23,8 @@ public class MarcadoresDAO {
 		return encontrado;
 	}
 
-	public boolean crearApuestas(String nombre, String cedula, Date fecha, double valorApuesta, String numeroJuego,
-			String partido, String resultado, ArrayList<MarcadoresDTO> lista, File file) {
+	public boolean crearApuestas(String nombre, String cedula, Date fecha, double valorApuesta, String partido,
+			String resultado, ArrayList<MarcadoresDTO> lista, File file) {
 		MarcadoresDTO marcadoresDTO;
 		marcadoresDTO = new MarcadoresDTO(nombre, cedula, fecha, valorApuesta, partido, resultado);
 		lista.add(marcadoresDTO);

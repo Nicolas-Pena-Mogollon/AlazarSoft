@@ -1,6 +1,7 @@
 package co.edu.unbosque.view;
 
 import java.awt.GridLayout;
+import java.util.Properties;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -36,6 +37,14 @@ public class PanelApuestaFutbol extends JPanel {
 		add(scrollComboPartidos);
 		add(comboOpcionResultado);
 
+	}
+
+	public void cargarCombo(String[] partidos) {
+		comboPartidos.addItem("Seleccione");
+		for (int i = 0; i < partidos.length; i++) {
+			comboPartidos.addItem(partidos[i]);
+		}
+		
 	}
 
 	public JComboBox<String> getComboPartidos() {
