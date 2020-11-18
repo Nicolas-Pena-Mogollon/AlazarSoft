@@ -8,6 +8,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
@@ -15,6 +16,8 @@ public class PanelApuesta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final String COMMAND_REGISTRAR_APUESTA_BALOTO = "REGISTRAR_APUESTA_BALOTO";
+	private final String COMMAND_CAMBIAR_TIPO_APUESTA = "CAMBIAR_PANEL";
+	private JSplitPane panelContenedorDividido;
 	private JLabel etiquetaFecha;
 	private JLabel etiquetaSede;
 	private JLabel etiquetaCedula;
@@ -54,11 +57,11 @@ public class PanelApuesta extends JPanel {
 		comboSede = new JComboBox<String>();
 		scrollSede = new JScrollPane(comboSede);
 		comboTiposApuesta = new JComboBox<String>();
+		comboTiposApuesta.addItem("Seleccione el tipo de apuesta");
 		comboTiposApuesta.addItem("Baloto");
 		comboTiposApuesta.addItem("Super Astro");
 		comboTiposApuesta.addItem("Fútbol");
-		comboCedula.getItemAt(0);
-
+		comboTiposApuesta.setActionCommand(COMMAND_CAMBIAR_TIPO_APUESTA);
 		campoTextoValorApuesta = new JTextField();
 
 		panelIngreso.add(etiquetaFecha);
@@ -75,50 +78,20 @@ public class PanelApuesta extends JPanel {
 		botonGuardarApuestaBaloto = new JButton("Registrar apuesta");
 		botonGuardarApuestaBaloto.setActionCommand(COMMAND_REGISTRAR_APUESTA_BALOTO);
 
-		this.add(panelApuestaBaloto,BorderLayout.CENTER);
-		this.add(panelIngreso, BorderLayout.PAGE_START);
+		panelContenedorDividido = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		panelContenedorDividido.setEnabled(false);
+		panelContenedorDividido.setTopComponent(panelIngreso);
+
+		this.add(panelContenedorDividido);
 		this.add(botonGuardarApuestaBaloto, BorderLayout.PAGE_END);
-
 	}
 
-	public JLabel getEtiquetaFecha() {
-		return etiquetaFecha;
+	public JSplitPane getPanelContenedorDividido() {
+		return panelContenedorDividido;
 	}
 
-	public void setEtiquetaFecha(JLabel etiquetaFecha) {
-		this.etiquetaFecha = etiquetaFecha;
-	}
-
-	public JLabel getEtiquetaSede() {
-		return etiquetaSede;
-	}
-
-	public void setEtiquetaSede(JLabel etiquetaSede) {
-		this.etiquetaSede = etiquetaSede;
-	}
-
-	public JLabel getEtiquetaCedula() {
-		return etiquetaCedula;
-	}
-
-	public void setEtiquetaCedula(JLabel etiquetaCedula) {
-		this.etiquetaCedula = etiquetaCedula;
-	}
-
-	public JLabel getEtiquetaValorApuesta() {
-		return etiquetaValorApuesta;
-	}
-
-	public void setEtiquetaValorApuesta(JLabel etiquetaValorApuesta) {
-		this.etiquetaValorApuesta = etiquetaValorApuesta;
-	}
-
-	public JLabel getEtiquetaTipoApuesta() {
-		return etiquetaTipoApuesta;
-	}
-
-	public void setEtiquetaTipoApuesta(JLabel etiquetaTipoApuesta) {
-		this.etiquetaTipoApuesta = etiquetaTipoApuesta;
+	public void setPanelContenedorDividido(JSplitPane panelContenedorDividido) {
+		this.panelContenedorDividido = panelContenedorDividido;
 	}
 
 	public JTextField getCampoTextoFecha() {
@@ -153,22 +126,6 @@ public class PanelApuesta extends JPanel {
 		this.comboTiposApuesta = comboTiposApuesta;
 	}
 
-	public JScrollPane getScrollCedula() {
-		return scrollCedula;
-	}
-
-	public void setScrollCedula(JScrollPane scrollCedula) {
-		this.scrollCedula = scrollCedula;
-	}
-
-	public JScrollPane getScrollSede() {
-		return scrollSede;
-	}
-
-	public void setScrollSede(JScrollPane scrollSede) {
-		this.scrollSede = scrollSede;
-	}
-
 	public JTextField getCampoTextoValorApuesta() {
 		return campoTextoValorApuesta;
 	}
@@ -183,14 +140,6 @@ public class PanelApuesta extends JPanel {
 
 	public void setBotonGuardarApuestaBaloto(JButton botonGuardarApuestaBaloto) {
 		this.botonGuardarApuestaBaloto = botonGuardarApuestaBaloto;
-	}
-
-	public JPanel getPanelIngreso() {
-		return panelIngreso;
-	}
-
-	public void setPanelIngreso(JPanel panelIngreso) {
-		this.panelIngreso = panelIngreso;
 	}
 
 	public PanelApuestaBaloto getPanelApuestaBaloto() {
@@ -219,6 +168,10 @@ public class PanelApuesta extends JPanel {
 
 	public String getCOMMAND_REGISTRAR_APUESTA_BALOTO() {
 		return COMMAND_REGISTRAR_APUESTA_BALOTO;
+	}
+
+	public String getCOMMAND_CAMBIAR_TIPO_APUESTA() {
+		return COMMAND_CAMBIAR_TIPO_APUESTA;
 	}
 
 }

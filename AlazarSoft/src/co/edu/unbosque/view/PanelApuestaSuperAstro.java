@@ -23,6 +23,7 @@ public class PanelApuestaSuperAstro extends JPanel {
 	private JComboBox<String> SignoZodiacal;
 	private JPanel panelCamposDeTextoNumero;
 
+	@SuppressWarnings("unchecked")
 	public PanelApuestaSuperAstro() {
 		setBorder(new TitledBorder("Apuesta baloto"));
 		setLayout(new GridLayout(1, 2));
@@ -32,7 +33,7 @@ public class PanelApuestaSuperAstro extends JPanel {
 		etiquetaNumero = new JLabel("Número");
 
 		panelCamposDeTextoNumero = new JPanel();
-		panelCamposDeTextoNumero.setLayout(new GridLayout(2, 5));
+		panelCamposDeTextoNumero.setLayout(new GridLayout(1, 4));
 
 		campoTextoPrimerNumero = new JTextField();
 		campoTextoSegundoNumero = new JTextField();

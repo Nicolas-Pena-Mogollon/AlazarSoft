@@ -1,12 +1,9 @@
 package co.edu.unbosque.view;
 
-import java.awt.Component;
 import java.util.Hashtable;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.ListCellRenderer;
 
 public class PanelComboBoxImagenes {
 
@@ -28,13 +25,12 @@ public class PanelComboBoxImagenes {
 		icono.put("Piscis", new ImageIcon("piscis.jpg"));
 	}
 
-	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+	//No toquen esto >:v
+	
+	public PanelComboBoxImagenes getListCellRendererComponent(@SuppressWarnings("rawtypes") JList list, Object value, int index, boolean isSelected,
 			boolean cellHasFocus) {
-		if (icono.get(value) != null) {
-			setIcon(icono.get(value));
-		} else {
-			setIcon(null);
-		}
+		//setIcon = (new ImageIcon(
+			//	getClass().getResource("/iconosclasificacionenergetica/" + ale.get(index + 1).getIcono())));
 		return this;
 	}
 

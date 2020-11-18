@@ -2,9 +2,6 @@ package co.edu.unbosque.model.persistence;
 
 import java.io.Serializable;
 
-import co.edu.unbosque.model.CedulaException;
-import co.edu.unbosque.model.CelularException;
-
 public class ApostadorDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
