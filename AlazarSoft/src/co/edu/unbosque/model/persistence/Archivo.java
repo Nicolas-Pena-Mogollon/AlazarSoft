@@ -12,8 +12,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import co.edu.unbosque.model.Apostador;
-
 /**
  * Clase Archivo
  */
@@ -44,7 +42,7 @@ public class Archivo {
 	 * @param file,     es el archivo en donde se guardará toda la información de
 	 *                  los apostadores.
 	 */
-	public void escribirArchivo(ArrayList<Apostador> apostador, File file) {
+	public void escribirArchivo(ArrayList<ApostadorDTO> apostador, File file) {
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
@@ -75,12 +73,12 @@ public class Archivo {
 	 * @return retorna la lista de apostadores del archivo.
 	 */
 	@SuppressWarnings("unchecked")
-	public ArrayList<Apostador> leerArchivo(File file) {
-		ArrayList<Apostador> apostador = new ArrayList<Apostador>();
+	public ArrayList<ApostadorDTO> leerArchivo(File file) {
+		ArrayList<ApostadorDTO> apostador = new ArrayList<ApostadorDTO>();
 		if (file.length() != 0) {
 			try {
 				entrada = new ObjectInputStream(new FileInputStream(file));
-				apostador = (ArrayList<Apostador>) entrada.readObject();
+				apostador = (ArrayList<ApostadorDTO>) entrada.readObject();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

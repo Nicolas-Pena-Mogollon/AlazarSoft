@@ -7,13 +7,16 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import co.edu.unbosque.model.Apostador;
 import co.edu.unbosque.model.CasaDeApuestas;
+import co.edu.unbosque.model.CedulaException;
+import co.edu.unbosque.model.CelularException;
 import co.edu.unbosque.model.Sede;
 import co.edu.unbosque.model.persistence.ApostadorDAO;
+import co.edu.unbosque.model.persistence.ApostadorDTO;
 import co.edu.unbosque.model.persistence.Archivo;
 import co.edu.unbosque.model.persistence.SedesDAO;
 import co.edu.unbosque.model.persistence.SedesDTO;
-import co.edu.unbosque.model.Apostador;
 import co.edu.unbosque.view.View;
 
 public class Controller implements ActionListener {
@@ -23,8 +26,9 @@ public class Controller implements ActionListener {
 	private SedesDAO sedes;
 	private Sede sede;
 	private ApostadorDAO apostador;
+	private Apostador apostadorV;
 	private File fileApostador = new File("Data\\apostadores.dat");
-	private ArrayList<Apostador> listaApostador;
+	private ArrayList<ApostadorDTO> listaApostador;
 	private Archivo archivoApostador;
 
 	public Controller() {
@@ -33,6 +37,7 @@ public class Controller implements ActionListener {
 		sedes = new SedesDAO();
 		sede = new Sede();
 		apostador = new ApostadorDAO();
+		apostadorV = new Apostador();
 		archivoApostador = new Archivo();
 		listaApostador = archivoApostador.leerArchivo(fileApostador);
 		vista.getPanelApostadores().getPanelCrearApostador().cargarComboBox(this.sedes.leerSede());
@@ -57,9 +62,9 @@ public class Controller implements ActionListener {
 			this.coordinarConfiguracionCasaApuestas();
 		} else if (e.getActionCommand().equals(vista.getPanelSede().getPanelSedeCrear().getCOMMAND_GUARDAR())) {
 			this.gestionSedes();
-		} else if (e.getActionCommand().equals(vista.getPanelApostadores().getPanelCrearApostador().getCOMMAND_CREAR_APOSTADOR())) {
+		} else if (e.getActionCommand()
+				.equals(vista.getPanelApostadores().getPanelCrearApostador().getCOMMAND_CREAR_APOSTADOR())) {
 			gestionApostadores();
-			System.out.println("Hola");
 		}
 	}
 
@@ -76,16 +81,35 @@ public class Controller implements ActionListener {
 	}
 
 	public void gestionApostadores() {
-		String sede = vista.getPanelApostadores().getPanelCrearApostador().getComboSede().getSelectedItem().toString();
-		String cedula = vista.getPanelApostadores().getPanelCrearApostador().getCampoTextoCedula().getText();
-		String nombre = vista.getPanelApostadores().getPanelCrearApostador().getCampoTextoNombre().getText();
-		String direccion = vista.getPanelApostadores().getPanelCrearApostador().getCampoTextoDireccion().getText();
-		String celular = vista.getPanelApostadores().getPanelCrearApostador().getCampoTextoCelular().getText();
-		if (apostador.agregarApostador(nombre, cedula, sede, direccion, celular, listaApostador, fileApostador)) {
-			JOptionPane.showMessageDialog(null, "Registro correcto");
-		}else {
-			JOptionPane.showMessageDialog(null, "Se ha presentado un problema");
+		if (vista.getPanelApostadores().getPanelCrearApostador().verificarCamposVacios()) {
+			String sede = vista.getPanelApostadores().getPanelCrearApostador().getComboSede().getSelectedItem()
+					.toString();
+			String cedula = vista.getPanelApostadores().getPanelCrearApostador().getCampoTextoCedula().getText();
+			String nombre = vista.getPanelApostadores().getPanelCrearApostador().getCampoTextoNombre().getText();
+			String direccion = vista.getPanelApostadores().getPanelCrearApostador().getCampoTextoDireccion().getText();
+			String celular = vista.getPanelApostadores().getPanelCrearApostador().getCampoTextoCelular().getText();
+			try {
+				apostadorV.verificarCedula(cedula);
+				apostadorV.verificarCelular(celular);
+				if (apostador.verificarNumeroTelefonico(listaApostador, celular)) {
+					JOptionPane.showMessageDialog(null, "El número telefónico ya se encuentra registrado");
+				} else {
+					if (apostador.agregarApostador(nombre, cedula, sede, direccion, celular, listaApostador,
+							fileApostador)) {
+						JOptionPane.showMessageDialog(null, "Registro correcto");
+						vista.getPanelApostadores().getPanelCrearApostador().limpiarCampos();
+					} else {
+						JOptionPane.showMessageDialog(null, "El número de cedula ya se encuentra registrado");
 
+					}
+				}
+			} catch (CedulaException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			} catch (CelularException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Verifique los campos");
 		}
 
 	}

@@ -37,6 +37,9 @@ public class PanelApuesta extends JPanel {
 		setBorder(new TitledBorder("Registro apuestas baloto"));
 		setLayout(new BorderLayout());
 
+		panelApuestaBaloto = new PanelApuestaBaloto();
+		panelApuestaSuperAstro = new PanelApuestaSuperAstro();
+		panelApuestaFutbol = new PanelApuestaFutbol();
 		panelIngreso = new JPanel();
 		panelIngreso.setLayout(new GridLayout(5, 2));
 		etiquetaFecha = new JLabel("Fecha");
@@ -54,6 +57,7 @@ public class PanelApuesta extends JPanel {
 		comboTiposApuesta.addItem("Baloto");
 		comboTiposApuesta.addItem("Super Astro");
 		comboTiposApuesta.addItem("Fútbol");
+		comboCedula.getItemAt(0);
 
 		campoTextoValorApuesta = new JTextField();
 
@@ -71,7 +75,8 @@ public class PanelApuesta extends JPanel {
 		botonGuardarApuestaBaloto = new JButton("Registrar apuesta");
 		botonGuardarApuestaBaloto.setActionCommand(COMMAND_REGISTRAR_APUESTA_BALOTO);
 
-		this.add(panelIngreso, BorderLayout.CENTER);
+		this.add(panelApuestaBaloto,BorderLayout.CENTER);
+		this.add(panelIngreso, BorderLayout.PAGE_START);
 		this.add(botonGuardarApuestaBaloto, BorderLayout.PAGE_END);
 
 	}
@@ -215,7 +220,5 @@ public class PanelApuesta extends JPanel {
 	public String getCOMMAND_REGISTRAR_APUESTA_BALOTO() {
 		return COMMAND_REGISTRAR_APUESTA_BALOTO;
 	}
-	
-	
 
 }

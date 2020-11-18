@@ -7,8 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import co.edu.unbosque.model.Apostador;
-
 /**
  * clase CotizanteDAO
  */
@@ -39,8 +37,8 @@ public class ApostadorDAO {
 	 *                null
 	 * @return Devuelve el objeto apostador.
 	 */
-	public Apostador buscarApostador(String cedula, ArrayList<Apostador> listaA) {
-		Apostador encontrado = null;
+	public ApostadorDTO buscarApostador(String cedula, ArrayList<ApostadorDTO> listaA) {
+		ApostadorDTO encontrado = null;
 		for (int i = 0; i < listaA.size(); i++) {
 			if (cedula.equals(listaA.get(i).getCedula())) {
 				encontrado = listaA.get(i);
@@ -68,10 +66,10 @@ public class ApostadorDAO {
 	 *         dando a entender que no se pude registrar.
 	 */
 	public boolean agregarApostador(String nombre, String cedula, String sede, String direccion, String celular,
-			ArrayList<Apostador> listaA, File file) {
+			ArrayList<ApostadorDTO> listaA, File file) {
 		boolean verificar = false;
-		Apostador alCotizante;
-		alCotizante = new Apostador(nombre, cedula, sede, direccion, celular);
+		ApostadorDTO alCotizante;
+		alCotizante = new ApostadorDTO(nombre, cedula, sede, direccion, celular);
 		if (buscarApostador(cedula, listaA) == null) {
 			listaA.add(alCotizante);
 			archivo.escribirArchivo(listaA, file);
@@ -95,9 +93,9 @@ public class ApostadorDAO {
 	 * @param file,   es el archivo donde se elminaran los apostadores; file =! null
 	 * @return retorna un true o un false dependiendo las condiciones.
 	 */
-	public boolean eliminarApostador(String cedula, ArrayList<Apostador> listaC, File file) {
+	public boolean eliminarApostador(String cedula, ArrayList<ApostadorDTO> listaC, File file) {
 		try {
-			Apostador apostador = buscarApostador(cedula, listaC);
+			ApostadorDTO apostador = buscarApostador(cedula, listaC);
 			if (apostador != null) {
 				listaC.remove(apostador);
 				file.delete();
@@ -125,7 +123,7 @@ public class ApostadorDAO {
 	 *         String.
 	 */
 
-	public String mostrarApostadorBusqueda(ArrayList<Apostador> listaA, String cedula) {
+	public String mostrarApostadorBusqueda(ArrayList<ApostadorDTO> listaA, String cedula) {
 		String mensaje = "";
 		for (int i = 0; i < listaA.size(); i++) {
 			if (cedula.equals(listaA.get(i).getCedula())) {
@@ -143,7 +141,7 @@ public class ApostadorDAO {
 	}
 
 	public boolean editarApostador(String pCedula, String nombre, String sede, String direccion, String celular,
-			ArrayList<Apostador> listaA, File file) throws IOException {
+			ArrayList<ApostadorDTO> listaA, File file) throws IOException {
 		boolean verificar = false;
 		for (int i = 0; i < listaA.size(); i++) {
 			if (listaA.get(i).getCedula().equals(pCedula)) {
@@ -158,6 +156,19 @@ public class ApostadorDAO {
 			} else {
 				verificar = false;
 			}
+		}
+		return verificar;
+	}
+
+	public boolean verificarNumeroTelefonico(ArrayList<ApostadorDTO> listaA, String celular) {
+		boolean verificar = false;
+		for (int i = 0; i < listaA.size(); i++) {
+			if (celular.equals(listaA.get(i).getCelular())) {
+				verificar = true;
+			} else {
+				verificar = false;
+			}
+
 		}
 		return verificar;
 	}
