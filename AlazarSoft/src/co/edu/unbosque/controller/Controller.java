@@ -64,7 +64,7 @@ public class Controller implements ActionListener {
 			this.gestionSedes();
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelApostadores().getPanelCrearApostador().getCOMMAND_CREAR_APOSTADOR())) {
-			gestionApostadores();
+			this.gestionApostadores();
 		}
 	}
 
