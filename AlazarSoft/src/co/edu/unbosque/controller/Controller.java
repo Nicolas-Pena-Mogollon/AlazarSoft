@@ -3,6 +3,7 @@ package co.edu.unbosque.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -41,6 +42,8 @@ public class Controller implements ActionListener {
 		archivoApostador = new Archivo();
 		listaApostador = archivoApostador.leerArchivo(fileApostador);
 		vista.getPanelApostadores().getPanelCrearApostador().cargarComboBox(this.sedes.leerSede());
+		vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarComboBox(this.sedes.leerSede());
+		vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarId(listaApostador);
 	}
 
 	@Override
@@ -80,7 +83,13 @@ public class Controller implements ActionListener {
 			this.gestionSedes();
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelApostadores().getPanelCrearApostador().getCOMMAND_CREAR_APOSTADOR())) {
-			this.gestionApostadores();
+			this.gestionApostadoresRegistro();
+		} else if (e.getActionCommand()
+				.equals(vista.getPanelApostadores().getPanelActualizarBorrarApostador().getCOMMAND_BORRAR())) {
+			this.gestionApostadoresEliminar();
+		} else if (e.getActionCommand()
+				.equals(vista.getPanelApostadores().getPanelActualizarBorrarApostador().getCOMMAND_ACTUALIZAR())) {
+			this.gestionApostadoresActualizar();
 		}
 	}
 
@@ -96,7 +105,7 @@ public class Controller implements ActionListener {
 		vista.getPanelIngresoCasaApuestas().borrarCamposIngresoCasaApuestas();
 	}
 
-	public void gestionApostadores() {
+	public void gestionApostadoresRegistro() {
 		if (vista.getPanelApostadores().getPanelCrearApostador().verificarCamposVacios()) {
 			String sede = vista.getPanelApostadores().getPanelCrearApostador().getComboSede().getSelectedItem()
 					.toString();
@@ -113,7 +122,11 @@ public class Controller implements ActionListener {
 					if (apostador.agregarApostador(nombre, cedula, sede, direccion, celular, listaApostador,
 							fileApostador)) {
 						JOptionPane.showMessageDialog(null, "Registro correcto");
+						vista.getPanelApostadores().getPanelCrearApostador().cargarComboBox(this.sedes.leerSede());
+						vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarId(listaApostador);
 						vista.getPanelApostadores().getPanelCrearApostador().limpiarCampos();
+						vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarComboBox(this.sedes.leerSede());
+
 					} else {
 						JOptionPane.showMessageDialog(null, "El número de cedula ya se encuentra registrado");
 
@@ -128,6 +141,40 @@ public class Controller implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Verifique los campos");
 		}
 
+	}
+
+	public void gestionApostadoresEliminar() {
+		String cedula = vista.getPanelApostadores().getPanelActualizarBorrarApostador().getComboCedula()
+				.getSelectedItem().toString();
+		if (apostador.eliminarApostador(cedula, listaApostador, fileApostador)) {
+			JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
+			vista.getPanelApostadores().getPanelCrearApostador().cargarComboBox(this.sedes.leerSede());
+			vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarId(listaApostador);
+			vista.getPanelApostadores().getPanelActualizarBorrarApostador().borrarCampos();
+			vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarComboBox(this.sedes.leerSede());
+			System.out.println(apostador.mostrarApostadorBusqueda(listaApostador, cedula));
+		}
+
+	}
+
+	public void gestionApostadoresActualizar() {
+		String[] entradas = vista.getPanelApostadores().getPanelActualizarBorrarApostador()
+				.verificarEntradasActualizarInformacionApostador();
+		if(entradas[0].equals("0")) {
+			try {
+				apostadorV.verificarCelular(entradas[3]);
+				if (apostador.editarApostador(entradas[5], entradas[1], entradas[4], entradas[2], entradas[3], listaApostador, fileApostador)) {
+					JOptionPane.showMessageDialog(null, "Se ha editado correctamente");
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (CelularException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
+		}else {
+			vista.mostrarMensajeError(entradas[1]);
+		}
+		
 	}
 
 	public void gestionSedes() {

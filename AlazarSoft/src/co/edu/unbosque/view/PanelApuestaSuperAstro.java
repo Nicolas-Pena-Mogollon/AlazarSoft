@@ -55,7 +55,7 @@ public class PanelApuestaSuperAstro extends JPanel {
 		this.add(etiquetaSigno);
 		this.add(SignoZodiacal);
 		llenarComboZodiaco();
-		SignoZodiacal.setRenderer((ListCellRenderer<? super String>) new PanelComboBoxImagenes());
+//		SignoZodiacal.setRenderer((ListCellRenderer<? super String>) new PanelComboBoxImagenes());
 		SignoZodiacal.setSelectedIndex(0);
 	}
 

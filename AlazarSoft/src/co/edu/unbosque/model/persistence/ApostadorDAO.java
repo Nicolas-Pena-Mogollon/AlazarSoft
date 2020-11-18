@@ -94,6 +94,7 @@ public class ApostadorDAO {
 	 * @return retorna un true o un false dependiendo las condiciones.
 	 */
 	public boolean eliminarApostador(String cedula, ArrayList<ApostadorDTO> listaC, File file) {
+		boolean verificar = false;
 		try {
 			ApostadorDTO apostador = buscarApostador(cedula, listaC);
 			if (apostador != null) {
@@ -101,13 +102,16 @@ public class ApostadorDAO {
 				file.delete();
 				file.createNewFile();
 				archivo.escribirArchivo(listaC, file);
-				return true;
+				verificar = true;
+			} else {
+				verificar = false;
+
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return verificar;
 
 	}
 
@@ -126,17 +130,11 @@ public class ApostadorDAO {
 	public String mostrarApostadorBusqueda(ArrayList<ApostadorDTO> listaA, String cedula) {
 		String mensaje = "";
 		for (int i = 0; i < listaA.size(); i++) {
-			if (cedula.equals(listaA.get(i).getCedula())) {
-				mensaje = "";
-				mensaje += "Cedula: " + listaA.get(i).getCedula() + "\n" + "Nombre: " + listaA.get(i).getNombre() + "\n"
-						+ "Sede: " + listaA.get(i).getSede() + "\n" + "Direccion: " + listaA.get(i).getDireccion()
-						+ "\n" + "Celular : " + listaA.get(i).getCelular() + "\n\n";
-				return mensaje;
-			} else {
-				mensaje = "Apostador no encontrado";
-			}
-
+			mensaje += "Cedula: " + listaA.get(i).getCedula() + "\n" + "Nombre: " + listaA.get(i).getNombre() + "\n"
+					+ "Sede: " + listaA.get(i).getSede() + "\n" + "Direccion: " + listaA.get(i).getDireccion() + "\n"
+					+ "Celular : " + listaA.get(i).getCelular() + "\n\n";
 		}
+
 		return mensaje;
 	}
 

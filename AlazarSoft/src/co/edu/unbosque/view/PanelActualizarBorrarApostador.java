@@ -2,6 +2,7 @@ package co.edu.unbosque.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,6 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import co.edu.unbosque.model.persistence.ApostadorDTO;
+import co.edu.unbosque.model.persistence.SedesDTO;
 
 public class PanelActualizarBorrarApostador extends JPanel {
 
@@ -96,7 +100,7 @@ public class PanelActualizarBorrarApostador extends JPanel {
 			salida[2] = campoTextoDireccion.getText();
 			salida[3] = campoTextoCelular.getText();
 			salida[4] = String.valueOf(comboSede.getSelectedItem());
-			salida[5] = String.valueOf(comboSede.getSelectedItem());
+			salida[5] = String.valueOf(comboCedula.getSelectedItem());
 		} else {
 			salida[0] = "1";
 			salida[1] = "Los campos deben ser completados";
@@ -122,11 +126,19 @@ public class PanelActualizarBorrarApostador extends JPanel {
 		this.comboCedula.setSelectedIndex(0);
 	}
 
-	public void cargarId(String[] data) {
+	public void cargarId(ArrayList<ApostadorDTO> data) {
 		this.comboCedula.removeAllItems();
 		this.comboCedula.addItem("Seleccione");
-		for (int i = 0; i < data.length; i++)
-			this.comboCedula.addItem(data[i]);
+		for (int i = 0; i < data.size(); i++)
+			this.comboCedula.addItem(data.get(i).getCedula());
+	}
+	
+	public void cargarComboBox(ArrayList<SedesDTO> sede) {
+		this.comboSede.removeAllItems();
+		this.comboSede.addItem("Seleccione");
+		for (int i = 0; i < sede.size(); i++) {
+			this.comboSede.addItem(sede.get(i).getUbicacion());
+		}
 	}
 
 	public JComboBox<String> getComboCedula() {

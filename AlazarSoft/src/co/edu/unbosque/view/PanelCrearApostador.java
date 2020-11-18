@@ -101,7 +101,7 @@ public class PanelCrearApostador extends JPanel {
 		campoTextoCelular.setText("");
 		campoTextoDireccion.setText("");
 		campoTextoNombre.setText("");
-		comboSede.setSelectedItem(0);
+		comboSede.setSelectedIndex(0);
 	}
 
 	public JTextField getCampoTextoCedula() {
