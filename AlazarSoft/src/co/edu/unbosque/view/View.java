@@ -58,6 +58,7 @@ public class View extends JFrame {
 		panelApostadores.getPanelActualizarBorrarApostador().getBotonBorrar().addActionListener(control);
 		panelApostadores.getPanelInformacionApostadores().getBotonLeerInformacionApostadores()
 				.addActionListener(control);
+		panelApuesta.getComboTiposApuesta().addActionListener(control);
 	}
 
 	public void mostrarMensajeError(String message) {
