@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class SedeFile {
-	private final String rutaArchivo = "./Data/sedes.dat";
+	private final String rutaArchivo = "Data\\sedes.dat";
 	private File file;
 	private ObjectInputStream inSede;
 	private ObjectOutputStream outSede;
@@ -33,26 +33,16 @@ public class SedeFile {
 
 	@SuppressWarnings("unchecked")
 	public ArrayList<SedesDTO> leerRegistroSede() {
-		if (!file.exists()) {
+		ArrayList<SedesDTO> gamerDatos = new ArrayList<SedesDTO>();
+		if (file.length() != 0) {
 			try {
 				inSede = new ObjectInputStream(new FileInputStream(file));
-				ArrayList<SedesDTO> gamerDatos = (ArrayList<SedesDTO>) inSede.readObject();
-				inSede.close();
-				return gamerDatos;
+				gamerDatos = (ArrayList<SedesDTO>) inSede.readObject();
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
-				return null;
-			}
-		} else {
-			try {
-				file.createNewFile();
-				return null;
-			} catch (IOException e) {
-				e.printStackTrace();
-				return null;
-
 			}
 		}
+		return gamerDatos;
 	}
 
 	public String getRutaArchivo() {

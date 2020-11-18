@@ -24,9 +24,9 @@ public class SuperastroDAO {
 	}
 
 	public boolean crearApuestas(String nombre, String cedula, Date fecha, double valorApuesta, String numeroJuego,
-			ArrayList<SuperastroDTO> lista, File file) {
+			String signo, ArrayList<SuperastroDTO> lista, File file) {
 		SuperastroDTO superastroDTO;
-		superastroDTO = new SuperastroDTO(nombre, cedula, fecha, valorApuesta, numeroJuego);
+		superastroDTO = new SuperastroDTO(nombre, cedula, fecha, valorApuesta, numeroJuego, signo);
 		lista.add(superastroDTO);
 		archivo.escribirArchivoSuperastro(lista, file);
 		return true;
