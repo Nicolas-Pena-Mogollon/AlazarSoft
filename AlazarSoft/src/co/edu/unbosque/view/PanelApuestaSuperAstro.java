@@ -31,7 +31,7 @@ public class PanelApuestaSuperAstro extends JPanel{
 		etiquetaNumero = new JLabel("Número");
 
 		panelCamposDeTextoNumero = new JPanel();
-		panelCamposDeTextoNumero.setLayout(new GridLayout(2, 5));
+		panelCamposDeTextoNumero.setLayout(new GridLayout(1, 4));
 
 		campoTextoPrimerNumero = new JTextField();
 		campoTextoSegundoNumero = new JTextField();
@@ -52,6 +52,7 @@ public class PanelApuestaSuperAstro extends JPanel{
 		this.add(panelCamposDeTextoNumero);
 		this.add(etiquetaSigno);
 		this.add(SignoZodiacal);
+		llenarComboZodiaco();
 	}
 	
 	public void llenarComboZodiaco() {
