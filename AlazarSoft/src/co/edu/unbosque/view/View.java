@@ -13,7 +13,7 @@ public class View extends JFrame {
 	private PanelIngresoCasaApuestas panelIngresoCasaApuestas;
 	private PanelMenuCasaApuestas panelMenuCasaApuestas;
 	private PanelApostadores panelApostadores;
-	private PanelApuesta panelApuesta;
+	private PanelCrearApuesta panelApuesta;
 	private PanelSede panelSede;
 	private JSplitPane splitPane;
 
@@ -29,7 +29,7 @@ public class View extends JFrame {
 		panelIngresoCasaApuestas = new PanelIngresoCasaApuestas();
 		panelApostadores = new PanelApostadores();
 		panelSede = new PanelSede();
-		panelApuesta = new PanelApuesta();
+		panelApuesta = new PanelCrearApuesta();
 		panelMenuCasaApuestas = new PanelMenuCasaApuestas();
 
 		splitPane = new JSplitPane();
@@ -111,11 +111,11 @@ public class View extends JFrame {
 		this.panelSede = panelSede;
 	}
 
-	public PanelApuesta getPanelApuesta() {
+	public PanelCrearApuesta getPanelApuesta() {
 		return panelApuesta;
 	}
 
-	public void setPanelApuesta(PanelApuesta panelApuesta) {
+	public void setPanelApuesta(PanelCrearApuesta panelApuesta) {
 		this.panelApuesta = panelApuesta;
 	}
 

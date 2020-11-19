@@ -12,7 +12,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-public class PanelApuesta extends JPanel {
+public class PanelCrearApuesta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final String COMMAND_REGISTRAR_APUESTA_BALOTO = "REGISTRAR_APUESTA_BALOTO";
@@ -36,7 +36,7 @@ public class PanelApuesta extends JPanel {
 	private PanelApuestaSuperAstro panelApuestaSuperAstro;
 	private PanelApuestaFutbol panelApuestaFutbol;
 
-	public PanelApuesta() {
+	public PanelCrearApuesta() {
 		setBorder(new TitledBorder("Registro apuestas baloto"));
 		setLayout(new BorderLayout());
 
