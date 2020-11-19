@@ -2,6 +2,7 @@ package co.edu.unbosque.view;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.Properties;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;

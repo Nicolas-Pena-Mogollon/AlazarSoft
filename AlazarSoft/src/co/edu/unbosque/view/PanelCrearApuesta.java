@@ -2,6 +2,9 @@ package co.edu.unbosque.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,6 +14,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import co.edu.unbosque.model.persistence.ApostadorDTO;
+import co.edu.unbosque.model.persistence.SedesDTO;
 
 public class PanelCrearApuesta extends JPanel {
 
@@ -51,7 +57,8 @@ public class PanelCrearApuesta extends JPanel {
 		etiquetaValorApuesta = new JLabel("Valor de la apuesta");
 		etiquetaTipoApuesta = new JLabel("Tipo de apuesta");
 
-		campoTextoFecha = new JTextField();
+		
+		campoTextoFecha = new JTextField(this.hora());
 		comboCedula = new JComboBox<String>();
 		scrollCedula = new JScrollPane(comboCedula);
 		comboSede = new JComboBox<String>();
@@ -84,6 +91,27 @@ public class PanelCrearApuesta extends JPanel {
 
 		this.add(panelContenedorDividido);
 		this.add(botonGuardarApuestaBaloto, BorderLayout.PAGE_END);
+	}
+	
+	public void cargarId(ArrayList<ApostadorDTO> data) {
+		this.comboCedula.removeAllItems();
+		this.comboCedula.addItem("Seleccione");
+		for (int i = 0; i < data.size(); i++)
+			this.comboCedula.addItem(data.get(i).getCedula());
+	}
+	
+	public void cargarComboBox(ArrayList<SedesDTO> sede) {
+		this.comboSede.removeAllItems();
+		this.comboSede.addItem("Seleccione");
+		for (int i = 0; i < sede.size(); i++) {
+			this.comboSede.addItem(sede.get(i).getUbicacion());
+		}
+	}
+	
+	public String hora() {
+		SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
+		Date date = new Date();
+		return formato.format(date);
 	}
 
 	public JSplitPane getPanelContenedorDividido() {
