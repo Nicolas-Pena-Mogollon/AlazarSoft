@@ -13,7 +13,7 @@ public class View extends JFrame {
 	private PanelIngresoCasaApuestas panelIngresoCasaApuestas;
 	private PanelMenuCasaApuestas panelMenuCasaApuestas;
 	private PanelApostadores panelApostadores;
-	private PanelCrearApuesta panelApuesta;
+	private PanelApuestas panelApuestas;
 	private PanelSede panelSede;
 	private JSplitPane splitPane;
 
@@ -29,7 +29,7 @@ public class View extends JFrame {
 		panelIngresoCasaApuestas = new PanelIngresoCasaApuestas();
 		panelApostadores = new PanelApostadores();
 		panelSede = new PanelSede();
-		panelApuesta = new PanelCrearApuesta();
+		panelApuestas = new PanelApuestas();
 		panelMenuCasaApuestas = new PanelMenuCasaApuestas();
 
 		splitPane = new JSplitPane();
@@ -58,8 +58,8 @@ public class View extends JFrame {
 		panelApostadores.getPanelActualizarBorrarApostador().getBotonBorrar().addActionListener(control);
 		panelApostadores.getPanelInformacionApostadores().getBotonLeerInformacionApostadores()
 				.addActionListener(control);
-		panelApuesta.getComboTiposApuesta().addActionListener(control);
-		panelApuesta.getBotonGuardarApuestaBaloto().addActionListener(control);
+		panelApuestas.getPanelCrearApuesta().getComboTiposApuesta().addActionListener(control);
+		panelApuestas.getPanelCrearApuesta().getBotonGuardarApuestaBaloto().addActionListener(control);
 	}
 
 	public void mostrarMensajeError(String message) {
@@ -112,12 +112,12 @@ public class View extends JFrame {
 		this.panelSede = panelSede;
 	}
 
-	public PanelCrearApuesta getPanelApuesta() {
-		return panelApuesta;
+	public PanelApuestas getPanelApuestas() {
+		return panelApuestas;
 	}
 
-	public void setPanelApuesta(PanelCrearApuesta panelApuesta) {
-		this.panelApuesta = panelApuesta;
+	public void setPanelApuestas(PanelApuestas panelApuestas) {
+		this.panelApuestas = panelApuestas;
 	}
 
 	public JSplitPane getSplitPane() {
