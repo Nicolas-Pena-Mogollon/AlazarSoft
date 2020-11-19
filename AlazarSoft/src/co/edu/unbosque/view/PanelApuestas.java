@@ -8,6 +8,7 @@ public class PanelApuestas extends JTabbedPane {
 	private PanelCrearApuesta panelCrearApuesta;
 
 	public PanelApuestas() {
+		panelCrearApuesta = new PanelCrearApuesta();
 		add(panelCrearApuesta, "Registrar apuestas");
 	}
 
