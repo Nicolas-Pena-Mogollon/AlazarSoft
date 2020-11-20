@@ -83,7 +83,6 @@ public class ArchivoPDF {
 //				PdfPCell celdaCilindraje = new PdfPCell(new Phrase(listaCompra.get(i).getMoto().getCilindraje() + ""));
 //				celdaCilindraje.setHorizontalAlignment(Element.ALIGN_RIGHT);
 //				tablaPDF.addCell(celdaCilindraje);
-
 			}
 			capitulo.add(tablaPDF);
 			document.add(capitulo);
