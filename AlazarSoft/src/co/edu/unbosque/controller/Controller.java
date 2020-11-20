@@ -3,21 +3,14 @@ package co.edu.unbosque.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
-
 import javax.swing.JOptionPane;
-
-import co.edu.unbosque.model.Apostador;
 import co.edu.unbosque.model.CasaDeApuestas;
 import co.edu.unbosque.model.CedulaException;
 import co.edu.unbosque.model.CelularException;
 import co.edu.unbosque.model.Sede;
-import co.edu.unbosque.model.persistence.ApostadorDAO;
-import co.edu.unbosque.model.persistence.ApostadorDTO;
-import co.edu.unbosque.model.persistence.Archivo;
 import co.edu.unbosque.model.persistence.ArchivoApuesta;
 import co.edu.unbosque.model.persistence.BalotoDAO;
 import co.edu.unbosque.model.persistence.BalotoDTO;
@@ -38,21 +31,16 @@ public class Controller implements ActionListener {
 	private Properties datos;
 	private SedesDAO sedes;
 	private Sede sede;
-	private ApostadorDAO apostador;
 	private BalotoDAO baloto;
 	private MarcadoresDAO marcador;
 	private SuperastroDAO superastro;
-	private Apostador apostadorV;
-	private File fileApostador = new File("Data\\apostadores.dat");
 	private File fileBaloto = new File("Data\\apuestas-baloto.dat");
 	private File fileSuperastro = new File("Data\\apuestas-superastro.dat");
 	private File fileMarcadores = new File("Data\\apuestas-marcadores.dat");
-	private ArrayList<ApostadorDTO> listaApostador;
 	private ArrayList<BalotoDTO> listaBaloto;
 	private ArrayList<SuperastroDTO> listaSuperastro;
 	private ArrayList<MarcadoresDTO> listaMarcadores;
 	private String[] partidos;
-	private Archivo archivoApostador;
 	private ArchivoApuesta archivoApuesta;
 
 	public Controller() {
@@ -65,22 +53,15 @@ public class Controller implements ActionListener {
 		superastro = new SuperastroDAO();
 		marcador = new MarcadoresDAO();
 		sede = new Sede();
-		apostador = new ApostadorDAO();
-		apostadorV = new Apostador();
-		archivoApostador = new Archivo();
 		archivoApuesta = new ArchivoApuesta();
-		listaApostador = archivoApostador.leerArchivo(fileApostador);
 		listaBaloto = archivoApuesta.leerArchivoBaloto(fileBaloto);
 		listaSuperastro = archivoApuesta.leerArchivoSuperastro(fileSuperastro);
 		listaMarcadores = archivoApuesta.leerArchivoMarcadores(fileMarcadores);
 		partidos = new String[14];
 		vista.getPanelApostadores().getPanelCrearApostador().cargarComboBox(this.sedes.leerSede());
 		vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarComboBox(this.sedes.leerSede());
-		vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarId(listaApostador);
 		vista.getPanelApuestas().getPanelCrearApuesta().cargarComboBox(this.sedes.leerSede());
-		vista.getPanelApuestas().getPanelCrearApuesta().cargarId(listaApostador);
 		this.cargarPartido();
-
 	}
 
 	public void cargarPartido() {
@@ -183,22 +164,20 @@ public class Controller implements ActionListener {
 			String direccion = vista.getPanelApostadores().getPanelCrearApostador().getCampoTextoDireccion().getText();
 			String celular = vista.getPanelApostadores().getPanelCrearApostador().getCampoTextoCelular().getText();
 			try {
-				apostadorV.verificarCedula(cedula);
-				apostadorV.verificarCelular(celular);
-				if (apostador.verificarNumeroTelefonico(listaApostador, celular)) {
+				casaApuestas.getApostadores().verificarCedula(cedula);
+				casaApuestas.getApostadores().verificarCelular(celular);
+				if (casaApuestas.getApostadores().getApostadorDao().verificarNumeroTelefonico(
+						casaApuestas.getApostadores().getApostadorDao().getListaApostador(), celular)) {
 					JOptionPane.showMessageDialog(null, "El número telefónico ya se encuentra registrado");
 				} else {
-					if (apostador.agregarApostador(nombre, cedula, sede, direccion, celular, listaApostador,
-							fileApostador)) {
+					if (casaApuestas.getApostadores().getApostadorDao().agregarApostador(nombre, cedula, sede,
+							direccion, celular)) {
 						JOptionPane.showMessageDialog(null, "Registro correcto");
 						vista.getPanelApostadores().getPanelCrearApostador().cargarComboBox(this.sedes.leerSede());
-						vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarId(listaApostador);
 						vista.getPanelApostadores().getPanelCrearApostador().limpiarCampos();
 						vista.getPanelApostadores().getPanelActualizarBorrarApostador()
 								.cargarComboBox(this.sedes.leerSede());
 						vista.getPanelApuestas().getPanelCrearApuesta().cargarComboBox(this.sedes.leerSede());
-						vista.getPanelApuestas().getPanelCrearApuesta().cargarId(listaApostador);
-
 					} else {
 						JOptionPane.showMessageDialog(null, "El número de cedula ya se encuentra registrado");
 
@@ -216,16 +195,13 @@ public class Controller implements ActionListener {
 	}
 
 	public void gestionApostadoresEliminar() {
-		String cedula = vista.getPanelApostadores().getPanelActualizarBorrarApostador().getComboCedula()
-				.getSelectedItem().toString();
-		if (apostador.eliminarApostador(cedula, listaApostador, fileApostador)) {
+		String cedula = vista.getPanelApostadores().getPanelActualizarBorrarApostador().getCampoTextoCedula().getText();
+		if (casaApuestas.getApostadores().getApostadorDao().eliminarApostador(cedula)) {
 			JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
 			vista.getPanelApostadores().getPanelCrearApostador().cargarComboBox(this.sedes.leerSede());
-			vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarId(listaApostador);
 			vista.getPanelApostadores().getPanelActualizarBorrarApostador().borrarCampos();
 			vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarComboBox(this.sedes.leerSede());
 			vista.getPanelApuestas().getPanelCrearApuesta().cargarComboBox(this.sedes.leerSede());
-			vista.getPanelApuestas().getPanelCrearApuesta().cargarId(listaApostador);
 		}
 
 	}
@@ -236,13 +212,11 @@ public class Controller implements ActionListener {
 				.verificarEntradasActualizarInformacionApostador();
 		if (entradas[0].equals("0")) {
 			try {
-				apostadorV.verificarCelular(entradas[3]);
-				if (apostador.editarApostador(entradas[5], entradas[1], entradas[4], entradas[2], entradas[3],
-						listaApostador, fileApostador)) {
+				casaApuestas.getApostadores().verificarCelular(entradas[3]);
+				if (casaApuestas.getApostadores().getApostadorDao().editarApostador(entradas[5], entradas[1],
+						entradas[4], entradas[2], entradas[3])) {
 					JOptionPane.showMessageDialog(null, "Se ha editado correctamente");
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
 			} catch (CelularException e) {
 				vista.mostrarMensajeError(e.getMessage());
 			}
@@ -256,29 +230,32 @@ public class Controller implements ActionListener {
 		if (vista.getPanelApuestas().getPanelCrearApuesta().verificarCamposBaloto()) {
 			Date fecha = null;
 			String sede = vista.getPanelApuestas().getPanelCrearApuesta().getComboSede().getSelectedItem().toString();
-			String cedula = vista.getPanelApuestas().getPanelCrearApuesta().getComboCedula().getSelectedItem()
-					.toString();
-			double valorApuesta = Double
-					.parseDouble(vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoValorApuesta().getText());
-			int primerNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaBaloto()
-					.getCampoTextoPrimerNumero().getText());
-			int segundoNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaBaloto()
-					.getCampoTextoSegundoNumero().getText());
-			int tercerNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaBaloto()
-					.getCampoTextoTercerNumero().getText());
-			int cuartoNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaBaloto()
-					.getCampoTextoCuartoNumero().getText());
-			int quintoNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaBaloto()
-					.getCampoTextoQuintoNumero().getText());
-			int sextoNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaBaloto()
-					.getCampoTextoSextoNumero().getText());
-			String numeroJuego = primerNumero + " - " + segundoNumero + " - " + tercerNumero + " - " + cuartoNumero
-					+ " - " + quintoNumero + " - " + sextoNumero;
-			if (this.baloto.crearApuestas(sede, cedula, fecha, valorApuesta, numeroJuego, listaBaloto, fileBaloto)) {
-				vista.mostrarMensajeInformacion("Se ha agregado correctamente");
-				vista.mostrarMensajeInformacion(vista.getPanelApuestas().getPanelCrearApuesta().facturaBaloto("Fecha",
-						sede, cedula, valorApuesta, numeroJuego));
-				vista.getPanelApuestas().getPanelCrearApuesta().limpiarCamposBaloto();
+			String cedula = vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoCedula().getText();
+			// Esto es nuevo falta el else
+			if (casaApuestas.getApostadores().getApostadorDao().buscarApostador(cedula) != null) {
+				double valorApuesta = Double.parseDouble(
+						vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoValorApuesta().getText());
+				int primerNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
+						.getPanelApuestaBaloto().getCampoTextoPrimerNumero().getText());
+				int segundoNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
+						.getPanelApuestaBaloto().getCampoTextoSegundoNumero().getText());
+				int tercerNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
+						.getPanelApuestaBaloto().getCampoTextoTercerNumero().getText());
+				int cuartoNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
+						.getPanelApuestaBaloto().getCampoTextoCuartoNumero().getText());
+				int quintoNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
+						.getPanelApuestaBaloto().getCampoTextoQuintoNumero().getText());
+				int sextoNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
+						.getPanelApuestaBaloto().getCampoTextoSextoNumero().getText());
+				String numeroJuego = primerNumero + " - " + segundoNumero + " - " + tercerNumero + " - " + cuartoNumero
+						+ " - " + quintoNumero + " - " + sextoNumero;
+				if (this.baloto.crearApuestas(sede, cedula, fecha, valorApuesta, numeroJuego, listaBaloto,
+						fileBaloto)) {
+					vista.mostrarMensajeInformacion("Se ha agregado correctamente");
+					vista.mostrarMensajeInformacion(vista.getPanelApuestas().getPanelCrearApuesta()
+							.facturaBaloto("Fecha", sede, cedula, valorApuesta, numeroJuego));
+					vista.getPanelApuestas().getPanelCrearApuesta().limpiarCamposBaloto();
+				}
 			}
 		} else {
 			vista.mostrarMensajeError("Campos necesarios");
@@ -289,27 +266,30 @@ public class Controller implements ActionListener {
 		if (vista.getPanelApuestas().getPanelCrearApuesta().verificarCamposSuperAstro()) {
 			Date fecha = null;
 			String sede = vista.getPanelApuestas().getPanelCrearApuesta().getComboSede().getSelectedItem().toString();
-			String cedula = vista.getPanelApuestas().getPanelCrearApuesta().getComboCedula().getSelectedItem()
-					.toString();
-			double valorApuesta = Double
-					.parseDouble(vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoValorApuesta().getText());
-			int primerNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
-					.getPanelApuestaSuperAstro().getCampoTextoPrimerNumero().getText());
-			int segundoNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
-					.getPanelApuestaSuperAstro().getCampoTextoSegundoNumero().getText());
-			int tercerNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
-					.getPanelApuestaSuperAstro().getCampoTextoTercerNumero().getText());
-			int cuartoNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
-					.getPanelApuestaSuperAstro().getCampoTextoCuartoNumero().getText());
-			String numeroJuego = primerNumero + " - " + segundoNumero + " - " + tercerNumero + " - " + cuartoNumero;
-			String signo = vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaSuperAstro()
-					.getSignoZodiacal().getSelectedItem().toString();
-			if (this.superastro.crearApuestas(sede, cedula, fecha, valorApuesta, numeroJuego, signo, listaSuperastro,
-					fileSuperastro)) {
-				vista.mostrarMensajeInformacion("Se ha agregado correctamente");
-				vista.mostrarMensajeInformacion(vista.getPanelApuestas().getPanelCrearApuesta()
-						.facturaSuperastro("Fecha", sede, cedula, valorApuesta, numeroJuego, signo));
-				vista.getPanelApuestas().getPanelCrearApuesta().limpiarCamposSuperAstro();
+			String cedula = vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoCedula().getText();
+			// Esto es nuevo falta el else
+			if (casaApuestas.getApostadores().getApostadorDao().buscarApostador(cedula) != null) {
+
+				double valorApuesta = Double.parseDouble(
+						vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoValorApuesta().getText());
+				int primerNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
+						.getPanelApuestaSuperAstro().getCampoTextoPrimerNumero().getText());
+				int segundoNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
+						.getPanelApuestaSuperAstro().getCampoTextoSegundoNumero().getText());
+				int tercerNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
+						.getPanelApuestaSuperAstro().getCampoTextoTercerNumero().getText());
+				int cuartoNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
+						.getPanelApuestaSuperAstro().getCampoTextoCuartoNumero().getText());
+				String numeroJuego = primerNumero + " - " + segundoNumero + " - " + tercerNumero + " - " + cuartoNumero;
+				String signo = vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaSuperAstro()
+						.getSignoZodiacal().getSelectedItem().toString();
+				if (this.superastro.crearApuestas(sede, cedula, fecha, valorApuesta, numeroJuego, signo,
+						listaSuperastro, fileSuperastro)) {
+					vista.mostrarMensajeInformacion("Se ha agregado correctamente");
+					vista.mostrarMensajeInformacion(vista.getPanelApuestas().getPanelCrearApuesta()
+							.facturaSuperastro("Fecha", sede, cedula, valorApuesta, numeroJuego, signo));
+					vista.getPanelApuestas().getPanelCrearApuesta().limpiarCamposSuperAstro();
+				}
 			}
 		} else {
 			vista.mostrarMensajeError("Campos necesarios");
@@ -321,20 +301,22 @@ public class Controller implements ActionListener {
 		if (vista.getPanelApuestas().getPanelCrearApuesta().verificarCamposFutbol()) {
 			Date fecha = null;
 			String sede = vista.getPanelApuestas().getPanelCrearApuesta().getComboSede().getSelectedItem().toString();
-			String cedula = vista.getPanelApuestas().getPanelCrearApuesta().getComboCedula().getSelectedItem()
-					.toString();
-			double valorApuesta = Double
-					.parseDouble(vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoValorApuesta().getText());
-			String partido = vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaFutbol().getComboPartidos()
-					.getSelectedItem().toString();
-			String resultado = vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaFutbol()
-					.getComboOpcionResultado().getSelectedItem().toString();
-			if (this.marcador.crearApuestas(sede, cedula, fecha, valorApuesta, partido, resultado, listaMarcadores,
-					fileMarcadores)) {
-				vista.mostrarMensajeInformacion("Se ha agregado correctamente");
-				vista.mostrarMensajeInformacion(vista.getPanelApuestas().getPanelCrearApuesta().facturaFutbol("Fecha",
-						sede, cedula, valorApuesta, partido, resultado));
-				vista.getPanelApuestas().getPanelCrearApuesta().limpiarCamposFutbol();
+			String cedula = vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoCedula().getText();
+			// Esto es nuevo falta el else
+			if (casaApuestas.getApostadores().getApostadorDao().buscarApostador(cedula) != null) {
+				double valorApuesta = Double.parseDouble(
+						vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoValorApuesta().getText());
+				String partido = vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaFutbol()
+						.getComboPartidos().getSelectedItem().toString();
+				String resultado = vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaFutbol()
+						.getComboOpcionResultado().getSelectedItem().toString();
+				if (this.marcador.crearApuestas(sede, cedula, fecha, valorApuesta, partido, resultado, listaMarcadores,
+						fileMarcadores)) {
+					vista.mostrarMensajeInformacion("Se ha agregado correctamente");
+					vista.mostrarMensajeInformacion(vista.getPanelApuestas().getPanelCrearApuesta()
+							.facturaFutbol("Fecha", sede, cedula, valorApuesta, partido, resultado));
+					vista.getPanelApuestas().getPanelCrearApuesta().limpiarCamposFutbol();
+				}
 			}
 		} else {
 			vista.mostrarMensajeError("Campos necesarios");
@@ -350,9 +332,7 @@ public class Controller implements ActionListener {
 			vista.getPanelSede().getPanelSedeCrear().borrarCamposTxt();
 			vista.getPanelApostadores().getPanelCrearApostador().cargarComboBox(this.sedes.leerSede());
 			vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarComboBox(this.sedes.leerSede());
-			vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarId(listaApostador);
 			vista.getPanelApuestas().getPanelCrearApuesta().cargarComboBox(this.sedes.leerSede());
-			vista.getPanelApuestas().getPanelCrearApuesta().cargarId(listaApostador);
 		} else {
 			vista.mostrarMensajeError(entradas[1]);
 		}

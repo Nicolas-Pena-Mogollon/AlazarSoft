@@ -15,7 +15,15 @@ import java.util.ArrayList;
 /**
  * Clase Archivo
  */
-public class Archivo {
+public class ArchivoApostadores {
+	/**
+	 * Es el archivo
+	 */
+	private File fileArchivo;
+	/**
+	 * Ruta del archivo apostadores
+	 */
+	private final String RUTA_APOSTADORES = "./Data/apostadores.dat";
 	/**
 	 * es la entrada de los datos
 	 */
@@ -28,7 +36,7 @@ public class Archivo {
 	/**
 	 * constructor vacio
 	 */
-	public Archivo() {
+	public ArchivoApostadores() {
 
 	}
 
@@ -37,35 +45,32 @@ public class Archivo {
 	 * apostadores. <b>pre</b> Que exista la lista de apostadores y el archivo<br>
 	 * <b>post</b>Se agrega correctamente el apostador al archivo<br>
 	 * 
-	 * @param apostador, es la lista de apostadores de donde se tomará la información
-	 *                  para escribirla en el archivo; apostador != null.
-	 * @param file,     es el archivo en donde se guardará toda la información de
-	 *                  los apostadores.
+	 * @param apostador, es la lista de apostadores de donde se tomará la
+	 *                   información para escribirla en el archivo; apostador !=
+	 *                   null.
+	 * @param file,      es el archivo en donde se guardará toda la información de
+	 *                   los apostadores.
 	 */
-	public void escribirArchivo(ArrayList<ApostadorDTO> apostador, File file) {
-		if (!file.exists()) {
+	public void escribirArchivo(ArrayList<ApostadorDTO> apostador) {
+		if (!fileArchivo.exists()) {
 			try {
-				file.createNewFile();
+				fileArchivo.delete();
+				fileArchivo.createNewFile();
+				System.out.println(fileArchivo);
+				salida = new ObjectOutputStream(new FileOutputStream(fileArchivo));
+				salida.writeObject(apostador);
+				salida.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		try {
-			System.out.println(file);
-			salida = new ObjectOutputStream(new FileOutputStream(file));
-			salida.writeObject(apostador);
-			salida.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 	}
 
 	/**
-	 * Este metodo se encarga de leer la lista de apostadores del archivo. <b>pre</b>
-	 * Que exista el archivo<br>
+	 * Este metodo se encarga de leer la lista de apostadores del archivo.
+	 * <b>pre</b> Que exista el archivo<br>
 	 * <b>Devuelve la lista de apostadores del archivo</b><br>
 	 * 
 	 * @param file, es el archivo en donde sen encuentran los apostadores; file !=
@@ -88,6 +93,37 @@ public class Archivo {
 			}
 		}
 		return apostador;
+	}
+
+	/**
+	 * Este metodo se encarga de asignar la ruta del archivo e inicializar
+	 * fileArchivo
+	 * 
+	 * @param ruta
+	 */
+	public void asignarRutaArchivoApostadores(String ruta) {
+		fileArchivo = new File(ruta);
+	}
+
+	/**
+	 * @return the fileArchivo
+	 */
+	public File getFileArchivo() {
+		return fileArchivo;
+	}
+
+	/**
+	 * @param fileArchivo the fileArchivo to set
+	 */
+	public void setFileArchivo(File fileArchivo) {
+		this.fileArchivo = fileArchivo;
+	}
+
+	/**
+	 * @return the RUTA_APOSTADORES
+	 */
+	public String getRUTA_APOSTADORES() {
+		return RUTA_APOSTADORES;
 	}
 
 }

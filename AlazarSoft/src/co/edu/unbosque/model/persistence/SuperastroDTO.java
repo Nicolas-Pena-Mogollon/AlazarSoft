@@ -1,6 +1,6 @@
 package co.edu.unbosque.model.persistence;
 
-public class SuperastroDTO extends Apuesta {
+public class SuperastroDTO extends ApuestaDTO {
 
 	private static final long serialVersionUID = 1L;
 	private String numeroJuego = "";

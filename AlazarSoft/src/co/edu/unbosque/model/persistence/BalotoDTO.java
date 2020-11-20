@@ -1,6 +1,6 @@
 package co.edu.unbosque.model.persistence;
 
-public class BalotoDTO extends Apuesta {
+public class BalotoDTO extends ApuestaDTO {
 
 	private static final long serialVersionUID = 1L;
 	

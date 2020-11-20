@@ -1,6 +1,6 @@
 package co.edu.unbosque.model.persistence;
 
-public class MarcadoresDTO extends Apuesta {
+public class MarcadoresDTO extends ApuestaDTO {
 
 	private static final long serialVersionUID = 1L;
 	private String partido = "";

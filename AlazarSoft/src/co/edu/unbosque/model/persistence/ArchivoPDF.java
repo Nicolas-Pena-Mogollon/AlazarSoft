@@ -23,8 +23,8 @@ public class ArchivoPDF {
 	 */
 	private String[] titulosReportePDFClientes = { "FECHA", "PROVEEDOR", "MODELO", "REFERENCIA", "CILINDRAJE",
 			"EXISTENCIAS", "VALOR UNIDAD", "CANTIDAD" };
+	private String[] titulos;
 	private Paragraph parrafo;
-	private Chapter capitulo;
 	private PdfPTable tablaPDF;
 	private PdfPCell celdaTitulo;
 	private File file;
@@ -34,11 +34,9 @@ public class ArchivoPDF {
 	public ArchivoPDF() {
 		document = new Document();
 		parrafo = new Paragraph();
-		capitulo = new Chapter(0);
-		tablaPDF = new PdfPTable(0);
 		celdaTitulo = new PdfPCell();
 		document.setPageSize(PageSize.LEGAL.rotate());
-		tablaPDF = new PdfPTable(0);
+		tablaPDF = new PdfPTable(1);
 	}
 
 	/**
@@ -51,7 +49,7 @@ public class ArchivoPDF {
 	public void exportarPDF(String[][] datos, String tipoReporte) {
 
 		if (this.verificarTipoReporte(tipoReporte) == 1) {
-			
+
 		}
 		file = new File(REPORTEPDF_CLIENTES);
 		try {
@@ -61,12 +59,11 @@ public class ArchivoPDF {
 			document.open();
 			// Título
 			Chunk titulo = new Chunk("REGISTRO DE COMPRAS\n\n", chapterFont);
-
-			// Capítulo
 			parrafo.add(titulo);
-			parrafo.setAlignment(Element.ALIGN_JUSTIFIED);
+			parrafo.setAlignment(Element.ALIGN_CENTER);
+			Chapter capitulo = new Chapter(parrafo, 1);
+			// Capítulo
 
-			capitulo.add(1, parrafo);
 			capitulo.setNumberDepth(0);
 //			// Se crea la tabla
 			tablaPDF.resetColumnCount(datos[0].length);
@@ -88,6 +85,8 @@ public class ArchivoPDF {
 				tablaPDF.addCell(datos[i][3]);
 				tablaPDF.addCell(datos[i][4]);
 				tablaPDF.addCell(datos[i][5]);
+				tablaPDF.addCell(datos[i][6]);
+				tablaPDF.addCell(datos[i][7]);
 				// Para alinear las cifras y fechas toca así
 //				PdfPCell celdaCilindraje = new PdfPCell(new Phrase(listaCompra.get(i).getMoto().getCilindraje() + ""));
 //				celdaCilindraje.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -105,18 +104,37 @@ public class ArchivoPDF {
 	}
 
 	private int verificarTipoReporte(String reporte) {
-		switch (reporte) {
-		case "Listado de clientes":
+		if (reporte.equals("Listado de clientes")) {
+			titulos = titulosReportePDFClientes;
+			file = new File(REPORTEPDF_CLIENTES);
 			return 1;
-		case "Valor total de apuestas por cliente":
+		} else if (reporte.equals("Valor total de apuestas por cliente")) {
+			file = new File(REPORTE_DETALLES_APUESTAS_POR_CLIENTE);
 			return 2;
-		case "Detalle de apuestas por cliente y por sede":
-			return 3;
-		case "Total de apuestas por sede y tipo de juego":
-			return 4;
-		default:
+		} else if (reporte.equals("Detalle de apuestas por cliente y por sede")) {
+			file = new File(REPORTE_TOTAL_APUESTAS_POR_SEDE);
+			return 2;
+		} else if (reporte.equals("Total de apuestas por sede y tipo de juego")) {
+			file = new File(REPORTEPDF_CLIENTES);
+			return 2;
+		} else {
 			return 0;
 		}
+	}
+
+	private void crearTitulosCeldas(String reporte) {
+
+	}
+
+	public static void main(String[] args) {
+		ArchivoPDF arch = new ArchivoPDF();
+		String[][] tabla = new String[3][8];
+		for (int i = 0; i < tabla.length; i++) {
+			for (int j = 0; j < tabla.length; j++) {
+				tabla[i][j] = i + "";
+			}
+		}
+		arch.exportarPDF(tabla, "");
 	}
 
 }

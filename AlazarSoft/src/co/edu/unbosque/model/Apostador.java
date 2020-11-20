@@ -1,9 +1,16 @@
 package co.edu.unbosque.model;
 
+import co.edu.unbosque.model.persistence.ApostadorDAO;
+
 public class Apostador {
 
-	public Apostador() {
+	/**
+	 * Asociacion clase ApostadorDAO
+	 */
+	private ApostadorDAO apostadorDao;
 
+	public Apostador() {
+		apostadorDao = new ApostadorDAO();
 	}
 
 	public boolean soloNumeros(String celular) {
@@ -34,6 +41,20 @@ public class Apostador {
 		} else {
 			throw new CedulaException("Cedula incorrecta");
 		}
+	}
+
+	/**
+	 * @return the apostadorDao
+	 */
+	public ApostadorDAO getApostadorDao() {
+		return apostadorDao;
+	}
+
+	/**
+	 * @param apostadorDao the apostadorDao to set
+	 */
+	public void setApostadorDao(ApostadorDAO apostadorDao) {
+		this.apostadorDao = apostadorDao;
 	}
 
 }

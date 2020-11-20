@@ -5,7 +5,6 @@ import java.awt.GridLayout;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -14,8 +13,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-
-import co.edu.unbosque.model.persistence.ApostadorDTO;
 import co.edu.unbosque.model.persistence.SedesDTO;
 
 public class PanelCrearApuesta extends JPanel {
@@ -30,10 +27,9 @@ public class PanelCrearApuesta extends JPanel {
 	private JLabel etiquetaValorApuesta;
 	private JLabel etiquetaTipoApuesta;
 	private JTextField campoTextoFecha;
-	private JComboBox<String> comboCedula;
+	private JTextField campoTextoCedula;
 	private JComboBox<String> comboSede;
 	private JComboBox<String> comboTiposApuesta;
-	private JScrollPane scrollCedula;
 	private JScrollPane scrollSede;
 	private JTextField campoTextoValorApuesta;
 	private JButton botonGuardarApuestaBaloto;
@@ -59,8 +55,7 @@ public class PanelCrearApuesta extends JPanel {
 
 		campoTextoFecha = new JTextField(this.hora());
 		campoTextoFecha.setEditable(false);
-		comboCedula = new JComboBox<String>();
-		scrollCedula = new JScrollPane(comboCedula);
+		campoTextoCedula = new JTextField();
 		comboSede = new JComboBox<String>();
 		scrollSede = new JScrollPane(comboSede);
 		comboTiposApuesta = new JComboBox<String>();
@@ -76,7 +71,7 @@ public class PanelCrearApuesta extends JPanel {
 		panelIngreso.add(etiquetaSede);
 		panelIngreso.add(scrollSede);
 		panelIngreso.add(etiquetaCedula);
-		panelIngreso.add(scrollCedula);
+		panelIngreso.add(campoTextoCedula);
 		panelIngreso.add(etiquetaValorApuesta);
 		panelIngreso.add(campoTextoValorApuesta);
 		panelIngreso.add(etiquetaTipoApuesta);
@@ -93,13 +88,6 @@ public class PanelCrearApuesta extends JPanel {
 		this.add(botonGuardarApuestaBaloto, BorderLayout.PAGE_END);
 	}
 
-	public void cargarId(ArrayList<ApostadorDTO> data) {
-		this.comboCedula.removeAllItems();
-		this.comboCedula.addItem("Seleccione");
-		for (int i = 0; i < data.size(); i++)
-			this.comboCedula.addItem(data.get(i).getCedula());
-	}
-
 	public void cargarComboBox(ArrayList<SedesDTO> sede) {
 		this.comboSede.removeAllItems();
 		this.comboSede.addItem("Seleccione");
@@ -110,7 +98,7 @@ public class PanelCrearApuesta extends JPanel {
 
 	public boolean verificarCamposBaloto() {
 		boolean verificar = false;
-		if (!comboCedula.getSelectedItem().equals("Seleccione") && !comboSede.getSelectedItem().equals("Seleccione")
+		if (!campoTextoCedula.getText().equals("") && !comboSede.getSelectedItem().equals("Seleccione")
 				&& !comboTiposApuesta.getSelectedItem().equals("Seleccione el tipo de apuesta")
 				&& !panelApuestaBaloto.getCampoTextoPrimerNumero().getText().equals("")
 				&& !panelApuestaBaloto.getCampoTextoSegundoNumero().getText().equals("")
@@ -127,7 +115,7 @@ public class PanelCrearApuesta extends JPanel {
 	}
 
 	public void limpiarCamposBaloto() {
-		comboCedula.setSelectedIndex(0);
+		campoTextoCedula.setText("");
 		comboSede.setSelectedIndex(0);
 		comboTiposApuesta.setSelectedIndex(0);
 		campoTextoValorApuesta.setText("");
@@ -141,7 +129,7 @@ public class PanelCrearApuesta extends JPanel {
 
 	public boolean verificarCamposSuperAstro() {
 		boolean verificar = false;
-		if (!comboCedula.getSelectedItem().equals("Seleccione") && !comboSede.getSelectedItem().equals("Seleccione")
+		if (!campoTextoCedula.getText().equals("Seleccione") && !comboSede.getSelectedItem().equals("Seleccione")
 				&& !comboTiposApuesta.getSelectedItem().equals("Seleccione el tipo de apuesta")
 				&& !campoTextoValorApuesta.getText().equals("")
 				&& !panelApuestaSuperAstro.getCampoTextoPrimerNumero().getText().equals("")
@@ -157,7 +145,7 @@ public class PanelCrearApuesta extends JPanel {
 	}
 
 	public void limpiarCamposSuperAstro() {
-		comboCedula.setSelectedIndex(0);
+		campoTextoCedula.setText("");
 		comboSede.setSelectedIndex(0);
 		comboTiposApuesta.setSelectedIndex(0);
 		campoTextoValorApuesta.setText("");
@@ -170,7 +158,7 @@ public class PanelCrearApuesta extends JPanel {
 
 	public boolean verificarCamposFutbol() {
 		boolean verificar = false;
-		if (!comboCedula.getSelectedItem().equals("Seleccione") && !comboSede.getSelectedItem().equals("Seleccione")
+		if (!campoTextoCedula.getText().equals("Seleccione") && !comboSede.getSelectedItem().equals("Seleccione")
 				&& !comboTiposApuesta.getSelectedItem().equals("Seleccione el tipo de apuesta")
 				&& !campoTextoValorApuesta.getText().equals("")
 				&& !panelApuestaFutbol.getComboPartidos().getSelectedItem().equals("Seleccione")
@@ -183,7 +171,8 @@ public class PanelCrearApuesta extends JPanel {
 	}
 
 	public void limpiarCamposFutbol() {
-		comboCedula.setSelectedIndex(0);
+		campoTextoCedula.setText("");
+		;
 		comboSede.setSelectedIndex(0);
 		comboTiposApuesta.setSelectedIndex(0);
 		campoTextoValorApuesta.setText("");
@@ -220,92 +209,158 @@ public class PanelCrearApuesta extends JPanel {
 		return formato.format(date);
 	}
 
-	public JSplitPane getPanelContenedorDividido() {
-		return panelContenedorDividido;
-	}
-
-	public void setPanelContenedorDividido(JSplitPane panelContenedorDividido) {
-		this.panelContenedorDividido = panelContenedorDividido;
-	}
-
+	/**
+	 * @return the campoTextoFecha
+	 */
 	public JTextField getCampoTextoFecha() {
 		return campoTextoFecha;
 	}
 
+	/**
+	 * @param campoTextoFecha the campoTextoFecha to set
+	 */
 	public void setCampoTextoFecha(JTextField campoTextoFecha) {
 		this.campoTextoFecha = campoTextoFecha;
 	}
 
-	public JComboBox<String> getComboCedula() {
-		return comboCedula;
+	/**
+	 * @return the campoTextoCedula
+	 */
+	public JTextField getCampoTextoCedula() {
+		return campoTextoCedula;
 	}
 
-	public void setComboCedula(JComboBox<String> comboCedula) {
-		this.comboCedula = comboCedula;
+	/**
+	 * @param campoTextoCedula the campoTextoCedula to set
+	 */
+	public void setCampoTextoCedula(JTextField campoTextoCedula) {
+		this.campoTextoCedula = campoTextoCedula;
 	}
 
+	/**
+	 * @return the comboSede
+	 */
 	public JComboBox<String> getComboSede() {
 		return comboSede;
 	}
 
+	/**
+	 * @param comboSede the comboSede to set
+	 */
 	public void setComboSede(JComboBox<String> comboSede) {
 		this.comboSede = comboSede;
 	}
 
+	/**
+	 * @return the comboTiposApuesta
+	 */
 	public JComboBox<String> getComboTiposApuesta() {
 		return comboTiposApuesta;
 	}
 
+	/**
+	 * @param comboTiposApuesta the comboTiposApuesta to set
+	 */
 	public void setComboTiposApuesta(JComboBox<String> comboTiposApuesta) {
 		this.comboTiposApuesta = comboTiposApuesta;
 	}
 
+	/**
+	 * @return the campoTextoValorApuesta
+	 */
 	public JTextField getCampoTextoValorApuesta() {
 		return campoTextoValorApuesta;
 	}
 
+	/**
+	 * @param campoTextoValorApuesta the campoTextoValorApuesta to set
+	 */
 	public void setCampoTextoValorApuesta(JTextField campoTextoValorApuesta) {
 		this.campoTextoValorApuesta = campoTextoValorApuesta;
 	}
 
+	/**
+	 * @return the botonGuardarApuestaBaloto
+	 */
 	public JButton getBotonGuardarApuestaBaloto() {
 		return botonGuardarApuestaBaloto;
 	}
 
+	/**
+	 * @param botonGuardarApuestaBaloto the botonGuardarApuestaBaloto to set
+	 */
 	public void setBotonGuardarApuestaBaloto(JButton botonGuardarApuestaBaloto) {
 		this.botonGuardarApuestaBaloto = botonGuardarApuestaBaloto;
 	}
 
+	/**
+	 * @return the panelApuestaBaloto
+	 */
 	public PanelApuestaBaloto getPanelApuestaBaloto() {
 		return panelApuestaBaloto;
 	}
 
+	/**
+	 * @param panelApuestaBaloto the panelApuestaBaloto to set
+	 */
 	public void setPanelApuestaBaloto(PanelApuestaBaloto panelApuestaBaloto) {
 		this.panelApuestaBaloto = panelApuestaBaloto;
 	}
 
+	/**
+	 * @return the panelApuestaSuperAstro
+	 */
 	public PanelApuestaSuperAstro getPanelApuestaSuperAstro() {
 		return panelApuestaSuperAstro;
 	}
 
+	/**
+	 * @param panelApuestaSuperAstro the panelApuestaSuperAstro to set
+	 */
 	public void setPanelApuestaSuperAstro(PanelApuestaSuperAstro panelApuestaSuperAstro) {
 		this.panelApuestaSuperAstro = panelApuestaSuperAstro;
 	}
 
+	/**
+	 * @return the panelApuestaFutbol
+	 */
 	public PanelApuestaFutbol getPanelApuestaFutbol() {
 		return panelApuestaFutbol;
 	}
 
+	/**
+	 * @param panelApuestaFutbol the panelApuestaFutbol to set
+	 */
 	public void setPanelApuestaFutbol(PanelApuestaFutbol panelApuestaFutbol) {
 		this.panelApuestaFutbol = panelApuestaFutbol;
 	}
 
+	/**
+	 * @return the cOMMAND_REGISTRAR_APUESTA_BALOTO
+	 */
 	public String getCOMMAND_REGISTRAR_APUESTA_BALOTO() {
 		return COMMAND_REGISTRAR_APUESTA_BALOTO;
 	}
 
+	/**
+	 * @return the cOMMAND_CAMBIAR_TIPO_APUESTA
+	 */
 	public String getCOMMAND_CAMBIAR_TIPO_APUESTA() {
 		return COMMAND_CAMBIAR_TIPO_APUESTA;
+	}
+
+	/**
+	 * @return the panelContenedorDividido
+	 */
+	public JSplitPane getPanelContenedorDividido() {
+		return panelContenedorDividido;
+	}
+
+	/**
+	 * @param panelContenedorDividido the panelContenedorDividido to set
+	 */
+	public void setPanelContenedorDividido(JSplitPane panelContenedorDividido) {
+		this.panelContenedorDividido = panelContenedorDividido;
 	}
 
 }

@@ -3,20 +3,20 @@ package co.edu.unbosque.model.persistence;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Apuesta implements Serializable{
+public class ApuestaDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	protected String nombreSede = "";
 	protected String cedula = "";
 	protected Date fecha = null;
 	protected double valorApuesta = 0;
 	
-	public Apuesta() {
+	public ApuestaDTO() {
 		
 	}
 	
 	
 
-	public Apuesta(String nombreSede, String cedula, Date fecha, double valorApuesta) {
+	public ApuestaDTO(String nombreSede, String cedula, Date fecha, double valorApuesta) {
 		this.nombreSede = nombreSede;
 		this.cedula = cedula;
 		this.fecha = fecha;
