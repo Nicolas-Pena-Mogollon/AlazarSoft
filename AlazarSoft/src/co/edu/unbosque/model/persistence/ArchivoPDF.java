@@ -78,7 +78,6 @@ public class ArchivoPDF {
 				tablaPDF.addCell(datos[i][3]);
 				tablaPDF.addCell(datos[i][4]);
 				tablaPDF.addCell(datos[i][5]);
-
 				// Para alinear las cifras y fechas toca así
 //				PdfPCell celdaCilindraje = new PdfPCell(new Phrase(listaCompra.get(i).getMoto().getCilindraje() + ""));
 //				celdaCilindraje.setHorizontalAlignment(Element.ALIGN_RIGHT);
