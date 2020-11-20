@@ -57,8 +57,8 @@ public class PanelCrearApuesta extends JPanel {
 		etiquetaValorApuesta = new JLabel("Valor de la apuesta");
 		etiquetaTipoApuesta = new JLabel("Tipo de apuesta");
 
-		
 		campoTextoFecha = new JTextField(this.hora());
+		campoTextoFecha.setEditable(false);
 		comboCedula = new JComboBox<String>();
 		scrollCedula = new JScrollPane(comboCedula);
 		comboSede = new JComboBox<String>();
@@ -92,14 +92,14 @@ public class PanelCrearApuesta extends JPanel {
 		this.add(panelContenedorDividido);
 		this.add(botonGuardarApuestaBaloto, BorderLayout.PAGE_END);
 	}
-	
+
 	public void cargarId(ArrayList<ApostadorDTO> data) {
 		this.comboCedula.removeAllItems();
 		this.comboCedula.addItem("Seleccione");
 		for (int i = 0; i < data.size(); i++)
 			this.comboCedula.addItem(data.get(i).getCedula());
 	}
-	
+
 	public void cargarComboBox(ArrayList<SedesDTO> sede) {
 		this.comboSede.removeAllItems();
 		this.comboSede.addItem("Seleccione");
@@ -107,7 +107,113 @@ public class PanelCrearApuesta extends JPanel {
 			this.comboSede.addItem(sede.get(i).getUbicacion());
 		}
 	}
-	
+
+	public boolean verificarCamposBaloto() {
+		boolean verificar = false;
+		if (!comboCedula.getSelectedItem().equals("Seleccione") && !comboSede.getSelectedItem().equals("Seleccione")
+				&& !comboTiposApuesta.getSelectedItem().equals("Seleccione el tipo de apuesta")
+				&& !panelApuestaBaloto.getCampoTextoPrimerNumero().getText().equals("")
+				&& !panelApuestaBaloto.getCampoTextoSegundoNumero().getText().equals("")
+				&& !panelApuestaBaloto.getCampoTextoTercerNumero().getText().equals("")
+				&& !panelApuestaBaloto.getCampoTextoCuartoNumero().getText().equals("")
+				&& !panelApuestaBaloto.getCampoTextoQuintoNumero().getText().equals("")
+				&& !panelApuestaBaloto.getCampoTextoSextoNumero().getText().equals("")
+				&& !campoTextoValorApuesta.getText().equals("")) {
+			verificar = true;
+		} else {
+			verificar = false;
+		}
+		return verificar;
+	}
+
+	public void limpiarCamposBaloto() {
+		comboCedula.setSelectedIndex(0);
+		comboSede.setSelectedIndex(0);
+		comboTiposApuesta.setSelectedIndex(0);
+		campoTextoValorApuesta.setText("");
+		panelApuestaBaloto.getCampoTextoPrimerNumero().setText("");
+		panelApuestaBaloto.getCampoTextoSegundoNumero().setText("");
+		panelApuestaBaloto.getCampoTextoTercerNumero().setText("");
+		panelApuestaBaloto.getCampoTextoCuartoNumero().setText("");
+		panelApuestaBaloto.getCampoTextoQuintoNumero().setText("");
+		panelApuestaBaloto.getCampoTextoSextoNumero().setText("");
+	}
+
+	public boolean verificarCamposSuperAstro() {
+		boolean verificar = false;
+		if (!comboCedula.getSelectedItem().equals("Seleccione") && !comboSede.getSelectedItem().equals("Seleccione")
+				&& !comboTiposApuesta.getSelectedItem().equals("Seleccione el tipo de apuesta")
+				&& !campoTextoValorApuesta.getText().equals("")
+				&& !panelApuestaSuperAstro.getCampoTextoPrimerNumero().getText().equals("")
+				&& !panelApuestaSuperAstro.getCampoTextoSegundoNumero().getText().equals("")
+				&& !panelApuestaSuperAstro.getCampoTextoTercerNumero().getText().equals("")
+				&& !panelApuestaSuperAstro.getCampoTextoCuartoNumero().getText().equals("")
+				&& !panelApuestaSuperAstro.getSignoZodiacal().getSelectedItem().equals("Seleccione un signo")) {
+			verificar = true;
+		} else {
+			verificar = false;
+		}
+		return verificar;
+	}
+
+	public void limpiarCamposSuperAstro() {
+		comboCedula.setSelectedIndex(0);
+		comboSede.setSelectedIndex(0);
+		comboTiposApuesta.setSelectedIndex(0);
+		campoTextoValorApuesta.setText("");
+		panelApuestaSuperAstro.getCampoTextoPrimerNumero().setText("");
+		panelApuestaSuperAstro.getCampoTextoSegundoNumero().setText("");
+		panelApuestaSuperAstro.getCampoTextoTercerNumero().setText("");
+		panelApuestaSuperAstro.getCampoTextoCuartoNumero().setText("");
+		panelApuestaSuperAstro.getSignoZodiacal().setSelectedIndex(0);
+	}
+
+	public boolean verificarCamposFutbol() {
+		boolean verificar = false;
+		if (!comboCedula.getSelectedItem().equals("Seleccione") && !comboSede.getSelectedItem().equals("Seleccione")
+				&& !comboTiposApuesta.getSelectedItem().equals("Seleccione el tipo de apuesta")
+				&& !campoTextoValorApuesta.getText().equals("")
+				&& !panelApuestaFutbol.getComboPartidos().getSelectedItem().equals("Seleccione")
+				&& !panelApuestaFutbol.getComboOpcionResultado().getSelectedItem().equals("Seleccione")) {
+			verificar = true;
+		} else {
+			verificar = false;
+		}
+		return verificar;
+	}
+
+	public void limpiarCamposFutbol() {
+		comboCedula.setSelectedIndex(0);
+		comboSede.setSelectedIndex(0);
+		comboTiposApuesta.setSelectedIndex(0);
+		campoTextoValorApuesta.setText("");
+		panelApuestaFutbol.getComboPartidos().setSelectedIndex(0);
+		panelApuestaFutbol.getComboOpcionResultado().setSelectedIndex(0);
+	}
+
+	public String facturaBaloto(String fecha, String sede, String cedula, double valor, String numeroJuego) {
+		String factura = "";
+		factura += "Fecha: " + fecha + "\n" + "Sede: " + sede + "\n" + "Cédula: " + cedula + "\n" + "Valor: " + valor
+				+ "\n" + "NumeroJuego: " + numeroJuego + "\n";
+		return factura;
+	}
+
+	public String facturaSuperastro(String fecha, String sede, String cedula, double valor, String numeroJuego,
+			String signo) {
+		String factura = "";
+		factura += "Fecha: " + fecha + "\n" + "Sede: " + sede + "\n" + "Cédula: " + cedula + "\n" + "Valor: " + valor
+				+ "\n" + "NumeroJuego: " + numeroJuego + "\n" + "Signo: " + signo + "\n";
+		return factura;
+	}
+
+	public String facturaFutbol(String fecha, String sede, String cedula, double valor, String partido,
+			String resultado) {
+		String factura = "";
+		factura += "Fecha: " + fecha + "\n" + "Sede: " + sede + "\n" + "Cédula: " + cedula + "\n" + "Valor: " + valor
+				+ "\n" + "Partido: " + partido + "\n" + "Resultado: " + resultado + "\n";
+		return factura;
+	}
+
 	public String hora() {
 		SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
 		Date date = new Date();

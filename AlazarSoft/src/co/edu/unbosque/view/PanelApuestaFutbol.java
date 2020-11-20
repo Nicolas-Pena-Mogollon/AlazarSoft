@@ -28,6 +28,7 @@ public class PanelApuestaFutbol extends JPanel {
 		comboPartidos = new JComboBox<String>();
 		scrollComboPartidos = new JScrollPane(comboPartidos);
 		comboOpcionResultado = new JComboBox<String>();
+		comboOpcionResultado.addItem("Seleccione");
 		comboOpcionResultado.addItem("Local");
 		comboOpcionResultado.addItem("Visitante");
 		comboOpcionResultado.addItem("Empate");
