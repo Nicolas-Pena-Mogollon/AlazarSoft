@@ -82,7 +82,7 @@ public class Controller implements ActionListener {
 		this.cargarPartido();
 
 	}
-	
+
 	public void cargarPartido() {
 		try {
 			datos = prop.cargarInfo(new File("Data\\partidos.properties"));
@@ -344,7 +344,7 @@ public class Controller implements ActionListener {
 	public void gestionSedes() {
 		String[] entradas = vista.getPanelSede().getPanelSedeCrear().verificarEntradasIngresoSedes();
 		if (entradas[0].equals("0")) {
-			SedesDTO sede = new SedesDTO(0, entradas[1], Integer.parseInt(entradas[2]));
+			SedesDTO sede = new SedesDTO(this.sede.generarIdSede(), entradas[1], Integer.parseInt(entradas[2]));
 			sedes.crearSede(sede);
 			vista.mostrarMensajeInformacion("Se ha agregado la sede correctammente");
 			vista.getPanelSede().getPanelSedeCrear().borrarCamposTxt();

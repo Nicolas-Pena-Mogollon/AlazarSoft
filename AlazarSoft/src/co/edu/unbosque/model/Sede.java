@@ -3,21 +3,19 @@ package co.edu.unbosque.model;
 import co.edu.unbosque.model.persistence.SedesDAO;
 
 public class Sede {
-	
+
 	private SedesDAO sedesDao;
-	
+
 	public Sede() {
 		sedesDao = new SedesDAO();
 
 	}
-	
-	
-	
+
 	public int generarIdSede() {
 		int idSede = sedesDao.getDataSedes().get(sedesDao.getDataSedes().size() - 1).getIdUbicacion() + 1;
 		return idSede;
 	}
-	
+
 	public String[][] crearTablaSede() {
 		String[][] registro = new String[sedesDao.getDataSedes().size()][3];
 		for (int i = 0; i < sedesDao.getDataSedes().size(); i++) {

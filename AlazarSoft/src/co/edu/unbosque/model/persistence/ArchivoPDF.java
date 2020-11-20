@@ -41,8 +41,18 @@ public class ArchivoPDF {
 		tablaPDF = new PdfPTable(0);
 	}
 
+	/**
+	 * @author Nicolas Peña Mogollón Método encargado de recibir una lista de
+	 *         clientes para escribir la información en el archivo PDF
+	 *         correspondiente
+	 * @param datos
+	 */
 // Se tiene que hacer así por métodos
-	public void exportarPDFClientes(String[][] datos) {
+	public void exportarPDF(String[][] datos, String tipoReporte) {
+
+		if (this.verificarTipoReporte(tipoReporte) == 1) {
+			
+		}
 		file = new File(REPORTEPDF_CLIENTES);
 		try {
 			fos = new FileOutputStream(file);
@@ -59,7 +69,7 @@ public class ArchivoPDF {
 			capitulo.add(1, parrafo);
 			capitulo.setNumberDepth(0);
 //			// Se crea la tabla
-			tablaPDF.resetColumnCount(8);
+			tablaPDF.resetColumnCount(datos[0].length);
 			tablaPDF.setWidthPercentage(100);
 
 			for (int i = 0; i < titulosReportePDFClientes.length; i++) {
@@ -87,14 +97,26 @@ public class ArchivoPDF {
 			document.add(capitulo);
 			document.close();
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (DocumentException e) {
+		} catch (FileNotFoundException | DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+	}
+
+	private int verificarTipoReporte(String reporte) {
+		switch (reporte) {
+		case "Listado de clientes":
+			return 1;
+		case "Valor total de apuestas por cliente":
+			return 2;
+		case "Detalle de apuestas por cliente y por sede":
+			return 3;
+		case "Total de apuestas por sede y tipo de juego":
+			return 4;
+		default:
+			return 0;
+		}
 	}
 
 }
