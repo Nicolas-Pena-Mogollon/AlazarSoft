@@ -79,7 +79,17 @@ public class Controller implements ActionListener {
 		vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarId(listaApostador);
 		vista.getPanelApuestas().getPanelCrearApuesta().cargarComboBox(this.sedes.leerSede());
 		vista.getPanelApuestas().getPanelCrearApuesta().cargarId(listaApostador);
+		this.cargarPartido();
 
+	}
+	
+	public void cargarPartido() {
+		try {
+			datos = prop.cargarInfo(new File("Data\\partidos.properties"));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		this.partidos = prop.inicializarDatosPartido(datos);
 	}
 
 	@Override
@@ -92,17 +102,10 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_APOSTADORES())) {
 			vista.getSplitPane().setRightComponent(vista.getPanelApostadores());
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_APUESTAS())) {
-			try {
-				datos = prop.cargarInfo(new File("Data\\partidos.properties"));
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-			this.partidos = prop.inicializarDatosPartido(datos);
 			vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaFutbol().cargarCombo(partidos);
 			vista.getSplitPane().setRightComponent(vista.getPanelApuestas());
 			vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
 					.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
-			;
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_PLANES_PREMIACION())) {
 			// vista.getSplitPane().setRightComponent(vista.getPanelSede());
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_CONSULTA_REPORTES())) {

@@ -41,6 +41,7 @@ public class PanelApuestaFutbol extends JPanel {
 	}
 
 	public void cargarCombo(String[] partidos) {
+		comboPartidos.removeAllItems();
 		comboPartidos.addItem("Seleccione");
 		for (int i = 0; i < partidos.length; i++) {
 			comboPartidos.addItem(partidos[i]);
