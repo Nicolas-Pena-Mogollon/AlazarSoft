@@ -3,9 +3,6 @@ package co.edu.unbosque.model.persistence;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import javax.swing.JOptionPane;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -26,94 +23,23 @@ public class ArchivoPDF {
 	 */
 	private String[] titulosReportePDFClientes = { "FECHA", "PROVEEDOR", "MODELO", "REFERENCIA", "CILINDRAJE",
 			"EXISTENCIAS", "VALOR UNIDAD", "CANTIDAD" };
-
+	private Paragraph parrafo;
+	private Chapter capitulo;
+	private PdfPTable tablaPDF;
+	private PdfPCell celdaTitulo;
 	private File file;
 	private FileOutputStream fos;
 	private Document document;
 
 	public ArchivoPDF() {
 		document = new Document();
+		parrafo = new Paragraph();
+		capitulo = new Chapter(0);
+		tablaPDF = new PdfPTable(0);
+		celdaTitulo = new PdfPCell();
 		document.setPageSize(PageSize.LEGAL.rotate());
-		
-
+		tablaPDF = new PdfPTable(0);
 	}
-//Código de otro ejemplo (es la base)
-//Aquí entra la info
-//	public void createPDF(ArrayList<Compra> listaCompra) {
-//		try {
-//			// Se crea el OutputStream para el fichero donde queremos dejar el pdf.
-//			FileOutputStream ficheroPdf = new FileOutputStream("Compras.pdf");
-//			PdfWriter.getInstance(document, ficheroPdf).setInitialLeading(20);
-//			// Se abre el documento
-//			document.open();
-//
-//			// Título
-//			Chunk titulo = new Chunk("REGISTRO DE COMPRAS\n\n", chapterFont);
-//
-//			// Capítulo
-//			Paragraph tittle = new Paragraph(titulo);
-//			tittle.setAlignment(Element.ALIGN_JUSTIFIED);
-//			Chapter chapter = new Chapter(tittle, 1);
-//			chapter.setNumberDepth(0);
-//
-//			// Se crea la tabla
-//			PdfPTable tabla = new PdfPTable(8);
-//			tabla.setWidthPercentage(100);
-//
-//			for (int i = 0; i < titulosReportePDFClientes.length; i++) {
-//				PdfPCell titles = new PdfPCell(new Phrase(titulosReportePDFClientes[i]));
-//				titles.setBackgroundColor(new BaseColor(194, 210, 214));
-//				tabla.addCell(titles);
-//			}
-//
-//			// Se formatea la fecha
-//			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//			String fechaComoCadena = "";
-//
-//			for (int i = 0; i < listaCompra.size(); i++) {
-//
-//				Date pFecha = listaCompra.get(i).getFechaCompra();
-//				fechaComoCadena = sdf.format(pFecha);
-//				PdfPCell celdaFecha = new PdfPCell(new Phrase(fechaComoCadena));
-//				celdaFecha.setHorizontalAlignment(Element.ALIGN_RIGHT);
-//				tabla.addCell(celdaFecha);
-//
-//				tabla.addCell(listaCompra.get(i).getNombreProveedor());
-//				tabla.addCell(listaCompra.get(i).getMoto().getModelo());
-//				tabla.addCell(listaCompra.get(i).getMoto().getReferencia());
-//
-//				PdfPCell celdaCilindraje = new PdfPCell(new Phrase(listaCompra.get(i).getMoto().getCilindraje() + ""));
-//				celdaCilindraje.setHorizontalAlignment(Element.ALIGN_RIGHT);
-//				tabla.addCell(celdaCilindraje);
-//
-//				PdfPCell celdaExistencias = new PdfPCell(
-//						new Phrase(listaCompra.get(i).getMoto().getExistencias() + ""));
-//				celdaExistencias.setHorizontalAlignment(Element.ALIGN_RIGHT);
-//				tabla.addCell(celdaExistencias);
-//
-//				PdfPCell celdaValorCompra = new PdfPCell(
-//						new Phrase(listaCompra.get(i).getMoto().getValorCompra() + ""));
-//				celdaValorCompra.setHorizontalAlignment(Element.ALIGN_RIGHT);
-//				tabla.addCell(celdaValorCompra);
-//
-//				PdfPCell celdaCantidad = new PdfPCell(new Phrase(listaCompra.get(i).getCantidad() + ""));
-//				celdaCantidad.setHorizontalAlignment(Element.ALIGN_RIGHT);
-//				tabla.addCell(celdaCantidad);
-//
-//			}
-//
-//			// Se añade la tabla al capítulo
-//			chapter.add(tabla);
-//			// Se añade el capítulo al documento
-//			document.add(chapter);
-//
-//			// Se cierra el documento
-//			document.close();
-//
-//		} catch (Exception e) {
-//			JOptionPane.showMessageDialog(null, "Error al Exportar", "Warning", JOptionPane.WARNING_MESSAGE);
-//		}
-//	}
 
 // Se tiene que hacer así por métodos
 	public void exportarPDFClientes(String[][] datos) {
@@ -123,6 +49,45 @@ public class ArchivoPDF {
 			PdfWriter.getInstance(document, fos).setInitialLeading(20);
 			// Se abre el documento
 			document.open();
+			// Título
+			Chunk titulo = new Chunk("REGISTRO DE COMPRAS\n\n", chapterFont);
+
+			// Capítulo
+			parrafo.add(titulo);
+			parrafo.setAlignment(Element.ALIGN_JUSTIFIED);
+
+			capitulo.add(1, parrafo);
+			capitulo.setNumberDepth(0);
+//			// Se crea la tabla
+			tablaPDF.resetColumnCount(8);
+			tablaPDF.setWidthPercentage(100);
+
+			for (int i = 0; i < titulosReportePDFClientes.length; i++) {
+				celdaTitulo.setPhrase(new Phrase(titulosReportePDFClientes[i]));
+				celdaTitulo.setBackgroundColor(new BaseColor(194, 210, 214));
+				tablaPDF.addCell(celdaTitulo);
+			}
+
+			for (int i = 0; i < datos.length; i++) {
+
+//				PdfPCell celdaFecha = new PdfPCell(new Phrase(fechaComoCadena));
+//				celdaFecha.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				tablaPDF.addCell(datos[i][0]);
+				tablaPDF.addCell(datos[i][1]);
+				tablaPDF.addCell(datos[i][2]);
+				tablaPDF.addCell(datos[i][3]);
+				tablaPDF.addCell(datos[i][4]);
+				tablaPDF.addCell(datos[i][5]);
+
+				// Para alinear las cifras y fechas toca así
+//				PdfPCell celdaCilindraje = new PdfPCell(new Phrase(listaCompra.get(i).getMoto().getCilindraje() + ""));
+//				celdaCilindraje.setHorizontalAlignment(Element.ALIGN_RIGHT);
+//				tablaPDF.addCell(celdaCilindraje);
+
+			}
+			capitulo.add(tablaPDF);
+			document.add(capitulo);
+			document.close();
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
