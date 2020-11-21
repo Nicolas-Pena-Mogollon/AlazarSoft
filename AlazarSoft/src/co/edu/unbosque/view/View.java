@@ -21,7 +21,7 @@ public class View extends JFrame {
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
-		this.setSize(870, 250);
+		this.setSize(870, 300);
 		this.setTitle("Casa de apuestas");
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
