@@ -36,11 +36,11 @@ public class View extends JFrame {
 		splitPane.setEnabled(false);
 		splitPane.setLeftComponent(panelMenuCasaApuestas);
 		splitPane.setRightComponent(panelIngresoCasaApuestas);
+		
 		getContentPane().add(splitPane);
 		asignarOyentes(control);
 		repaint();
 		revalidate();
-
 	}
 
 	public void asignarOyentes(Controller control) {
