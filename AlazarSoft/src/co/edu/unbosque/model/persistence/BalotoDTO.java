@@ -9,6 +9,7 @@ public class BalotoDTO extends ApuestaDTO {
 	public BalotoDTO(String nombreSede, String cedula, java.util.Date fecha, double valorApuesta, String numeroJuego) {
 		super(nombreSede, cedula, fecha, valorApuesta);
 		// TODO Auto-generated constructor stub
+		this.numeroJuego = numeroJuego;
 	}
 
 	/**

@@ -10,6 +10,8 @@ public class SuperastroDTO extends ApuestaDTO {
 			String numeroJuego, String signo) {
 		super(nombreSede, cedula, fecha, valorApuesta);
 		// TODO Auto-generated constructor stub
+		this.numeroJuego = numeroJuego;
+		this.signo = signo;
 	}
 
 	/**

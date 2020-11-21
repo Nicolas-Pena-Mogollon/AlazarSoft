@@ -10,6 +10,8 @@ public class MarcadoresDTO extends ApuestaDTO {
 			String resultado) {
 		super(nombreSede, cedula, fecha, valorApuesta);
 		// TODO Auto-generated constructor stub
+		this.partido = partido;
+		this.resultado = resultado;
 	}
 
 	/**
