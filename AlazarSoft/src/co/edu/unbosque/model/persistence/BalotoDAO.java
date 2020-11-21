@@ -17,7 +17,7 @@ public class BalotoDAO {
 	public BalotoDTO buscarApuesta(String cedula, Date fecha) {
 		BalotoDTO encontrado = null;
 		for (int i = 0; i < listaBaloto.size(); i++) {
-			if (listaBaloto.get(i).getCedula().equals(cedula) && listaBaloto.get(i).getFecha() == fecha) {
+			if (listaBaloto.get(i).getCedula().equals(cedula) && listaBaloto.get(i).getFecha().equals(fecha)) {
 				encontrado = listaBaloto.get(i);
 			}
 		}

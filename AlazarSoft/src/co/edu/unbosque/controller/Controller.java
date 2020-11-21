@@ -4,9 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
-
 import co.edu.unbosque.model.CasaDeApuestas;
 import co.edu.unbosque.model.CedulaException;
 import co.edu.unbosque.model.CelularException;
@@ -91,8 +89,6 @@ public class Controller implements ActionListener {
 					.actualizarTablaApostadores(casaApuestas.getApostadores().generarTablaApostador());
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelApuestas().getPanelCrearApuesta().getCOMMAND_REGISTRAR_APUESTA_BALOTO())) {
-			System.out.println(this.casaApuestas.getApuestas().getBalotoDAO()
-					.mostrarApuestaBusqueda(this.casaApuestas.getApuestas().getBalotoDAO().getListaBaloto()));
 			String apuesta = vista.getPanelApuestas().getPanelCrearApuesta().getComboTiposApuesta().getSelectedItem()
 					.toString();
 			if (apuesta.equals("Baloto")) {
@@ -118,7 +114,7 @@ public class Controller implements ActionListener {
 				this.gestionApuestasSuperastroModificar();
 			}
 			if (apuesta.equals("Fútbol")) {
-				this.gestionApuestasMarcadoresModificar();
+				this.gestionarApuestasMarcadoresModificar();
 			}
 			if (apuesta.equals("Seleccione el tipo de apuesta")) {
 				vista.mostrarMensajeError("Escoja el tipo de apuesta");
@@ -135,6 +131,9 @@ public class Controller implements ActionListener {
 			} else {
 				vista.mostrarMensajeError("Se deben escoger todas las opciones");
 			}
+		} else if (e.getActionCommand().equals(
+				vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getCOMMAND_BORRAR_INFORMACION_APUESTAS())) {
+			this.gestionarBorrarApuesta();
 		}
 	}
 
@@ -479,7 +478,7 @@ public class Controller implements ActionListener {
 
 	}
 
-	public void gestionApuestasMarcadoresModificar() {
+	public void gestionarApuestasMarcadoresModificar() {
 		if (this.vista.getPanelApuestas().getPanelModificarApuesta().verificarCampos()) {
 			SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
 			String fechaString = vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoFecha().getText();
@@ -508,6 +507,32 @@ public class Controller implements ActionListener {
 		} else {
 			vista.mostrarMensajeError("Campos necesarios");
 		}
+	}
 
+	public void gestionarBorrarApuesta() {
+		if (vista.getPanelApuestas().getPanelMostrarBorrarApuesta().verificarDatosTabla() == 1) {
+			String[] info = vista.getPanelApuestas().getPanelMostrarBorrarApuesta().obtenerDatosTabla();
+			try {
+				if (info[0].equals("0") && casaApuestas.getApuestas().borrarApuesta(String.valueOf(vista
+						.getPanelApuestas().getPanelMostrarBorrarApuesta().getComboTipoApuesta().getSelectedItem()),
+						info[1], info[2])) {
+					vista.mostrarMensajeInformacion(info[3]);
+				} else {
+					vista.mostrarMensajeError(info[1]);
+				}
+			} catch (ParseException e) {
+				vista.mostrarMensajeError("No se ha encontrado la apuesta");
+			}
+		} else if (vista.getPanelApuestas().getPanelMostrarBorrarApuesta().verificarDatosTabla() == 0) {
+			vista.mostrarMensajeError("Los datos seleccionados no corresponden al tipo de apuesta");
+		} else {
+			vista.mostrarMensajeError("Seleccione al menos un dato");
+		}
+		this.vista.getPanelApuestas().getPanelMostrarBorrarApuesta()
+				.actualizarTablaApuestas(casaApuestas.getApuestas().generarTablaApuestas(
+						String.valueOf(vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getComboTipoApuesta()
+								.getSelectedItem()),
+						String.valueOf(vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getComboSede()
+								.getSelectedItem())));
 	}
 }

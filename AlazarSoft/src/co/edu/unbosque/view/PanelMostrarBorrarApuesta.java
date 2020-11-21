@@ -11,6 +11,8 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.itextpdf.text.log.SysoLogger;
+
 public class PanelMostrarBorrarApuesta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -52,12 +54,12 @@ public class PanelMostrarBorrarApuesta extends JPanel {
 		modeloTablaApuestas = new DefaultTableModel();
 		modeloTablaApuestas.fireTableStructureChanged();
 		tablaInformacionApuestas = new JTable(modeloTablaApuestas);
-		tablaInformacionApuestas.setEnabled(false);
 
 		modeloTablaApuestas.addColumn("Fecha");
 		modeloTablaApuestas.addColumn("Cédula");
 		modeloTablaApuestas.addColumn("Datos de apuesta");
 		modeloTablaApuestas.addColumn("Valor");
+		tablaInformacionApuestas.setDefaultEditor(tablaInformacionApuestas.getColumnClass(0), null);
 
 		scrollTablaInformacionApuestas = new JScrollPane(tablaInformacionApuestas);
 
@@ -98,6 +100,42 @@ public class PanelMostrarBorrarApuesta extends JPanel {
 		} else {
 			return true;
 		}
+	}
+
+	public int verificarDatosTabla() {
+		if (this.tablaInformacionApuestas.getSelectedRows().length == 1) {
+			String[] cont = String
+					.valueOf(
+							this.tablaInformacionApuestas.getValueAt(this.tablaInformacionApuestas.getSelectedRow(), 2))
+					.split("-");
+			if (cont.length == 6 && comboTipoApuesta.getSelectedItem().equals("Baloto")) {
+				return 1;
+			} else if (cont.length == 5 && comboTipoApuesta.getSelectedItem().equals("Super Astro")) {
+				return 1;
+			} else if (cont.length == 3 && comboTipoApuesta.getSelectedItem().equals("Fútbol")) {
+				return 1;
+			} else {
+				return 0;
+			}
+		} else {
+			return -1;
+		}
+	}
+
+	public String[] obtenerDatosTabla() {
+		String[] salida = new String[4];
+		salida[0] = "0";
+		if (this.tablaInformacionApuestas.getSelectedRows().length == 1) {
+			salida[1] = String.valueOf(
+					this.tablaInformacionApuestas.getValueAt(this.tablaInformacionApuestas.getSelectedRow(), 0));
+			salida[2] = String.valueOf(
+					this.tablaInformacionApuestas.getValueAt(this.tablaInformacionApuestas.getSelectedRow(), 1));
+			salida[3] = "Se ha borrado exitosamente la apuesta";
+		} else {
+			salida[0] = "1";
+			salida[1] = "Seleccione una sola apuesta";
+		}
+		return salida;
 	}
 
 	/**

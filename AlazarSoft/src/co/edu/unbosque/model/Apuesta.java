@@ -1,5 +1,6 @@
 package co.edu.unbosque.model;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import co.edu.unbosque.model.persistence.BalotoDAO;
 import co.edu.unbosque.model.persistence.MarcadoresDAO;
@@ -17,9 +18,36 @@ public class Apuesta {
 		marcadoresDAO = new MarcadoresDAO();
 	}
 
+	public boolean borrarApuesta(String tipoApuesta, String fecha, String cedula) throws ParseException {
+		SimpleDateFormat dateF = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
+		boolean salida = false;
+		if (tipoApuesta.equals("Super Astro")) {
+			if (superastroDAO.eliminarApuesta(cedula, dateF.parse(fecha))) {
+				salida = true;
+			} else {
+				salida = false;
+			}
+		} else if (tipoApuesta.equals("Baloto")) {
+			if (balotoDAO.eliminarApuesta(cedula, dateF.parse(fecha))) {
+				salida = true;
+			} else {
+				salida = false;
+			}
+		} else if (tipoApuesta.equals("Fútbol")) {
+			if (marcadoresDAO.eliminarApuesta(cedula, dateF.parse(fecha))) {
+				salida = true;
+			} else {
+				salida = false;
+			}
+		} else {
+			salida = false;
+		}
+		return salida;
+	}
+
 	private int contarDatosTipoApuestaYSede(String tipoApuesta, String sede) {
 		int cont = 0;
-		String sedeSinIdentificador=sede.substring(0,sede.indexOf("-"));
+		String sedeSinIdentificador = sede.substring(0, sede.indexOf("-"));
 		if (tipoApuesta.equals("Super Astro")) {
 			for (int i = 0; i < superastroDAO.getListaSuperastro().size(); i++)
 				if (sedeSinIdentificador.equals(superastroDAO.getListaSuperastro().get(i).getNombreSede()))
@@ -39,7 +67,7 @@ public class Apuesta {
 	public String[][] generarTablaApuestas(String tipoApuesta, String sede) {
 		String[][] salida = new String[this.contarDatosTipoApuestaYSede(tipoApuesta, sede)][4];
 		SimpleDateFormat dateF = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
-		String sedeSinIdentificador=sede.substring(0,sede.indexOf("-"));
+		String sedeSinIdentificador = sede.substring(0, sede.indexOf("-"));
 		if (tipoApuesta.equals("Super Astro")) {
 			for (int i = 0; i < salida.length; i++) {
 				if (sedeSinIdentificador.equals(superastroDAO.getListaSuperastro().get(i).getNombreSede())) {

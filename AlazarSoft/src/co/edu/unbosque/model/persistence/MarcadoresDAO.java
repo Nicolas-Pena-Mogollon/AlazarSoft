@@ -17,7 +17,7 @@ public class MarcadoresDAO {
 	public MarcadoresDTO buscarApuesta(String cedula, Date fecha) {
 		MarcadoresDTO encontrado = null;
 		for (int i = 0; i < listaMarcadores.size(); i++) {
-			if (listaMarcadores.get(i).getCedula().equals(cedula) && listaMarcadores.get(i).getFecha() == fecha) {
+			if (listaMarcadores.get(i).getCedula().equals(cedula) && listaMarcadores.get(i).getFecha().equals(fecha)) {
 				encontrado = listaMarcadores.get(i);
 			}
 		}

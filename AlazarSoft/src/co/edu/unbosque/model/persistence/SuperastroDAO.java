@@ -17,7 +17,7 @@ public class SuperastroDAO {
 	public SuperastroDTO buscarApuesta(String cedula, Date fecha) {
 		SuperastroDTO encontrado = null;
 		for (int i = 0; i < listaSuperastro.size(); i++) {
-			if (listaSuperastro.get(i).getCedula().equals(cedula) && listaSuperastro.get(i).getFecha() == fecha) {
+			if (listaSuperastro.get(i).getCedula().equals(cedula) && listaSuperastro.get(i).getFecha().equals(fecha)) {
 				encontrado = listaSuperastro.get(i);
 			}
 		}
@@ -36,10 +36,10 @@ public class SuperastroDAO {
 	public String mostrarApuestaBusqueda(ArrayList<SuperastroDTO> lista) {
 		String mensaje = "";
 		for (int i = 0; i < lista.size(); i++) {
-				mensaje += "Sede: " + lista.get(i).getNombreSede() + "\n" + "Cedula: " + lista.get(i).getCedula() + "\n"
-						+ "Fecha: " + lista.get(i).getFecha() + "\n" + "Valor: " + lista.get(i).getValorApuesta()
-						+ "Numero de juego: " + lista.get(i).getNumeroJuego() + "\n\n";
-			
+			mensaje += "Sede: " + lista.get(i).getNombreSede() + "\n" + "Cedula: " + lista.get(i).getCedula() + "\n"
+					+ "Fecha: " + lista.get(i).getFecha() + "\n" + "Valor: " + lista.get(i).getValorApuesta()
+					+ "Numero de juego: " + lista.get(i).getNumeroJuego() + "\n\n";
+
 		}
 		return mensaje;
 	}
@@ -87,6 +87,5 @@ public class SuperastroDAO {
 	public void setListaSuperastro(ArrayList<SuperastroDTO> listaSuperastro) {
 		this.listaSuperastro = listaSuperastro;
 	}
-	
-	
+
 }
