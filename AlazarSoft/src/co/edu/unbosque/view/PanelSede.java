@@ -13,8 +13,8 @@ public class PanelSede extends JTabbedPane {
 		panelSedeCrear = new PanelSedeCrear();
 		panelSedeModificar = new PanelSedeModificar();
 
-		this.add(panelSedeCrear, "Añadir apostadores");
-		this.add(panelSedeModificar, "Actualizar/Borrar información apostadores");
+		this.add(panelSedeCrear, "Añadir sede");
+		this.add(panelSedeModificar, "Actualizar/Borrar información sedes");
 
 	}
 
