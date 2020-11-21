@@ -33,14 +33,13 @@ public class SuperastroDAO {
 		return true;
 	}
 
-	public String mostrarApuestaBusqueda(String cedula, Date fecha, ArrayList<SuperastroDTO> lista) {
+	public String mostrarApuestaBusqueda(ArrayList<SuperastroDTO> lista) {
 		String mensaje = "";
 		for (int i = 0; i < lista.size(); i++) {
-			if (cedula.equals(lista.get(i).getCedula()) && fecha == lista.get(i).getFecha()) {
 				mensaje += "Sede: " + lista.get(i).getNombreSede() + "\n" + "Cedula: " + lista.get(i).getCedula() + "\n"
 						+ "Fecha: " + lista.get(i).getFecha() + "\n" + "Valor: " + lista.get(i).getValorApuesta()
 						+ "Numero de juego: " + lista.get(i).getNumeroJuego() + "\n\n";
-			}
+			
 		}
 		return mensaje;
 	}
@@ -61,7 +60,7 @@ public class SuperastroDAO {
 	public boolean editarApuesta(String cedula, Date fecha, String nombreSede, double valorApuesta) {
 		boolean verificar = false;
 		for (int i = 0; i < listaSuperastro.size(); i++) {
-			if (cedula.equals(listaSuperastro.get(i).getCedula()) && fecha == listaSuperastro.get(i).getFecha()) {
+			if (cedula.equals(listaSuperastro.get(i).getCedula())) {
 				listaSuperastro.get(i).setNombreSede(nombreSede);
 				listaSuperastro.get(i).setValorApuesta(valorApuesta);
 				archivo.escribirArchivoSuperastro(listaSuperastro);
@@ -73,4 +72,19 @@ public class SuperastroDAO {
 		return verificar;
 	}
 
+	/**
+	 * @return the listaSuperastro
+	 */
+	public ArrayList<SuperastroDTO> getListaSuperastro() {
+		return listaSuperastro;
+	}
+
+	/**
+	 * @param listaSuperastro the listaSuperastro to set
+	 */
+	public void setListaSuperastro(ArrayList<SuperastroDTO> listaSuperastro) {
+		this.listaSuperastro = listaSuperastro;
+	}
+	
+	
 }
