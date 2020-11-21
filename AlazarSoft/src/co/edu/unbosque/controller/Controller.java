@@ -91,6 +91,8 @@ public class Controller implements ActionListener {
 					.actualizarTablaApostadores(casaApuestas.getApostadores().generarTablaApostador());
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelApuestas().getPanelCrearApuesta().getCOMMAND_REGISTRAR_APUESTA_BALOTO())) {
+			System.out.println(this.casaApuestas.getApuestas().getBalotoDAO()
+					.mostrarApuestaBusqueda(this.casaApuestas.getApuestas().getBalotoDAO().getListaBaloto()));
 			String apuesta = vista.getPanelApuestas().getPanelCrearApuesta().getComboTiposApuesta().getSelectedItem()
 					.toString();
 			if (apuesta.equals("Baloto")) {
