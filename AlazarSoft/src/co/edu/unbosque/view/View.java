@@ -35,7 +35,7 @@ public class View extends JFrame {
 		splitPane = new JSplitPane();
 		splitPane.setEnabled(false);
 		splitPane.setLeftComponent(panelMenuCasaApuestas);
-		splitPane.setRightComponent(panelApostadores);
+		splitPane.setRightComponent(panelIngresoCasaApuestas);
 		getContentPane().add(splitPane);
 		asignarOyentes(control);
 		repaint();
