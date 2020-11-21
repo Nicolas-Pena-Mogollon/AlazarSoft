@@ -7,7 +7,7 @@ public class AplMain {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+
 		try {
 			UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
 
@@ -16,8 +16,8 @@ public class AplMain {
 		} catch (InstantiationException e) {
 		} catch (IllegalAccessException e) {
 		}
-		
+
 		@SuppressWarnings("unused")
-		Controller control=new Controller();
+		Controller control = new Controller();
 	}
 }

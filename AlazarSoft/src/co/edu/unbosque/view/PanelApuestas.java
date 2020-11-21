@@ -7,12 +7,16 @@ public class PanelApuestas extends JTabbedPane {
 	private static final long serialVersionUID = 1L;
 	private PanelCrearApuesta panelCrearApuesta;
 	private PanelModificarApuesta panelModificarApuesta;
+	private PanelMostrarBorrarApuesta panelMostrarBorrarApuesta;
 
 	public PanelApuestas() {
 		panelCrearApuesta = new PanelCrearApuesta();
 		panelModificarApuesta = new PanelModificarApuesta();
+		panelMostrarBorrarApuesta = new PanelMostrarBorrarApuesta();
 		add(panelCrearApuesta, "Registrar apuestas");
 		add(panelModificarApuesta, "Modificar apuestas");
+		add(panelMostrarBorrarApuesta, "Ver y borrar apuestas");
+
 	}
 
 	/**
@@ -41,6 +45,20 @@ public class PanelApuestas extends JTabbedPane {
 	 */
 	public void setPanelModificarApuesta(PanelModificarApuesta panelModificarApuesta) {
 		this.panelModificarApuesta = panelModificarApuesta;
+	}
+
+	/**
+	 * @return the panelMostrarBorrarApuesta
+	 */
+	public PanelMostrarBorrarApuesta getPanelMostrarBorrarApuesta() {
+		return panelMostrarBorrarApuesta;
+	}
+
+	/**
+	 * @param panelMostrarBorrarApuesta the panelMostrarBorrarApuesta to set
+	 */
+	public void setPanelMostrarBorrarApuesta(PanelMostrarBorrarApuesta panelMostrarBorrarApuesta) {
+		this.panelMostrarBorrarApuesta = panelMostrarBorrarApuesta;
 	}
 
 }
