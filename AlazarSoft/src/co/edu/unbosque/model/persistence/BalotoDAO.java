@@ -60,7 +60,7 @@ public class BalotoDAO {
 	public boolean editarApuesta(String cedula, Date fecha, String nombreSede, double valorApuesta) {
 		boolean verificar = false;
 		for (int i = 0; i < listaBaloto.size(); i++) {
-			if (cedula.equals(listaBaloto.get(i).getCedula()) && fecha == listaBaloto.get(i).getFecha()) {
+			if (cedula.equals(listaBaloto.get(i).getCedula()) && fecha.equals(listaBaloto.get(i).getFecha())) {
 				listaBaloto.get(i).setNombreSede(nombreSede);
 				listaBaloto.get(i).setValorApuesta(valorApuesta);
 				archivo.escribirArchivoBaloto(listaBaloto);

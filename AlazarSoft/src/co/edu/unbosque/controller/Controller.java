@@ -85,8 +85,6 @@ public class Controller implements ActionListener {
 			this.gestionApostadoresActualizar();
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelApuestas().getPanelCrearApuesta().getCOMMAND_REGISTRAR_APUESTA_BALOTO())) {
-			vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
-					.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
 			String apuesta = vista.getPanelApuestas().getPanelCrearApuesta().getComboTiposApuesta().getSelectedItem()
 					.toString();
 			if (apuesta.equals("Baloto")) {
@@ -218,6 +216,8 @@ public class Controller implements ActionListener {
 	}
 
 	public void gestionApuestasBaloto() {
+		vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
+				.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
 		if (vista.getPanelApuestas().getPanelCrearApuesta().verificarCamposBaloto()) {
 
 			SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
@@ -278,6 +278,8 @@ public class Controller implements ActionListener {
 	}
 
 	public void gestionApuestasSuperastro() {
+		vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
+				.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
 		if (vista.getPanelApuestas().getPanelCrearApuesta().verificarCamposSuperAstro()) {
 			SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
 			String fechaString = vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha().getText();
@@ -332,6 +334,8 @@ public class Controller implements ActionListener {
 	}
 
 	public void gestionApuestasFutbol() {
+		vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
+				.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
 		if (vista.getPanelApuestas().getPanelCrearApuesta().verificarCamposFutbol()) {
 			SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
 			String fechaString = vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha().getText();
@@ -393,80 +397,96 @@ public class Controller implements ActionListener {
 	}
 
 	public void gestionApuestasBalotoModificar() {
-		SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
-		String fechaString = vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoFecha().getText();
-		try {
-			Date fecha = formato.parse(fechaString);
-			String sede = vista.getPanelApuestas().getPanelModificarApuesta().getComboSede().getSelectedItem()
-					.toString();
-			String cedula = vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoCedula().getText();
+		if (this.vista.getPanelApuestas().getPanelModificarApuesta().verificarCampos()) {
+			SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
+			String fechaString = vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoFecha().getText();
 			try {
-				double valorApuesta = Double.parseDouble(
-						vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoValorApuesta().getText());
-				if (this.casaApuestas.getApuestas().getBalotoDAO().editarApuesta(cedula, fecha, sede, valorApuesta)) {
-					vista.mostrarMensajeInformacion("Se ha editado correctamente");
-				} else {
-					vista.mostrarMensajeError("El apostador no se encuentra registrado");
+				Date fecha = formato.parse(fechaString);
+				String sede = vista.getPanelApuestas().getPanelModificarApuesta().getComboSede().getSelectedItem()
+						.toString();
+				String cedula = vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoCedula().getText();
+				try {
+					double valorApuesta = Double.parseDouble(
+							vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoValorApuesta().getText());
+					if (this.casaApuestas.getApuestas().getBalotoDAO().editarApuesta(cedula, fecha, sede,
+							valorApuesta)) {
+						vista.mostrarMensajeInformacion("Se ha editado correctamente");
+						vista.getPanelApuestas().getPanelModificarApuesta().limpiarCampos();
+					} else {
+						vista.mostrarMensajeError("El apostador no se encuentra registrado");
+					}
+				} catch (NumberFormatException e) {
+					vista.mostrarMensajeError("Ingresó un caracter no permitido para los números");
 				}
-			} catch (NumberFormatException e) {
-				vista.mostrarMensajeError("Ingresó un caracter no permitido para los números");
-			}
 
-		} catch (ParseException e) {
-			vista.mostrarMensajeError("Error en fecha");
+			} catch (ParseException e) {
+				vista.mostrarMensajeError("Error en fecha");
+			}
+		} else {
+			vista.mostrarMensajeError("Campos necesarios");
 		}
 
 	}
 
 	public void gestionApuestasSuperastroModificar() {
-		SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
-		String fechaString = vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoFecha().getText();
-		try {
-			Date fecha = formato.parse(fechaString);
-			String sede = vista.getPanelApuestas().getPanelModificarApuesta().getComboSede().getSelectedItem()
-					.toString();
-			String cedula = vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoCedula().getText();
+		if (this.vista.getPanelApuestas().getPanelModificarApuesta().verificarCampos()) {
+			SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
+			String fechaString = vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoFecha().getText();
 			try {
-				double valorApuesta = Double.parseDouble(
-						vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoValorApuesta().getText());
-				if (this.casaApuestas.getApuestas().getSuperastroDAO().editarApuesta(cedula, fecha, sede,
-						valorApuesta)) {
-					vista.mostrarMensajeInformacion("Se ha editado correctamente");
-				} else {
-					vista.mostrarMensajeError("El apostador no se encuentra registrado");
+				Date fecha = formato.parse(fechaString);
+				String sede = vista.getPanelApuestas().getPanelModificarApuesta().getComboSede().getSelectedItem()
+						.toString();
+				String cedula = vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoCedula().getText();
+				try {
+					double valorApuesta = Double.parseDouble(
+							vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoValorApuesta().getText());
+					if (this.casaApuestas.getApuestas().getSuperastroDAO().editarApuesta(cedula, fecha, sede,
+							valorApuesta)) {
+						vista.mostrarMensajeInformacion("Se ha editado correctamente");
+						vista.getPanelApuestas().getPanelModificarApuesta().limpiarCampos();
+					} else {
+						vista.mostrarMensajeError("El apostador no se encuentra registrado");
+					}
+				} catch (NumberFormatException e) {
+					vista.mostrarMensajeError("Ingresó un caracter no permitido para los números");
 				}
-			} catch (NumberFormatException e) {
-				vista.mostrarMensajeError("Ingresó un caracter no permitido para los números");
+			} catch (ParseException e) {
+				vista.mostrarMensajeError("Error en fecha");
 			}
-		} catch (ParseException e) {
-			vista.mostrarMensajeError("Error en fecha");
+		} else {
+			vista.mostrarMensajeError("Campos necesarios");
 		}
 
 	}
 
 	public void gestionApuestasMarcadoresModificar() {
-		SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
-		String fechaString = vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoFecha().getText();
-		try {
-			Date fecha = formato.parse(fechaString);
-			String sede = vista.getPanelApuestas().getPanelModificarApuesta().getComboSede().getSelectedItem()
-					.toString();
-			String cedula = vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoCedula().getText();
+		if (this.vista.getPanelApuestas().getPanelModificarApuesta().verificarCampos()) {
+			SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
+			String fechaString = vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoFecha().getText();
 			try {
-				double valorApuesta = Double.parseDouble(
-						vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoValorApuesta().getText());
-				if (this.casaApuestas.getApuestas().getMarcadoresDAO().editarApuesta(cedula, fecha, sede,
-						valorApuesta)) {
-					vista.mostrarMensajeInformacion("Se ha editado correctamente");
-					vista.getPanelApuestas().getPanelModificarApuesta().limpiarCampos();
-				} else {
-					vista.mostrarMensajeError("El apostador no se encuentra registrado");
+				Date fecha = formato.parse(fechaString);
+				String sede = vista.getPanelApuestas().getPanelModificarApuesta().getComboSede().getSelectedItem()
+						.toString();
+				String cedula = vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoCedula().getText();
+				try {
+					double valorApuesta = Double.parseDouble(
+							vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoValorApuesta().getText());
+					if (this.casaApuestas.getApuestas().getMarcadoresDAO().editarApuesta(cedula, fecha, sede,
+							valorApuesta)) {
+						vista.mostrarMensajeInformacion("Se ha editado correctamente");
+						vista.getPanelApuestas().getPanelModificarApuesta().limpiarCampos();
+					} else {
+						vista.mostrarMensajeError("El apostador no se encuentra registrado");
+					}
+
+				} catch (NumberFormatException e) {
+					vista.mostrarMensajeError("Ingresó un caracter no permitido para los números");
 				}
-			} catch (NumberFormatException e) {
-				vista.mostrarMensajeError("Ingresó un caracter no permitido para los números");
+			} catch (ParseException e) {
+				vista.mostrarMensajeError("Error en fecha");
 			}
-		} catch (ParseException e) {
-			vista.mostrarMensajeError("Error en fecha");
+		} else {
+			vista.mostrarMensajeError("Campos necesarios");
 		}
 
 	}

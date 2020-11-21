@@ -62,7 +62,7 @@ public class MarcadoresDAO {
 	public boolean editarApuesta(String cedula, Date fecha, String nombreSede, double valorApuesta) {
 		boolean verificar = false;
 		for (int i = 0; i < listaMarcadores.size(); i++) {
-			if (cedula.equals(listaMarcadores.get(i).getCedula()) && fecha == listaMarcadores.get(i).getFecha()) {
+			if (cedula.equals(listaMarcadores.get(i).getCedula()) && fecha.equals(listaMarcadores.get(i).getFecha())) {
 				listaMarcadores.get(i).setNombreSede(nombreSede);
 				listaMarcadores.get(i).setValorApuesta(valorApuesta);
 				archivo.escribirArchivoMarcadores(listaMarcadores);

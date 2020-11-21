@@ -60,7 +60,9 @@ public class SuperastroDAO {
 	public boolean editarApuesta(String cedula, Date fecha, String nombreSede, double valorApuesta) {
 		boolean verificar = false;
 		for (int i = 0; i < listaSuperastro.size(); i++) {
-			if (cedula.equals(listaSuperastro.get(i).getCedula())) {
+			System.out.println(fecha);
+			System.out.println(listaSuperastro.get(i).getFecha());
+			if (cedula.equals(listaSuperastro.get(i).getCedula()) && fecha.equals(listaSuperastro.get(i).getFecha())) {
 				listaSuperastro.get(i).setNombreSede(nombreSede);
 				listaSuperastro.get(i).setValorApuesta(valorApuesta);
 				archivo.escribirArchivoSuperastro(listaSuperastro);

@@ -67,9 +67,21 @@ public class PanelModificarApuesta extends JPanel {
 
 		botonModificarApuesta = new JButton("Modificar");
 		botonModificarApuesta.setActionCommand(COMMAND_MODIFICAR_APUESTA);
-		
+
 		add(panelIngreso, BorderLayout.CENTER);
 		add(botonModificarApuesta, BorderLayout.PAGE_END);
+	}
+
+	public boolean verificarCampos() {
+		boolean verificar = false;
+		if (!campoTextoCedula.getText().equals("") && !campoTextoValorApuesta.getText().equals("")
+				&& !comboSede.getSelectedItem().equals("Seleccione")
+				&& !comboTiposApuesta.getSelectedItem().equals("Seleccione el tipo de apuesta")) {
+			verificar = true;
+		} else {
+			verificar = false;
+		}
+		return verificar;
 	}
 
 	public void cargarComboBox(ArrayList<SedesDTO> sede) {
@@ -85,7 +97,6 @@ public class PanelModificarApuesta extends JPanel {
 		comboSede.setSelectedIndex(0);
 		comboTiposApuesta.setSelectedIndex(0);
 		campoTextoValorApuesta.setText("");
-		comboTiposApuesta.setSelectedIndex(0);
 	}
 
 	/**
@@ -178,6 +189,5 @@ public class PanelModificarApuesta extends JPanel {
 	public void setBotonModificarApuesta(JButton botonModificarApuesta) {
 		this.botonModificarApuesta = botonModificarApuesta;
 	}
-	
-	
+
 }
