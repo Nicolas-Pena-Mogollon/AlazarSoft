@@ -7,28 +7,31 @@ import java.util.Date;
 
 public class MarcadoresDAO {
 
+	private ArrayList<MarcadoresDTO> listaMarcadores;
 	private ArchivoApuesta archivo;
 
 	public MarcadoresDAO() {
 		this.archivo = new ArchivoApuesta();
+		this.archivo.asignarRutaArchivoMarcador(this.archivo.getRUTA_MARCADORES());
+		this.listaMarcadores = this.archivo.leerArchivoMarcadores(this.archivo.getFileMarcador());
 	}
 
-	public MarcadoresDTO buscarApuesta(String cedula, Date fecha, ArrayList<MarcadoresDTO> lista) {
+	public MarcadoresDTO buscarApuesta(String cedula, Date fecha) {
 		MarcadoresDTO encontrado = null;
-		for (int i = 0; i < lista.size(); i++) {
-			if (lista.get(i).getCedula().equals(cedula) && lista.get(i).getFecha() == fecha) {
-				encontrado = lista.get(i);
+		for (int i = 0; i < listaMarcadores.size(); i++) {
+			if (listaMarcadores.get(i).getCedula().equals(cedula) && listaMarcadores.get(i).getFecha() == fecha) {
+				encontrado = listaMarcadores.get(i);
 			}
 		}
 		return encontrado;
 	}
 
 	public boolean crearApuestas(String nombre, String cedula, Date fecha, double valorApuesta, String partido,
-			String resultado, ArrayList<MarcadoresDTO> lista, File file) {
+			String resultado) {
 		MarcadoresDTO marcadoresDTO;
 		marcadoresDTO = new MarcadoresDTO(nombre, cedula, fecha, valorApuesta, partido, resultado);
-		lista.add(marcadoresDTO);
-		archivo.escribirArchivoMarcadores(lista, file);
+		listaMarcadores.add(marcadoresDTO);
+		archivo.escribirArchivoMarcadores(listaMarcadores);
 		return true;
 	}
 
@@ -45,18 +48,12 @@ public class MarcadoresDAO {
 		return mensaje;
 	}
 
-	public boolean eliminarApuesta(String cedula, Date fecha, ArrayList<MarcadoresDTO> lista, File file) {
+	public boolean eliminarApuesta(String cedula, Date fecha) {
 		boolean verificar = false;
-		MarcadoresDTO marcadoresDTO = buscarApuesta(cedula, fecha, lista);
+		MarcadoresDTO marcadoresDTO = buscarApuesta(cedula, fecha);
 		if (marcadoresDTO != null) {
-			lista.remove(marcadoresDTO);
-			file.delete();
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			archivo.escribirArchivoMarcadores(lista, file);
+			listaMarcadores.remove(marcadoresDTO);
+			archivo.escribirArchivoMarcadores(listaMarcadores);
 			verificar = true;
 		} else {
 			verificar = false;
@@ -65,21 +62,15 @@ public class MarcadoresDAO {
 	}
 
 	public boolean editarApuesta(String cedula, Date fecha, String nombreSede, double valorApuesta, String partido,
-			String resultado, ArrayList<MarcadoresDTO> lista, File file) {
+			String resultado) {
 		boolean verificar = false;
-		for (int i = 0; i < lista.size(); i++) {
-			if (cedula.equals(lista.get(i).getCedula()) && fecha == lista.get(i).getFecha()) {
-				lista.get(i).setNombreSede(nombreSede);
-				lista.get(i).setValorApuesta(valorApuesta);
-				lista.get(i).setPartido(partido);
-				lista.get(i).setResultado(resultado);
-				file.delete();
-				try {
-					file.createNewFile();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				archivo.escribirArchivoMarcadores(lista, file);
+		for (int i = 0; i < listaMarcadores.size(); i++) {
+			if (cedula.equals(listaMarcadores.get(i).getCedula()) && fecha == listaMarcadores.get(i).getFecha()) {
+				listaMarcadores.get(i).setNombreSede(nombreSede);
+				listaMarcadores.get(i).setValorApuesta(valorApuesta);
+				listaMarcadores.get(i).setPartido(partido);
+				listaMarcadores.get(i).setResultado(resultado);
+				archivo.escribirArchivoMarcadores(listaMarcadores);
 				return verificar = true;
 			} else {
 				verificar = false;

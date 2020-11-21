@@ -1,34 +1,34 @@
 package co.edu.unbosque.model.persistence;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class BalotoDAO {
 
 	private ArchivoApuesta archivo;
+	private ArrayList<BalotoDTO> listaBaloto;
 
 	public BalotoDAO() {
 		this.archivo = new ArchivoApuesta();
+		this.archivo.asignarRutaArchivoBaloto(this.archivo.getRUTA_BALOTO());
+		this.listaBaloto = this.archivo.leerArchivoBaloto(this.archivo.getFileBaloto());
 	}
 
-	public BalotoDTO buscarApuesta(String cedula, Date fecha, ArrayList<BalotoDTO> lista) {
+	public BalotoDTO buscarApuesta(String cedula, Date fecha) {
 		BalotoDTO encontrado = null;
-		for (int i = 0; i < lista.size(); i++) {
-			if (lista.get(i).getCedula().equals(cedula) && lista.get(i).getFecha() == fecha) {
-				encontrado = lista.get(i);
+		for (int i = 0; i < listaBaloto.size(); i++) {
+			if (listaBaloto.get(i).getCedula().equals(cedula) && listaBaloto.get(i).getFecha() == fecha) {
+				encontrado = listaBaloto.get(i);
 			}
 		}
 		return encontrado;
 	}
 
-	public boolean crearApuestas(String nombre, String cedula, Date fecha, double valorApuesta, String numeroJuego,
-			ArrayList<BalotoDTO> lista, File file) {
+	public boolean crearApuestas(String nombre, String cedula, Date fecha, double valorApuesta, String numeroJuego) {
 		BalotoDTO balotoDTO;
 		balotoDTO = new BalotoDTO(nombre, cedula, fecha, valorApuesta, numeroJuego);
-		lista.add(balotoDTO);
-		archivo.escribirArchivoBaloto(lista, file);
+		listaBaloto.add(balotoDTO);
+		archivo.escribirArchivoBaloto(listaBaloto);
 		return true;
 	}
 
@@ -44,18 +44,12 @@ public class BalotoDAO {
 		return mensaje;
 	}
 
-	public boolean eliminarApuesta(String cedula, Date fecha, ArrayList<BalotoDTO> lista, File file) {
+	public boolean eliminarApuesta(String cedula, Date fecha) {
 		boolean verificar = false;
-		BalotoDTO balotoDTO = buscarApuesta(cedula, fecha, lista);
+		BalotoDTO balotoDTO = buscarApuesta(cedula, fecha);
 		if (balotoDTO != null) {
-			lista.remove(balotoDTO);
-			file.delete();
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			archivo.escribirArchivoBaloto(lista, file);
+			listaBaloto.remove(balotoDTO);
+			archivo.escribirArchivoBaloto(listaBaloto);
 			verificar = true;
 		} else {
 			verificar = false;
@@ -63,20 +57,13 @@ public class BalotoDAO {
 		return verificar;
 	}
 
-	public boolean editarApuesta(String cedula, Date fecha, String nombreSede, double valorApuesta,
-			ArrayList<BalotoDTO> lista, File file) {
+	public boolean editarApuesta(String cedula, Date fecha, String nombreSede, double valorApuesta) {
 		boolean verificar = false;
-		for (int i = 0; i < lista.size(); i++) {
-			if (cedula.equals(lista.get(i).getCedula()) && fecha == lista.get(i).getFecha()) {
-				lista.get(i).setNombreSede(nombreSede);
-				lista.get(i).setValorApuesta(valorApuesta);
-				file.delete();
-				try {
-					file.createNewFile();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				archivo.escribirArchivoBaloto(lista, file);
+		for (int i = 0; i < listaBaloto.size(); i++) {
+			if (cedula.equals(listaBaloto.get(i).getCedula()) && fecha == listaBaloto.get(i).getFecha()) {
+				listaBaloto.get(i).setNombreSede(nombreSede);
+				listaBaloto.get(i).setValorApuesta(valorApuesta);
+				archivo.escribirArchivoBaloto(listaBaloto);
 				return verificar = true;
 			} else {
 				verificar = false;

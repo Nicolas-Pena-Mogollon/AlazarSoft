@@ -23,7 +23,7 @@ public class ArchivoApostadores {
 	/**
 	 * Ruta del archivo apostadores
 	 */
-	private final String RUTA_APOSTADORES = "./Data/apostadores.dat";
+	private final String RUTA_APOSTADORES = "Data\\apostadores.dat";
 	/**
 	 * es la entrada de los datos
 	 */
@@ -54,17 +54,21 @@ public class ArchivoApostadores {
 	public void escribirArchivo(ArrayList<ApostadorDTO> apostador) {
 		if (!fileArchivo.exists()) {
 			try {
-				fileArchivo.delete();
 				fileArchivo.createNewFile();
-				System.out.println(fileArchivo);
-				salida = new ObjectOutputStream(new FileOutputStream(fileArchivo));
-				salida.writeObject(apostador);
-				salida.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		try {
+			fileArchivo.delete();
+			System.out.println(fileArchivo);
+			salida = new ObjectOutputStream(new FileOutputStream(fileArchivo));
+			salida.writeObject(apostador);
+			salida.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 
 	}
 

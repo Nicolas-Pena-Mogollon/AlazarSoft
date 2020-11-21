@@ -120,6 +120,9 @@ public class PanelActualizarBorrarApostador extends JPanel {
 	public void borrarCampos() {
 		this.campoTextoNombre.setText("");
 		this.campoTextoCedula.setText("");
+		this.campoTextoDireccion.setText("");
+		this.campoTextoCelular.setText("");
+		this.comboSede.setSelectedIndex(0);
 	}
 
 	public void cargarComboBox(ArrayList<SedesDTO> sede) {

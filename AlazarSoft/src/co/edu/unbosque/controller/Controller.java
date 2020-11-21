@@ -3,24 +3,18 @@ package co.edu.unbosque.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
+
 import javax.swing.JOptionPane;
+
 import co.edu.unbosque.model.CasaDeApuestas;
 import co.edu.unbosque.model.CedulaException;
 import co.edu.unbosque.model.CelularException;
 import co.edu.unbosque.model.Sede;
-import co.edu.unbosque.model.persistence.ArchivoApuesta;
-import co.edu.unbosque.model.persistence.BalotoDAO;
-import co.edu.unbosque.model.persistence.BalotoDTO;
-import co.edu.unbosque.model.persistence.MarcadoresDAO;
-import co.edu.unbosque.model.persistence.MarcadoresDTO;
 import co.edu.unbosque.model.persistence.Propiedades;
 import co.edu.unbosque.model.persistence.SedesDAO;
 import co.edu.unbosque.model.persistence.SedesDTO;
-import co.edu.unbosque.model.persistence.SuperastroDAO;
-import co.edu.unbosque.model.persistence.SuperastroDTO;
 import co.edu.unbosque.view.View;
 
 public class Controller implements ActionListener {
@@ -31,17 +25,7 @@ public class Controller implements ActionListener {
 	private Properties datos;
 	private SedesDAO sedes;
 	private Sede sede;
-	private BalotoDAO baloto;
-	private MarcadoresDAO marcador;
-	private SuperastroDAO superastro;
-	private File fileBaloto = new File("Data\\apuestas-baloto.dat");
-	private File fileSuperastro = new File("Data\\apuestas-superastro.dat");
-	private File fileMarcadores = new File("Data\\apuestas-marcadores.dat");
-	private ArrayList<BalotoDTO> listaBaloto;
-	private ArrayList<SuperastroDTO> listaSuperastro;
-	private ArrayList<MarcadoresDTO> listaMarcadores;
 	private String[] partidos;
-	private ArchivoApuesta archivoApuesta;
 
 	public Controller() {
 		vista = new View(this);
@@ -49,14 +33,7 @@ public class Controller implements ActionListener {
 		datos = new Properties();
 		casaApuestas = new CasaDeApuestas();
 		sedes = new SedesDAO();
-		baloto = new BalotoDAO();
-		superastro = new SuperastroDAO();
-		marcador = new MarcadoresDAO();
 		sede = new Sede();
-		archivoApuesta = new ArchivoApuesta();
-		listaBaloto = archivoApuesta.leerArchivoBaloto(fileBaloto);
-		listaSuperastro = archivoApuesta.leerArchivoSuperastro(fileSuperastro);
-		listaMarcadores = archivoApuesta.leerArchivoMarcadores(fileMarcadores);
 		partidos = new String[14];
 		vista.getPanelApostadores().getPanelCrearApostador().cargarComboBox(this.sedes.leerSede());
 		vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarComboBox(this.sedes.leerSede());
@@ -123,6 +100,11 @@ public class Controller implements ActionListener {
 			this.gestionApostadoresEliminar();
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelApostadores().getPanelActualizarBorrarApostador().getCOMMAND_ACTUALIZAR())) {
+			;
+			String hola = this.casaApuestas.getApostadores().getApostadorDao().mostrarApostadorBusqueda(
+					this.casaApuestas.getApostadores().getApostadorDao().getListaApostador(), "");
+			System.out.println(hola);
+			System.out.println(this.casaApuestas.getApostadores().getApostadorDao().getListaApostador().size());
 			this.gestionApostadoresActualizar();
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelApuestas().getPanelCrearApuesta().getCOMMAND_REGISTRAR_APUESTA_BALOTO())) {
@@ -195,13 +177,21 @@ public class Controller implements ActionListener {
 	}
 
 	public void gestionApostadoresEliminar() {
+
 		String cedula = vista.getPanelApostadores().getPanelActualizarBorrarApostador().getCampoTextoCedula().getText();
-		if (casaApuestas.getApostadores().getApostadorDao().eliminarApostador(cedula)) {
-			JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
-			vista.getPanelApostadores().getPanelCrearApostador().cargarComboBox(this.sedes.leerSede());
-			vista.getPanelApostadores().getPanelActualizarBorrarApostador().borrarCampos();
-			vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarComboBox(this.sedes.leerSede());
-			vista.getPanelApuestas().getPanelCrearApuesta().cargarComboBox(this.sedes.leerSede());
+		try {
+			this.casaApuestas.getApostadores().verificarCedula(cedula);
+			if (casaApuestas.getApostadores().getApostadorDao().eliminarApostador(cedula)) {
+				JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
+				vista.getPanelApostadores().getPanelCrearApostador().cargarComboBox(this.sedes.leerSede());
+				vista.getPanelApostadores().getPanelActualizarBorrarApostador().borrarCampos();
+				vista.getPanelApostadores().getPanelActualizarBorrarApostador().cargarComboBox(this.sedes.leerSede());
+				vista.getPanelApuestas().getPanelCrearApuesta().cargarComboBox(this.sedes.leerSede());
+			} else {
+				vista.mostrarMensajeError("El apostador no se encuentra registrado");
+			}
+		} catch (CedulaException e) {
+			vista.mostrarMensajeError(e.getMessage());
 		}
 
 	}
@@ -216,6 +206,9 @@ public class Controller implements ActionListener {
 				if (casaApuestas.getApostadores().getApostadorDao().editarApostador(entradas[5], entradas[1],
 						entradas[4], entradas[2], entradas[3])) {
 					JOptionPane.showMessageDialog(null, "Se ha editado correctamente");
+					vista.getPanelApostadores().getPanelActualizarBorrarApostador().borrarCampos();
+				}else {
+					vista.mostrarMensajeError("El apostador no se encuentra registrado");
 				}
 			} catch (CelularException e) {
 				vista.mostrarMensajeError(e.getMessage());
@@ -231,7 +224,6 @@ public class Controller implements ActionListener {
 			Date fecha = null;
 			String sede = vista.getPanelApuestas().getPanelCrearApuesta().getComboSede().getSelectedItem().toString();
 			String cedula = vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoCedula().getText();
-			// Esto es nuevo falta el else
 			if (casaApuestas.getApostadores().getApostadorDao().buscarApostador(cedula) != null) {
 				double valorApuesta = Double.parseDouble(
 						vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoValorApuesta().getText());
@@ -249,13 +241,15 @@ public class Controller implements ActionListener {
 						.getPanelApuestaBaloto().getCampoTextoSextoNumero().getText());
 				String numeroJuego = primerNumero + " - " + segundoNumero + " - " + tercerNumero + " - " + cuartoNumero
 						+ " - " + quintoNumero + " - " + sextoNumero;
-				if (this.baloto.crearApuestas(sede, cedula, fecha, valorApuesta, numeroJuego, listaBaloto,
-						fileBaloto)) {
+				if (this.casaApuestas.getApuestas().getBalotoDAO().crearApuestas(sede, cedula, fecha, valorApuesta,
+						numeroJuego)) {
 					vista.mostrarMensajeInformacion("Se ha agregado correctamente");
 					vista.mostrarMensajeInformacion(vista.getPanelApuestas().getPanelCrearApuesta()
 							.facturaBaloto("Fecha", sede, cedula, valorApuesta, numeroJuego));
 					vista.getPanelApuestas().getPanelCrearApuesta().limpiarCamposBaloto();
 				}
+			} else {
+				vista.mostrarMensajeError("El apostador no se encuentra registrado");
 			}
 		} else {
 			vista.mostrarMensajeError("Campos necesarios");
@@ -267,7 +261,6 @@ public class Controller implements ActionListener {
 			Date fecha = null;
 			String sede = vista.getPanelApuestas().getPanelCrearApuesta().getComboSede().getSelectedItem().toString();
 			String cedula = vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoCedula().getText();
-			// Esto es nuevo falta el else
 			if (casaApuestas.getApostadores().getApostadorDao().buscarApostador(cedula) != null) {
 
 				double valorApuesta = Double.parseDouble(
@@ -283,13 +276,15 @@ public class Controller implements ActionListener {
 				String numeroJuego = primerNumero + " - " + segundoNumero + " - " + tercerNumero + " - " + cuartoNumero;
 				String signo = vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaSuperAstro()
 						.getSignoZodiacal().getSelectedItem().toString();
-				if (this.superastro.crearApuestas(sede, cedula, fecha, valorApuesta, numeroJuego, signo,
-						listaSuperastro, fileSuperastro)) {
+				if (this.casaApuestas.getApuestas().getSuperastroDAO().crearApuestas(sede, cedula, fecha, valorApuesta,
+						numeroJuego, signo)) {
 					vista.mostrarMensajeInformacion("Se ha agregado correctamente");
 					vista.mostrarMensajeInformacion(vista.getPanelApuestas().getPanelCrearApuesta()
 							.facturaSuperastro("Fecha", sede, cedula, valorApuesta, numeroJuego, signo));
 					vista.getPanelApuestas().getPanelCrearApuesta().limpiarCamposSuperAstro();
 				}
+			} else {
+				vista.mostrarMensajeError("El apostador no se encuentra registrado");
 			}
 		} else {
 			vista.mostrarMensajeError("Campos necesarios");
@@ -302,7 +297,6 @@ public class Controller implements ActionListener {
 			Date fecha = null;
 			String sede = vista.getPanelApuestas().getPanelCrearApuesta().getComboSede().getSelectedItem().toString();
 			String cedula = vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoCedula().getText();
-			// Esto es nuevo falta el else
 			if (casaApuestas.getApostadores().getApostadorDao().buscarApostador(cedula) != null) {
 				double valorApuesta = Double.parseDouble(
 						vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoValorApuesta().getText());
@@ -310,13 +304,15 @@ public class Controller implements ActionListener {
 						.getComboPartidos().getSelectedItem().toString();
 				String resultado = vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaFutbol()
 						.getComboOpcionResultado().getSelectedItem().toString();
-				if (this.marcador.crearApuestas(sede, cedula, fecha, valorApuesta, partido, resultado, listaMarcadores,
-						fileMarcadores)) {
+				if (this.casaApuestas.getApuestas().getMarcadoresDAO().crearApuestas(sede, cedula, fecha, valorApuesta,
+						partido, resultado)) {
 					vista.mostrarMensajeInformacion("Se ha agregado correctamente");
 					vista.mostrarMensajeInformacion(vista.getPanelApuestas().getPanelCrearApuesta()
 							.facturaFutbol("Fecha", sede, cedula, valorApuesta, partido, resultado));
 					vista.getPanelApuestas().getPanelCrearApuesta().limpiarCamposFutbol();
 				}
+			} else {
+				vista.mostrarMensajeError("El apostador no se encuentra registrado");
 			}
 		} else {
 			vista.mostrarMensajeError("Campos necesarios");
