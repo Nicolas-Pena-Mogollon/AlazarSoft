@@ -1,10 +1,6 @@
 package co.edu.unbosque.model;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import com.itextpdf.text.log.SysoLogger;
-
 import co.edu.unbosque.model.persistence.BalotoDAO;
 import co.edu.unbosque.model.persistence.MarcadoresDAO;
 import co.edu.unbosque.model.persistence.SuperastroDAO;
@@ -29,7 +25,7 @@ public class Apuesta {
 				if (sedeSinIdentificador.equals(superastroDAO.getListaSuperastro().get(i).getNombreSede()))
 					cont++;
 		} else if (tipoApuesta.equals("Baloto")) {
-			for (int i = 0; i < superastroDAO.getListaSuperastro().size(); i++)
+			for (int i = 0; i < balotoDAO.getListaBaloto().size(); i++)
 				if (sedeSinIdentificador.equals(balotoDAO.getListaBaloto().get(i).getNombreSede()))
 					cont++;
 		} else if (tipoApuesta.equals("Fútbol")) {
@@ -53,8 +49,6 @@ public class Apuesta {
 							+ superastroDAO.getListaSuperastro().get(i).getSigno();
 					salida[i][3] = String.valueOf(superastroDAO.getListaSuperastro().get(i).getValorApuesta());
 				}
-				System.out.println(balotoDAO.getListaBaloto().get(i).getCedula());
-				System.out.println(balotoDAO.getListaBaloto().get(i).getNombreSede());
 			}
 		} else if (tipoApuesta.equals("Baloto")) {
 			for (int i = 0; i < salida.length; i++) {
@@ -64,9 +58,7 @@ public class Apuesta {
 					salida[i][2] = balotoDAO.getListaBaloto().get(i).getNumeroJuego();
 					salida[i][3] = String.valueOf(balotoDAO.getListaBaloto().get(i).getValorApuesta());
 				}
-				
 			}
-
 		} else if (tipoApuesta.equals("Fútbol")) {
 			for (int i = 0; i < salida.length; i++) {
 				if (sedeSinIdentificador.equals(marcadoresDAO.getListaMarcadores().get(i).getNombreSede())) {
