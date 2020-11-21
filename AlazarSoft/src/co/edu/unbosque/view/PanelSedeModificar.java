@@ -2,6 +2,7 @@ package co.edu.unbosque.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import co.edu.unbosque.model.persistence.SedesDTO;
 
 public class PanelSedeModificar extends JPanel {
 
@@ -83,6 +86,14 @@ public class PanelSedeModificar extends JPanel {
 			salida[1] = "Los campos deben ser completados";
 		}
 		return salida;
+	}
+	
+	public void cargarCombo(ArrayList<SedesDTO> lista) {
+		comboIdUbicacion.removeAllItems();
+		comboIdUbicacion.addItem("Seleccione");
+		for (int i = 0; i < lista.size(); i++) {
+			comboIdUbicacion.addItem("" + lista.get(i).getIdUbicacion());
+		}
 	}
 
 	public JLabel getEtiquetaUbicacion() {

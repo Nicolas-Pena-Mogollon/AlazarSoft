@@ -5,6 +5,7 @@ import co.edu.unbosque.model.persistence.ArchivoConfiguracionCasaApuestas;
 public class CasaDeApuestas {
 
 	private Apostador apostadores;
+	private Sede sede;
 	private Apuesta apuestas;
 	private String nombreCasaApuestas;
 	private int numeroSedes;
@@ -15,6 +16,7 @@ public class CasaDeApuestas {
 		this.archivoConfiguracionCasaApuestas = new ArchivoConfiguracionCasaApuestas();
 		this.apostadores = new Apostador();
 		this.apuestas = new Apuesta();
+		this.sede = new Sede();
 	}
 
 //Falta Condicional para campos vacios
@@ -111,7 +113,19 @@ public class CasaDeApuestas {
 	public void setApuestas(Apuesta apuestas) {
 		this.apuestas = apuestas;
 	}
-	
-	
+
+	/**
+	 * @return the sede
+	 */
+	public Sede getSede() {
+		return sede;
+	}
+
+	/**
+	 * @param sede the sede to set
+	 */
+	public void setSede(Sede sede) {
+		this.sede = sede;
+	}
 
 }
