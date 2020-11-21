@@ -6,8 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.swing.JOptionPane;
-
 import co.edu.unbosque.model.CasaDeApuestas;
 import co.edu.unbosque.model.CedulaException;
 import co.edu.unbosque.model.CelularException;

@@ -2,10 +2,10 @@ package co.edu.unbosque.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
 import co.edu.unbosque.model.persistence.SedesDTO;
 
 public class PanelCrearApuesta extends JPanel {

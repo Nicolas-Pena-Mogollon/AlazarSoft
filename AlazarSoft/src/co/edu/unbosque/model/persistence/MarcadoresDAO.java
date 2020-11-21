@@ -1,7 +1,5 @@
 package co.edu.unbosque.model.persistence;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 

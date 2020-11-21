@@ -2,13 +2,11 @@ package co.edu.unbosque.view;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.util.Properties;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.ListCellRenderer;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
@@ -24,7 +22,6 @@ public class PanelApuestaSuperAstro extends JPanel {
 	private JComboBox<String> SignoZodiacal;
 	private JPanel panelCamposDeTextoNumero;
 
-	@SuppressWarnings("unchecked")
 	public PanelApuestaSuperAstro() {
 		setBorder(new TitledBorder("Apuesta baloto"));
 		setLayout(new GridLayout(1, 2));
