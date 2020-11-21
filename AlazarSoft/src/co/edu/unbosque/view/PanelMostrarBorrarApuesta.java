@@ -74,7 +74,6 @@ public class PanelMostrarBorrarApuesta extends JPanel {
 		this.add(panelCombos, BorderLayout.PAGE_START);
 		this.add(scrollTablaInformacionApuestas, BorderLayout.CENTER);
 		this.add(panelBotones, BorderLayout.PAGE_END);
-
 	}
 
 	public void llenarComboSedes(String[] data) {
