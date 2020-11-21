@@ -12,6 +12,18 @@ public class Apostador {
 	public Apostador() {
 		apostadorDao = new ApostadorDAO();
 	}
+	
+	public String[][] generarTablaApostador() {
+		String salida[][]= new String[apostadorDao.getListaApostador().size()][5];
+		for (int i = 0; i < apostadorDao.getListaApostador().size(); i++) {
+			salida[i][0]=apostadorDao.getListaApostador().get(i).getCedula();
+			salida[i][1]=apostadorDao.getListaApostador().get(i).getNombre();
+			salida[i][2]=apostadorDao.getListaApostador().get(i).getCelular();
+			salida[i][3]=apostadorDao.getListaApostador().get(i).getDireccion();
+			salida[i][4]=apostadorDao.getListaApostador().get(i).getSede();
+		}
+		return salida;
+	}
 
 	public boolean soloNumeros(String celular) {
 		for (int i = 0; i < celular.length(); i++) {

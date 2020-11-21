@@ -83,6 +83,10 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelApostadores().getPanelActualizarBorrarApostador().getCOMMAND_ACTUALIZAR())) {
 			this.gestionApostadoresActualizar();
+		} else if (e.getActionCommand().equals(vista.getPanelApostadores().getPanelInformacionApostadores()
+				.getCOMMAND_LEER_INFORMACION_APOSTADORES())) {
+			vista.getPanelApostadores().getPanelInformacionApostadores()
+					.actualizarTablaApostadores(casaApuestas.getApostadores().generarTablaApostador());
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelApuestas().getPanelCrearApuesta().getCOMMAND_REGISTRAR_APUESTA_BALOTO())) {
 			String apuesta = vista.getPanelApuestas().getPanelCrearApuesta().getComboTiposApuesta().getSelectedItem()
