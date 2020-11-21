@@ -10,7 +10,6 @@ public class AplMain {
 
 		try {
 			UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
-
 		} catch (UnsupportedLookAndFeelException e) {
 		} catch (ClassNotFoundException e) {
 		} catch (InstantiationException e) {

@@ -72,4 +72,32 @@ public class BalotoDAO {
 		return verificar;
 	}
 
+	/**
+	 * @return the archivo
+	 */
+	public ArchivoApuesta getArchivo() {
+		return archivo;
+	}
+
+	/**
+	 * @param archivo the archivo to set
+	 */
+	public void setArchivo(ArchivoApuesta archivo) {
+		this.archivo = archivo;
+	}
+
+	/**
+	 * @return the listaBaloto
+	 */
+	public ArrayList<BalotoDTO> getListaBaloto() {
+		return listaBaloto;
+	}
+
+	/**
+	 * @param listaBaloto the listaBaloto to set
+	 */
+	public void setListaBaloto(ArrayList<BalotoDTO> listaBaloto) {
+		this.listaBaloto = listaBaloto;
+	}
+
 }

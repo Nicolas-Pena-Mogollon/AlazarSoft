@@ -3,6 +3,8 @@ package co.edu.unbosque.view;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -12,18 +14,40 @@ import javax.swing.table.DefaultTableModel;
 public class PanelMostrarBorrarApuesta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private final String COMMAND_LEER_INFORMACION_APUESTAS = "LEER";
-	private final String COMMAND_BORRAR_INFORMACION_APUESTAS = "LEER";
+	private final String COMMAND_LEER_INFORMACION_APUESTAS = "LEER_INFORMACION_APUESTAS";
+	private final String COMMAND_BORRAR_INFORMACION_APUESTAS = "BORRAR_INFORMACION_APUESTAS";
+	private JLabel etiquetaTipoApuesta;
+	private JLabel etiquetaSede;
 	private JButton botonLeerInformacionApuestas;
 	private JButton botonBorrarInformacionApuestas;
+	private JComboBox<String> comboSede;
+	private JComboBox<String> comboTipoApuesta;
 	private JTable tablaInformacionApuestas;
 	private DefaultTableModel modeloTablaApuestas;
 	private JScrollPane scrollTablaInformacionApuestas;
 	private JPanel panelBotones;
+	private JPanel panelCombos;
 
 	public PanelMostrarBorrarApuesta() {
 		setBorder(new TitledBorder("Información y borrado de apuestas"));
 		setLayout(new BorderLayout());
+
+		etiquetaSede = new JLabel("Sede");
+		etiquetaTipoApuesta = new JLabel("Tipo de apuesta");
+
+		comboSede = new JComboBox<String>();
+
+		comboTipoApuesta = new JComboBox<String>();
+		comboTipoApuesta.addItem("Seleccione el tipo de apuesta");
+		comboTipoApuesta.addItem("Baloto");
+		comboTipoApuesta.addItem("Super Astro");
+		comboTipoApuesta.addItem("Fútbol");
+
+		panelCombos = new JPanel(new GridLayout(1, 4));
+		panelCombos.add(etiquetaSede);
+		panelCombos.add(comboSede);
+		panelCombos.add(etiquetaTipoApuesta);
+		panelCombos.add(comboTipoApuesta);
 
 		modeloTablaApuestas = new DefaultTableModel();
 		modeloTablaApuestas.fireTableStructureChanged();
@@ -31,9 +55,8 @@ public class PanelMostrarBorrarApuesta extends JPanel {
 		tablaInformacionApuestas.setEnabled(false);
 
 		modeloTablaApuestas.addColumn("Fecha");
-		modeloTablaApuestas.addColumn("Sede");
 		modeloTablaApuestas.addColumn("Cédula");
-		modeloTablaApuestas.addColumn("Tipo");
+		modeloTablaApuestas.addColumn("Datos de apuesta");
 		modeloTablaApuestas.addColumn("Valor");
 
 		scrollTablaInformacionApuestas = new JScrollPane(tablaInformacionApuestas);
@@ -48,15 +71,33 @@ public class PanelMostrarBorrarApuesta extends JPanel {
 		panelBotones.add(botonLeerInformacionApuestas);
 		panelBotones.add(botonBorrarInformacionApuestas);
 
+		this.add(panelCombos, BorderLayout.PAGE_START);
 		this.add(scrollTablaInformacionApuestas, BorderLayout.CENTER);
 		this.add(panelBotones, BorderLayout.PAGE_END);
 
+	}
+
+	public void llenarComboSedes(String[] data) {
+		comboSede.removeAllItems();
+		comboSede.addItem("Seleccione la sede");
+		for (int i = 0; i < data.length; i++) {
+			comboSede.addItem(data[i]);
+		}
 	}
 
 	public void actualizarTablaApuestas(String[][] data) {
 		modeloTablaApuestas.setRowCount(0);
 		for (int i = 0; i < data.length; i++) {
 			modeloTablaApuestas.addRow(data[i]);
+		}
+	}
+
+	public boolean verificarDatos() {
+		if (this.comboSede.getSelectedItem().equals("Seleccione la sede")
+				|| this.comboSede.getSelectedItem().equals("Seleccione el tipo de apuesta")) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 
@@ -115,6 +156,34 @@ public class PanelMostrarBorrarApuesta extends JPanel {
 	 */
 	public String getCOMMAND_BORRAR_INFORMACION_APUESTAS() {
 		return COMMAND_BORRAR_INFORMACION_APUESTAS;
+	}
+
+	/**
+	 * @return the comboSede
+	 */
+	public JComboBox<String> getComboSede() {
+		return comboSede;
+	}
+
+	/**
+	 * @param comboSede the comboSede to set
+	 */
+	public void setComboSede(JComboBox<String> comboSede) {
+		this.comboSede = comboSede;
+	}
+
+	/**
+	 * @return the comboTipoApuesta
+	 */
+	public JComboBox<String> getComboTipoApuesta() {
+		return comboTipoApuesta;
+	}
+
+	/**
+	 * @param comboTipoApuesta the comboTipoApuesta to set
+	 */
+	public void setComboTipoApuesta(JComboBox<String> comboTipoApuesta) {
+		this.comboTipoApuesta = comboTipoApuesta;
 	}
 
 }

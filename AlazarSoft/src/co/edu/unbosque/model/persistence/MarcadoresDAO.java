@@ -74,4 +74,32 @@ public class MarcadoresDAO {
 		return verificar;
 	}
 
+	/**
+	 * @return the listaMarcadores
+	 */
+	public ArrayList<MarcadoresDTO> getListaMarcadores() {
+		return listaMarcadores;
+	}
+
+	/**
+	 * @param listaMarcadores the listaMarcadores to set
+	 */
+	public void setListaMarcadores(ArrayList<MarcadoresDTO> listaMarcadores) {
+		this.listaMarcadores = listaMarcadores;
+	}
+
+	/**
+	 * @return the archivo
+	 */
+	public ArchivoApuesta getArchivo() {
+		return archivo;
+	}
+
+	/**
+	 * @param archivo the archivo to set
+	 */
+	public void setArchivo(ArchivoApuesta archivo) {
+		this.archivo = archivo;
+	}
+
 }

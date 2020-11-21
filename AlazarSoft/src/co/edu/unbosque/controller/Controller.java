@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 import co.edu.unbosque.model.CasaDeApuestas;
@@ -29,6 +30,11 @@ public class Controller implements ActionListener {
 		vista.getPanelSede().getPanelSedeModificar().cargarCombo(this.casaApuestas.getSede().getSedesDao().leerSede());
 		vista.getPanelApuestas().getPanelModificarApuesta()
 				.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
+		vista.getPanelApuestas().getPanelMostrarBorrarApuesta().llenarComboSedes(casaApuestas.getSede().ObtenerSedes());
+		vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
+				.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
+		vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaFutbol()
+				.cargarCombo(this.casaApuestas.getSede().cargarPartido());
 	}
 
 	@Override
@@ -41,11 +47,7 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_APOSTADORES())) {
 			vista.getSplitPane().setRightComponent(vista.getPanelApostadores());
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_APUESTAS())) {
-			vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaFutbol()
-					.cargarCombo(this.casaApuestas.getSede().cargarPartido());
 			vista.getSplitPane().setRightComponent(vista.getPanelApuestas());
-			vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
-					.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_PLANES_PREMIACION())) {
 			// vista.getSplitPane().setRightComponent(vista.getPanelSede());
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_CONSULTA_REPORTES())) {
@@ -118,6 +120,18 @@ public class Controller implements ActionListener {
 			}
 			if (apuesta.equals("Seleccione el tipo de apuesta")) {
 				vista.mostrarMensajeError("Escoja el tipo de apuesta");
+			}
+		} else if (e.getActionCommand().equals(
+				vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getCOMMAND_LEER_INFORMACION_APUESTAS())) {
+			if (vista.getPanelApuestas().getPanelMostrarBorrarApuesta().verificarDatos()) {
+				vista.getPanelApuestas().getPanelMostrarBorrarApuesta()
+						.actualizarTablaApuestas(casaApuestas.getApuestas().generarTablaApuestas(
+								vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getComboTipoApuesta()
+										.getSelectedItem().toString(),
+								vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getComboSede().getSelectedItem()
+										.toString()));
+			} else {
+				vista.mostrarMensajeError("Se deben escoger todas las opciones");
 			}
 		}
 	}
