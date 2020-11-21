@@ -7,6 +7,6 @@ public interface PDFInterface {
 	public final String RUTA_REPORTE_DETALLES_APUESTAS_POR_CLIENTE = "reporteClientes.pdf";
 	public final String RUTA_REPORTE_TOTAL_APUESTAS_POR_SEDE = "reporteClientes.pdf";
 
-	public abstract void exportarPDF(String[][] data, String tipoInformacion);
+	public abstract void exportarPDF(String[][] data, String tipoReporte);
 
 }

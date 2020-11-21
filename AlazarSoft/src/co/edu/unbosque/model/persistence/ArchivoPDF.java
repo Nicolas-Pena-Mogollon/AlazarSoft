@@ -8,16 +8,10 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-public class ArchivoPDF {
+public class ArchivoPDF implements PDFInterface {
 
 	private static final Font chapterFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 26, Font.BOLDITALIC);
-	/**
-	 * Rutas de cada tipo de pdf
-	 */
-	private final String REPORTEPDF_CLIENTES = "reporteClientes.pdf";
-	private final String REPORTEPDF_TOTAL_APUESTAS_CLIENTES = "reporteTotalApuestasClientes.pdf";
-	private final String REPORTE_DETALLES_APUESTAS_POR_CLIENTE = "reporteDetallesApuestasCliente.pdf";
-	private final String REPORTE_TOTAL_APUESTAS_POR_SEDE = "reporteTotalApuestasSede.pdf";
+
 	/**
 	 * Títulos de cada tipo de pdf (Faltan)
 	 */
@@ -40,18 +34,22 @@ public class ArchivoPDF {
 	}
 
 	/**
-	 * @author Nicolas Peña Mogollón Método encargado de recibir una lista de
-	 *         clientes para escribir la información en el archivo PDF
-	 *         correspondiente
-	 * @param datos
+	 * Método encargado de recibir una lista de clientes para escribir la
+	 * información en el archivo PDF correspondiente
+	 * 
+	 * @param data
+	 * @param tipoReporte
 	 */
 // Se tiene que hacer así por métodos
-	public void exportarPDF(String[][] datos, String tipoReporte) {
+	@Override
+	public void exportarPDF(String[][] data, String tipoReporte) {
+		// TODO Auto-generated method stub
+
+		// TODO Auto-generated method stub
 
 		if (this.verificarTipoReporte(tipoReporte) == 1) {
 
 		}
-		file = new File(REPORTEPDF_CLIENTES);
 		try {
 			fos = new FileOutputStream(file);
 			PdfWriter.getInstance(document, fos).setInitialLeading(20);
@@ -66,7 +64,7 @@ public class ArchivoPDF {
 
 			capitulo.setNumberDepth(0);
 //			// Se crea la tabla
-			tablaPDF.resetColumnCount(datos[0].length);
+			tablaPDF.resetColumnCount(data[0].length);
 			tablaPDF.setWidthPercentage(100);
 
 			for (int i = 0; i < titulosReportePDFClientes.length; i++) {
@@ -75,18 +73,18 @@ public class ArchivoPDF {
 				tablaPDF.addCell(celdaTitulo);
 			}
 
-			for (int i = 0; i < datos.length; i++) {
+			for (int i = 0; i < data.length; i++) {
 
 //				PdfPCell celdaFecha = new PdfPCell(new Phrase(fechaComoCadena));
 //				celdaFecha.setHorizontalAlignment(Element.ALIGN_RIGHT);
-				tablaPDF.addCell(datos[i][0]);
-				tablaPDF.addCell(datos[i][1]);
-				tablaPDF.addCell(datos[i][2]);
-				tablaPDF.addCell(datos[i][3]);
-				tablaPDF.addCell(datos[i][4]);
-				tablaPDF.addCell(datos[i][5]);
-				tablaPDF.addCell(datos[i][6]);
-				tablaPDF.addCell(datos[i][7]);
+				tablaPDF.addCell(data[i][0]);
+				tablaPDF.addCell(data[i][1]);
+				tablaPDF.addCell(data[i][2]);
+				tablaPDF.addCell(data[i][3]);
+				tablaPDF.addCell(data[i][4]);
+				tablaPDF.addCell(data[i][5]);
+				tablaPDF.addCell(data[i][6]);
+				tablaPDF.addCell(data[i][7]);
 				// Para alinear las cifras y fechas toca así
 //				PdfPCell celdaCilindraje = new PdfPCell(new Phrase(listaCompra.get(i).getMoto().getCilindraje() + ""));
 //				celdaCilindraje.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -106,17 +104,17 @@ public class ArchivoPDF {
 	private int verificarTipoReporte(String reporte) {
 		if (reporte.equals("Listado de clientes")) {
 			titulos = titulosReportePDFClientes;
-			file = new File(REPORTEPDF_CLIENTES);
+			file = new File(RUTA_REPORTEPDF_CLIENTES);
 			return 1;
 		} else if (reporte.equals("Valor total de apuestas por cliente")) {
-			file = new File(REPORTE_DETALLES_APUESTAS_POR_CLIENTE);
+			file = new File(RUTA_REPORTE_DETALLES_APUESTAS_POR_CLIENTE);
 			return 2;
 		} else if (reporte.equals("Detalle de apuestas por cliente y por sede")) {
-			file = new File(REPORTE_TOTAL_APUESTAS_POR_SEDE);
-			return 2;
+			file = new File(RUTA_REPORTE_TOTAL_APUESTAS_POR_SEDE);
+			return 3;
 		} else if (reporte.equals("Total de apuestas por sede y tipo de juego")) {
-			file = new File(REPORTEPDF_CLIENTES);
-			return 2;
+			file = new File(RUTA_REPORTEPDF_TOTAL_APUESTAS_CLIENTES);
+			return 4;
 		} else {
 			return 0;
 		}
