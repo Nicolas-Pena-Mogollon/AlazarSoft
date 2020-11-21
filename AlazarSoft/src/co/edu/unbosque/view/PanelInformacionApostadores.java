@@ -29,13 +29,13 @@ public class PanelInformacionApostadores extends JPanel {
 
 		modeloTablaApostadores.addColumn("Cédula");
 		modeloTablaApostadores.addColumn("Nombre");
-		modeloTablaApostadores.addColumn("Dirección");
 		modeloTablaApostadores.addColumn("Celular");
+		modeloTablaApostadores.addColumn("Dirección");
 		modeloTablaApostadores.addColumn("Sede");
 
 		scrollTablaInformacionApostadores = new JScrollPane(tablaInformacionApostadores);
 
-		botonLeerInformacionApostadores = new JButton("Mostrar información");
+		botonLeerInformacionApostadores = new JButton("Actualizar tabla");
 		botonLeerInformacionApostadores.setActionCommand(COMMAND_LEER_INFORMACION_APOSTADORES);
 
 		this.add(scrollTablaInformacionApostadores, BorderLayout.CENTER);
