@@ -115,6 +115,7 @@ public class PanelActualizarBorrarApostador extends JPanel {
 			salida[1] = "Los campos deben ser completados";
 		}
 		return salida;
+		
 	}
 
 	public void borrarCampos() {
