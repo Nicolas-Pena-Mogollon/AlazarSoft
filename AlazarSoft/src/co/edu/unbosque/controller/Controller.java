@@ -578,6 +578,7 @@ public class Controller implements ActionListener {
 				if (this.casaApuestas.getJuego().getJuegosDAO().agregarJuego(nombreJuego, tipoJuego, presupuesto)) {
 					vista.mostrarMensajeInformacion("Se ha agregado correctamente");
 					vista.getPanelCasaApuestas().getPanelDatosJuegos().limpiarCampos();
+					
 				} else {
 					vista.mostrarMensajeError("No se pueden repetir juegos");
 				}
