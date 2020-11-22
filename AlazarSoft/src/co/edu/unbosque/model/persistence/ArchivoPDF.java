@@ -37,7 +37,6 @@ public class ArchivoPDF extends ArchivoExportar {
 	 * @param data
 	 * @param tipoReporte
 	 */
-// Se tiene que hacer así por métodos
 	@Override
 	public void exportar(String[][] data, String tipoReporte) {
 		// TODO Auto-generated method stub
