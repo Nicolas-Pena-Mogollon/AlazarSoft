@@ -286,6 +286,7 @@ public class Apuesta {
 	 */
 	public void setSuperastroDAO(SuperastroDAO superastroDAO) {
 		this.superastroDAO = superastroDAO;
+		
 	}
 
 	/**
