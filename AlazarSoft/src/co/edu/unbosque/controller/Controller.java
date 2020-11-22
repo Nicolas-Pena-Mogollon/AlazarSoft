@@ -136,7 +136,7 @@ public class Controller implements ActionListener {
 		if (entradas[0].equals("0")) {
 			casaApuestas.guardarConfiguracionCasaDeApuestas(entradas[1], Integer.parseInt(entradas[2]),
 					Long.parseLong(entradas[3]));
-			vista.mostrarMensajeInformacion(entradas[4]);
+			vista.mostrarMensajeInformacion(entradas[4]);	
 		} else {
 			vista.mostrarMensajeError(entradas[1]);
 		}
