@@ -40,6 +40,7 @@ public class PanelDatosJuegos extends JPanel {
 
 		campoTextoNombreJuego = new JTextField();
 		campoTextoPresupuesto = new JTextField();
+		
 
 		panelCampos.add(etiquetaNombreJuego);
 		panelCampos.add(campoTextoNombreJuego);
