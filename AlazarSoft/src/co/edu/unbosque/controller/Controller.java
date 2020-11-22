@@ -559,7 +559,7 @@ public class Controller implements ActionListener {
 	}
 	
 	public void gestionarJuegos() {
-//		String[] entradas = vista.getp
+//		String[] entradas = vista.getPanelCasaApuestas().getPanelDatosJuegos().get
 	}
 
 }
