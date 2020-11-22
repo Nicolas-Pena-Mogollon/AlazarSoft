@@ -6,12 +6,24 @@ public class PanelConsultasReportes extends JTabbedPane {
 
 	private static final long serialVersionUID = 1L;
 	private PanelExportarInformacion panelExportarInformacion;
+	private PanelHistoricoVentas panelHistoricoVentas;
+	private PanelGraficoVentasSedes panelGraficoVentasSedes;
+	private PanelGraficaClientes panelGraficaClientes;
+	private PanelGraficoApuestas panelGraficoApuestas;
 
 	public PanelConsultasReportes() {
-		
+
 		panelExportarInformacion = new PanelExportarInformacion();
+		panelHistoricoVentas = new PanelHistoricoVentas();
+		panelGraficoVentasSedes = new PanelGraficoVentasSedes();
+		panelGraficaClientes = new PanelGraficaClientes();
+		panelGraficoApuestas = new PanelGraficoApuestas();
 
 		add(panelExportarInformacion, "Exportar Información");
+		add(panelHistoricoVentas, "Gráfica ventas");
+		add(panelGraficoVentasSedes, "Gráfica Sedes");
+		add(panelGraficaClientes, "Gráfica clientes");
+		add(panelGraficoApuestas, "Gráfica tipos de apuesta");
 
 	}
 
@@ -27,6 +39,62 @@ public class PanelConsultasReportes extends JTabbedPane {
 	 */
 	public void setPanelExportarInformacion(PanelExportarInformacion panelExportarInformacion) {
 		this.panelExportarInformacion = panelExportarInformacion;
+	}
+
+	/**
+	 * @return the panelHistoricoVentas
+	 */
+	public PanelHistoricoVentas getPanelHistoricoVentas() {
+		return panelHistoricoVentas;
+	}
+
+	/**
+	 * @param panelHistoricoVentas the panelHistoricoVentas to set
+	 */
+	public void setPanelHistoricoVentas(PanelHistoricoVentas panelHistoricoVentas) {
+		this.panelHistoricoVentas = panelHistoricoVentas;
+	}
+
+	/**
+	 * @return the panelGraficoVentasSedes
+	 */
+	public PanelGraficoVentasSedes getPanelGraficoVentasSedes() {
+		return panelGraficoVentasSedes;
+	}
+
+	/**
+	 * @param panelGraficoVentasSedes the panelGraficoVentasSedes to set
+	 */
+	public void setPanelGraficoVentasSedes(PanelGraficoVentasSedes panelGraficoVentasSedes) {
+		this.panelGraficoVentasSedes = panelGraficoVentasSedes;
+	}
+
+	/**
+	 * @return the panelGraficaClientes
+	 */
+	public PanelGraficaClientes getPanelGraficaClientes() {
+		return panelGraficaClientes;
+	}
+
+	/**
+	 * @param panelGraficaClientes the panelGraficaClientes to set
+	 */
+	public void setPanelGraficaClientes(PanelGraficaClientes panelGraficaClientes) {
+		this.panelGraficaClientes = panelGraficaClientes;
+	}
+
+	/**
+	 * @return the panelGraficoApuestas
+	 */
+	public PanelGraficoApuestas getPanelGraficoApuestas() {
+		return panelGraficoApuestas;
+	}
+
+	/**
+	 * @param panelGraficoApuestas the panelGraficoApuestas to set
+	 */
+	public void setPanelGraficoApuestas(PanelGraficoApuestas panelGraficoApuestas) {
+		this.panelGraficoApuestas = panelGraficoApuestas;
 	}
 
 }
