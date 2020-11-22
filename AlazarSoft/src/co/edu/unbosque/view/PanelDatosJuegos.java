@@ -16,7 +16,7 @@ public class PanelDatosJuegos extends JPanel {
 	private JLabel etiquetaNombreJuego;
 	private JLabel etiquetaTipoJuego;
 	private JLabel etiquetaPresupuesto;
-	private JTextField campoTextoNombreJuego;
+	private JComboBox<String> comboNombreJuego;
 	private JTextField campoTextoPresupuesto;
 	private JComboBox<String> comboTiposDeJuego;
 	private JButton botonGuardarDatosJuego;
@@ -38,12 +38,15 @@ public class PanelDatosJuegos extends JPanel {
 		comboTiposDeJuego.addItem("Lotería");
 		comboTiposDeJuego.addItem("Chance");
 
-		campoTextoNombreJuego = new JTextField();
+		comboNombreJuego = new JComboBox<String>();
+		comboNombreJuego.addItem("Seleccione");
+		comboNombreJuego.addItem("Baloto");
+		comboNombreJuego.addItem("Super Astro");
+		comboNombreJuego.addItem("Fútbol");
 		campoTextoPresupuesto = new JTextField();
-		
 
 		panelCampos.add(etiquetaNombreJuego);
-		panelCampos.add(campoTextoNombreJuego);
+		panelCampos.add(comboNombreJuego);
 		panelCampos.add(etiquetaTipoJuego);
 		panelCampos.add(comboTiposDeJuego);
 		panelCampos.add(etiquetaPresupuesto);
@@ -59,7 +62,7 @@ public class PanelDatosJuegos extends JPanel {
 
 	public boolean verificarEntradas() {
 		boolean verificar = false;
-		if (!"".equals(campoTextoNombreJuego.getText()) && !"".equals(campoTextoPresupuesto.getText())
+		if (!"Seleccione".equals(comboNombreJuego.getSelectedItem()) && !"".equals(campoTextoPresupuesto.getText())
 				&& !"Seleccione".equals(comboTiposDeJuego.getSelectedItem())) {
 			verificar = true;
 		} else {
@@ -69,23 +72,24 @@ public class PanelDatosJuegos extends JPanel {
 	}
 
 	public void limpiarCampos() {
-		this.campoTextoNombreJuego.setText("");
+		this.comboNombreJuego.setSelectedIndex(0);
 		this.campoTextoPresupuesto.setText("");
 		this.comboTiposDeJuego.setSelectedIndex(0);
 	}
 
+
 	/**
-	 * @return the campoTextoNombreJuego
+	 * @return the comboNombreJuego
 	 */
-	public JTextField getCampoTextoNombreJuego() {
-		return campoTextoNombreJuego;
+	public JComboBox<String> getComboNombreJuego() {
+		return comboNombreJuego;
 	}
 
 	/**
-	 * @param campoTextoNombreJuego the campoTextoNombreJuego to set
+	 * @param comboNombreJuego the comboNombreJuego to set
 	 */
-	public void setCampoTextoNombreJuego(JTextField campoTextoNombreJuego) {
-		this.campoTextoNombreJuego = campoTextoNombreJuego;
+	public void setComboNombreJuego(JComboBox<String> comboNombreJuego) {
+		this.comboNombreJuego = comboNombreJuego;
 	}
 
 	/**
