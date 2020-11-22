@@ -2,11 +2,15 @@ package co.edu.unbosque.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import com.formdev.flatlaf.util.ScaledImageIcon;
 
@@ -19,8 +23,10 @@ public class PanelExportarInformacion extends JPanel {
 	private final String EXCEL = "./Imagenes/EXCEL.jpg";
 	private JLabel etiquetaOpcionExportar;
 	private JLabel etiquetaFiltroFecha;
+	private JLabel etiquetaFecha;
 	private JComboBox<String> comboOpcionExportar;
 	private JComboBox<String> comboFiltroFecha;
+	private JTextField campoTextoFecha;
 	private JPanel panelOpcionesExportar;
 	private JPanel panelBotones;
 	private JButton botonExportarPDF;
@@ -29,17 +35,16 @@ public class PanelExportarInformacion extends JPanel {
 	public PanelExportarInformacion() {
 		setLayout(new BorderLayout());
 
-		panelOpcionesExportar = new JPanel(new GridLayout(2, 2));
+		panelOpcionesExportar = new JPanel(new GridLayout(3, 2));
 		etiquetaFiltroFecha = new JLabel("Escoja el filtrado por fecha");
 		etiquetaOpcionExportar = new JLabel("Información a exportar");
+		etiquetaFecha = new JLabel("Escriba la fecha en formato dd/mm/yyyy");
 
 		comboFiltroFecha = new JComboBox<String>();
 		comboFiltroFecha.addItem("Seleccione");
 		comboFiltroFecha.addItem("día, mes y año");
 		comboFiltroFecha.addItem("mes y año");
-		comboFiltroFecha.addItem("día y mes");
-		comboFiltroFecha.addItem("día y año");
-		comboFiltroFecha.addItem("día");
+		comboFiltroFecha.addItem("año");
 
 		comboOpcionExportar = new JComboBox<String>();
 		comboOpcionExportar.addItem("Seleccione");
@@ -47,11 +52,15 @@ public class PanelExportarInformacion extends JPanel {
 		comboOpcionExportar.addItem("Valor total de apuestas por cliente");
 		comboOpcionExportar.addItem("Detalle de apuestas realizadas por cliente y sede");
 		comboOpcionExportar.addItem("Total de apuestas por sede y tipo de juego");
+		SimpleDateFormat dateF = new SimpleDateFormat("dd/MM/yyyy");
+		campoTextoFecha = new JTextField(dateF.format(new Date()));
 
 		panelOpcionesExportar.add(etiquetaOpcionExportar);
 		panelOpcionesExportar.add(comboOpcionExportar);
 		panelOpcionesExportar.add(etiquetaFiltroFecha);
 		panelOpcionesExportar.add(comboFiltroFecha);
+		panelOpcionesExportar.add(etiquetaFecha);
+		panelOpcionesExportar.add(campoTextoFecha);
 
 		panelBotones = new JPanel(new GridLayout(1, 2));
 		botonExportarPDF = new JButton();
@@ -137,6 +146,20 @@ public class PanelExportarInformacion extends JPanel {
 	 */
 	public String getCOMMAND_EXPORTAREXCEL() {
 		return COMMAND_EXPORTAREXCEL;
+	}
+
+	/**
+	 * @return the campoTextoFecha
+	 */
+	public JTextField getCampoTextoFecha() {
+		return campoTextoFecha;
+	}
+
+	/**
+	 * @param campoTextoFecha the campoTextoFecha to set
+	 */
+	public void setCampoTextoFecha(JTextField campoTextoFecha) {
+		this.campoTextoFecha = campoTextoFecha;
 	}
 
 }

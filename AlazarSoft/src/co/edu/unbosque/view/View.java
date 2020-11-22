@@ -65,6 +65,7 @@ public class View extends JFrame {
 		panelApuestas.getPanelModificarApuesta().getBotonModificarApuesta().addActionListener(control);
 		panelApuestas.getPanelMostrarBorrarApuesta().getBotonBorrarInformacionApuestas().addActionListener(control);
 		panelApuestas.getPanelMostrarBorrarApuesta().getBotonLeerInformacionApuestas().addActionListener(control);
+		panelConsultasReportes.getPanelExportarInformacion().getBotonExportarPDF().addActionListener(control);
 
 	}
 
