@@ -25,13 +25,17 @@ public class CasaDeApuestas {
 		this.archivoPDF = new ArchivoPDF();
 	}
 
-//Falta Condicional para campos vacios
 	public void guardarConfiguracionCasaDeApuestas(String nombre, int numeroSedes, Long presupuestoTotal) {
-		this.nombreCasaApuestas = nombre;
-		this.numeroSedes = numeroSedes;
-		this.presupuestoTotal = presupuestoTotal;
-
-		String[] datos = { nombre, String.valueOf(numeroSedes), String.valueOf(presupuestoTotal) };
+		if (!nombre.equals("")) {
+			this.nombreCasaApuestas = nombre;
+		}
+		if (numeroSedes != 0) {
+			this.numeroSedes = numeroSedes;
+		}
+		if (presupuestoTotal != 0) {
+			this.presupuestoTotal = presupuestoTotal;
+		}
+		String[] datos = { this.nombreCasaApuestas, String.valueOf(this.numeroSedes), String.valueOf(this.presupuestoTotal) };
 		archivoConfiguracionCasaApuestas.escribirConfiguracionCasaApuestas(datos);
 	}
 
