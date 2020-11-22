@@ -557,5 +557,9 @@ public class Controller implements ActionListener {
 						String.valueOf(vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getComboSede()
 								.getSelectedItem())));
 	}
+	
+	public void gestionarJuegos() {
+//		String[] entradas = vista.getp
+	}
 
 }
