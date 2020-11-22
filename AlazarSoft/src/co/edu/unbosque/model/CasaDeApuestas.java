@@ -61,8 +61,21 @@ public class CasaDeApuestas {
 					salida[i][5] = aux[2];
 				}
 			} else if (tipoFiltro.equals("mes y año")) {
-				if (dateDos.parse(fecha).equals(apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha())) {
+				if (dateDos.parse(fecha)
+						.getMonth() == (apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha().getMonth())
+						&& dateDos.parse(fecha)
+								.getYear() == (apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha().getYear())) {
 					salida[i][0] = dateDos.format(apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha());
+					salida[i][1] = apuestas.getBalotoDAO().getListaBaloto().get(i).getNombreSede();
+					salida[i][2] = apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula();
+					salida[i][3] = aux[0];
+					salida[i][4] = aux[1];
+					salida[i][5] = aux[2];
+				}
+			} else if (tipoFiltro.equals("año")) {
+				if (dateTres.parse(fecha)
+						.getYear() == (apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha().getYear())) {
+					salida[i][0] = dateTres.format(apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha());
 					salida[i][1] = apuestas.getBalotoDAO().getListaBaloto().get(i).getNombreSede();
 					salida[i][2] = apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula();
 					salida[i][3] = aux[0];
@@ -72,27 +85,91 @@ public class CasaDeApuestas {
 			}
 
 		}
+
 		int cont = 0;
 		for (int i = apuestas.getBalotoDAO().getListaBaloto().size(); i < salida.length
 				- apuestas.getMarcadoresDAO().getListaMarcadores().size(); i++) {
-			aux = buscarDatosApostador(apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getCedula());
-			salida[i][0] = dateDos.format(apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getFecha());
-			salida[i][1] = apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getNombreSede();
-			salida[i][2] = apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getCedula();
-			salida[i][3] = aux[0];
-			salida[i][4] = aux[1];
-			salida[i][5] = aux[2];
-			cont++;
+			aux = buscarDatosApostador(apuestas.getSuperastroDAO().getListaSuperastro().get(i).getCedula());
+			if (tipoFiltro.equals("día, mes y año")) {
+				if (dateUno.parse(fecha)
+						.getDay() == (apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha().getDay())
+						&& dateUno.parse(fecha)
+								.getMonth() == (apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha().getMonth())
+						&& dateUno.parse(fecha)
+								.getYear() == (apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha().getYear())) {
+					salida[i][0] = dateUno.format(apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha());
+					salida[i][1] = apuestas.getSuperastroDAO().getListaSuperastro().get(i).getNombreSede();
+					salida[i][2] = apuestas.getSuperastroDAO().getListaSuperastro().get(i).getCedula();
+					salida[i][3] = aux[0];
+					salida[i][4] = aux[1];
+					salida[i][5] = aux[2];
+				}
+			} else if (tipoFiltro.equals("mes y año")) {
+				if (dateDos.parse(fecha)
+						.getMonth() == (apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha().getMonth())
+						&& dateDos.parse(fecha)
+								.getYear() == (apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha().getYear())) {
+					salida[i][0] = dateDos.format(apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha());
+					salida[i][1] = apuestas.getSuperastroDAO().getListaSuperastro().get(i).getNombreSede();
+					salida[i][2] = apuestas.getSuperastroDAO().getListaSuperastro().get(i).getCedula();
+					salida[i][3] = aux[0];
+					salida[i][4] = aux[1];
+					salida[i][5] = aux[2];
+				}
+			} else if (tipoFiltro.equals("año")) {
+				if (dateTres.parse(fecha)
+						.getYear() == (apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha().getYear())) {
+					salida[i][0] = dateTres.format(apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha());
+					salida[i][1] = apuestas.getSuperastroDAO().getListaSuperastro().get(i).getNombreSede();
+					salida[i][2] = apuestas.getSuperastroDAO().getListaSuperastro().get(i).getCedula();
+					salida[i][3] = aux[0];
+					salida[i][4] = aux[1];
+					salida[i][5] = aux[2];
+				}
+			}
+
 		}
 		cont = 0;
 		for (int i = salida.length - apuestas.getMarcadoresDAO().getListaMarcadores().size(); i < salida.length; i++) {
-			aux = buscarDatosApostador(apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getCedula());
-			salida[i][0] = dateDos.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha());
-			salida[i][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getNombreSede();
-			salida[i][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getCedula();
-			salida[i][3] = aux[0];
-			salida[i][4] = aux[1];
-			salida[i][5] = aux[2];
+			aux = buscarDatosApostador(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getCedula());
+			if (tipoFiltro.equals("día, mes y año")) {
+				if (dateUno.parse(fecha)
+						.getDay() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha().getDay())
+						&& dateUno.parse(fecha)
+								.getMonth() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha().getMonth())
+						&& dateUno.parse(fecha)
+								.getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha().getYear())) {
+					salida[i][0] = dateUno.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha());
+					salida[i][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getNombreSede();
+					salida[i][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getCedula();
+					salida[i][3] = aux[0];
+					salida[i][4] = aux[1];
+					salida[i][5] = aux[2];
+				}
+			} else if (tipoFiltro.equals("mes y año")) {
+				if (dateDos.parse(fecha)
+						.getMonth() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha().getMonth())
+						&& dateDos.parse(fecha)
+								.getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha().getYear())) {
+					salida[i][0] = dateDos.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha());
+					salida[i][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getNombreSede();
+					salida[i][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getCedula();
+					salida[i][3] = aux[0];
+					salida[i][4] = aux[1];
+					salida[i][5] = aux[2];
+				}
+			} else if (tipoFiltro.equals("año")) {
+				if (dateTres.parse(fecha)
+						.getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha().getYear())) {
+					salida[i][0] = dateTres.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha());
+					salida[i][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getNombreSede();
+					salida[i][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getCedula();
+					salida[i][3] = aux[0];
+					salida[i][4] = aux[1];
+					salida[i][5] = aux[2];
+				}
+			}
+
 		}
 		return salida;
 	}
@@ -105,7 +182,7 @@ public class CasaDeApuestas {
 				salida[1] = this.apostadores.getApostadorDao().getListaApostador().get(i).getCelular();
 				salida[2] = this.apostadores.getApostadorDao().getListaApostador().get(i).getDireccion();
 			}
-			
+
 		}
 		return salida;
 

@@ -114,12 +114,17 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelSede().getPanelSedeModificar().getCOMMAND_ACTUALIZAR_SEDE())) {
 			this.gestionarSedesActualizar();
-		}else if(e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_EXPORTARPDF())) {
+		} else if (e.getActionCommand()
+				.equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_EXPORTARPDF())) {
 			try {
-				casaApuestas.generarInformacionPdf(vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar().getSelectedItem().toString());
+				casaApuestas.generarDatosPDFClientes(
+						vista.getPanelConsultasReportes().getPanelExportarInformacion().getCampoTextoFecha().getText(),
+						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
+								.getSelectedItem().toString());
+				vista.mostrarMensajeInformacion("Se ha generado el archivo PDF");
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
-				vista.mostrarMensajeError("No se pudo exportar el PDF");
+				vista.mostrarMensajeError("No se pudo exportar el PDF" + "\n" + e1);
 			}
 		}
 	}
@@ -405,13 +410,16 @@ public class Controller implements ActionListener {
 					Integer.parseInt(entradas[2]));
 			vista.mostrarMensajeInformacion("Se ha editado correctamente");
 			vista.getPanelSede().getPanelSedeModificar().borrarCampos();
-			vista.getPanelSede().getPanelSedeModificar().cargarCombo(this.casaApuestas.getSede().getSedesDao().leerSede());
+			vista.getPanelSede().getPanelSedeModificar()
+					.cargarCombo(this.casaApuestas.getSede().getSedesDao().leerSede());
 			vista.getPanelApuestas().getPanelModificarApuesta()
 					.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
-			vista.getPanelApuestas().getPanelMostrarBorrarApuesta().llenarComboSedes(casaApuestas.getSede().ObtenerSedes());
+			vista.getPanelApuestas().getPanelMostrarBorrarApuesta()
+					.llenarComboSedes(casaApuestas.getSede().ObtenerSedes());
 			vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
 					.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
-			vista.getPanelSede().getPanelSedeModificar().cargarCombo(this.casaApuestas.getSede().getSedesDao().leerSede());
+			vista.getPanelSede().getPanelSedeModificar()
+					.cargarCombo(this.casaApuestas.getSede().getSedesDao().leerSede());
 		} else {
 			vista.mostrarMensajeError(entradas[1]);
 		}
