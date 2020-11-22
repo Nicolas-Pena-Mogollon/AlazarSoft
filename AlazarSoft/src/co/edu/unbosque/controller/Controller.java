@@ -19,7 +19,6 @@ public class Controller implements ActionListener {
 	public Controller() {
 		casaApuestas = new CasaDeApuestas();
 		vista = new View(this);
-
 		vista.getPanelApostadores().getPanelCrearApostador()
 				.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
 		vista.getPanelApostadores().getPanelActualizarBorrarApostador()
