@@ -34,6 +34,7 @@ public class Controller implements ActionListener {
 		vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaFutbol()
 				.cargarCombo(this.casaApuestas.getSede().cargarPartido());
 		vista.getPanelPremiacion().llenarInformacion(casaApuestas.getPlanesPremiacion().leerArchivo());
+	
 	}
 
 	@Override
