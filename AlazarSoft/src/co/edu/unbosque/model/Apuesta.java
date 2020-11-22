@@ -155,6 +155,7 @@ public class Apuesta {
 		int i = izq, d = der;
 		if (izq != der) {
 			int pivote;
+			
 			String[] aux = null;
 			pivote = izq;
 			while (izq != der) {
