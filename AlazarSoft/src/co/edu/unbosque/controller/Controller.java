@@ -131,12 +131,14 @@ public class Controller implements ActionListener {
 				// TODO Auto-generated catch block
 				vista.mostrarMensajeError("No se pudo exportar el PDF" + "\n" + e1);
 			}
-		}else if (e.getActionCommand()
+		} else if (e.getActionCommand()
 				.equals(vista.getPanelConsultasReportes().getPanelHistoricoVentas().getCOMMAND_HISTORICO_VENTAS())) {
 			vista.getPanelConsultasReportes().getPanelHistoricoVentas()
 					.recibirInfomacion(casaApuestas.getApuestas().obtenerInformacionHistoricoVentas());
-		}else if(e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficoVentasSedes().getCOMMAND_GRAFICA_SEDES_MAYORES_VENTAS())) {
-			vista.getPanelConsultasReportes().getPanelGraficoVentasSedes().recibirInfomacion(casaApuestas.obtenerCincoSedesConMayorVenta());
+		} else if (e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficoVentasSedes()
+				.getCOMMAND_GRAFICA_SEDES_MAYORES_VENTAS())) {
+			vista.getPanelConsultasReportes().getPanelGraficoVentasSedes()
+					.recibirInfomacion(casaApuestas.obtenerCincoSedesConMayorVenta());
 		}
 	}
 
@@ -145,7 +147,7 @@ public class Controller implements ActionListener {
 		if (entradas[0].equals("0")) {
 			casaApuestas.guardarConfiguracionCasaDeApuestas(entradas[1], Integer.parseInt(entradas[2]),
 					Long.parseLong(entradas[3]));
-			vista.mostrarMensajeInformacion(entradas[4]);	
+			vista.mostrarMensajeInformacion(entradas[4]);
 		} else {
 			vista.mostrarMensajeError(entradas[1]);
 		}
