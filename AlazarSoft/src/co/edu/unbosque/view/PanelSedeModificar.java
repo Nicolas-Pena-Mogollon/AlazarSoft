@@ -61,9 +61,10 @@ public class PanelSedeModificar extends JPanel {
 
 	}
 
-	public void borrarCamposTxt() {
+	public void borrarCampos() {
 		campoTextoUbicacion.setText("");
 		campoTextoEmpleado.setText("");
+		comboIdUbicacion.setSelectedIndex(0);
 	}
 
 	public void cargarId(String[] data) {
@@ -76,7 +77,7 @@ public class PanelSedeModificar extends JPanel {
 	public String[] verificarEntradasActualizarSedes() {
 		String[] salida = new String[4];
 		salida[0] = "0";
-		if ((!campoTextoUbicacion.getText().equals("") || !campoTextoEmpleado.getText().equals("")
+		if ((!campoTextoUbicacion.getText().equals("") && !campoTextoEmpleado.getText().equals("")
 				&& !comboIdUbicacion.getSelectedItem().equals("Seleccione"))) {
 			salida[1] = campoTextoUbicacion.getText();
 			salida[2] = campoTextoEmpleado.getText();
@@ -95,6 +96,7 @@ public class PanelSedeModificar extends JPanel {
 			comboIdUbicacion.addItem("" + lista.get(i).getIdUbicacion());
 		}
 	}
+	
 
 	public JLabel getEtiquetaUbicacion() {
 		return etiquetaUbicacion;
