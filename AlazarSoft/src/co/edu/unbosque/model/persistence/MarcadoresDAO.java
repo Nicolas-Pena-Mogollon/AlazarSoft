@@ -33,19 +33,6 @@ public class MarcadoresDAO {
 		return true;
 	}
 
-	public String mostrarApuestaBusqueda(String cedula, Date fecha, ArrayList<MarcadoresDTO> lista) {
-		String mensaje = "";
-		for (int i = 0; i < lista.size(); i++) {
-			if (cedula.equals(lista.get(i).getCedula()) && fecha == lista.get(i).getFecha()) {
-				mensaje += "Sede: " + lista.get(i).getNombreSede() + "\n" + "Cedula: " + lista.get(i).getCedula() + "\n"
-						+ "Fecha: " + lista.get(i).getFecha() + "\n" + "Valor: " + lista.get(i).getValorApuesta() + "\n"
-						+ "Numero de juego: " + lista.get(i).getPartido() + "\n" + "Resultado: "
-						+ lista.get(i).getResultado() + "\n\n";
-			}
-		}
-		return mensaje;
-	}
-
 	public boolean eliminarApuesta(String cedula, Date fecha) {
 		boolean verificar = false;
 		MarcadoresDTO marcadoresDTO = buscarApuesta(cedula, fecha);

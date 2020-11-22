@@ -107,42 +107,16 @@ public class ApostadorDAO {
 
 	}
 
-	/**
-	 * Este metodo se encarga de buscar la información de un vehículo. <b>pre</b>
-	 * Que exista la lista de vehiculos<br>
-	 * <b>post</b>Muestrar la información del vehículo solicitado<br>
-	 * 
-	 * @param listaV, es el listado de vehículos que se utilizará para mostrar el
-	 *                vehículo consultado; listaV != null
-	 * @param placa,  la placa del vehículo a buscar; placa != null
-	 * @return Muestra la información del vehículo solicitado por medio de un
-	 *         String.
-	 */
 
-	public String mostrarApostadorBusqueda(ArrayList<ApostadorDTO> listaA, String cedula) {
-		String mensaje = "";
-		for (int i = 0; i < listaA.size(); i++) {
-			mensaje += "Cedula: " + listaA.get(i).getCedula() + "\n" + "Nombre: " + listaA.get(i).getNombre() + "\n"
-					+ "Sede: " + listaA.get(i).getSede() + "\n" + "Direccion: " + listaA.get(i).getDireccion() + "\n"
-					+ "Celular : " + listaA.get(i).getCelular() + "\n\n";
-		}
-
-		return mensaje;
-	}
-
-	public boolean editarApostador(String pCedula, String nombre, String sede, String direccion, String celular) {
+	public boolean editarApostador(String cedula, String nombre, String sede, String direccion, String celular) {
 		boolean verificar = false;
-		for (int i = 0; i < listaApostador.size(); i++) {
-			if (listaApostador.get(i).getCedula().equals(pCedula)) {
-				listaApostador.get(i).setNombre(nombre);
-				listaApostador.get(i).setSede(sede);
-				listaApostador.get(i).setDireccion(direccion);
-				listaApostador.get(i).setCelular(celular);
-				archivoApostadores.escribirArchivo(listaApostador);
-				verificar = true;
-			} else {
-				verificar = false;
-			}
+		ApostadorDTO apostador = buscarApostador(cedula);
+		if (apostador != null) {
+			this.eliminarApostador(cedula);
+			this.agregarApostador(nombre, cedula, sede, direccion, celular);
+			verificar = true;
+		} else {
+			verificar = false;
 		}
 		return verificar;
 	}

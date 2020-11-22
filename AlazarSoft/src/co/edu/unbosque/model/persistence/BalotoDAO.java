@@ -32,18 +32,6 @@ public class BalotoDAO {
 		return true;
 	}
 
-	public String mostrarApuestaBusqueda(ArrayList<BalotoDTO> lista) {
-		String mensaje = "";
-		for (int i = 0; i < lista.size(); i++) {
-
-			mensaje += "Sede: " + lista.get(i).getNombreSede() + "\n" + "Cedula: " + lista.get(i).getCedula() + "\n"
-					+ "Fecha: " + lista.get(i).getFecha() + "\n" + "Valor: " + lista.get(i).getValorApuesta() + "\n"
-					+ "Numero de juego: " + lista.get(i).getNumeroJuego() + "\n\n";
-
-		}
-		return mensaje;
-	}
-
 	public boolean eliminarApuesta(String cedula, Date fecha) {
 		boolean verificar = false;
 		BalotoDTO balotoDTO = buscarApuesta(cedula, fecha);
