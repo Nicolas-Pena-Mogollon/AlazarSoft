@@ -105,6 +105,7 @@ public class CasaDeApuestas {
 				salida[1] = this.apostadores.getApostadorDao().getListaApostador().get(i).getCelular();
 				salida[2] = this.apostadores.getApostadorDao().getListaApostador().get(i).getDireccion();
 			}
+			
 		}
 		return salida;
 
