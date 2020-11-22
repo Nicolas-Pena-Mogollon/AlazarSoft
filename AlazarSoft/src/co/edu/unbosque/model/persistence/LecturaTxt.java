@@ -37,7 +37,6 @@ public class LecturaTxt {
 		} catch (IOException e) {
 			return null;
 		}
-
 		return salida;
 	}
 }
