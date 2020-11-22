@@ -12,15 +12,15 @@ public class Apostador {
 	public Apostador() {
 		apostadorDao = new ApostadorDAO();
 	}
-	
+
 	public String[][] generarTablaApostador() {
-		String salida[][]= new String[apostadorDao.getListaApostador().size()][5];
+		String salida[][] = new String[apostadorDao.getListaApostador().size()][5];
 		for (int i = 0; i < apostadorDao.getListaApostador().size(); i++) {
-			salida[i][0]=apostadorDao.getListaApostador().get(i).getCedula();
-			salida[i][1]=apostadorDao.getListaApostador().get(i).getNombre();
-			salida[i][2]=apostadorDao.getListaApostador().get(i).getCelular();
-			salida[i][3]=apostadorDao.getListaApostador().get(i).getDireccion();
-			salida[i][4]=apostadorDao.getListaApostador().get(i).getSede();
+			salida[i][0] = apostadorDao.getListaApostador().get(i).getCedula();
+			salida[i][1] = apostadorDao.getListaApostador().get(i).getNombre();
+			salida[i][2] = apostadorDao.getListaApostador().get(i).getCelular();
+			salida[i][3] = apostadorDao.getListaApostador().get(i).getDireccion();
+			salida[i][4] = apostadorDao.getListaApostador().get(i).getSede();
 		}
 		return salida;
 	}
@@ -53,6 +53,42 @@ public class Apostador {
 		} else {
 			throw new CedulaException("Cedula incorrecta");
 		}
+	}
+	
+	public int[] quicksortRecurivo(int numeros[]) {
+		return quicksort2(numeros, 0, numeros.length-1);
+	}
+	
+	public int[] quicksort2(int numeros[], int izq, int der){
+		if(izq >= der) {
+			return numeros;
+		}
+		int i = izq, d = der;
+		if(izq != der) {
+			int pivote;
+			int aux;
+			pivote = izq;
+			while(izq != der) {
+				while(numeros[der] >= numeros[pivote] && izq < der) {
+					der--;
+				}
+				while(numeros[izq] < numeros[pivote] && izq < der) {
+					izq++;
+				}
+				if(der!=izq) {
+					aux = numeros[der];
+					numeros[der] = numeros[izq];
+					numeros[izq] = aux;
+				}
+			}
+			if(izq == der) {
+				quicksort2(numeros, i, izq-1);
+				quicksort2(numeros, izq + 1, d);
+			}
+		}else {
+			return numeros;
+		}
+		return numeros;
 	}
 
 	/**
