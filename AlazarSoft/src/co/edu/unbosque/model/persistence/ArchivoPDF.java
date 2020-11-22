@@ -15,9 +15,6 @@ public class ArchivoPDF implements PDFInterface {
 	/**
 	 * Títulos de cada tipo de pdf (Faltan)
 	 */
-	private String[] titulosReportePDFClientes = { "FECHA", "PROVEEDOR", "MODELO", "REFERENCIA", "CILINDRAJE",
-			"EXISTENCIAS", "VALOR UNIDAD", "CANTIDAD" };
-	private String[] titulos;
 	private Paragraph parrafo;
 	private PdfPTable tablaPDF;
 	private PdfPCell celdaTitulo;
@@ -120,10 +117,6 @@ public class ArchivoPDF implements PDFInterface {
 		}
 	}
 
-	private void crearTitulosCeldas(String reporte) {
-
-	}
-
 	public static void main(String[] args) {
 		ArchivoPDF arch = new ArchivoPDF();
 		String[][] tabla = new String[3][8];
@@ -134,5 +127,22 @@ public class ArchivoPDF implements PDFInterface {
 		}
 		arch.exportarPDF(tabla, "");
 	}
+
+	@Override
+	public String[] seleccionarTitulosCeldas(String tipoReporte) {
+		// TODO Auto-generated method stub
+		if (tipoReporte.equals("Listado de clientes")) {
+			return titulosReportePDFClientes;
+		} else if (tipoReporte.equals("Valor total de apuestas por cliente")) {
+			return tit
+		} else if (tipoReporte.equals("Detalle de apuestas por cliente y por sede")) {
+			file = new File(RUTA_REPORTE_TOTAL_APUESTAS_POR_SEDE);
+		} else if (tipoReporte.equals("Total de apuestas por sede y tipo de juego")) {
+			file = new File(RUTA_REPORTEPDF_TOTAL_APUESTAS_CLIENTES);
+		} 
+		return null;
+	}
+
+
 
 }

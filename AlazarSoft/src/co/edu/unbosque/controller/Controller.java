@@ -52,24 +52,7 @@ public class Controller implements ActionListener {
 			// vista.getSplitPane().setRightComponent(vista.getPanelSede());
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelApuestas().getPanelCrearApuesta().getCOMMAND_CAMBIAR_TIPO_APUESTA())) {
-			//
-			//
-			// Se puede implementar en la vista y queda mejor
-			//
-			//
-			if (vista.getPanelApuestas().getPanelCrearApuesta().getComboTiposApuesta().getSelectedItem()
-					.equals("Baloto")) {
-				vista.getPanelApuestas().getPanelCrearApuesta().getPanelContenedorDividido()
-						.setBottomComponent(vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaBaloto());
-			} else if (vista.getPanelApuestas().getPanelCrearApuesta().getComboTiposApuesta().getSelectedItem()
-					.equals("Super Astro")) {
-				vista.getPanelApuestas().getPanelCrearApuesta().getPanelContenedorDividido().setBottomComponent(
-						vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaSuperAstro());
-			} else if (vista.getPanelApuestas().getPanelCrearApuesta().getComboTiposApuesta().getSelectedItem()
-					.equals("Fútbol")) {
-				vista.getPanelApuestas().getPanelCrearApuesta().getPanelContenedorDividido()
-						.setBottomComponent(vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaFutbol());
-			}
+			vista.getPanelApuestas().getPanelCrearApuesta().cambiarPanel();
 		} else if (e.getActionCommand().equals(vista.getPanelIngresoCasaApuestas().getCOMMAND_INGRESAR())) {
 			this.coordinarConfiguracionCasaApuestas();
 		} else if (e.getActionCommand().equals(vista.getPanelSede().getPanelSedeCrear().getCOMMAND_GUARDAR())) {
@@ -88,19 +71,16 @@ public class Controller implements ActionListener {
 			vista.getPanelApostadores().getPanelInformacionApostadores()
 					.actualizarTablaApostadores(casaApuestas.getApostadores().generarTablaApostador());
 		} else if (e.getActionCommand()
-				.equals(vista.getPanelApuestas().getPanelCrearApuesta().getCOMMAND_REGISTRAR_APUESTA_BALOTO())) {
+				.equals(vista.getPanelApuestas().getPanelCrearApuesta().getCOMMAND_REGISTRAR_APUESTA())) {
 			String apuesta = vista.getPanelApuestas().getPanelCrearApuesta().getComboTiposApuesta().getSelectedItem()
 					.toString();
 			if (apuesta.equals("Baloto")) {
 				this.gestionApuestasBaloto();
-			}
-			if (apuesta.equals("Super Astro")) {
+			} else if (apuesta.equals("Super Astro")) {
 				this.gestionApuestasSuperastro();
-			}
-			if (apuesta.equals("Fútbol")) {
+			} else if (apuesta.equals("Fútbol")) {
 				this.gestionApuestasFutbol();
-			}
-			if (apuesta.equals("Seleccione el tipo de apuesta")) {
+			} else if (apuesta.equals("Seleccione el tipo de apuesta")) {
 				vista.mostrarMensajeError("Escoja el tipo de apuesta");
 			}
 		} else if (e.getActionCommand()
@@ -109,14 +89,11 @@ public class Controller implements ActionListener {
 					.getSelectedItem().toString();
 			if (apuesta.equals("Baloto")) {
 				this.gestionApuestasBalotoModificar();
-			}
-			if (apuesta.equals("Super Astro")) {
+			} else if (apuesta.equals("Super Astro")) {
 				this.gestionApuestasSuperastroModificar();
-			}
-			if (apuesta.equals("Fútbol")) {
+			} else if (apuesta.equals("Fútbol")) {
 				this.gestionarApuestasMarcadoresModificar();
-			}
-			if (apuesta.equals("Seleccione el tipo de apuesta")) {
+			} else if (apuesta.equals("Seleccione el tipo de apuesta")) {
 				vista.mostrarMensajeError("Escoja el tipo de apuesta");
 			}
 		} else if (e.getActionCommand().equals(
@@ -535,4 +512,5 @@ public class Controller implements ActionListener {
 						String.valueOf(vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getComboSede()
 								.getSelectedItem())));
 	}
+
 }

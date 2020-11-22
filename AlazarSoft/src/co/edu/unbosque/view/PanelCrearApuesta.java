@@ -20,7 +20,7 @@ import co.edu.unbosque.model.persistence.SedesDTO;
 public class PanelCrearApuesta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private final String COMMAND_REGISTRAR_APUESTA_BALOTO = "REGISTRAR_APUESTA_BALOTO";
+	private final String COMMAND_REGISTRAR_APUESTA = "REGISTRAR_APUESTA";
 	private final String COMMAND_CAMBIAR_TIPO_APUESTA = "CAMBIAR_PANEL";
 	private JSplitPane panelContenedorDividido;
 	private JLabel etiquetaFecha;
@@ -41,7 +41,7 @@ public class PanelCrearApuesta extends JPanel {
 	private PanelApuestaFutbol panelApuestaFutbol;
 
 	public PanelCrearApuesta() {
-		setBorder(new TitledBorder("Registro apuestas baloto"));
+		setBorder(new TitledBorder("Registro de apuestas"));
 		setLayout(new BorderLayout());
 
 		panelApuestaBaloto = new PanelApuestaBaloto();
@@ -80,7 +80,7 @@ public class PanelCrearApuesta extends JPanel {
 		panelIngreso.add(comboTiposApuesta);
 
 		botonGuardarApuestaBaloto = new JButton("Registrar apuesta");
-		botonGuardarApuestaBaloto.setActionCommand(COMMAND_REGISTRAR_APUESTA_BALOTO);
+		botonGuardarApuestaBaloto.setActionCommand(COMMAND_REGISTRAR_APUESTA);
 
 		panelContenedorDividido = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		panelContenedorDividido.setEnabled(false);
@@ -182,6 +182,15 @@ public class PanelCrearApuesta extends JPanel {
 		panelApuestaFutbol.getComboOpcionResultado().setSelectedIndex(0);
 	}
 
+	public void cambiarPanel() {
+		if (comboTiposApuesta.getSelectedItem().equals("Baloto"))
+			panelContenedorDividido.setBottomComponent(panelApuestaBaloto);
+		else if (comboTiposApuesta.getSelectedItem().equals("Super Astro"))
+			panelContenedorDividido.setBottomComponent(panelApuestaSuperAstro);
+		else if (comboTiposApuesta.getSelectedItem().equals("Fútbol"))
+			panelContenedorDividido.setBottomComponent(panelApuestaFutbol);
+	}
+
 	public String facturaBaloto(String fecha, String sede, String cedula, double valor, String numeroJuego) {
 		String factura = "";
 		factura += "Fecha: " + fecha + "\n" + "Sede: " + sede + "\n" + "Cédula: " + cedula + "\n" + "Valor: " + valor
@@ -209,6 +218,20 @@ public class PanelCrearApuesta extends JPanel {
 		SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
 		Date date = new Date();
 		return formato.format(date);
+	}
+
+	/**
+	 * @return the panelContenedorDividido
+	 */
+	public JSplitPane getPanelContenedorDividido() {
+		return panelContenedorDividido;
+	}
+
+	/**
+	 * @param panelContenedorDividido the panelContenedorDividido to set
+	 */
+	public void setPanelContenedorDividido(JSplitPane panelContenedorDividido) {
+		this.panelContenedorDividido = panelContenedorDividido;
 	}
 
 	/**
@@ -338,10 +361,10 @@ public class PanelCrearApuesta extends JPanel {
 	}
 
 	/**
-	 * @return the cOMMAND_REGISTRAR_APUESTA_BALOTO
+	 * @return the cOMMAND_REGISTRAR_APUESTA
 	 */
-	public String getCOMMAND_REGISTRAR_APUESTA_BALOTO() {
-		return COMMAND_REGISTRAR_APUESTA_BALOTO;
+	public String getCOMMAND_REGISTRAR_APUESTA() {
+		return COMMAND_REGISTRAR_APUESTA;
 	}
 
 	/**
@@ -350,19 +373,4 @@ public class PanelCrearApuesta extends JPanel {
 	public String getCOMMAND_CAMBIAR_TIPO_APUESTA() {
 		return COMMAND_CAMBIAR_TIPO_APUESTA;
 	}
-
-	/**
-	 * @return the panelContenedorDividido
-	 */
-	public JSplitPane getPanelContenedorDividido() {
-		return panelContenedorDividido;
-	}
-
-	/**
-	 * @param panelContenedorDividido the panelContenedorDividido to set
-	 */
-	public void setPanelContenedorDividido(JSplitPane panelContenedorDividido) {
-		this.panelContenedorDividido = panelContenedorDividido;
-	}
-
 }
