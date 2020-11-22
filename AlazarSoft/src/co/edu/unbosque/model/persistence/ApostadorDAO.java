@@ -1,5 +1,5 @@
 /**
- * paquete persistencia, encargado de la permanencia de informacion en el programa
+a * paquete persistencia, encargado de la permanencia de informacion en el programa
  */
 package co.edu.unbosque.model.persistence;
 
@@ -74,7 +74,6 @@ public class ApostadorDAO {
 			listaApostador.add(alCotizante);
 			archivoApostadores.escribirArchivo(listaApostador);
 			verificar = true;
-
 		} else {
 			verificar = false;
 		}

@@ -16,6 +16,7 @@ public class CasaDeApuestas {
 	private Long presupuestoTotal;
 	private ArchivoConfiguracionCasaApuestas archivoConfiguracionCasaApuestas;
 	private ArchivoPDF archivoPDF;
+	private Juego juego;
 
 	public CasaDeApuestas() {
 		this.archivoConfiguracionCasaApuestas = new ArchivoConfiguracionCasaApuestas();
@@ -23,6 +24,7 @@ public class CasaDeApuestas {
 		this.apuestas = new Apuesta();
 		this.sede = new Sede();
 		this.archivoPDF = new ArchivoPDF();
+		this.juego = new Juego();
 	}
 
 	public void guardarConfiguracionCasaDeApuestas(String nombre, int numeroSedes, Long presupuestoTotal) {
@@ -368,5 +370,21 @@ public class CasaDeApuestas {
 	public void setSede(Sede sede) {
 		this.sede = sede;
 	}
+
+	/**
+	 * @return the juego
+	 */
+	public Juego getJuego() {
+		return juego;
+	}
+
+	/**
+	 * @param juego the juego to set
+	 */
+	public void setJuego(Juego juego) {
+		this.juego = juego;
+	}
+	
+	
 
 }
