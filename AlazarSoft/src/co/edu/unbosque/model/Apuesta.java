@@ -49,18 +49,19 @@ public class Apuesta {
 
 	private int contarDatosTipoApuestaYSede(String tipoApuesta, String sede) {
 		int cont = 0;
-		String sedeSinIdentificador = sede.substring(0, sede.indexOf("-"));
 		if (tipoApuesta.equals("Super Astro")) {
 			for (int i = 0; i < superastroDAO.getListaSuperastro().size(); i++)
-				if (sedeSinIdentificador.equals(superastroDAO.getListaSuperastro().get(i).getNombreSede()))
+				if (sede.equals(superastroDAO.getListaSuperastro().get(i).getNombreSede()))
 					cont++;
 		} else if (tipoApuesta.equals("Baloto")) {
-			for (int i = 0; i < balotoDAO.getListaBaloto().size(); i++)
-				if (sedeSinIdentificador.equals(balotoDAO.getListaBaloto().get(i).getNombreSede()))
+			for (int i = 0; i < balotoDAO.getListaBaloto().size(); i++) {
+				if (sede.equals(balotoDAO.getListaBaloto().get(i).getNombreSede())) {
 					cont++;
+				}
+			}
 		} else if (tipoApuesta.equals("Fútbol")) {
 			for (int i = 0; i < marcadoresDAO.getListaMarcadores().size(); i++)
-				if (sedeSinIdentificador.equals(marcadoresDAO.getListaMarcadores().get(i).getNombreSede()))
+				if (sede.equals(marcadoresDAO.getListaMarcadores().get(i).getNombreSede()))
 					cont++;
 		}
 		return cont;
@@ -69,34 +70,34 @@ public class Apuesta {
 	public String[][] generarTablaApuestas(String tipoApuesta, String sede) {
 		String[][] salida = new String[this.contarDatosTipoApuestaYSede(tipoApuesta, sede)][4];
 		SimpleDateFormat dateF = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
-		String sedeSinIdentificador = sede.substring(0, sede.indexOf("-"));
+		int cont = 0;
 		if (tipoApuesta.equals("Super Astro")) {
-			for (int i = 0; i < salida.length; i++) {
-				if (sedeSinIdentificador.equals(superastroDAO.getListaSuperastro().get(i).getNombreSede())) {
-					salida[i][0] = dateF.format(superastroDAO.getListaSuperastro().get(i).getFecha());
-					salida[i][1] = superastroDAO.getListaSuperastro().get(i).getCedula();
-					salida[i][2] = superastroDAO.getListaSuperastro().get(i).getNumeroJuego() + "-"
+			for (int i = 0; i < superastroDAO.getListaSuperastro().size(); i++) {
+				if (sede.equals(superastroDAO.getListaSuperastro().get(i).getNombreSede())) {
+					salida[cont][0] = dateF.format(superastroDAO.getListaSuperastro().get(i).getFecha());
+					salida[cont][1] = superastroDAO.getListaSuperastro().get(i).getCedula();
+					salida[cont][2] = superastroDAO.getListaSuperastro().get(i).getNumeroJuego() + "-"
 							+ superastroDAO.getListaSuperastro().get(i).getSigno();
-					salida[i][3] = String.valueOf(superastroDAO.getListaSuperastro().get(i).getValorApuesta());
+					salida[cont][3] = String.valueOf(superastroDAO.getListaSuperastro().get(i).getValorApuesta());
 				}
 			}
 		} else if (tipoApuesta.equals("Baloto")) {
-			for (int i = 0; i < salida.length; i++) {
-				if (sedeSinIdentificador.equals(balotoDAO.getListaBaloto().get(i).getNombreSede())) {
-					salida[i][0] = dateF.format(balotoDAO.getListaBaloto().get(i).getFecha());
-					salida[i][1] = balotoDAO.getListaBaloto().get(i).getCedula();
-					salida[i][2] = balotoDAO.getListaBaloto().get(i).getNumeroJuego();
-					salida[i][3] = String.valueOf(balotoDAO.getListaBaloto().get(i).getValorApuesta());
+			for (int i = 0; i < balotoDAO.getListaBaloto().size(); i++) {
+				if (sede.equals(balotoDAO.getListaBaloto().get(i).getNombreSede())) {
+					salida[cont][0] = dateF.format(balotoDAO.getListaBaloto().get(i).getFecha());
+					salida[cont][1] = balotoDAO.getListaBaloto().get(i).getCedula();
+					salida[cont][2] = balotoDAO.getListaBaloto().get(i).getNumeroJuego();
+					salida[cont][3] = String.valueOf(balotoDAO.getListaBaloto().get(i).getValorApuesta());
 				}
 			}
 		} else if (tipoApuesta.equals("Fútbol")) {
-			for (int i = 0; i < salida.length; i++) {
-				if (sedeSinIdentificador.equals(marcadoresDAO.getListaMarcadores().get(i).getNombreSede())) {
-					salida[i][0] = dateF.format(marcadoresDAO.getListaMarcadores().get(i).getFecha());
-					salida[i][1] = marcadoresDAO.getListaMarcadores().get(i).getCedula();
-					salida[i][2] = marcadoresDAO.getListaMarcadores().get(i).getPartido() + "-"
+			for (int i = 0; i < marcadoresDAO.getListaMarcadores().size(); i++) {
+				if (sede.equals(marcadoresDAO.getListaMarcadores().get(i).getNombreSede())) {
+					salida[cont][0] = dateF.format(marcadoresDAO.getListaMarcadores().get(i).getFecha());
+					salida[cont][1] = marcadoresDAO.getListaMarcadores().get(i).getCedula();
+					salida[cont][2] = marcadoresDAO.getListaMarcadores().get(i).getPartido() + "-"
 							+ marcadoresDAO.getListaMarcadores().get(i).getResultado();
-					salida[i][3] = String.valueOf(marcadoresDAO.getListaMarcadores().get(i).getValorApuesta());
+					salida[cont][3] = String.valueOf(marcadoresDAO.getListaMarcadores().get(i).getValorApuesta());
 				}
 			}
 		}

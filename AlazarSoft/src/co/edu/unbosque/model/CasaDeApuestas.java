@@ -233,7 +233,6 @@ public class CasaDeApuestas {
 			arregloSedes[i] = this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
 					+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion();
 		}
-		// System.out.println(Arrays.deepToString(valorTotalSedes));
 
 		for (int i = 0; i < valorTotalSedes.length; i++) {
 			for (int j = 0; j < valorTotalSedes.length; j++) {
@@ -250,7 +249,7 @@ public class CasaDeApuestas {
 		}
 		for (int i = 0; i < arregloSedes.length; i++) {
 			salida[i][0] = String.valueOf(valorTotalSedes[i]);
-			salida[i][1] = "";
+			salida[i][1] = "" + (i + 1);
 			salida[i][2] = arregloSedes[i];
 		}
 		return salida;

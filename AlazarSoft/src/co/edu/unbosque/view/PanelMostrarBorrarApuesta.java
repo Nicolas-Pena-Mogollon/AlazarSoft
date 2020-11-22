@@ -92,11 +92,13 @@ public class PanelMostrarBorrarApuesta extends JPanel {
 	}
 
 	public boolean verificarDatos() {
-		if (this.comboSede.getSelectedItem().equals("Seleccione la sede")
-				|| this.comboSede.getSelectedItem().equals("Seleccione el tipo de apuesta")) {
-			return false;
-		} else {
+		if (!this.comboSede.getSelectedItem().equals("Seleccione la sede")
+				&& !this.comboTipoApuesta.getSelectedItem().equals("Seleccione el tipo de apuesta")) {
 			return true;
+
+		} else {
+			return false;
+
 		}
 	}
 
