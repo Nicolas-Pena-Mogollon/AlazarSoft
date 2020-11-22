@@ -110,10 +110,12 @@ public class CasaDeApuestas {
 
 			} else if (tipoFiltro.equals("mes y año")) {
 				if (dateDos.parse(fecha)
-						.getMonth() == (apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getFecha().getMonth())
+						.getMonth() == (apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getFecha()
+								.getMonth())
 						&& dateDos.parse(fecha).getYear() == (apuestas.getSuperastroDAO().getListaSuperastro().get(cont)
 								.getFecha().getYear())) {
-					salida[i][0] = dateDos.format(apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getFecha());
+					salida[i][0] = dateDos
+							.format(apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getFecha());
 					salida[i][1] = apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getNombreSede();
 					salida[i][2] = apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getCedula();
 					salida[i][3] = aux[0];
@@ -122,8 +124,8 @@ public class CasaDeApuestas {
 					cont++;
 				}
 			} else if (tipoFiltro.equals("año")) {
-				if (dateTres.parse(fecha)
-						.getYear() == (apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getFecha().getYear())) {
+				if (dateTres.parse(fecha).getYear() == (apuestas.getSuperastroDAO().getListaSuperastro().get(cont)
+						.getFecha().getYear())) {
 					salida[i][0] = dateTres.format(apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha());
 					salida[i][1] = apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getNombreSede();
 					salida[i][2] = apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getCedula();
@@ -146,7 +148,8 @@ public class CasaDeApuestas {
 										.getMonth())
 						&& dateUno.parse(fecha).getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(cont)
 								.getFecha().getYear())) {
-					salida[i][0] = dateUno.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha());
+					salida[i][0] = dateUno
+							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha());
 					salida[i][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getNombreSede();
 					salida[i][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getCedula();
 					salida[i][3] = aux[0];
@@ -156,10 +159,12 @@ public class CasaDeApuestas {
 				}
 			} else if (tipoFiltro.equals("mes y año")) {
 				if (dateDos.parse(fecha)
-						.getMonth() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha().getMonth())
+						.getMonth() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha()
+								.getMonth())
 						&& dateDos.parse(fecha).getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(cont)
 								.getFecha().getYear())) {
-					salida[i][0] = dateDos.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha());
+					salida[i][0] = dateDos
+							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha());
 					salida[i][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getNombreSede();
 					salida[i][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getCedula();
 					salida[i][3] = aux[0];
@@ -168,9 +173,10 @@ public class CasaDeApuestas {
 					cont++;
 				}
 			} else if (tipoFiltro.equals("año")) {
-				if (dateTres.parse(fecha)
-						.getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha().getYear())) {
-					salida[i][0] = dateTres.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha());
+				if (dateTres.parse(fecha).getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(cont)
+						.getFecha().getYear())) {
+					salida[i][0] = dateTres
+							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha());
 					salida[i][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getNombreSede();
 					salida[i][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getCedula();
 					salida[i][3] = aux[0];
@@ -198,9 +204,10 @@ public class CasaDeApuestas {
 
 	}
 
-//	public void generarInformacionPdf(String tipoReporte) throws ParseException {
-//		archivoPDF.exportar(this.apuestas.quicksortRecursivo(this.generarDatosPDFClientes()), tipoReporte);
-//	}
+	public void generarInformacionPdf(String tipoReporte, String fecha, String tipoFiltro) throws ParseException {
+		archivoPDF.exportar(this.apuestas.quicksortRecursivo(this.generarDatosPDFClientes(fecha, tipoFiltro)),
+				tipoReporte);
+	}
 
 	/**
 	 * @return the apostadores

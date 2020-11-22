@@ -11,10 +11,10 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class ArchivoPDF extends ArchivoExportar {
 
 	private static final Font chapterFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 26, Font.BOLDITALIC);
-	public final String RUTA_REPORTEPDF_CLIENTES = "reporteClientes.pdf";
-	public final String RUTA_REPORTEPDF_TOTAL_APUESTAS_CLIENTES = "reporteClientes.pdf";
-	public final String RUTA_REPORTE_DETALLES_APUESTAS_POR_CLIENTE = "reporteClientes.pdf";
-	public final String RUTA_REPORTE_TOTAL_APUESTAS_POR_SEDE = "reporteClientes.pdf";
+	public final String RUTA_REPORTEPDF_CLIENTES = "./Export/reporteClientes.pdf";
+	public final String RUTA_REPORTEPDF_TOTAL_APUESTAS_CLIENTES = "./Export/reporteClientes.pdf";
+	public final String RUTA_REPORTE_DETALLES_APUESTAS_POR_CLIENTE = "./Export/reporteClientes.pdf";
+	public final String RUTA_REPORTE_TOTAL_APUESTAS_POR_SEDE = "./Export/reporteClientes.pdf";
 	private Paragraph parrafo;
 	private PdfPTable tablaPDF;
 	private PdfPCell celdaTitulo;

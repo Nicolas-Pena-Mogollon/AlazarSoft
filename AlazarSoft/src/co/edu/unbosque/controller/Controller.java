@@ -117,7 +117,9 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_EXPORTARPDF())) {
 			try {
-				casaApuestas.generarDatosPDFClientes(
+				casaApuestas.generarInformacionPdf(
+						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar()
+								.getSelectedItem().toString(),
 						vista.getPanelConsultasReportes().getPanelExportarInformacion().getCampoTextoFecha().getText(),
 						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
 								.getSelectedItem().toString());
