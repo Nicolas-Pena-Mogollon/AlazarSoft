@@ -33,8 +33,7 @@ public class Sede {
 	public String[] ObtenerSedes() {
 		String[] salida = new String[sedesDao.getDataSedes().size()];
 		for (int i = 0; i < sedesDao.getDataSedes().size(); i++) {
-			salida[i] = sedesDao.getDataSedes().get(i).getUbicacion() + "-"
-					+ sedesDao.getDataSedes().get(i).getIdUbicacion();
+			salida[i] = sedesDao.getDataSedes().get(i).getUbicacion() + sedesDao.getDataSedes().get(i).getIdUbicacion();
 		}
 		return salida;
 	}
