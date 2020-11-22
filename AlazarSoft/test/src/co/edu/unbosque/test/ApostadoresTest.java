@@ -22,7 +22,6 @@ public class ApostadoresTest {
 
 	@Before
 	public void setUp() throws Exception {
-
 		apostador = new Apostador();
 		apostadores = apostador.getApostadorDao().getListaApostador();
 		apostador1 = new ApostadorDTO("Camila", "1000149678", "Usaquén", "Calle 115 #10-45", "3115314191");
@@ -37,16 +36,6 @@ public class ApostadoresTest {
 		assertEquals("Solo puede ingresar números", true, apostador.soloNumeros("3115314191"));
 		assertEquals("Solo puede ingresar números", false, apostador.soloNumeros(apostador1.getNombre()));
 	}
-
-//	@Test
-//	public void testVerificarCelular() {
-//		assertEquals("Número incorrecto de celular", true, apostador1.getCelular());
-//	}
-//
-//	@Test
-//	public void testVerificarCedula() {
-//		assertEquals("La cedula no puede tener más de 10 caracteres",true, apostador1.getCedula());
-//	}
 
 	@Test
 	public void testGenerarTablaApostador() {
@@ -84,25 +73,9 @@ public class ApostadoresTest {
 				apostador.getApostadorDao().verificarNumeroTelefonico(apostadores, apostador1.getCelular()));
 	}
 
-//	@Test
-//	public void testEscribirArchivo() {
-//		assertNotNull("El archivo deberia haber sido escrito",
-//				apostadores, apostador.getApostadorDao().getArchivoApostadores().escribirArchivo(apostadores) );
-//	}
-
-//	@Test
-//	public void testLeerArchivo() {
-//		assertSame("El archivo deberia ser leido",
-//				apostador.getApostadorDao().getArchivoApostadores()
-//						.leerArchivo(apostador.getApostadorDao().getArchivoApostadores().getFileArchivo()),
-//				apostador.getApostadorDao().getArchivoApostadores().getRUTA_APOSTADORES());
-//	}
-
 	@After
 	public void tearDown() throws Exception {
-
 		System.out.println("TearDown Hecho");
-
 	}
 
 }
