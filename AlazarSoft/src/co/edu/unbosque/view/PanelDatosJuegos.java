@@ -34,9 +34,9 @@ public class PanelDatosJuegos extends JPanel {
 
 		comboTiposDeJuego = new JComboBox<String>();
 		comboTiposDeJuego.addItem("Seleccione");
-		comboTiposDeJuego.addItem("Baloto");
-		comboTiposDeJuego.addItem("Super Astro");
-		comboTiposDeJuego.addItem("Fútbol");
+		comboTiposDeJuego.addItem("Deportivo");
+		comboTiposDeJuego.addItem("Lotería");
+		comboTiposDeJuego.addItem("Chance");
 
 		campoTextoNombreJuego = new JTextField();
 		campoTextoPresupuesto = new JTextField();
@@ -54,6 +54,23 @@ public class PanelDatosJuegos extends JPanel {
 		this.add(panelCampos, BorderLayout.CENTER);
 		this.add(botonGuardarDatosJuego, BorderLayout.PAGE_END);
 
+	}
+
+	public boolean verificarEntradas() {
+		boolean verificar = false;
+		if (!"".equals(campoTextoNombreJuego.getText()) && !"".equals(campoTextoPresupuesto.getText())
+				&& !"Seleccione".equals(comboTiposDeJuego.getSelectedItem())) {
+			verificar = true;
+		} else {
+			verificar = false;
+		}
+		return verificar;
+	}
+
+	public void limpiarCampos() {
+		this.campoTextoNombreJuego.setText("");
+		this.campoTextoPresupuesto.setText("");
+		this.comboTiposDeJuego.setSelectedIndex(0);
 	}
 
 	/**

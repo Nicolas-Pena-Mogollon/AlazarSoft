@@ -137,6 +137,9 @@ public class Controller implements ActionListener {
 				.getCOMMAND_GRAFICA_SEDES_MAYORES_VENTAS())) {
 			vista.getPanelConsultasReportes().getPanelGraficoVentasSedes()
 					.recibirInfomacion(casaApuestas.obtenerCincoSedesConMayorVenta());
+		} else if (e.getActionCommand()
+				.equals(vista.getPanelCasaApuestas().getPanelDatosJuegos().getCOMMAND_REGISTRAR_DATOS_JUEGO())) {
+			this.gestionarJuegos();
 		}
 	}
 
@@ -557,9 +560,24 @@ public class Controller implements ActionListener {
 						String.valueOf(vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getComboSede()
 								.getSelectedItem())));
 	}
-	
+
 	public void gestionarJuegos() {
-//		String[] entradas = vista.getPanelCasaApuestas().getPanelDatosJuegos().get
+		if (vista.getPanelCasaApuestas().getPanelDatosJuegos().verificarEntradas()) {
+			String nombreJuego = vista.getPanelCasaApuestas().getPanelDatosJuegos().getCampoTextoNombreJuego()
+					.getText();
+			String tipoJuego = vista.getPanelCasaApuestas().getPanelDatosJuegos().getComboTiposDeJuego()
+					.getSelectedItem().toString();
+			long presupuesto = Long
+					.parseLong(vista.getPanelCasaApuestas().getPanelDatosJuegos().getCampoTextoPresupuesto().getText());
+			if (this.casaApuestas.getJuego().getJuegosDAO().agregarJuego(nombreJuego, tipoJuego, presupuesto)) {
+				vista.mostrarMensajeInformacion("Se ha agregado correctamente");
+				vista.getPanelCasaApuestas().getPanelDatosJuegos().limpiarCampos();
+			} else {
+				vista.mostrarMensajeError("No se pueden repetir juegos");
+			}
+		} else {
+			vista.mostrarMensajeError("Campos necesarios");
+		}
 	}
 
 }
