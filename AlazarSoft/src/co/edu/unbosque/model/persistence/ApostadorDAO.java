@@ -1,24 +1,20 @@
 /**
-a * paquete persistencia, encargado de la permanencia de informacion en el programa
+ * paquete persistencia, encargado de la permanencia de informacion en el programa
  */
 package co.edu.unbosque.model.persistence;
 
 import java.util.ArrayList;
 
 /**
- * clase CotizanteDAO
+ * clase ApostadorDAO
  */
 public class ApostadorDAO {
 
-	/*
-	 * Es la instanciación de la clase archivo
-	 */
 	private ArrayList<ApostadorDTO> listaApostador;
-
 	private ArchivoApostadores archivoApostadores;
 
 	/**
-	 * constructor clase ApostadorDAO
+	 * constructor vacio
 	 */
 	public ApostadorDAO() {
 		this.archivoApostadores = new ArchivoApostadores();
@@ -33,9 +29,7 @@ public class ApostadorDAO {
 	 * <b>post</b> Que haya un lugar donde se pueda enviar el apostador dentro de la
 	 * lista <br>
 	 * 
-	 * @param cedula, es la cedula del apostador; cedula =! null
-	 * @param listaA, es el arrayList donde se va encontrar el apostador; listaA =!
-	 *                null
+	 * @param cedula, es la cedula del apostador; cedula != null
 	 * @return Devuelve el objeto apostador.
 	 */
 	public ApostadorDTO buscarApostador(String cedula) {
@@ -59,9 +53,6 @@ public class ApostadorDAO {
 	 * @param sede,      es la sede donde está jugando; sede != null.
 	 * @param direccion, es la dirección del apostador; direccion != null.
 	 * @param celular,   es el celular del apostador; celular != null.
-	 * @param listaC,    es la lista de apostadores; listaC != null.
-	 * @param file,      es el archivo donde se guardaran los apostadores; file !=
-	 *                   null.
 	 * @return retorna true si todos los datos están correctos dando a entender que
 	 *         se agrego correctamente, o retorna false si hubo algún dato equivado
 	 *         dando a entender que no se pude registrar.
@@ -84,12 +75,9 @@ public class ApostadorDAO {
 	/**
 	 * Se encarga de eliminar un apostador dentro del archivo. <b>pre</b> Que exista
 	 * el apostador y el archivo<br>
-	 * <b>post</b> Elimina el vehículo<br>
+	 * <b>post</b>Elimina al apostador<br>
 	 * 
-	 * @param cedula, es la cedula del apostador; cedula =! null.
-	 * @param listaC, es el listado de apostadores en el cual se eliminará el
-	 *                apostador registrado; listaC =! null
-	 * @param file,   es el archivo donde se elminaran los apostadores; file =! null
+	 * @param cedula, es la cedula del apostador; cedula != null.
 	 * @return retorna un true o un false dependiendo las condiciones.
 	 */
 	public boolean eliminarApostador(String cedula) {
@@ -106,7 +94,21 @@ public class ApostadorDAO {
 
 	}
 
-
+	/**
+	 * Este método se encarga de editar a un apostador de la lista de apostadores.
+	 * <b>pre</b>Que exista la lista de apostadores de donde se va a tomar el
+	 * apostador<br>
+	 * <b>post</b>Edita al apostador<br>
+	 * 
+	 * @param cedula,    es la cedula del apostador; cedula != null.
+	 * @param nombre,    es el nombre del apostador; nombre != null.
+	 * @param sede,      es la sede en donde se encuentra el apostador; sede !=
+	 *                   null.
+	 * @param direccion, es la dirección del apostador; direccion != null.
+	 * @param celular,   es el número telefónico del apostador; celular != null.
+	 * @return retorna true si el apostador se ha editado, retorna false si el
+	 *         apostador no existe dentro de la lista.
+	 */
 	public boolean editarApostador(String cedula, String nombre, String sede, String direccion, String celular) {
 		boolean verificar = false;
 		ApostadorDTO apostador = buscarApostador(cedula);
@@ -120,6 +122,15 @@ public class ApostadorDAO {
 		return verificar;
 	}
 
+	/**
+	 * Este método se encarga de verificar de que no se repitan números telefónicos.
+	 * 
+	 * @param listaA,  es la lista de donde se van a verificar los telefonos; listaA
+	 *                 != null.
+	 * @param celular, es el número telefónico a verificar; celular != null.
+	 * @return retorna true si el telefono existe dentro de la lista, retorna false
+	 *         si no se encuentra dentro de la lista.
+	 */
 	public boolean verificarNumeroTelefonico(ArrayList<ApostadorDTO> listaA, String celular) {
 		boolean verificar = false;
 		for (int i = 0; i < listaA.size(); i++) {
