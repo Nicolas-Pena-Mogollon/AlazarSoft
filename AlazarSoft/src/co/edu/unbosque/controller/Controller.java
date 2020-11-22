@@ -112,6 +112,9 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand().equals(
 				vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getCOMMAND_BORRAR_INFORMACION_APUESTAS())) {
 			this.gestionarBorrarApuesta();
+		} else if (e.getActionCommand()
+				.equals(vista.getPanelSede().getPanelSedeModificar().getCOMMAND_ACTUALIZAR_SEDE())) {
+			this.gestionarSedesActualizar();
 		}
 	}
 
@@ -381,16 +384,31 @@ public class Controller implements ActionListener {
 			vista.getPanelSede().getPanelSedeCrear().borrarCamposTxt();
 			vista.getPanelApostadores().getPanelCrearApostador()
 					.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
-			vista.getPanelApostadores().getPanelActualizarBorrarApostador()
-					.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
-			vista.getPanelApuestas().getPanelCrearApuesta()
-					.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
 			vista.getPanelSede().getPanelSedeModificar()
 					.cargarCombo(this.casaApuestas.getSede().getSedesDao().leerSede());
 		} else {
 			vista.mostrarMensajeError(entradas[1]);
 		}
 
+	}
+
+	public void gestionarSedesActualizar() {
+		String[] entradas = vista.getPanelSede().getPanelSedeModificar().verificarEntradasActualizarSedes();
+		if (entradas[0].equals("0")) {
+			this.casaApuestas.getSede().getSedesDao().actualizarSede(Integer.parseInt(entradas[3]), entradas[1],
+					Integer.parseInt(entradas[2]));
+			vista.mostrarMensajeInformacion("Se ha editado correctamente");
+			vista.getPanelSede().getPanelSedeModificar().borrarCampos();
+			vista.getPanelSede().getPanelSedeModificar().cargarCombo(this.casaApuestas.getSede().getSedesDao().leerSede());
+			vista.getPanelApuestas().getPanelModificarApuesta()
+					.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
+			vista.getPanelApuestas().getPanelMostrarBorrarApuesta().llenarComboSedes(casaApuestas.getSede().ObtenerSedes());
+			vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
+					.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
+			vista.getPanelSede().getPanelSedeModificar().cargarCombo(this.casaApuestas.getSede().getSedesDao().leerSede());
+		} else {
+			vista.mostrarMensajeError(entradas[1]);
+		}
 	}
 
 	public void gestionApuestasBalotoModificar() {
