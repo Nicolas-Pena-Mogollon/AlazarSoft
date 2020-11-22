@@ -569,11 +569,18 @@ public class Controller implements ActionListener {
 					.getSelectedItem().toString();
 			long presupuesto = Long
 					.parseLong(vista.getPanelCasaApuestas().getPanelDatosJuegos().getCampoTextoPresupuesto().getText());
-			if (this.casaApuestas.getJuego().getJuegosDAO().agregarJuego(nombreJuego, tipoJuego, presupuesto)) {
-				vista.mostrarMensajeInformacion("Se ha agregado correctamente");
-				vista.getPanelCasaApuestas().getPanelDatosJuegos().limpiarCampos();
+			if (this.casaApuestas.getJuego()
+					.verificarPresupuesto(this.casaApuestas.getJuego().getJuegosDAO().getListaJuegos(), presupuesto)) {
+				vista.mostrarMensajeError(
+						"No se puede sobrepasar el presupuesto total" + "\nPresupuesto disponible: " + this.casaApuestas.getJuego()
+								.presupuestoDisponible(this.casaApuestas.getJuego().getJuegosDAO().getListaJuegos()));
 			} else {
-				vista.mostrarMensajeError("No se pueden repetir juegos");
+				if (this.casaApuestas.getJuego().getJuegosDAO().agregarJuego(nombreJuego, tipoJuego, presupuesto)) {
+					vista.mostrarMensajeInformacion("Se ha agregado correctamente");
+					vista.getPanelCasaApuestas().getPanelDatosJuegos().limpiarCampos();
+				} else {
+					vista.mostrarMensajeError("No se pueden repetir juegos");
+				}
 			}
 		} else {
 			vista.mostrarMensajeError("Campos necesarios");

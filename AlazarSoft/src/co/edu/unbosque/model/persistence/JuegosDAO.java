@@ -36,4 +36,20 @@ public class JuegosDAO {
 		}
 		return verificar;
 	}
+
+	/**
+	 * @return the listaJuegos
+	 */
+	public ArrayList<JuegosDTO> getListaJuegos() {
+		return listaJuegos;
+	}
+
+	/**
+	 * @param listaJuegos the listaJuegos to set
+	 */
+	public void setListaJuegos(ArrayList<JuegosDTO> listaJuegos) {
+		this.listaJuegos = listaJuegos;
+	}
+	
+	
 }
