@@ -173,8 +173,8 @@ public class CasaDeApuestas {
 					cont++;
 				}
 			} else if (tipoFiltro.equals("año")) {
-				if (dateTres.parse(fecha).getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(cont)
-						.getFecha().getYear())) {
+				if (dateTres.parse(fecha)
+						.equals(apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha())) {
 					salida[i][0] = dateTres
 							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha());
 					salida[i][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getNombreSede();
