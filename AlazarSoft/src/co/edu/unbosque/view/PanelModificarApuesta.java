@@ -88,7 +88,7 @@ public class PanelModificarApuesta extends JPanel {
 		this.comboSede.removeAllItems();
 		this.comboSede.addItem("Seleccione");
 		for (int i = 0; i < sede.size(); i++) {
-			this.comboSede.addItem(sede.get(i).getUbicacion());
+			this.comboSede.addItem(sede.get(i).getUbicacion() + sede.get(i).getIdUbicacion());
 		}
 	}
 
