@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 
 import co.edu.unbosque.model.persistence.ArchivoConfiguracionCasaApuestas;
 import co.edu.unbosque.model.persistence.ArchivoPDF;
+import co.edu.unbosque.model.persistence.LecturaTxt;
 
 public class CasaDeApuestas {
 
@@ -17,6 +18,7 @@ public class CasaDeApuestas {
 	private ArchivoConfiguracionCasaApuestas archivoConfiguracionCasaApuestas;
 	private ArchivoPDF archivoPDF;
 	private Juego juego;
+	private LecturaTxt planesPremiacion;
 
 	public CasaDeApuestas() {
 		this.archivoConfiguracionCasaApuestas = new ArchivoConfiguracionCasaApuestas();
@@ -25,6 +27,7 @@ public class CasaDeApuestas {
 		this.sede = new Sede();
 		this.archivoPDF = new ArchivoPDF();
 		this.juego = new Juego();
+		this.planesPremiacion = new LecturaTxt();
 	}
 
 	public void guardarConfiguracionCasaDeApuestas(String nombre, int numeroSedes, Long presupuestoTotal) {
@@ -384,7 +387,33 @@ public class CasaDeApuestas {
 	public void setJuego(Juego juego) {
 		this.juego = juego;
 	}
-	
-	
+
+	/**
+	 * @return the archivoPDF
+	 */
+	public ArchivoPDF getArchivoPDF() {
+		return archivoPDF;
+	}
+
+	/**
+	 * @param archivoPDF the archivoPDF to set
+	 */
+	public void setArchivoPDF(ArchivoPDF archivoPDF) {
+		this.archivoPDF = archivoPDF;
+	}
+
+	/**
+	 * @return the planesPremiacion
+	 */
+	public LecturaTxt getPlanesPremiacion() {
+		return planesPremiacion;
+	}
+
+	/**
+	 * @param planesPremiacion the planesPremiacion to set
+	 */
+	public void setPlanesPremiacion(LecturaTxt planesPremiacion) {
+		this.planesPremiacion = planesPremiacion;
+	}
 
 }

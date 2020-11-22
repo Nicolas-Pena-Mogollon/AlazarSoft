@@ -15,6 +15,7 @@ public class View extends JFrame {
 	private PanelApostadores panelApostadores;
 	private PanelApuestas panelApuestas;
 	private PanelSede panelSede;
+	private PanelPremiacion panelPremiacion;
 	private PanelConsultasReportes panelConsultasReportes;
 	private JSplitPane splitPane;
 
@@ -33,6 +34,7 @@ public class View extends JFrame {
 		panelApuestas = new PanelApuestas();
 		panelMenuCasaApuestas = new PanelMenuCasaApuestas();
 		panelConsultasReportes = new PanelConsultasReportes();
+		panelPremiacion = new PanelPremiacion();
 
 		splitPane = new JSplitPane();
 		splitPane.setEnabled(false);
@@ -191,6 +193,20 @@ public class View extends JFrame {
 	 */
 	public void setSplitPane(JSplitPane splitPane) {
 		this.splitPane = splitPane;
+	}
+
+	/**
+	 * @return the panelPremiacion
+	 */
+	public PanelPremiacion getPanelPremiacion() {
+		return panelPremiacion;
+	}
+
+	/**
+	 * @param panelPremiacion the panelPremiacion to set
+	 */
+	public void setPanelPremiacion(PanelPremiacion panelPremiacion) {
+		this.panelPremiacion = panelPremiacion;
 	}
 
 }

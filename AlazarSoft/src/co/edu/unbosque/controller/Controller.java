@@ -33,6 +33,7 @@ public class Controller implements ActionListener {
 				.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
 		vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaFutbol()
 				.cargarCombo(this.casaApuestas.getSede().cargarPartido());
+		vista.getPanelPremiacion().llenarInformacion(casaApuestas.getPlanesPremiacion().leerArchivo());
 	}
 
 	@Override
@@ -47,7 +48,7 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_APUESTAS())) {
 			vista.getSplitPane().setRightComponent(vista.getPanelApuestas());
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_PLANES_PREMIACION())) {
-			// vista.getSplitPane().setRightComponent(vista.getPanelSede());
+			 vista.getSplitPane().setRightComponent(vista.getPanelPremiacion());
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_CONSULTA_REPORTES())) {
 			vista.getSplitPane().setRightComponent(vista.getPanelConsultasReportes());
 		} else if (e.getActionCommand()
