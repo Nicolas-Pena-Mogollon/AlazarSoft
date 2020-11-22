@@ -11,8 +11,6 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.itextpdf.text.log.SysoLogger;
-
 public class PanelMostrarBorrarApuesta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
