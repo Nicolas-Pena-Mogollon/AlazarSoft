@@ -19,7 +19,7 @@ public class SedeFile {
 	}
 
 	public String escribirRegistroSede(ArrayList<SedesDTO> listaSedes) {
-		String mensaje = "Registro de Jugador Generado!";
+		String mensaje = "Registro de Sede Generado!";
 		try {
 			outSede = new ObjectOutputStream(new FileOutputStream(file));
 			outSede.writeObject(listaSedes);
@@ -33,16 +33,16 @@ public class SedeFile {
 
 	@SuppressWarnings("unchecked")
 	public ArrayList<SedesDTO> leerRegistroSede() {
-		ArrayList<SedesDTO> gamerDatos = new ArrayList<SedesDTO>();
+		ArrayList<SedesDTO> sedesDatos = new ArrayList<SedesDTO>();
 		if (file.length() != 0) {
 			try {
 				inSede = new ObjectInputStream(new FileInputStream(file));
-				gamerDatos = (ArrayList<SedesDTO>) inSede.readObject();
+				sedesDatos = (ArrayList<SedesDTO>) inSede.readObject();
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
-		return gamerDatos;
+		return sedesDatos;
 	}
 
 	public String getRutaArchivo() {
