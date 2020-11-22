@@ -5,9 +5,6 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.itextpdf.text.log.SysoLogger;
-
 import co.edu.unbosque.model.CasaDeApuestas;
 import co.edu.unbosque.model.CedulaException;
 import co.edu.unbosque.model.CelularException;
@@ -42,7 +39,7 @@ public class Controller implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_CONFIGURACION_CASA_APUESTAS())) {
-			vista.getSplitPane().setRightComponent(vista.getPanelIngresoCasaApuestas());
+			vista.getSplitPane().setRightComponent(vista.getPanelCasaApuestas());
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_SEDES())) {
 			vista.getSplitPane().setRightComponent(vista.getPanelSede());
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_APOSTADORES())) {
@@ -56,7 +53,8 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelApuestas().getPanelCrearApuesta().getCOMMAND_CAMBIAR_TIPO_APUESTA())) {
 			vista.getPanelApuestas().getPanelCrearApuesta().cambiarPanel();
-		} else if (e.getActionCommand().equals(vista.getPanelIngresoCasaApuestas().getCOMMAND_INGRESAR())) {
+		} else if (e.getActionCommand()
+				.equals(vista.getPanelCasaApuestas().getPanelIngresoCasaApuestas().getCOMMAND_INGRESAR())) {
 			this.coordinarConfiguracionCasaApuestas();
 		} else if (e.getActionCommand().equals(vista.getPanelSede().getPanelSedeCrear().getCOMMAND_GUARDAR())) {
 			this.gestionSedes();
@@ -143,7 +141,8 @@ public class Controller implements ActionListener {
 	}
 
 	public void coordinarConfiguracionCasaApuestas() {
-		String[] entradas = vista.getPanelIngresoCasaApuestas().verificarEntradasIngresoDatosJuegos();
+		String[] entradas = vista.getPanelCasaApuestas().getPanelIngresoCasaApuestas()
+				.verificarEntradasIngresoDatosJuegos();
 		if (entradas[0].equals("0")) {
 			casaApuestas.guardarConfiguracionCasaDeApuestas(entradas[1], Integer.parseInt(entradas[2]),
 					Long.parseLong(entradas[3]));
@@ -151,7 +150,7 @@ public class Controller implements ActionListener {
 		} else {
 			vista.mostrarMensajeError(entradas[1]);
 		}
-		vista.getPanelIngresoCasaApuestas().borrarCamposIngresoCasaApuestas();
+		vista.getPanelCasaApuestas().getPanelIngresoCasaApuestas().borrarCamposIngresoCasaApuestas();
 	}
 
 	public void gestionApostadoresRegistro() {

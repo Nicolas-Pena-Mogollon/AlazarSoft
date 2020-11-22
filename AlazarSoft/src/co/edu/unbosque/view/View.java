@@ -10,7 +10,7 @@ import co.edu.unbosque.controller.Controller;
 public class View extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private PanelIngresoCasaApuestas panelIngresoCasaApuestas;
+	private PanelCasaApuestas panelCasaApuestas;
 	private PanelMenuCasaApuestas panelMenuCasaApuestas;
 	private PanelApostadores panelApostadores;
 	private PanelApuestas panelApuestas;
@@ -27,7 +27,7 @@ public class View extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 
-		panelIngresoCasaApuestas = new PanelIngresoCasaApuestas();
+		panelCasaApuestas = new PanelCasaApuestas();
 		panelApostadores = new PanelApostadores();
 		panelSede = new PanelSede();
 		panelApuestas = new PanelApuestas();
@@ -37,7 +37,7 @@ public class View extends JFrame {
 		splitPane = new JSplitPane();
 		splitPane.setEnabled(false);
 		splitPane.setLeftComponent(panelMenuCasaApuestas);
-		splitPane.setRightComponent(panelIngresoCasaApuestas);
+		splitPane.setRightComponent(panelCasaApuestas);
 
 		getContentPane().add(splitPane);
 		asignarOyentes(control);
@@ -52,7 +52,8 @@ public class View extends JFrame {
 		panelMenuCasaApuestas.getBotonGestionApuestas().addActionListener(control);
 		panelMenuCasaApuestas.getBotonPlanesPremiacion().addActionListener(control);
 		panelMenuCasaApuestas.getBotonConsultasReportes().addActionListener(control);
-		panelIngresoCasaApuestas.getBotonGuardar().addActionListener(control);
+		panelCasaApuestas.getPanelIngresoCasaApuestas().getBotonGuardar().addActionListener(control);
+		panelCasaApuestas.getPanelDatosJuegos().getBotonGuardarDatosJuego().addActionListener(control);
 		panelSede.getPanelSedeCrear().getBotonSede().addActionListener(control);
 		panelSede.getPanelSedeModificar().getBotonActualizar().addActionListener(control);
 		panelApostadores.getPanelCrearApostador().getBotonCrearApostador().addActionListener(control);
@@ -95,17 +96,17 @@ public class View extends JFrame {
 	}
 
 	/**
-	 * @return the panelIngresoCasaApuestas
+	 * @return the panelCasaApuestas
 	 */
-	public PanelIngresoCasaApuestas getPanelIngresoCasaApuestas() {
-		return panelIngresoCasaApuestas;
+	public PanelCasaApuestas getPanelCasaApuestas() {
+		return panelCasaApuestas;
 	}
 
 	/**
-	 * @param panelIngresoCasaApuestas the panelIngresoCasaApuestas to set
+	 * @param panelCasaApuestas the panelCasaApuestas to set
 	 */
-	public void setPanelIngresoCasaApuestas(PanelIngresoCasaApuestas panelIngresoCasaApuestas) {
-		this.panelIngresoCasaApuestas = panelIngresoCasaApuestas;
+	public void setPanelCasaApuestas(PanelCasaApuestas panelCasaApuestas) {
+		this.panelCasaApuestas = panelCasaApuestas;
 	}
 
 	/**
