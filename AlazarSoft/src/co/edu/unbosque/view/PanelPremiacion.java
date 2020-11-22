@@ -14,7 +14,6 @@ public class PanelPremiacion extends JTabbedPane {
 		panelPremiacionBaloto = new JPanel();
 		panelPremiacionSuperastro = new JPanel();
 		panelPremiacionFutbol = new JPanel();
-
 		this.add(panelPremiacionBaloto, "Plan de Premios Baloto");
 		this.add(panelPremiacionSuperastro, "Plan de Premios SuperAstro");
 		this.add(panelPremiacionFutbol, "Plan de Premios Marcadores");
