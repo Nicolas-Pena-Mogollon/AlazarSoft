@@ -563,8 +563,8 @@ public class Controller implements ActionListener {
 
 	public void gestionarJuegos() {
 		if (vista.getPanelCasaApuestas().getPanelDatosJuegos().verificarEntradas()) {
-			String nombreJuego = vista.getPanelCasaApuestas().getPanelDatosJuegos().getCampoTextoNombreJuego()
-					.getText();
+			String nombreJuego = vista.getPanelCasaApuestas().getPanelDatosJuegos().getComboNombreJuego()
+					.getSelectedItem().toString();
 			String tipoJuego = vista.getPanelCasaApuestas().getPanelDatosJuegos().getComboTiposDeJuego()
 					.getSelectedItem().toString();
 			long presupuesto = Long
