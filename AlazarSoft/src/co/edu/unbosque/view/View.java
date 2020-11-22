@@ -15,6 +15,7 @@ public class View extends JFrame {
 	private PanelApostadores panelApostadores;
 	private PanelApuestas panelApuestas;
 	private PanelSede panelSede;
+	private PanelConsultasReportes panelConsultasReportes;
 	private JSplitPane splitPane;
 
 	public View(Controller control) {
@@ -31,12 +32,13 @@ public class View extends JFrame {
 		panelSede = new PanelSede();
 		panelApuestas = new PanelApuestas();
 		panelMenuCasaApuestas = new PanelMenuCasaApuestas();
+		panelConsultasReportes = new PanelConsultasReportes();
 
 		splitPane = new JSplitPane();
 		splitPane.setEnabled(false);
 		splitPane.setLeftComponent(panelMenuCasaApuestas);
 		splitPane.setRightComponent(panelIngresoCasaApuestas);
-		
+
 		getContentPane().add(splitPane);
 		asignarOyentes(control);
 		repaint();
@@ -84,50 +86,100 @@ public class View extends JFrame {
 		JOptionPane.showMessageDialog(null, message, "Información", JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	public PanelMenuCasaApuestas getPanelMenuCasaApuestas() {
-		return panelMenuCasaApuestas;
-	}
-
-	public void setPanelMenuCasaApuestas(PanelMenuCasaApuestas panelMenuCasaApuestas) {
-		this.panelMenuCasaApuestas = panelMenuCasaApuestas;
-	}
-
+	/**
+	 * @return the panelIngresoCasaApuestas
+	 */
 	public PanelIngresoCasaApuestas getPanelIngresoCasaApuestas() {
 		return panelIngresoCasaApuestas;
 	}
 
+	/**
+	 * @param panelIngresoCasaApuestas the panelIngresoCasaApuestas to set
+	 */
 	public void setPanelIngresoCasaApuestas(PanelIngresoCasaApuestas panelIngresoCasaApuestas) {
 		this.panelIngresoCasaApuestas = panelIngresoCasaApuestas;
 	}
 
+	/**
+	 * @return the panelMenuCasaApuestas
+	 */
+	public PanelMenuCasaApuestas getPanelMenuCasaApuestas() {
+		return panelMenuCasaApuestas;
+	}
+
+	/**
+	 * @param panelMenuCasaApuestas the panelMenuCasaApuestas to set
+	 */
+	public void setPanelMenuCasaApuestas(PanelMenuCasaApuestas panelMenuCasaApuestas) {
+		this.panelMenuCasaApuestas = panelMenuCasaApuestas;
+	}
+
+	/**
+	 * @return the panelApostadores
+	 */
 	public PanelApostadores getPanelApostadores() {
 		return panelApostadores;
 	}
 
+	/**
+	 * @param panelApostadores the panelApostadores to set
+	 */
 	public void setPanelApostadores(PanelApostadores panelApostadores) {
 		this.panelApostadores = panelApostadores;
 	}
 
-	public PanelSede getPanelSede() {
-		return panelSede;
-	}
-
-	public void setPanelSede(PanelSede panelSede) {
-		this.panelSede = panelSede;
-	}
-
+	/**
+	 * @return the panelApuestas
+	 */
 	public PanelApuestas getPanelApuestas() {
 		return panelApuestas;
 	}
 
+	/**
+	 * @param panelApuestas the panelApuestas to set
+	 */
 	public void setPanelApuestas(PanelApuestas panelApuestas) {
 		this.panelApuestas = panelApuestas;
 	}
 
+	/**
+	 * @return the panelSede
+	 */
+	public PanelSede getPanelSede() {
+		return panelSede;
+	}
+
+	/**
+	 * @param panelSede the panelSede to set
+	 */
+	public void setPanelSede(PanelSede panelSede) {
+		this.panelSede = panelSede;
+	}
+
+	/**
+	 * @return the panelConsultasReportes
+	 */
+	public PanelConsultasReportes getPanelConsultasReportes() {
+		return panelConsultasReportes;
+	}
+
+	/**
+	 * @param panelConsultasReportes the panelConsultasReportes to set
+	 */
+	public void setPanelConsultasReportes(PanelConsultasReportes panelConsultasReportes) {
+		this.panelConsultasReportes = panelConsultasReportes;
+	}
+
+	/**
+	 * @return the splitPane
+	 */
 	public JSplitPane getSplitPane() {
 		return splitPane;
 	}
 
+	/**
+	 * @param splitPane the splitPane to set
+	 */
 	public void setSplitPane(JSplitPane splitPane) {
 		this.splitPane = splitPane;
 	}
