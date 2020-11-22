@@ -31,13 +31,14 @@ public class CasaDeApuestas {
 		if (!nombre.equals("")) {
 			this.nombreCasaApuestas = nombre;
 		}
-		if (numeroSedes != 0) {
+		if (numeroSedes != -1) {
 			this.numeroSedes = numeroSedes;
 		}
-		if (presupuestoTotal != 0) {
+		if (presupuestoTotal != -1) {
 			this.presupuestoTotal = presupuestoTotal;
 		}
-		String[] datos = { this.nombreCasaApuestas, String.valueOf(this.numeroSedes), String.valueOf(this.presupuestoTotal) };
+		String[] datos = { this.nombreCasaApuestas, String.valueOf(this.numeroSedes),
+				String.valueOf(this.presupuestoTotal) };
 		archivoConfiguracionCasaApuestas.escribirConfiguracionCasaApuestas(datos);
 	}
 

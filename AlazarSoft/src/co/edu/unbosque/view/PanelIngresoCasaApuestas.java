@@ -56,23 +56,51 @@ public class PanelIngresoCasaApuestas extends JPanel {
 	public String[] verificarEntradasIngresoDatosJuegos() {
 		String[] salida = new String[5];
 		salida[0] = "0";
-		if (!campoTextoNombreCasaApuestas.getText().equals("") && !campoTextoNumeroSedes.getText().equals("")
-				&& !campoTextoPresupuesto.getText().equals("")) {
+		if (!campoTextoNombreCasaApuestas.getText().equals("") || !campoTextoNumeroSedes.getText().equals("")
+				|| !campoTextoPresupuesto.getText().equals("")) {
+
 			String nombre = campoTextoNombreCasaApuestas.getText();
 			String numSedes = campoTextoNumeroSedes.getText();
 			String presupuesto = campoTextoPresupuesto.getText();
 			try {
-				if (Integer.parseInt(presupuesto) <= 0) {
-					salida[0] = "1";
-					salida[1] = "Valor de presupuesto inválido";
-				} else if (Long.parseLong(numSedes) <= 0) {
-					salida[0] = "1";
-					salida[1] = "Valor del número de sedes inválido";
-				} else {
+				if (!presupuesto.equals("") && !numSedes.equals("")) {
+					if (Integer.parseInt(presupuesto) <= 0) {
+						salida[0] = "1";
+						salida[1] = "Valor de presupuesto inválido";
+					} else if (Long.parseLong(numSedes) <= 0) {
+						salida[0] = "1";
+						salida[1] = "Valor del número de sedes inválido";
+					} else {
+						salida[1] = nombre;
+						salida[2] = numSedes;
+						salida[3] = presupuesto;
+						salida[4] = "Configuración guardada";
+					}
+				} else if (presupuesto.equals("") && numSedes.equals("")) {
 					salida[1] = nombre;
-					salida[2] = numSedes;
-					salida[3] = presupuesto;
+					salida[2] = "-1";
+					salida[3] = "-1";
 					salida[4] = "Configuración guardada";
+				} else if (!presupuesto.equals("")) {
+					if (Integer.parseInt(presupuesto) <= 0) {
+						salida[0] = "1";
+						salida[1] = "Valor del número de sedes inválido";
+					} else {
+						salida[1] = nombre;
+						salida[2] = "-1";
+						salida[3] = presupuesto;
+						salida[4] = "Configuración guardada";
+					}
+				} else {
+					if (Long.parseLong(numSedes) <= 0) {
+						salida[0] = "1";
+						salida[1] = "Valor del número de sedes inválido";
+					} else {
+						salida[1] = nombre;
+						salida[2] = numSedes;
+						salida[3] = "-1";
+						salida[4] = "Configuración guardada";
+					}
 				}
 			} catch (NumberFormatException e) {
 				salida[0] = "1";
