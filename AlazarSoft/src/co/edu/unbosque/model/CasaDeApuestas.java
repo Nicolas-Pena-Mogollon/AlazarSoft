@@ -190,6 +190,62 @@ public class CasaDeApuestas {
 		return salida;
 	}
 
+	public String[][] obtenerCincoSedesConMayorVenta() {
+		String[][] salida = new String[5][3];
+		double[] valorTotalSedes = new double[this.sede.getSedesDao().getDataSedes().size()];
+		String[] arregloSedes = new String[this.sede.getSedesDao().getDataSedes().size()];
+
+		for (int i = 0; i < this.sede.getSedesDao().getDataSedes().size(); i++) {
+			for (int j = 0; j < this.apuestas.getBalotoDAO().getListaBaloto().size(); j++) {
+				if (this.apuestas.getBalotoDAO().getListaBaloto().get(j).getNombreSede()
+						.equals(this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
+								+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion())) {
+					valorTotalSedes[i] = valorTotalSedes[i]
+							+ this.apuestas.getBalotoDAO().getListaBaloto().get(j).getValorApuesta();
+				}
+			}
+			for (int j = 0; j < this.apuestas.getSuperastroDAO().getListaSuperastro().size(); j++) {
+				if (this.apuestas.getSuperastroDAO().getListaSuperastro().get(j).getNombreSede()
+						.equals(this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
+								+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion())) {
+					valorTotalSedes[i] = valorTotalSedes[i]
+							+ this.apuestas.getSuperastroDAO().getListaSuperastro().get(j).getValorApuesta();
+				}
+			}
+			for (int j = 0; j < this.apuestas.getMarcadoresDAO().getListaMarcadores().size(); j++) {
+				if (this.apuestas.getMarcadoresDAO().getListaMarcadores().get(j).getNombreSede()
+						.equals(this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
+								+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion())) {
+					valorTotalSedes[i] = valorTotalSedes[i]
+							+ this.apuestas.getMarcadoresDAO().getListaMarcadores().get(j).getValorApuesta();
+				}
+			}
+			arregloSedes[i] = this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
+					+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion();
+		}
+		// System.out.println(Arrays.deepToString(valorTotalSedes));
+
+		for (int i = 0; i < valorTotalSedes.length; i++) {
+			for (int j = 0; j < valorTotalSedes.length; j++) {
+
+				if (valorTotalSedes[i] > valorTotalSedes[j]) {
+					String tempSede = arregloSedes[i];
+					arregloSedes[i] = arregloSedes[j];
+					arregloSedes[j] = tempSede;
+					double tempValor = valorTotalSedes[i];
+					valorTotalSedes[i] = valorTotalSedes[j];
+					valorTotalSedes[j] = tempValor;
+				}
+			}
+		}
+		for (int i = 0; i < arregloSedes.length; i++) {
+			salida[i][0] = String.valueOf(valorTotalSedes[i]);
+			salida[i][1] = "";
+			salida[i][2] = arregloSedes[i];
+		}
+		return salida;
+	}
+
 	private String[] buscarDatosApostador(String cedula) {
 		String[] salida = new String[3];
 		for (int i = 0; i < this.apostadores.getApostadorDao().getListaApostador().size(); i++) {

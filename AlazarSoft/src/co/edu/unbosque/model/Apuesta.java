@@ -2,6 +2,9 @@ package co.edu.unbosque.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 import co.edu.unbosque.model.persistence.BalotoDAO;
 import co.edu.unbosque.model.persistence.MarcadoresDAO;
 import co.edu.unbosque.model.persistence.SuperastroDAO;
@@ -155,7 +158,7 @@ public class Apuesta {
 		int i = izq, d = der;
 		if (izq != der) {
 			int pivote;
-			
+
 			String[] aux = null;
 			pivote = izq;
 			while (izq != der) {
@@ -182,6 +185,93 @@ public class Apuesta {
 			return numeros;
 		}
 		return numeros;
+	}
+
+	@SuppressWarnings("deprecation")
+	public String[][] obtenerInformacionHistoricoVentas() {
+		String[][] salida = new String[this.contarRegistrosUltimosCincoDias()][3];
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = new Date();
+		int cont = 0;
+		for (int i = 0; i <= 5; i++) {
+			for (int j = 0; j < this.balotoDAO.getListaBaloto().size(); j++) {
+				Date fecha = new Date(date.getTime() + TimeUnit.DAYS.toMillis(-i));
+				if (fecha.getYear() == this.balotoDAO.getListaBaloto().get(j).getFecha().getYear()
+						&& fecha.getMonth() == this.balotoDAO.getListaBaloto().get(j).getFecha().getMonth()
+						&& fecha.getDay() == this.balotoDAO.getListaBaloto().get(j).getFecha().getDay()) {
+					salida[cont][0] = String.valueOf(this.balotoDAO.getListaBaloto().get(j).getValorApuesta());
+					salida[cont][1] = sdf.format(fecha);
+					salida[cont][2] = this.balotoDAO.getListaBaloto().get(j).getNombreSede();
+					cont++;
+				}
+			}
+		}
+		for (int i = 0; i <= 5; i++) {
+			for (int j = 0; j < superastroDAO.getListaSuperastro().size(); j++) {
+				Date fecha = new Date(date.getTime() + TimeUnit.DAYS.toMillis(-i));
+				if (fecha.getYear() == superastroDAO.getListaSuperastro().get(j).getFecha().getYear()
+						&& fecha.getMonth() == superastroDAO.getListaSuperastro().get(j).getFecha().getMonth()
+						&& fecha.getDay() == superastroDAO.getListaSuperastro().get(j).getFecha().getDay()) {
+					salida[cont][0] = String.valueOf(superastroDAO.getListaSuperastro().get(j).getValorApuesta());
+					salida[cont][1] = sdf.format(fecha);
+					salida[cont][2] = superastroDAO.getListaSuperastro().get(j).getNombreSede();
+					cont++;
+				}
+			}
+		}
+		for (int i = 0; i <= 5; i++) {
+			for (int j = 0; j < marcadoresDAO.getListaMarcadores().size(); j++) {
+				Date fecha = new Date(date.getTime() + TimeUnit.DAYS.toMillis(-i));
+				if (fecha.getYear() == marcadoresDAO.getListaMarcadores().get(j).getFecha().getYear()
+						&& fecha.getMonth() == marcadoresDAO.getListaMarcadores().get(j).getFecha().getMonth()
+						&& fecha.getDay() == marcadoresDAO.getListaMarcadores().get(j).getFecha().getDay()) {
+					salida[cont][0] = String.valueOf(superastroDAO.getListaSuperastro().get(j).getValorApuesta());
+					salida[cont][1] = sdf.format(fecha);
+					salida[cont][2] = superastroDAO.getListaSuperastro().get(j).getNombreSede();
+					cont++;
+				}
+			}
+		}
+		return salida;
+
+	}
+
+	@SuppressWarnings("deprecation")
+	private int contarRegistrosUltimosCincoDias() {
+		Date date = new Date();
+		int cont = 0;
+		for (int i = 0; i <= 5; i++) {
+			for (int j = 0; j < this.balotoDAO.getListaBaloto().size(); j++) {
+				Date fecha = new Date(date.getTime() + TimeUnit.DAYS.toMillis(-i));
+				if (fecha.getYear() == this.balotoDAO.getListaBaloto().get(j).getFecha().getYear()
+						&& fecha.getMonth() == this.balotoDAO.getListaBaloto().get(j).getFecha().getMonth()
+						&& fecha.getDay() == this.balotoDAO.getListaBaloto().get(j).getFecha().getDay()) {
+					cont++;
+				}
+			}
+		}
+
+		for (int i = 0; i <= 5; i++) {
+			for (int j = 0; j < superastroDAO.getListaSuperastro().size(); j++) {
+				Date fecha = new Date(date.getTime() + TimeUnit.DAYS.toMillis(-i));
+				if (fecha.getYear() == superastroDAO.getListaSuperastro().get(j).getFecha().getYear()
+						&& fecha.getMonth() == superastroDAO.getListaSuperastro().get(j).getFecha().getMonth()
+						&& fecha.getDay() == superastroDAO.getListaSuperastro().get(j).getFecha().getDay()) {
+					cont++;
+				}
+			}
+		}
+		for (int i = 0; i <= 5; i++) {
+			for (int j = 0; j < marcadoresDAO.getListaMarcadores().size(); j++) {
+				Date fecha = new Date(date.getTime() + TimeUnit.DAYS.toMillis(-i));
+				if (fecha.getYear() == marcadoresDAO.getListaMarcadores().get(j).getFecha().getYear()
+						&& fecha.getMonth() == marcadoresDAO.getListaMarcadores().get(j).getFecha().getMonth()
+						&& fecha.getDay() == marcadoresDAO.getListaMarcadores().get(j).getFecha().getDay()) {
+					cont++;
+				}
+			}
+		}
+		return cont;
 	}
 
 	/**

@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.itextpdf.text.log.SysoLogger;
+
 import co.edu.unbosque.model.CasaDeApuestas;
 import co.edu.unbosque.model.CedulaException;
 import co.edu.unbosque.model.CelularException;
@@ -128,6 +131,12 @@ public class Controller implements ActionListener {
 				// TODO Auto-generated catch block
 				vista.mostrarMensajeError("No se pudo exportar el PDF" + "\n" + e1);
 			}
+		}else if (e.getActionCommand()
+				.equals(vista.getPanelConsultasReportes().getPanelHistoricoVentas().getCOMMAND_HISTORICO_VENTAS())) {
+			vista.getPanelConsultasReportes().getPanelHistoricoVentas()
+					.recibirInfomacion(casaApuestas.getApuestas().obtenerInformacionHistoricoVentas());
+		}else if(e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficoVentasSedes().getCOMMAND_GRAFICA_SEDES_MAYORES_VENTAS())) {
+			vista.getPanelConsultasReportes().getPanelGraficoVentasSedes().recibirInfomacion(casaApuestas.obtenerCincoSedesConMayorVenta());
 		}
 	}
 
