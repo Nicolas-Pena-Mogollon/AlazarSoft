@@ -17,8 +17,8 @@ public class Controller implements ActionListener {
 	private View vista;
 
 	public Controller() {
-		vista = new View(this);
 		casaApuestas = new CasaDeApuestas();
+		vista = new View(this);
 		vista.getPanelApostadores().getPanelCrearApostador()
 				.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
 		vista.getPanelApostadores().getPanelActualizarBorrarApostador()
@@ -114,6 +114,13 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelSede().getPanelSedeModificar().getCOMMAND_ACTUALIZAR_SEDE())) {
 			this.gestionarSedesActualizar();
+		}else if(e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_EXPORTARPDF())) {
+			try {
+				casaApuestas.generarInformacionPdf(vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar().getSelectedItem().toString());
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				vista.mostrarMensajeError("No se pudo exportar el PDF");
+			}
 		}
 	}
 

@@ -3,11 +3,8 @@ package co.edu.unbosque.model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import co.edu.unbosque.model.persistence.BalotoDAO;
-import co.edu.unbosque.model.persistence.BalotoDTO;
 import co.edu.unbosque.model.persistence.MarcadoresDAO;
-import co.edu.unbosque.model.persistence.MarcadoresDTO;
 import co.edu.unbosque.model.persistence.SuperastroDAO;
-import co.edu.unbosque.model.persistence.SuperastroDTO;
 
 public class Apuesta {
 
@@ -145,114 +142,40 @@ public class Apuesta {
 		}
 		return verificar;
 	}
-	
-	public static BalotoDTO[] quicksortRecurivoBaloto(BalotoDTO[] numeros) {
-		return quicksort2Baloto(numeros, 0, numeros.length - 1);
+
+	public String[][] quicksortRecursivo(String[][] numeros) throws ParseException {
+		return quicksort2(numeros, 0, numeros.length - 1);
 	}
 
-	public static BalotoDTO[] quicksort2Baloto(BalotoDTO[] numeros, int izq, int der) {
+	private String[][] quicksort2(String[][] numeros, int izq, int der) throws ParseException {
+		SimpleDateFormat simpleDate = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
 		if (izq >= der) {
 			return numeros;
 		}
 		int i = izq, d = der;
 		if (izq != der) {
 			int pivote;
-			BalotoDTO aux = null;
+			String[] aux = null;
 			pivote = izq;
 			while (izq != der) {
-				while ((numeros[der].getFecha().before(numeros[pivote].getFecha()) || numeros[der].getFecha() == numeros[pivote].getFecha()) && izq < der) {
+				while (simpleDate.parse(numeros[der][0]).before(simpleDate.parse(numeros[pivote][0]))
+						|| simpleDate.parse(numeros[der][0]) == simpleDate.parse(numeros[pivote][0]) && izq < der) {
 					der--;
 
 				}
-				while (numeros[izq].getFecha().after(numeros[pivote].getFecha()) && izq < der) {
+				while (simpleDate.parse(numeros[izq][0]).after(simpleDate.parse(numeros[pivote][0])) && izq < der) {
 					izq++;
 				}
 				if (der != izq) {
-					aux = numeros[der];	
-			
+					aux = numeros[der];
+
 					numeros[der] = numeros[izq];
 					numeros[izq] = aux;
 				}
 			}
 			if (izq == der) {
-				quicksort2Baloto(numeros, i, izq - 1);
-				quicksort2Baloto(numeros, izq + 1, d);
-			}
-		} else {
-			return numeros;
-		}
-		return numeros;
-	}
-	
-	public static SuperastroDTO[] quicksortRecurivoSuperastro(SuperastroDTO[] numeros) {
-		return quicksort2Superastro(numeros, 0, numeros.length - 1);
-	}
-
-	public static SuperastroDTO[] quicksort2Superastro(SuperastroDTO[] numeros, int izq, int der) {
-		if (izq >= der) {
-			return numeros;
-		}
-		int i = izq, d = der;
-		if (izq != der) {
-			int pivote;
-			SuperastroDTO aux = null;
-			pivote = izq;
-			while (izq != der) {
-				while ((numeros[der].getFecha().before(numeros[pivote].getFecha()) || numeros[der].getFecha() == numeros[pivote].getFecha()) && izq < der) {
-					der--;
-
-				}
-				while (numeros[izq].getFecha().after(numeros[pivote].getFecha()) && izq < der) {
-					izq++;
-				}
-				if (der != izq) {
-					aux = numeros[der];	
-			
-					numeros[der] = numeros[izq];
-					numeros[izq] = aux;
-				}
-			}
-			if (izq == der) {
-				quicksort2Superastro(numeros, i, izq - 1);
-				quicksort2Superastro(numeros, izq + 1, d);
-			}
-		} else {
-			return numeros;
-		}
-		return numeros;
-	}
-	
-	public static MarcadoresDTO[] quicksortRecurivoMarcadores(MarcadoresDTO[] numeros) {
-		return quicksort2Marcadores(numeros, 0, numeros.length - 1);
-	}
-
-	public static MarcadoresDTO[] quicksort2Marcadores(MarcadoresDTO[] numeros, int izq, int der) {
-		if (izq >= der) {
-			return numeros;
-		}
-		int i = izq, d = der;
-		if (izq != der) {
-			int pivote;
-			MarcadoresDTO aux = null;
-			pivote = izq;
-			while (izq != der) {
-				while ((numeros[der].getFecha().before(numeros[pivote].getFecha()) || numeros[der].getFecha() == numeros[pivote].getFecha()) && izq < der) {
-					der--;
-
-				}
-				while (numeros[izq].getFecha().after(numeros[pivote].getFecha()) && izq < der) {
-					izq++;
-				}
-				if (der != izq) {
-					aux = numeros[der];	
-			
-					numeros[der] = numeros[izq];
-					numeros[izq] = aux;
-				}
-			}
-			if (izq == der) {
-				quicksort2Marcadores(numeros, i, izq - 1);
-				quicksort2Marcadores(numeros, izq + 1, d);
+				quicksort2(numeros, i, izq - 1);
+				quicksort2(numeros, izq + 1, d);
 			}
 		} else {
 			return numeros;
@@ -286,7 +209,7 @@ public class Apuesta {
 	 */
 	public void setSuperastroDAO(SuperastroDAO superastroDAO) {
 		this.superastroDAO = superastroDAO;
-		
+
 	}
 
 	/**
