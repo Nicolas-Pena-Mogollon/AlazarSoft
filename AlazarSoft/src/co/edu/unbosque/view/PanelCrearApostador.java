@@ -82,7 +82,7 @@ public class PanelCrearApostador extends JPanel {
 		comboSede.removeAllItems();
 		comboSede.addItem("Selecciona la sede");
 		for (int i = 0; i < sede.size(); i++) {
-			comboSede.addItem(sede.get(i).getUbicacion());
+			comboSede.addItem(sede.get(i).getUbicacion() + sede.get(i).getIdUbicacion());
 		}
 	}
 
