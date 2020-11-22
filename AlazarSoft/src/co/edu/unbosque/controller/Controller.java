@@ -49,7 +49,7 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_PLANES_PREMIACION())) {
 			// vista.getSplitPane().setRightComponent(vista.getPanelSede());
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_CONSULTA_REPORTES())) {
-			// vista.getSplitPane().setRightComponent(vista.getPanelSede());
+			vista.getSplitPane().setRightComponent(vista.getPanelConsultasReportes());
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelApuestas().getPanelCrearApuesta().getCOMMAND_CAMBIAR_TIPO_APUESTA())) {
 			vista.getPanelApuestas().getPanelCrearApuesta().cambiarPanel();
