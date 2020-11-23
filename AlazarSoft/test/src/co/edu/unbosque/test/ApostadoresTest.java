@@ -42,19 +42,19 @@ public class ApostadoresTest {
 
 	@Test
 	public void testBuscarApostador() {
+		apostador.getApostadorDao().agregarApostador(apostador1.getNombre(), apostador1.getCedula(),
+				apostador1.getSede(), apostador1.getDireccion(), apostador1.getCelular());
 		assertNotNull("El apostador debio ser buscado",
 				apostador.getApostadorDao().buscarApostador(apostador1.getCedula()));
+		apostador.getApostadorDao().eliminarApostador(apostador1.getCedula());
+
 	}
 
 	@Test
-	public void testAgregarApostador() {
+	public void testAgregarEliminarApostador() {
 		assertNotNull("El apostador debio ser agregado",
 				apostador.getApostadorDao().agregarApostador(apostador1.getNombre(), apostador1.getCedula(),
 						apostador1.getSede(), apostador1.getDireccion(), apostador1.getCelular()));
-	}
-
-	@Test
-	public void testEliminarApostador() {
 		assertTrue("El apostador debio ser eliminado",
 				apostador.getApostadorDao().eliminarApostador(apostador1.getCedula()));
 	}
@@ -67,8 +67,12 @@ public class ApostadoresTest {
 
 	@Test
 	public void testVerificarNumeroTelefonico() {
+		apostador.getApostadorDao().agregarApostador(apostador1.getNombre(), apostador1.getCedula(),
+				apostador1.getSede(), apostador1.getDireccion(), apostador1.getCelular());
 		assertTrue("El número deberia estar verificador",
 				apostador.getApostadorDao().verificarNumeroTelefonico(apostadores, apostador1.getCelular()));
+		apostador.getApostadorDao().eliminarApostador(apostador1.getCedula());
+
 	}
 
 	@After

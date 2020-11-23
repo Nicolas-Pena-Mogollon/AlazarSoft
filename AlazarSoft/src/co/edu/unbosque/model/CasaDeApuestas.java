@@ -2,9 +2,6 @@ package co.edu.unbosque.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-
 import co.edu.unbosque.model.persistence.ArchivoConfiguracionCasaApuestas;
 import co.edu.unbosque.model.persistence.ArchivoPDF;
 import co.edu.unbosque.model.persistence.LecturaTxt;
@@ -30,6 +27,9 @@ public class CasaDeApuestas {
 		this.archivoPDF = new ArchivoPDF();
 		this.juego = new Juego();
 		this.planesPremiacion = new LecturaTxt();
+		this.nombreCasaApuestas = "";
+		this.numeroSedes = 0;
+		this.presupuestoTotal = 0L;
 	}
 
 	public void guardarConfiguracionCasaDeApuestas(String nombre, int numeroSedes, Long presupuestoTotal) {
@@ -206,23 +206,8 @@ public class CasaDeApuestas {
 				}
 			}
 		}
-
-		int contadorSinNull = 0;
-		for (int i = 0; i < matrizMadre.length; i++) {
-			if (matrizMadre[i][0] != null) {
-				contadorSinNull++;
-			}
-		}
-		System.out.println(Arrays.deepToString(matrizMadre));
-		String[][] salidaSinNull = new String[contadorSinNull][6];
-		contadorSinNull = 0;
-		for (int i = 0; i < matrizMadre.length; i++) {
-			if (matrizMadre[i][0] != null) {
-				salidaSinNull[contadorSinNull] = matrizMadre[i];
-				contadorSinNull++;
-			}
-		}
-
+		String[][] salidaSinNull = this.quitarCamposNull(matrizMadre);
+		
 		if (tipoReporte.equals("Listado de clientes por sede")) {
 			String[][] reporteClientes = new String[salidaSinNull.length][4];
 			for (int i = 0; i < reporteClientes.length; i++) {
@@ -260,28 +245,53 @@ public class CasaDeApuestas {
 				apuestasSedesTipo[i][2] = salidaSinNull[i][4];
 				apuestasSedesTipo[i][3] = salidaSinNull[i][5];
 			}
-
+			cont = 0;
 			String[][] reporteTotalApuestasSedeTipo = new String[apuestasSedesTipo.length][4];
 			for (int i = 0; i < reporteTotalApuestasSedeTipo.length; i++) {
-				double valor = 0L;
-				for (int j = i; j < reporteTotalApuestasSedeTipo.length; j++) {
-					if (apuestasSedesTipo[i][1].equals(apuestasSedesTipo[j][1])
-							&& apuestasSedesTipo[i][2].equals(apuestasSedesTipo[j][2])) {
-						valor += Double.parseDouble(apuestasSedesTipo[i][3]);
+				double valor = 0;
+				if (!apuestasSedesTipo[i][1].equals("")) {
+					reporteTotalApuestasSedeTipo[i][0] = apuestasSedesTipo[i][0];
+					reporteTotalApuestasSedeTipo[i][1] = apuestasSedesTipo[i][1];
+					reporteTotalApuestasSedeTipo[i][2] = apuestasSedesTipo[i][2];
+					for (int j = i; j < reporteTotalApuestasSedeTipo.length; j++) {
+						if (apuestasSedesTipo[i][1].equals(apuestasSedesTipo[j][1])
+								&& apuestasSedesTipo[i][2].equals(apuestasSedesTipo[j][2])) {
+							valor += Double.parseDouble(apuestasSedesTipo[i][3]);
+							if (cont == 0) {
+								reporteTotalApuestasSedeTipo[i][3] = String.valueOf(valor);
+								cont++;
+							} else {
+								apuestasSedesTipo[j][1] = "";
+								apuestasSedesTipo[j][3] = "0";
+								reporteTotalApuestasSedeTipo[i][3] = String.valueOf(valor);
+							}
+						}
 					}
 				}
-				reporteTotalApuestasSedeTipo[i][0] = apuestasSedesTipo[i][0];
-				reporteTotalApuestasSedeTipo[i][1] = apuestasSedesTipo[i][1];
-				reporteTotalApuestasSedeTipo[i][2] = apuestasSedesTipo[i][2];
-				reporteTotalApuestasSedeTipo[i][3] = String.valueOf(valor);
 			}
-			// Si se repite al final, crear un ciclo nuevo y validar hasta que el primero
-			// sea igual al último, así se queda hasta ahí con los valores necesarios, o se
-			// puede cambiar de posición hasta el primero y colocar que i es igual a la
-			// cantidad de cambios realizados. Pero es más fácil y tal vez corta la primera
+			return quitarCamposNull(reporteTotalApuestasSedeTipo);
+		}
+	}
 
-			System.out.println(Arrays.deepToString(reporteTotalApuestasSedeTipo));
-			return reporteTotalApuestasSedeTipo;
+	private String[][] quitarCamposNull(String[][] matrizPrincipal) {
+		if (matrizPrincipal.length != 0) {
+			int contadorSinNull = 0;
+			for (int i = 0; i < matrizPrincipal.length; i++) {
+				if (matrizPrincipal[i][0] != null) {
+					contadorSinNull++;
+				}
+			}
+			String[][] matrizSalida = new String[contadorSinNull][matrizPrincipal[0].length];
+			contadorSinNull = 0;
+			for (int i = 0; i < matrizPrincipal.length; i++) {
+				if (matrizPrincipal[i][0] != null) {
+					matrizSalida[contadorSinNull] = matrizPrincipal[i];
+					contadorSinNull++;
+				}
+			}
+			return matrizSalida;
+		} else {
+			return matrizPrincipal;
 		}
 	}
 
@@ -358,6 +368,7 @@ public class CasaDeApuestas {
 			salida[i][1] = "" + (i + 1);
 			salida[i][2] = arregloSedes[i];
 		}
+
 		return salida;
 	}
 
@@ -374,7 +385,6 @@ public class CasaDeApuestas {
 	public boolean generarInformacionPdf(String tipoReporte, String fecha, String tipoFiltro) throws ParseException {
 		String[][] datos = this.apuestas
 				.quicksortRecursivo(this.generarDatosPDFClientes(tipoReporte, fecha, tipoFiltro));
-		System.out.println(Arrays.deepToString(datos));
 		if (datos.length > 0) {
 			archivoPDF.exportar(datos, tipoReporte);
 			return true;

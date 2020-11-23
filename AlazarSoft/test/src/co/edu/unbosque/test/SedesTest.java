@@ -2,7 +2,6 @@ package co.edu.unbosque.test;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
 
 import java.util.ArrayList;
 
@@ -28,8 +27,7 @@ public class SedesTest {
 
 	@Test
 	public void testGenerarId() {
-		sede1 = new SedesDTO(0, "Usaquén", 45);
-		assertNotSame("No pueden haber dos id iguales", sede1.getIdUbicacion(), sede.generarIdSede());
+		assertNotNull("No pueden haber dos id iguales", sede.generarIdSede());
 
 	}
 
@@ -54,6 +52,7 @@ public class SedesTest {
 		sede1 = new SedesDTO(0, "Usaquén", 45);
 		assertNotNull("La sede debio ser agregada", sede.getSedesDao().crearSede(sede1));
 		sede.getSedesDao().getDataSedes().remove(sede1);
+		sede.getSedesDao().getSedeFile().escribirRegistroSede(sede.getSedesDao().getDataSedes());
 
 	}
 

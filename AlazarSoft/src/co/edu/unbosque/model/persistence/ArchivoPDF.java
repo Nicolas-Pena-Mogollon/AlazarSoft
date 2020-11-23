@@ -21,6 +21,7 @@ public class ArchivoPDF extends ArchivoExportar {
 
 	public ArchivoPDF() {
 		tablaPDF = new PdfPTable(1);
+		this.verificarDirectorio();
 	}
 
 	/**
@@ -102,6 +103,13 @@ public class ArchivoPDF extends ArchivoExportar {
 			PdfPCell celdaTitulo = new PdfPCell(new Phrase(titulos[i]));
 			celdaTitulo.setBackgroundColor(new BaseColor(194, 210, 214));
 			tablaPDF.addCell(celdaTitulo);
+		}
+	}
+
+	private void verificarDirectorio() {
+		File f = new File("./Export");
+		if (!f.exists()) {
+			f.mkdir();
 		}
 	}
 }
