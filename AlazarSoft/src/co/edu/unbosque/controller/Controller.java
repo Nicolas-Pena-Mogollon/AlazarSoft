@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import co.edu.unbosque.model.CasaDeApuestas;
 import co.edu.unbosque.model.CedulaException;
@@ -137,12 +138,21 @@ public class Controller implements ActionListener {
 			}
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelConsultasReportes().getPanelHistoricoVentas().getCOMMAND_HISTORICO_VENTAS())) {
-			vista.getPanelConsultasReportes().getPanelHistoricoVentas()
-					.recibirInfomacion(casaApuestas.getApuestas().obtenerInformacionHistoricoVentas());
+			String[][] data = casaApuestas.getApuestas().obtenerInformacionHistoricoVentas();
+			if (data.length != 0) {
+				vista.getPanelConsultasReportes().getPanelHistoricoVentas().recibirInfomacion(data);
+			} else {
+				vista.mostrarMensajeError("No hay información para mostrar");
+			}
 		} else if (e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficoVentasSedes()
 				.getCOMMAND_GRAFICA_SEDES_MAYORES_VENTAS())) {
-			vista.getPanelConsultasReportes().getPanelGraficoVentasSedes()
-					.recibirInfomacion(casaApuestas.obtenerCincoSedesConMayorVenta());
+			String[][] data = casaApuestas.obtenerCincoSedesConMayorVenta();
+			System.out.println(Arrays.deepToString(data));
+			if (data[0][0] != null) {
+				vista.getPanelConsultasReportes().getPanelGraficoVentasSedes().recibirInfomacion(data);
+			} else {
+				vista.mostrarMensajeError("No hay información para mostrar");
+			}
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelCasaApuestas().getPanelDatosJuegos().getCOMMAND_REGISTRAR_DATOS_JUEGO())) {
 			this.gestionarJuegos();
