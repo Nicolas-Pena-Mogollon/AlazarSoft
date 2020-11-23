@@ -48,7 +48,7 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_APUESTAS())) {
 			vista.getSplitPane().setRightComponent(vista.getPanelApuestas());
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_PLANES_PREMIACION())) {
-			 vista.getSplitPane().setRightComponent(vista.getPanelPremiacion());
+			vista.getSplitPane().setRightComponent(vista.getPanelPremiacion());
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_CONSULTA_REPORTES())) {
 			vista.getSplitPane().setRightComponent(vista.getPanelConsultasReportes());
 		} else if (e.getActionCommand()
@@ -119,15 +119,20 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_EXPORTARPDF())) {
 			try {
-				casaApuestas.generarInformacionPdf(
+				boolean resultado = casaApuestas.generarInformacionPdf(
 						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar()
 								.getSelectedItem().toString(),
 						vista.getPanelConsultasReportes().getPanelExportarInformacion().getCampoTextoFecha().getText(),
 						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
 								.getSelectedItem().toString());
-				vista.mostrarMensajeInformacion("Se ha generado el archivo PDF");
+				if (resultado) {
+					vista.mostrarMensajeInformacion("Se ha generado el archivo PDF");
+				} else {
+					vista.mostrarMensajeInformacion("No hay información para mostrar");
+				}
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
+				e1.printStackTrace();
 				vista.mostrarMensajeError("No se pudo exportar el PDF" + "\n" + e1);
 			}
 		} else if (e.getActionCommand()
@@ -572,14 +577,14 @@ public class Controller implements ActionListener {
 					.parseLong(vista.getPanelCasaApuestas().getPanelDatosJuegos().getCampoTextoPresupuesto().getText());
 			if (this.casaApuestas.getJuego()
 					.verificarPresupuesto(this.casaApuestas.getJuego().getJuegosDAO().getListaJuegos(), presupuesto)) {
-				vista.mostrarMensajeError(
-						"No se puede sobrepasar el presupuesto total" + "\nPresupuesto disponible: " + this.casaApuestas.getJuego()
+				vista.mostrarMensajeError("No se puede sobrepasar el presupuesto total" + "\nPresupuesto disponible: "
+						+ this.casaApuestas.getJuego()
 								.presupuestoDisponible(this.casaApuestas.getJuego().getJuegosDAO().getListaJuegos()));
 			} else {
 				if (this.casaApuestas.getJuego().getJuegosDAO().agregarJuego(nombreJuego, tipoJuego, presupuesto)) {
 					vista.mostrarMensajeInformacion("Se ha agregado correctamente");
 					vista.getPanelCasaApuestas().getPanelDatosJuegos().limpiarCampos();
-					
+
 				} else {
 					vista.mostrarMensajeError("No se pueden repetir juegos");
 				}

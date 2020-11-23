@@ -52,7 +52,7 @@ public class PanelExportarInformacion extends JPanel {
 		comboOpcionExportar.addItem("Valor total de apuestas por cliente");
 		comboOpcionExportar.addItem("Detalle de apuestas realizadas por cliente y sede");
 		comboOpcionExportar.addItem("Total de apuestas por sede y tipo de juego");
-		SimpleDateFormat dateF = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dateF = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
 		campoTextoFecha = new JTextField(dateF.format(new Date()));
 
 		panelOpcionesExportar.add(etiquetaOpcionExportar);

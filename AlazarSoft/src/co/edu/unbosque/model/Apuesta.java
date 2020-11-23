@@ -162,8 +162,8 @@ public class Apuesta {
 			String[] aux = null;
 			pivote = izq;
 			while (izq != der) {
-				while (simpleDate.parse(numeros[der][0]).before(simpleDate.parse(numeros[pivote][0]))
-						|| simpleDate.parse(numeros[der][0]) == simpleDate.parse(numeros[pivote][0]) && izq < der) {
+				while ((simpleDate.parse(numeros[der][0]).before(simpleDate.parse(numeros[pivote][0]))
+						|| simpleDate.parse(numeros[der][0]) == simpleDate.parse(numeros[pivote][0])) && izq < der) {
 					der--;
 
 				}

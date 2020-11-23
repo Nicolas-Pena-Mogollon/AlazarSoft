@@ -2,6 +2,9 @@ package co.edu.unbosque.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+
+import com.itextpdf.text.log.SysoLogger;
 
 import co.edu.unbosque.model.persistence.ArchivoConfiguracionCasaApuestas;
 import co.edu.unbosque.model.persistence.ArchivoPDF;
@@ -45,15 +48,14 @@ public class CasaDeApuestas {
 		archivoConfiguracionCasaApuestas.escribirConfiguracionCasaApuestas(datos);
 	}
 
+		
 	public String[][] generarDatosPDFClientes(String fecha, String tipoFiltro) throws ParseException {
-		String[][] salida = new String[apuestas.getBalotoDAO().getListaBaloto().size()
+		String[][] salidaDatosClientes = new String[apuestas.getBalotoDAO().getListaBaloto().size()
 				+ apuestas.getSuperastroDAO().getListaSuperastro().size()
-				+ apuestas.getMarcadoresDAO().getListaMarcadores().size()][6];
-		SimpleDateFormat dateUno = new SimpleDateFormat("dd/MM/yyyy");
-		SimpleDateFormat dateDos = new SimpleDateFormat("MM/yyyy");
-		SimpleDateFormat dateTres = new SimpleDateFormat("yyyy");
-
+				+ apuestas.getMarcadoresDAO().getListaMarcadores().size()][7];
+		SimpleDateFormat dateUno = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
 		String[] aux = new String[3];
+		int cont = 0;
 		for (int i = 0; i < apuestas.getBalotoDAO().getListaBaloto().size(); i++) {
 			aux = buscarDatosApostador(apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula());
 			if (tipoFiltro.equals("día, mes y año")) {
@@ -63,141 +65,174 @@ public class CasaDeApuestas {
 								.getMonth() == (apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha().getMonth())
 						&& dateUno.parse(fecha)
 								.getYear() == (apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha().getYear())) {
-					salida[i][0] = dateUno.format(apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha());
-					salida[i][1] = apuestas.getBalotoDAO().getListaBaloto().get(i).getNombreSede();
-					salida[i][2] = apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula();
-					salida[i][3] = aux[0];
-					salida[i][4] = aux[1];
-					salida[i][5] = aux[2];
+					salidaDatosClientes[cont][0] = dateUno.format(apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha());
+					salidaDatosClientes[cont][1] = apuestas.getBalotoDAO().getListaBaloto().get(i).getNombreSede();
+					salidaDatosClientes[cont][2] = apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula();
+					salidaDatosClientes[cont][3] = aux[0];
+					salidaDatosClientes[cont][4] = aux[1];
+					salidaDatosClientes[cont][5] = aux[2];
+					salidaDatosClientes[cont][6]= String.valueOf(apuestas.getBalotoDAO().getListaBaloto().get(i).getValorApuesta());
+					cont++;
 				}
 			} else if (tipoFiltro.equals("mes y año")) {
-				if (dateDos.parse(fecha)
+				if (dateUno.parse(fecha)
 						.getMonth() == (apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha().getMonth())
-						&& dateDos.parse(fecha)
+						&& dateUno.parse(fecha)
 								.getYear() == (apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha().getYear())) {
-					salida[i][0] = dateDos.format(apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha());
-					salida[i][1] = apuestas.getBalotoDAO().getListaBaloto().get(i).getNombreSede();
-					salida[i][2] = apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula();
-					salida[i][3] = aux[0];
-					salida[i][4] = aux[1];
-					salida[i][5] = aux[2];
+					salidaDatosClientes[cont][0] = dateUno.format(apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha());
+					salidaDatosClientes[cont][1] = apuestas.getBalotoDAO().getListaBaloto().get(i).getNombreSede();
+					salidaDatosClientes[cont][2] = apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula();
+					salidaDatosClientes[cont][3] = aux[0];
+					salidaDatosClientes[cont][4] = aux[1];
+					salidaDatosClientes[cont][5] = aux[2];
+					cont++;
 				}
 			} else if (tipoFiltro.equals("año")) {
-				if (dateTres.parse(fecha)
+				if (dateUno.parse(fecha)
 						.getYear() == (apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha().getYear())) {
-					salida[i][0] = dateTres.format(apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha());
-					salida[i][1] = apuestas.getBalotoDAO().getListaBaloto().get(i).getNombreSede();
-					salida[i][2] = apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula();
-					salida[i][3] = aux[0];
-					salida[i][4] = aux[1];
-					salida[i][5] = aux[2];
+					salidaDatosClientes[cont][0] = dateUno.format(apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha());
+					salidaDatosClientes[cont][1] = apuestas.getBalotoDAO().getListaBaloto().get(i).getNombreSede();
+					salidaDatosClientes[cont][2] = apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula();
+					salidaDatosClientes[cont][3] = aux[0];
+					salidaDatosClientes[cont][4] = aux[1];
+					salidaDatosClientes[cont][5] = aux[2];
+					cont++;
 				}
 			}
 
 		}
-
-		int cont = 0;
-		for (int i = apuestas.getBalotoDAO().getListaBaloto().size(); i < salida.length
+		int posicionArrayList = 0;
+		for (int i = apuestas.getBalotoDAO().getListaBaloto().size(); i < salidaDatosClientes.length
 				- apuestas.getMarcadoresDAO().getListaMarcadores().size(); i++) {
-			aux = buscarDatosApostador(apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getCedula());
+			aux = buscarDatosApostador(
+					apuestas.getSuperastroDAO().getListaSuperastro().get(posicionArrayList).getCedula());
 			if (tipoFiltro.equals("día, mes y año")) {
 				if (dateUno.parse(fecha)
-						.getDay() == (apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getFecha().getDay())
+						.getDay() == (apuestas.getSuperastroDAO().getListaSuperastro().get(posicionArrayList).getFecha()
+								.getDay())
 						&& dateUno.parse(fecha)
-								.getMonth() == (apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getFecha()
-										.getMonth())
-						&& dateUno.parse(fecha).getYear() == (apuestas.getSuperastroDAO().getListaSuperastro().get(cont)
-								.getFecha().getYear())) {
-					salida[i][0] = dateUno
-							.format(apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getFecha());
-					salida[i][1] = apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getNombreSede();
-					salida[i][2] = apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getCedula();
-					salida[i][3] = aux[0];
-					salida[i][4] = aux[1];
-					salida[i][5] = aux[2];
+								.getMonth() == (apuestas.getSuperastroDAO().getListaSuperastro().get(posicionArrayList)
+										.getFecha().getMonth())
+						&& dateUno.parse(fecha).getYear() == (apuestas.getSuperastroDAO().getListaSuperastro()
+								.get(posicionArrayList).getFecha().getYear())) {
+					salidaDatosClientes[cont][0] = dateUno
+							.format(apuestas.getSuperastroDAO().getListaSuperastro().get(posicionArrayList).getFecha());
+					salidaDatosClientes[cont][1] = apuestas.getSuperastroDAO().getListaSuperastro().get(posicionArrayList)
+							.getNombreSede();
+					salidaDatosClientes[cont][2] = apuestas.getSuperastroDAO().getListaSuperastro().get(posicionArrayList)
+							.getCedula();
+					salidaDatosClientes[cont][3] = aux[0];
+					salidaDatosClientes[cont][4] = aux[1];
+					salidaDatosClientes[cont][5] = aux[2];
 					cont++;
 				}
+				posicionArrayList++;
 
 			} else if (tipoFiltro.equals("mes y año")) {
-				if (dateDos.parse(fecha)
-						.getMonth() == (apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getFecha()
-								.getMonth())
-						&& dateDos.parse(fecha).getYear() == (apuestas.getSuperastroDAO().getListaSuperastro().get(cont)
-								.getFecha().getYear())) {
-					salida[i][0] = dateDos
-							.format(apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getFecha());
-					salida[i][1] = apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getNombreSede();
-					salida[i][2] = apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getCedula();
-					salida[i][3] = aux[0];
-					salida[i][4] = aux[1];
-					salida[i][5] = aux[2];
+				if (dateUno.parse(fecha)
+						.getMonth() == (apuestas.getSuperastroDAO().getListaSuperastro().get(posicionArrayList)
+								.getFecha().getMonth())
+						&& dateUno.parse(fecha).getYear() == (apuestas.getSuperastroDAO().getListaSuperastro()
+								.get(posicionArrayList).getFecha().getYear())) {
+					salidaDatosClientes[cont][0] = dateUno
+							.format(apuestas.getSuperastroDAO().getListaSuperastro().get(posicionArrayList).getFecha());
+					salidaDatosClientes[cont][1] = apuestas.getSuperastroDAO().getListaSuperastro().get(posicionArrayList)
+							.getNombreSede();
+					salidaDatosClientes[cont][2] = apuestas.getSuperastroDAO().getListaSuperastro().get(posicionArrayList)
+							.getCedula();
+					salidaDatosClientes[cont][3] = aux[0];
+					salidaDatosClientes[cont][4] = aux[1];
+					salidaDatosClientes[cont][5] = aux[2];
 					cont++;
 				}
+				posicionArrayList++;
+
 			} else if (tipoFiltro.equals("año")) {
-				if (dateTres.parse(fecha).getYear() == (apuestas.getSuperastroDAO().getListaSuperastro().get(cont)
-						.getFecha().getYear())) {
-					salida[i][0] = dateTres.format(apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha());
-					salida[i][1] = apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getNombreSede();
-					salida[i][2] = apuestas.getSuperastroDAO().getListaSuperastro().get(cont).getCedula();
-					salida[i][3] = aux[0];
-					salida[i][4] = aux[1];
-					salida[i][5] = aux[2];
+				if (dateUno.parse(fecha).getYear() == (apuestas.getSuperastroDAO().getListaSuperastro()
+						.get(posicionArrayList).getFecha().getYear())) {
+					salidaDatosClientes[cont][0] = dateUno
+							.format(apuestas.getSuperastroDAO().getListaSuperastro().get(posicionArrayList).getFecha());
+					salidaDatosClientes[cont][1] = apuestas.getSuperastroDAO().getListaSuperastro().get(posicionArrayList)
+							.getNombreSede();
+					salidaDatosClientes[cont][2] = apuestas.getSuperastroDAO().getListaSuperastro().get(posicionArrayList)
+							.getCedula();
+					salidaDatosClientes[cont][3] = aux[0];
+					salidaDatosClientes[cont][4] = aux[1];
+					salidaDatosClientes[cont][5] = aux[2];
 					cont++;
 				}
+				posicionArrayList++;
 			}
 
 		}
-		cont = 0;
-		for (int i = salida.length - apuestas.getMarcadoresDAO().getListaMarcadores().size(); i < salida.length; i++) {
-			aux = buscarDatosApostador(apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getCedula());
+		posicionArrayList = 0;
+		for (int i = salidaDatosClientes.length - apuestas.getMarcadoresDAO().getListaMarcadores().size(); i < salidaDatosClientes.length; i++) {
+			aux = buscarDatosApostador(
+					apuestas.getMarcadoresDAO().getListaMarcadores().get(posicionArrayList).getCedula());
 			if (tipoFiltro.equals("día, mes y año")) {
 				if (dateUno.parse(fecha)
-						.getDay() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha().getDay())
+						.getDay() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(posicionArrayList).getFecha()
+								.getDay())
 						&& dateUno.parse(fecha)
-								.getMonth() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha()
-										.getMonth())
-						&& dateUno.parse(fecha).getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(cont)
-								.getFecha().getYear())) {
-					salida[i][0] = dateUno
-							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha());
-					salida[i][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getNombreSede();
-					salida[i][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getCedula();
-					salida[i][3] = aux[0];
-					salida[i][4] = aux[1];
-					salida[i][5] = aux[2];
+								.getMonth() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(posicionArrayList)
+										.getFecha().getMonth())
+						&& dateUno.parse(fecha).getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores()
+								.get(posicionArrayList).getFecha().getYear())) {
+					salidaDatosClientes[cont][0] = dateUno
+							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(posicionArrayList).getFecha());
+					salidaDatosClientes[cont][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(posicionArrayList)
+							.getNombreSede();
+					salidaDatosClientes[cont][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(posicionArrayList)
+							.getCedula();
+					salidaDatosClientes[cont][3] = aux[0];
+					salidaDatosClientes[cont][4] = aux[1];
+					salidaDatosClientes[cont][5] = aux[2];
 					cont++;
 				}
+				posicionArrayList++;
 			} else if (tipoFiltro.equals("mes y año")) {
-				if (dateDos.parse(fecha)
-						.getMonth() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha()
-								.getMonth())
-						&& dateDos.parse(fecha).getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(cont)
-								.getFecha().getYear())) {
-					salida[i][0] = dateDos
-							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha());
-					salida[i][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getNombreSede();
-					salida[i][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getCedula();
-					salida[i][3] = aux[0];
-					salida[i][4] = aux[1];
-					salida[i][5] = aux[2];
+				if (dateUno.parse(fecha)
+						.getMonth() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(posicionArrayList)
+								.getFecha().getMonth())
+						&& dateUno.parse(fecha).getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores()
+								.get(posicionArrayList).getFecha().getYear())) {
+					salidaDatosClientes[i][0] = dateUno
+							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(posicionArrayList).getFecha());
+					salidaDatosClientes[cont][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(posicionArrayList)
+							.getNombreSede();
+					salidaDatosClientes[cont][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(posicionArrayList)
+							.getCedula();
+					salidaDatosClientes[cont][3] = aux[0];
+					salidaDatosClientes[cont][4] = aux[1];
+					salidaDatosClientes[cont][5] = aux[2];
 					cont++;
 				}
-			} else if (tipoFiltro.equals("año")) {
-				if (dateTres.parse(fecha)
-						.equals(apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha())) {
-					salida[i][0] = dateTres
-							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getFecha());
-					salida[i][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getNombreSede();
-					salida[i][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(cont).getCedula();
-					salida[i][3] = aux[0];
-					salida[i][4] = aux[1];
-					salida[i][5] = aux[2];
-					cont++;
-				}
-			}
+				posicionArrayList++;
 
+			} else if (tipoFiltro.equals("año")) {
+				if (dateUno.parse(fecha)
+						.equals(apuestas.getMarcadoresDAO().getListaMarcadores().get(posicionArrayList).getFecha())) {
+					salidaDatosClientes[cont][0] = dateUno
+							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(posicionArrayList).getFecha());
+					salidaDatosClientes[cont][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(posicionArrayList)
+							.getNombreSede();
+					salidaDatosClientes[cont][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(posicionArrayList)
+							.getCedula();
+					salidaDatosClientes[cont][3] = aux[0];
+					salidaDatosClientes[cont][4] = aux[1];
+					salidaDatosClientes[cont][5] = aux[2];
+					cont++;
+				}
+				posicionArrayList++;
+			}
 		}
-		return salida;
+		String[][] salidaSinNull = new String[cont][6];
+		for (int j = 0; j < cont; j++) {
+			if (salidaDatosClientes[j][0] != null) {
+				salidaSinNull[j] = salidaDatosClientes[j];
+			}
+		}
+		return salidaSinNull;
 	}
 
 	public String[][] obtenerCincoSedesConMayorVenta() {
@@ -236,7 +271,6 @@ public class CasaDeApuestas {
 
 		for (int i = 0; i < valorTotalSedes.length; i++) {
 			for (int j = 0; j < valorTotalSedes.length; j++) {
-
 				if (valorTotalSedes[i] > valorTotalSedes[j]) {
 					String tempSede = arregloSedes[i];
 					arregloSedes[i] = arregloSedes[j];
@@ -269,9 +303,14 @@ public class CasaDeApuestas {
 
 	}
 
-	public void generarInformacionPdf(String tipoReporte, String fecha, String tipoFiltro) throws ParseException {
-		archivoPDF.exportar(this.apuestas.quicksortRecursivo(this.generarDatosPDFClientes(fecha, tipoFiltro)),
-				tipoReporte);
+	public boolean generarInformacionPdf(String tipoReporte, String fecha, String tipoFiltro) throws ParseException {
+		String[][] datos = this.apuestas.quicksortRecursivo(this.generarDatosPDFClientes(fecha, tipoFiltro));
+		if (datos.length > 0) {
+			archivoPDF.exportar(datos, tipoReporte);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
