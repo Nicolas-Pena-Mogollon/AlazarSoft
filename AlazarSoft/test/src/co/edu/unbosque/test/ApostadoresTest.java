@@ -50,7 +50,7 @@ public class ApostadoresTest {
 
 	@Test
 	public void testAgregarApostador() {
-		assertNotEquals("El apostador debio ser agregado",
+		assertNotNull("El apostador debio ser agregado",
 				apostador.getApostadorDao().agregarApostador(apostador1.getNombre(), apostador1.getCedula(),
 						apostador1.getSede(), apostador1.getDireccion(), apostador1.getCelular()));
 	}
