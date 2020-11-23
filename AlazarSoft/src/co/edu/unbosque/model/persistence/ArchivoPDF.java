@@ -3,6 +3,8 @@ package co.edu.unbosque.model.persistence;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -11,10 +13,10 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class ArchivoPDF extends ArchivoExportar {
 
 	private static final Font chapterFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 26, Font.BOLDITALIC);
-	public final String RUTA_REPORTEPDF_CLIENTES = "./Export/reporteClientes.pdf";
-	public final String RUTA_REPORTEPDF_TOTAL_APUESTAS_CLIENTES = "./Export/reporteClientes.pdf";
-	public final String RUTA_REPORTE_DETALLES_APUESTAS_POR_CLIENTE = "./Export/reporteClientes.pdf";
-	public final String RUTA_REPORTE_TOTAL_APUESTAS_POR_SEDE = "./Export/reporteClientes.pdf";
+	public final String RUTA_REPORTEPDF_CLIENTES = "./Export/reporteClientesSede.pdf";
+	public final String RUTA_REPORTEPDF_TOTAL_APUESTAS_CLIENTES = "./Export/reporteApuestasClientes.pdf";
+	public final String RUTA_REPORTE_DETALLES_APUESTAS_POR_CLIENTE = "./Export/reporteApuestasClienteSede.pdf";
+	public final String RUTA_REPORTE_TOTAL_APUESTAS_POR_SEDE = "./Export/reporteTotalApuestasSedeJuego.pdf";
 	private Paragraph parrafo;
 	private PdfPTable tablaPDF;
 	private PdfPCell celdaTitulo;
@@ -23,10 +25,8 @@ public class ArchivoPDF extends ArchivoExportar {
 	private Document document;
 
 	public ArchivoPDF() {
-		document = new Document();
 		parrafo = new Paragraph();
 		celdaTitulo = new PdfPCell();
-		document.setPageSize(PageSize.LEGAL.rotate());
 		tablaPDF = new PdfPTable(1);
 	}
 
@@ -42,6 +42,12 @@ public class ArchivoPDF extends ArchivoExportar {
 		// TODO Auto-generated method stub
 		String[] titulosSeleccionados = this.verificarTipoReporte(tipoReporte);
 		try {
+
+			file.delete();
+			file.createNewFile();
+			document = new Document();
+			document.setPageSize(PageSize.LEGAL.rotate());
+
 			fos = new FileOutputStream(file);
 			PdfWriter.getInstance(document, fos).setInitialLeading(20);
 			// Se abre el documento
@@ -73,7 +79,8 @@ public class ArchivoPDF extends ArchivoExportar {
 			capitulo.add(tablaPDF);
 			document.add(capitulo);
 			document.close();
-		} catch (FileNotFoundException | DocumentException e) {
+			fos.close();
+		} catch (DocumentException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

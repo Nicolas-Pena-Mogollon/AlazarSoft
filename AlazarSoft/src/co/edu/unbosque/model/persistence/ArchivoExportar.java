@@ -6,8 +6,7 @@ public abstract class ArchivoExportar {
 	protected final String[] titulosValorTotalApuestasCliente = { "Fecha", "Cédula", "Nombre", "Valor" };
 	protected final String[] titulosDetalleApuestasRealizadasClienteSede = { "Fecha", "Sede", "Cédula", "Nombre",
 			"Tipo de apuesta", "Valor" };
-	protected final String[] titulosTotalApuestasSedeTipoJuego = { "Fecha", "Sede", "Tipo de apuesta", "Valor",
-			"CILINDRAJE", "EXISTENCIAS", "VALOR UNIDAD", "CANTIDAD" };
+	protected final String[] titulosTotalApuestasSedeTipoJuego = { "Fecha", "Sede", "Tipo de apuesta", "Valor" };
 
 	public abstract void exportar(String[][] data, String tipoReporte);
 
