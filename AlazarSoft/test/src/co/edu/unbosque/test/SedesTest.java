@@ -2,6 +2,7 @@ package co.edu.unbosque.test;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 
 import java.util.ArrayList;
 
@@ -22,19 +23,20 @@ public class SedesTest {
 	public void setUp() throws Exception {
 		sede = new Sede();
 		sedesLista = sede.getSedesDao().leerSede();
-		sede1 = new SedesDTO(0, "Usaquén", 45);
-		sedesLista.add(sede1);
 		System.out.println("SetUp hecho");
 	}
 
 	@Test
 	public void testGenerarId() {
-		assertNotEquals("No pueden haber dos id iguales", sede1.getIdUbicacion(), sede.generarIdSede());
+		sede1 = new SedesDTO(0, "Usaquén", 45);
+		assertNotSame("No pueden haber dos id iguales", sede1.getIdUbicacion(), sede.generarIdSede());
+
 	}
 
 	@Test
 	public void testCrearTablaSede() {
-		assertNotNull("La tabla no debe estar vacia", sede1);
+		assertNotNull("La tabla no debe estar vacia", sede.crearTablaSede());
+
 	}
 
 	@Test
@@ -49,18 +51,19 @@ public class SedesTest {
 
 	@Test
 	public void testCrearSede() {
+		sede1 = new SedesDTO(0, "Usaquén", 45);
 		assertNotNull("La sede debio ser agregada", sede.getSedesDao().crearSede(sede1));
+		sede.getSedesDao().getDataSedes().remove(sede1);
 
 	}
 
 	@Test
 	public void testActualizarSede() {
-		assertNotEquals("", sede.getSedesDao().actualizarSede(2, "Teusaquillo", 54), sede1);
+		assertNotEquals("La sede debio actualizarse", sede.getSedesDao().actualizarSede(2, "Teusaquillo", 54), sede1);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-
 		System.out.println("TearDown Hecho");
 
 	}
