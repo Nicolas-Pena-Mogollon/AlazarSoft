@@ -38,7 +38,6 @@ public class ApuestasTest {
 		assertEquals("Los números no deberian ser iguales", false,
 				apuestas.verificarNumerosIgualesBaloto(1, 9, 13, 14, 30, 40));
 		assertEquals("Los números so iguales", true, apuestas.verificarNumerosIgualesBaloto(1, 9, 9, 30, 30, 40));
-
 	}
 
 	@Test

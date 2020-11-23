@@ -19,8 +19,6 @@ public class PanelExportarInformacion extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private final String COMMAND_EXPORTARPDF = "EXPORTARPDF";
 	private final String COMMAND_EXPORTAREXCEL = "EXPORTAREXCEL";
-	private final String PDF = "./Imagenes/PDF.jpg";
-	private final String EXCEL = "./Imagenes/EXCEL.jpg";
 	private JLabel etiquetaOpcionExportar;
 	private JLabel etiquetaFiltroFecha;
 	private JLabel etiquetaFecha;
@@ -63,11 +61,9 @@ public class PanelExportarInformacion extends JPanel {
 		panelOpcionesExportar.add(campoTextoFecha);
 
 		panelBotones = new JPanel(new GridLayout(1, 2));
-		botonExportarPDF = new JButton();
+		botonExportarPDF = new JButton("Exportar PDF");
 		botonExportarPDF.setActionCommand(COMMAND_EXPORTARPDF);
-		botonExportarPDF.setIcon(new ScaledImageIcon(new ImageIcon(PDF), 330, 270));
-		botonExportarExcel = new JButton();
-		botonExportarExcel.setIcon(new ScaledImageIcon(new ImageIcon(EXCEL), 350, 250));
+		botonExportarExcel = new JButton("Exportar Excel");
 		botonExportarExcel.setActionCommand(COMMAND_EXPORTAREXCEL);
 
 		panelBotones.add(botonExportarPDF);
