@@ -34,7 +34,7 @@ public class ApostadoresTest {
 	@Test
 	public void testSoloNumeros() {
 		assertEquals("Solo puede ingresar números", true, apostador.soloNumeros("3115314191"));
-		assertEquals("Solo puede ingresar números", false, apostador.soloNumeros(apostador1.getNombre()));
+		assertEquals("No ingreso números", false, apostador.soloNumeros(apostador1.getNombre()));
 	}
 
 	@Test

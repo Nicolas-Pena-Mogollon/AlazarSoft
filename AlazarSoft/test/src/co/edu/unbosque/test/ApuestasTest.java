@@ -1,7 +1,6 @@
 package co.edu.unbosque.test;
 
-import java.util.ArrayList;
-import java.util.Date;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
@@ -15,47 +14,38 @@ import co.edu.unbosque.model.persistence.SuperastroDTO;
 public class ApuestasTest {
 
 	Apuesta apuestas;
-	ArrayList<BalotoDTO> baloto;
-	ArrayList<MarcadoresDTO> marcadores;
-	ArrayList<SuperastroDTO> superastro;
 	BalotoDTO baloto1;
 	MarcadoresDTO marcadores1;
 	SuperastroDTO superastro1;
 
 	@Before
 	public void setUp() throws Exception {
-		Date fecha = new Date();
 		apuestas = new Apuesta();
-		baloto = apuestas.getBalotoDAO().getListaBaloto();
-		marcadores = apuestas.getMarcadoresDAO().getListaMarcadores();
-		superastro = apuestas.getSuperastroDAO().getListaSuperastro();
-		baloto1 = new BalotoDTO("Usaquen", "1000149678", fecha, 10000.00, "1-2-3-4-5-6");
-		marcadores1 = new MarcadoresDTO("Usaquen", "1000149678", fecha, 20000.00, "Real Madrid - Alavés", "Empate");
-		superastro1 = new SuperastroDTO("Usaquen", "1000149678", fecha, 20000.00, "7-8-9-1", "Escorpio");
-		baloto.add(baloto1);
-		marcadores.add(marcadores1);
-		superastro.add(superastro1);
 		System.out.println("SetUp hecho");
 
 	}
 
 	@Test
-	public void testBorrarApuesta() {
-		
-	}
-
-	@Test
 	public void testVerificarRangoNumerosBaloto() {
+		assertEquals("Los números se salen del rango", false,
+				apuestas.verificarRangoNumerosBaloto(9, 13, 21, 33, 40, 45));
+		assertEquals("Los números se salieron", true, apuestas.verificarRangoNumerosBaloto(-9, -13, -21, -33, -40, 50));
 
 	}
 
 	@Test
 	public void testVerificarNumerosIgualesBaloto() {
+		assertEquals("Los números no deberian ser iguales", false,
+				apuestas.verificarNumerosIgualesBaloto(1, 9, 13, 14, 30, 40));
+		assertEquals("Los números so iguales", true, apuestas.verificarNumerosIgualesBaloto(1, 9, 9, 30, 30, 40));
 
 	}
 
 	@Test
 	public void testVerificarRangoNumerosSuperastro() {
+		assertEquals("Los números no deberian salirse del rango", false,
+				apuestas.verificarRangoNumerosSuperastro(3, 4, 6, 9));
+		assertEquals("Los números se salen del rango", true, apuestas.verificarRangoNumerosSuperastro(13, 0, 6, 10));
 
 	}
 
