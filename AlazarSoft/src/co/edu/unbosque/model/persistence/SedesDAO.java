@@ -14,11 +14,7 @@ public class SedesDAO {
 	}
 
 	public void crearRegistroBase() {
-//		dataSedes.add(new SedesDTO(0, "Usaquén", 34));
-//		dataSedes.add(new SedesDTO(1, "Chapinero", 65));
-//		dataSedes.add(new SedesDTO(2, "Teusaquillo", 23));
-//		dataSedes.add(new SedesDTO(3, "Suba", 34));
-//		dataSedes.add(new SedesDTO(4, "Barrios Unidos", 45));
+
 	}
 
 	public String crearSede(SedesDTO nuevaSede) {
