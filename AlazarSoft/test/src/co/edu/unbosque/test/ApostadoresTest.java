@@ -25,8 +25,6 @@ public class ApostadoresTest {
 		apostador = new Apostador();
 		apostadores = apostador.getApostadorDao().getListaApostador();
 		apostador1 = new ApostadorDTO("Camila", "1000149678", "Usaquén", "Calle 115 #10-45", "3115314191");
-		apostadores.add(apostador1);
-
 		System.out.println("SetUp hecho");
 
 	}
