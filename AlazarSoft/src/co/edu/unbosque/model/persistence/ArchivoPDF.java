@@ -42,7 +42,6 @@ public class ArchivoPDF extends ArchivoExportar {
 		// TODO Auto-generated method stub
 		String[] titulosSeleccionados = this.verificarTipoReporte(tipoReporte);
 		try {
-
 			file.delete();
 			file.createNewFile();
 			document = new Document();
