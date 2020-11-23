@@ -206,7 +206,6 @@ public class CasaDeApuestas {
 				}
 			}
 		}
-		System.out.println(Arrays.deepToString(matrizMadre));
 
 		int contadorSinNull = 0;
 		for (int i = 0; i < matrizMadre.length; i++) {
@@ -214,6 +213,7 @@ public class CasaDeApuestas {
 				contadorSinNull++;
 			}
 		}
+		System.out.println(Arrays.deepToString(matrizMadre));
 		String[][] salidaSinNull = new String[contadorSinNull][6];
 		contadorSinNull = 0;
 		for (int i = 0; i < matrizMadre.length; i++) {
@@ -222,8 +222,6 @@ public class CasaDeApuestas {
 				contadorSinNull++;
 			}
 		}
-		System.out.println(Arrays.deepToString(salidaSinNull));
-
 
 		if (tipoReporte.equals("Listado de clientes por sede")) {
 			String[][] reporteClientes = new String[salidaSinNull.length][4];
@@ -258,47 +256,31 @@ public class CasaDeApuestas {
 			String[][] apuestasSedesTipo = new String[salidaSinNull.length][4];
 			for (int i = 0; i < apuestasSedesTipo.length; i++) {
 				apuestasSedesTipo[i][0] = salidaSinNull[i][0];
-				apuestasSedesTipo[i][1] = salidaSinNull[i][2];
+				apuestasSedesTipo[i][1] = salidaSinNull[i][1];
 				apuestasSedesTipo[i][2] = salidaSinNull[i][4];
 				apuestasSedesTipo[i][3] = salidaSinNull[i][5];
 			}
 
-			Date fechaReporte = dateUno.parse(apuestasSedesTipo[0][0]);
-			String fechaCeldas = fechaReporte.getDay() + "/" + fechaReporte.getMonth() + "/" + fechaReporte.getDay();
-			String[][] reporteTotalApuestasSedeTipo = new String[cont][4];
-			for (int i = 0; i < sede.getSedesDao().getDataSedes().size(); i++) {
-				int valor = 0;
-				for (int j = 0; j < reporteTotalApuestasSedeTipo[i].length; j++) {
-					if (apuestasSedesTipo[i][2].equals("Baloto")
-							&& apuestasSedesTipo[j][1].equals(sede.getSedesDao().getDataSedes().get(i).getUbicacion()
-									+ sede.getSedesDao().getDataSedes().get(i).getIdUbicacion())) {
-						reporteTotalApuestasSedeTipo[i][0] = fechaCeldas;
-						reporteTotalApuestasSedeTipo[i][1] = sede.getSedesDao().getDataSedes().get(i).getUbicacion()
-								+ sede.getSedesDao().getDataSedes().get(i).getIdUbicacion();
-						reporteTotalApuestasSedeTipo[i][2] = "Baloto";
-						valor += Integer.parseInt(apuestasSedesTipo[j][3]);
-
-					} else if (apuestasSedesTipo[i][2].equals("Super Astro")
-							&& apuestasSedesTipo[j][1].equals(sede.getSedesDao().getDataSedes().get(i).getUbicacion()
-									+ sede.getSedesDao().getDataSedes().get(i).getIdUbicacion())) {
-						reporteTotalApuestasSedeTipo[i][0] = fechaCeldas;
-						reporteTotalApuestasSedeTipo[i][1] = sede.getSedesDao().getDataSedes().get(i).getUbicacion()
-								+ sede.getSedesDao().getDataSedes().get(i).getIdUbicacion();
-						reporteTotalApuestasSedeTipo[i][2] = "Super Astro";
-						valor += Integer.parseInt(apuestasSedesTipo[j][3]);
-					} else if (apuestasSedesTipo[i][2].equals("Fútbol")
-							&& apuestasSedesTipo[j][1].equals(sede.getSedesDao().getDataSedes().get(i).getUbicacion()
-									+ sede.getSedesDao().getDataSedes().get(i).getIdUbicacion())) {
-						reporteTotalApuestasSedeTipo[i][0] = fechaCeldas;
-						reporteTotalApuestasSedeTipo[i][1] = sede.getSedesDao().getDataSedes().get(i).getUbicacion()
-								+ sede.getSedesDao().getDataSedes().get(i).getIdUbicacion();
-						reporteTotalApuestasSedeTipo[i][2] = "Fútbol";
-						valor += Integer.parseInt(apuestasSedesTipo[j][3]);
+			String[][] reporteTotalApuestasSedeTipo = new String[apuestasSedesTipo.length][4];
+			for (int i = 0; i < reporteTotalApuestasSedeTipo.length; i++) {
+				double valor = 0L;
+				for (int j = i; j < reporteTotalApuestasSedeTipo.length; j++) {
+					if (apuestasSedesTipo[i][1].equals(apuestasSedesTipo[j][1])
+							&& apuestasSedesTipo[i][2].equals(apuestasSedesTipo[j][2])) {
+						valor += Double.parseDouble(apuestasSedesTipo[i][3]);
 					}
 				}
+				reporteTotalApuestasSedeTipo[i][0] = apuestasSedesTipo[i][0];
+				reporteTotalApuestasSedeTipo[i][1] = apuestasSedesTipo[i][1];
+				reporteTotalApuestasSedeTipo[i][2] = apuestasSedesTipo[i][2];
 				reporteTotalApuestasSedeTipo[i][3] = String.valueOf(valor);
 			}
-			// System.out.println(Arrays.deepToString(reporteTotalApuestasSedeTipo));
+			// Si se repite al final, crear un ciclo nuevo y validar hasta que el primero
+			// sea igual al último, así se queda hasta ahí con los valores necesarios, o se
+			// puede cambiar de posición hasta el primero y colocar que i es igual a la
+			// cantidad de cambios realizados. Pero es más fácil y tal vez corta la primera
+
+			System.out.println(Arrays.deepToString(reporteTotalApuestasSedeTipo));
 			return reporteTotalApuestasSedeTipo;
 		}
 	}
@@ -370,6 +352,7 @@ public class CasaDeApuestas {
 	public boolean generarInformacionPdf(String tipoReporte, String fecha, String tipoFiltro) throws ParseException {
 		String[][] datos = this.apuestas
 				.quicksortRecursivo(this.generarDatosPDFClientes(tipoReporte, fecha, tipoFiltro));
+		System.out.println(Arrays.deepToString(datos));
 		if (datos.length > 0) {
 			archivoPDF.exportar(datos, tipoReporte);
 			return true;

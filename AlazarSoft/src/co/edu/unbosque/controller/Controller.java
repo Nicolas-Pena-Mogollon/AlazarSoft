@@ -412,7 +412,7 @@ public class Controller implements ActionListener {
 			SedesDTO sede = new SedesDTO(this.casaApuestas.getSede().generarIdSede(), entradas[1],
 					Integer.parseInt(entradas[2]));
 			this.casaApuestas.getSede().getSedesDao().crearSede(sede);
-			vista.mostrarMensajeInformacion("Se ha agregado la sede correctammente");
+			vista.mostrarMensajeInformacion("Se ha agregado la sede correctamente");
 			vista.getPanelSede().getPanelSedeCrear().borrarCamposTxt();
 			vista.getPanelApostadores().getPanelCrearApostador()
 					.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
