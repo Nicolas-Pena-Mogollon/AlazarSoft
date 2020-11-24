@@ -1,3 +1,6 @@
+/**
+ * Paquete persistencia
+ */
 package co.edu.unbosque.model.persistence;
 
 import java.io.File;
@@ -11,8 +14,12 @@ import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 
+/**
+ * Clase ArchivoExcel
+ */
+
 public class ArchivoExcel extends ArchivoExportar {
-	
+
 	private final String RUTA_REPORTEPDF_CLIENTES = "./Export/reporteClientesSede.xls";
 	private final String RUTA_REPORTEPDF_TOTAL_APUESTAS_CLIENTES = "./Export/reporteApuestasClientes.xls";
 	private final String RUTA_REPORTE_DETALLES_APUESTAS_POR_CLIENTE = "./Export/reporteApuestasClienteSede.xls";
@@ -21,6 +28,10 @@ public class ArchivoExcel extends ArchivoExportar {
 	private HSSFWorkbook workBook;
 	private HSSFSheet hoja1;
 	private CellStyle estiloTitulo;
+
+	/**
+	 * Constructor vacio
+	 */
 
 	public ArchivoExcel() {
 		// TODO Auto-generated constructor stub
@@ -88,6 +99,10 @@ public class ArchivoExcel extends ArchivoExportar {
 		}
 	}
 
+	/**
+	 * Este método se encarga de crear el formato del archivo excel.
+	 */
+
 	private void crearFormato() {
 		estiloTitulo = workBook.createCellStyle();
 		// Se crea una fuente
@@ -104,6 +119,10 @@ public class ArchivoExcel extends ArchivoExportar {
 		estiloTitulo.setBorderTop(HSSFCellStyle.BORDER_THIN);
 	}
 
+	/**
+	 * Este método se encarga de ajustar las columnas del archivo excel.
+	 */
+
 	private void ajustarColumnas() {
 		// getRow(x).getLastCellNum() obtiene el número de celdas de la primera fila
 		for (int i = 0; i < hoja1.getRow(0).getLastCellNum(); i++) {
@@ -111,6 +130,11 @@ public class ArchivoExcel extends ArchivoExportar {
 			hoja1.autoSizeColumn(i);
 		}
 	}
+
+	/**
+	 * Este método se encarga de verificar la ruta en donde se va a crear al archivo
+	 * excel.
+	 */
 
 	private void verificarDirectorio() {
 		File f = new File("./Export");

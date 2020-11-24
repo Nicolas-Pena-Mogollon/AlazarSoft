@@ -1,3 +1,6 @@
+/**
+ * Paquete persistencia
+ */
 package co.edu.unbosque.model.persistence;
 
 import java.io.File;
@@ -8,6 +11,9 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+/**
+ * Clase ArchivoPDF
+ */
 public class ArchivoPDF extends ArchivoExportar {
 
 	private static final Font chapterFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 26, Font.BOLDITALIC);
@@ -19,18 +25,14 @@ public class ArchivoPDF extends ArchivoExportar {
 	private File file;
 	private FileOutputStream fos;
 
+	/**
+	 * Constructor vacio
+	 */
 	public ArchivoPDF() {
 		tablaPDF = new PdfPTable(1);
 		this.verificarDirectorio();
 	}
 
-	/**
-	 * Método encargado de recibir una lista de clientes para escribir la
-	 * información en el archivo PDF correspondiente
-	 * 
-	 * @param data
-	 * @param tipoReporte
-	 */
 	@Override
 	public void exportar(String[][] data, String tipoReporte) {
 		// TODO Auto-generated method stub
@@ -99,6 +101,11 @@ public class ArchivoPDF extends ArchivoExportar {
 			tablaPDF.addCell(celdaTitulo);
 		}
 	}
+
+	/**
+	 * Este método se encarga de verificar la ruta en donde se va a crear al archivo
+	 * excel.
+	 */
 
 	private void verificarDirectorio() {
 		File f = new File("./Export");

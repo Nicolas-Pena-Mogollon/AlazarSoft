@@ -1,3 +1,6 @@
+/**
+ * Paquete persistencia
+ */
 package co.edu.unbosque.model.persistence;
 
 import java.io.File;
@@ -9,6 +12,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+/**
+ * Clase ArchivoJuegos
+ */
 public class ArchivoJuegos {
 
 	private File fileArchivo;
@@ -16,9 +22,21 @@ public class ArchivoJuegos {
 	private ObjectInputStream entrada;
 	private ObjectOutputStream salida;
 
+	/**
+	 * Constructor vacio
+	 */
+
 	public ArchivoJuegos() {
 
 	}
+
+	/**
+	 * Este metodo se encarga de escribir la información de los juegos en el archivo
+	 * juegos.dat.
+	 * 
+	 * @param juegos, es la lista de juegos de donde se va tomar la información para
+	 *                escribirla en el archivo; juegos != null.
+	 */
 
 	public void escribirArchivo(ArrayList<JuegosDTO> juegos) {
 		if (!fileArchivo.exists()) {
@@ -38,7 +56,14 @@ public class ArchivoJuegos {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Este método se encarga de leer la información del archivo juegos.dat.
+	 * 
+	 * @param file, es el archivo en el cual se va a leer la información; file !=
+	 *              null.
+	 * @return retorna un arrayList con toda la información que contenga el archivo.
+	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<JuegosDTO> leerArchivo(File file) {
 		ArrayList<JuegosDTO> juegos = new ArrayList<JuegosDTO>();
@@ -56,11 +81,17 @@ public class ArchivoJuegos {
 		}
 		return juegos;
 	}
-	
+
+	/**
+	 * Este metodo se encarga de asignar la ruta del archivo e inicializar
+	 * fileArchivo
+	 * 
+	 * @param ruta, es la ruta del archivo; ruta != null.
+	 */
+
 	public void asignarRutaArchivoJuegos(String ruta) {
 		fileArchivo = new File(ruta);
 	}
-
 
 	/**
 	 * @return the fileArchivo

@@ -1,5 +1,5 @@
 /**
- * paquete persistencia, encargado de la permanencia de informacion en el programa
+ * Paquete persistencia
  */
 package co.edu.unbosque.model.persistence;
 
@@ -13,7 +13,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
- * Clase Archivo
+ * Clase ArchivoApostadores
  */
 public class ArchivoApostadores {
 	/**
@@ -48,8 +48,6 @@ public class ArchivoApostadores {
 	 * @param apostador, es la lista de apostadores de donde se tomará la
 	 *                   información para escribirla en el archivo; apostador !=
 	 *                   null.
-	 * @param file,      es el archivo en donde se guardará toda la información de
-	 *                   los apostadores.
 	 */
 	public void escribirArchivo(ArrayList<ApostadorDTO> apostador) {
 		if (!fileArchivo.exists()) {

@@ -1,5 +1,5 @@
 /**
- * paquete persistencia, encargado de la permanencia de informacion en el programa
+ * Paquete persistencia
  */
 package co.edu.unbosque.model.persistence;
 
