@@ -4,7 +4,7 @@
 package co.edu.unbosque.model.persistence;
 
 /**
- * Interface ArchivoExportar
+ * Clase ArchivoExportar
  */
 public abstract class ArchivoExportar {
 
