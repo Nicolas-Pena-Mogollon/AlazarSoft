@@ -63,11 +63,6 @@ public class PanelExportarInformacion extends JPanel {
 		tablaModelo = new DefaultTableModel();
 		tablaInformacion = new JTable(tablaModelo);
 		tablaModelo.fireTableStructureChanged();
-		tablaModelo.addColumn("");
-		tablaModelo.addColumn("");
-		tablaModelo.addColumn("");
-		tablaModelo.addColumn("");
-		tablaModelo.addColumn("");
 
 		scroll = new JScrollPane(tablaInformacion);
 
@@ -96,6 +91,17 @@ public class PanelExportarInformacion extends JPanel {
 		this.add(scroll, BorderLayout.CENTER);
 		add(panelBotones, BorderLayout.PAGE_END);
 
+	}
+
+	public void cargarReporteTabla(String[] titulos, String[][] data) {
+		for (int i = 0; i < titulos.length; i++) {
+			tablaModelo.addColumn(titulos[i]);
+		}
+		for (int i = 0; i < data.length; i++) {
+			tablaModelo.addRow(data[i]);
+		}
+		this.tablaInformacion.repaint();
+		this.tablaInformacion.revalidate();
 	}
 
 	/**
