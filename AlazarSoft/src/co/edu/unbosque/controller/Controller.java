@@ -5,9 +5,6 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.itextpdf.text.log.SysoLogger;
-
 import co.edu.unbosque.model.CasaDeApuestas;
 import co.edu.unbosque.model.CedulaException;
 import co.edu.unbosque.model.CelularException;
@@ -431,8 +428,6 @@ public class Controller implements ActionListener {
 			System.out.println(casaApuestas.getNumeroSedes());
 			System.out.println(casaApuestas.getSede().getSedesDao().getDataSedes().size());
 			if (casaApuestas.getNumeroSedes() >= casaApuestas.getSede().getSedesDao().getDataSedes().size()) {
-				vista.mostrarMensajeError("Ha excedido el número de sedes configurado");
-			} else {
 				SedesDTO sede = new SedesDTO(this.casaApuestas.getSede().generarIdSede(), entradas[1],
 						Integer.parseInt(entradas[2]));
 				this.casaApuestas.getSede().getSedesDao().crearSede(sede);
@@ -446,6 +441,9 @@ public class Controller implements ActionListener {
 						.llenarComboSedes(this.casaApuestas.getSede().obtenerSedes());
 				vista.getPanelSede().getPanelSedeModificar()
 						.cargarCombo(this.casaApuestas.getSede().getSedesDao().leerSede());
+			} else {
+				vista.mostrarMensajeError("Ha excedido el número de sedes configurado");
+
 			}
 		} else {
 			vista.mostrarMensajeError(entradas[1]);
