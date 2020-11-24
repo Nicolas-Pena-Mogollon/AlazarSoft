@@ -1,4 +1,4 @@
-package co.edu.unbosque.model;
+	package co.edu.unbosque.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
