@@ -5,23 +5,25 @@ import java.awt.GridLayout;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
-
-import com.formdev.flatlaf.util.ScaledImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 public class PanelExportarInformacion extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final String COMMAND_EXPORTARPDF = "EXPORTARPDF";
 	private final String COMMAND_EXPORTAREXCEL = "EXPORTAREXCEL";
+	private final String COMMAND_MOSTRARTABLA = "MOSTRARTABLA";
 	private JLabel etiquetaOpcionExportar;
 	private JLabel etiquetaFiltroFecha;
 	private JLabel etiquetaFecha;
+	private JLabel etiquetaTabla;
 	private JComboBox<String> comboOpcionExportar;
 	private JComboBox<String> comboFiltroFecha;
 	private JTextField campoTextoFecha;
@@ -29,14 +31,19 @@ public class PanelExportarInformacion extends JPanel {
 	private JPanel panelBotones;
 	private JButton botonExportarPDF;
 	private JButton botonExportarExcel;
+	private JButton botonMostrarInfo;
+	private JTable tablaInformacion;
+	private DefaultTableModel tablaModelo;
+	private JScrollPane scroll;
 
 	public PanelExportarInformacion() {
 		setLayout(new BorderLayout());
 
-		panelOpcionesExportar = new JPanel(new GridLayout(3, 2));
+		panelOpcionesExportar = new JPanel(new GridLayout(4, 2));
 		etiquetaFiltroFecha = new JLabel("Escoja el filtrado por fecha");
 		etiquetaOpcionExportar = new JLabel("Información a exportar");
 		etiquetaFecha = new JLabel("Escriba la fecha en formato dd/mm/yyyy");
+		etiquetaTabla = new JLabel("Mostrar la información en pantalla");
 
 		comboFiltroFecha = new JComboBox<String>();
 		comboFiltroFecha.addItem("Seleccione");
@@ -53,12 +60,28 @@ public class PanelExportarInformacion extends JPanel {
 		SimpleDateFormat dateF = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
 		campoTextoFecha = new JTextField(dateF.format(new Date()));
 
+		tablaModelo = new DefaultTableModel();
+		tablaInformacion = new JTable(tablaModelo);
+		tablaModelo.fireTableStructureChanged();
+		tablaModelo.addColumn("");
+		tablaModelo.addColumn("");
+		tablaModelo.addColumn("");
+		tablaModelo.addColumn("");
+		tablaModelo.addColumn("");
+
+		scroll = new JScrollPane(tablaInformacion);
+
 		panelOpcionesExportar.add(etiquetaOpcionExportar);
 		panelOpcionesExportar.add(comboOpcionExportar);
 		panelOpcionesExportar.add(etiquetaFiltroFecha);
 		panelOpcionesExportar.add(comboFiltroFecha);
 		panelOpcionesExportar.add(etiquetaFecha);
 		panelOpcionesExportar.add(campoTextoFecha);
+		panelOpcionesExportar.add(etiquetaTabla);
+
+		botonMostrarInfo = new JButton("Mostrar Información exportada");
+		botonMostrarInfo.setActionCommand(COMMAND_MOSTRARTABLA);
+		panelOpcionesExportar.add(botonMostrarInfo);
 
 		panelBotones = new JPanel(new GridLayout(1, 2));
 		botonExportarPDF = new JButton("Exportar PDF");
@@ -70,7 +93,8 @@ public class PanelExportarInformacion extends JPanel {
 		panelBotones.add(botonExportarExcel);
 
 		add(panelOpcionesExportar, BorderLayout.PAGE_START);
-		add(panelBotones, BorderLayout.CENTER);
+		this.add(scroll, BorderLayout.CENTER);
+		add(panelBotones, BorderLayout.PAGE_END);
 
 	}
 
@@ -156,6 +180,34 @@ public class PanelExportarInformacion extends JPanel {
 	 */
 	public void setCampoTextoFecha(JTextField campoTextoFecha) {
 		this.campoTextoFecha = campoTextoFecha;
+	}
+
+	public JPanel getPanelOpcionesExportar() {
+		return panelOpcionesExportar;
+	}
+
+	public void setPanelOpcionesExportar(JPanel panelOpcionesExportar) {
+		this.panelOpcionesExportar = panelOpcionesExportar;
+	}
+
+	public JPanel getPanelBotones() {
+		return panelBotones;
+	}
+
+	public void setPanelBotones(JPanel panelBotones) {
+		this.panelBotones = panelBotones;
+	}
+
+	public JButton getBotonMostrarInfo() {
+		return botonMostrarInfo;
+	}
+
+	public void setBotonMostrarInfo(JButton botonMostrarInfo) {
+		this.botonMostrarInfo = botonMostrarInfo;
+	}
+
+	public String getCOMMAND_MOSTRARTABLA() {
+		return COMMAND_MOSTRARTABLA;
 	}
 
 }
