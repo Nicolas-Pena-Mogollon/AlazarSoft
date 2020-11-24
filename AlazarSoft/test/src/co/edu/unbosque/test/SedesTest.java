@@ -44,7 +44,7 @@ public class SedesTest {
 
 	@Test
 	public void ObtenerSedes() {
-		assertNotNull("Se debio obtener la sede", sede.obtenerSedes());
+		assertNotNull("Se debio obtener la sede", sede.ObtenerSedes());
 	}
 
 	@Test
