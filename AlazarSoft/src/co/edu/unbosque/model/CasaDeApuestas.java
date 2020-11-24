@@ -13,7 +13,7 @@ public class CasaDeApuestas {
 	private Apuesta apuestas;
 	private String nombreCasaApuestas;
 	private int numeroSedes;
-	private Long presupuestoTotal;
+	private double presupuestoTotal;
 	private ArchivoConfiguracionCasaApuestas archivoConfiguracionCasaApuestas;
 	private ArchivoPDF archivoPDF;
 	private Juego juego;
@@ -27,9 +27,20 @@ public class CasaDeApuestas {
 		this.archivoPDF = new ArchivoPDF();
 		this.juego = new Juego();
 		this.planesPremiacion = new LecturaTxt();
-		this.nombreCasaApuestas = "";
-		this.numeroSedes = 0;
-		this.presupuestoTotal = 0L;
+		this.leerConfiguracion();
+	}
+
+	public void leerConfiguracion() {
+		String[] datos = this.archivoConfiguracionCasaApuestas.leerConfiguracionCasaApuestas();
+		if (datos[0] != null) {
+			this.nombreCasaApuestas = datos[0];
+			this.numeroSedes = Integer.parseInt(datos[1]);
+			this.presupuestoTotal = Double.parseDouble(datos[2]);
+		} else {
+			this.nombreCasaApuestas = null;
+			this.numeroSedes = 0;
+			this.presupuestoTotal = 0l;
+		}
 	}
 
 	public void guardarConfiguracionCasaDeApuestas(String nombre, int numeroSedes, Long presupuestoTotal) {
@@ -207,7 +218,7 @@ public class CasaDeApuestas {
 			}
 		}
 		String[][] salidaSinNull = this.quitarCamposNull(matrizMadre);
-		
+
 		if (tipoReporte.equals("Listado de clientes por sede")) {
 			String[][] reporteClientes = new String[salidaSinNull.length][4];
 			for (int i = 0; i < reporteClientes.length; i++) {
@@ -248,6 +259,7 @@ public class CasaDeApuestas {
 			cont = 0;
 			String[][] reporteTotalApuestasSedeTipo = new String[apuestasSedesTipo.length][4];
 			for (int i = 0; i < reporteTotalApuestasSedeTipo.length; i++) {
+				cont = 0;
 				double valor = 0;
 				if (!apuestasSedesTipo[i][1].equals("")) {
 					reporteTotalApuestasSedeTipo[i][0] = apuestasSedesTipo[i][0];
@@ -273,7 +285,7 @@ public class CasaDeApuestas {
 		}
 	}
 
-	private String[][] quitarCamposNull(String[][] matrizPrincipal) {
+	public String[][] quitarCamposNull(String[][] matrizPrincipal) {
 		if (matrizPrincipal.length != 0) {
 			int contadorSinNull = 0;
 			for (int i = 0; i < matrizPrincipal.length; i++) {
@@ -347,7 +359,7 @@ public class CasaDeApuestas {
 			salida[i][2] = arregloSedes[i];
 		}
 
-		return salida;
+		return this.quitarCamposNull(salida);
 	}
 
 	private String buscarNombreApostador(String cedula) {
@@ -416,14 +428,14 @@ public class CasaDeApuestas {
 	/**
 	 * @return the presupuestoTotal
 	 */
-	public Long getPresupuestoTotal() {
+	public double getPresupuestoTotal() {
 		return presupuestoTotal;
 	}
 
 	/**
 	 * @param presupuestoTotal the presupuestoTotal to set
 	 */
-	public void setPresupuestoTotal(Long presupuestoTotal) {
+	public void setPresupuestoTotal(double presupuestoTotal) {
 		this.presupuestoTotal = presupuestoTotal;
 	}
 

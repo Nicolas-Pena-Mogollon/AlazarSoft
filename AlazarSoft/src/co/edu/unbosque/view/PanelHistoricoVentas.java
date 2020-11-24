@@ -36,8 +36,9 @@ public class PanelHistoricoVentas extends JPanel {
 	}
 
 	public void recibirInfomacion(String[][] informacion) {
-		for (int i = 0; i < informacion.length; i++)
+		for (int i = 0; i < informacion.length; i++) {
 			dataHistorico.addValue(Double.parseDouble(informacion[i][0]), informacion[i][1], informacion[i][2]);
+		}
 	}
 
 	/**

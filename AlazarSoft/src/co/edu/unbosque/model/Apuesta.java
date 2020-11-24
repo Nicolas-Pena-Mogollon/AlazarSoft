@@ -2,6 +2,7 @@ package co.edu.unbosque.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import co.edu.unbosque.model.persistence.BalotoDAO;
@@ -79,6 +80,7 @@ public class Apuesta {
 					salida[cont][2] = superastroDAO.getListaSuperastro().get(i).getNumeroJuego() + "-"
 							+ superastroDAO.getListaSuperastro().get(i).getSigno();
 					salida[cont][3] = String.valueOf(superastroDAO.getListaSuperastro().get(i).getValorApuesta());
+					cont++;
 				}
 			}
 		} else if (tipoApuesta.equals("Baloto")) {
@@ -88,6 +90,7 @@ public class Apuesta {
 					salida[cont][1] = balotoDAO.getListaBaloto().get(i).getCedula();
 					salida[cont][2] = balotoDAO.getListaBaloto().get(i).getNumeroJuego();
 					salida[cont][3] = String.valueOf(balotoDAO.getListaBaloto().get(i).getValorApuesta());
+					cont++;
 				}
 			}
 		} else if (tipoApuesta.equals("Fútbol")) {
@@ -98,6 +101,7 @@ public class Apuesta {
 					salida[cont][2] = marcadoresDAO.getListaMarcadores().get(i).getPartido() + "-"
 							+ marcadoresDAO.getListaMarcadores().get(i).getResultado();
 					salida[cont][3] = String.valueOf(marcadoresDAO.getListaMarcadores().get(i).getValorApuesta());
+					cont++;
 				}
 			}
 		}
@@ -189,7 +193,7 @@ public class Apuesta {
 
 	@SuppressWarnings("deprecation")
 	public String[][] obtenerInformacionHistoricoVentas() {
-		String[][] salida = new String[this.contarRegistrosUltimosCincoDias()][3];
+		String[][] matrizDatos = new String[this.contarRegistrosUltimosCincoDias()][3];
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();
 		int cont = 0;
@@ -199,9 +203,9 @@ public class Apuesta {
 				if (fecha.getYear() == this.balotoDAO.getListaBaloto().get(j).getFecha().getYear()
 						&& fecha.getMonth() == this.balotoDAO.getListaBaloto().get(j).getFecha().getMonth()
 						&& fecha.getDay() == this.balotoDAO.getListaBaloto().get(j).getFecha().getDay()) {
-					salida[cont][0] = String.valueOf(this.balotoDAO.getListaBaloto().get(j).getValorApuesta());
-					salida[cont][1] = sdf.format(fecha);
-					salida[cont][2] = this.balotoDAO.getListaBaloto().get(j).getNombreSede();
+					matrizDatos[cont][0] = String.valueOf(this.balotoDAO.getListaBaloto().get(j).getValorApuesta());
+					matrizDatos[cont][1] = sdf.format(fecha);
+					matrizDatos[cont][2] = this.balotoDAO.getListaBaloto().get(j).getNombreSede();
 					cont++;
 				}
 			}
@@ -212,9 +216,9 @@ public class Apuesta {
 				if (fecha.getYear() == superastroDAO.getListaSuperastro().get(j).getFecha().getYear()
 						&& fecha.getMonth() == superastroDAO.getListaSuperastro().get(j).getFecha().getMonth()
 						&& fecha.getDay() == superastroDAO.getListaSuperastro().get(j).getFecha().getDay()) {
-					salida[cont][0] = String.valueOf(superastroDAO.getListaSuperastro().get(j).getValorApuesta());
-					salida[cont][1] = sdf.format(fecha);
-					salida[cont][2] = superastroDAO.getListaSuperastro().get(j).getNombreSede();
+					matrizDatos[cont][0] = String.valueOf(superastroDAO.getListaSuperastro().get(j).getValorApuesta());
+					matrizDatos[cont][1] = sdf.format(fecha);
+					matrizDatos[cont][2] = superastroDAO.getListaSuperastro().get(j).getNombreSede();
 					cont++;
 				}
 			}
@@ -225,15 +229,54 @@ public class Apuesta {
 				if (fecha.getYear() == marcadoresDAO.getListaMarcadores().get(j).getFecha().getYear()
 						&& fecha.getMonth() == marcadoresDAO.getListaMarcadores().get(j).getFecha().getMonth()
 						&& fecha.getDay() == marcadoresDAO.getListaMarcadores().get(j).getFecha().getDay()) {
-					salida[cont][0] = String.valueOf(superastroDAO.getListaSuperastro().get(j).getValorApuesta());
-					salida[cont][1] = sdf.format(fecha);
-					salida[cont][2] = superastroDAO.getListaSuperastro().get(j).getNombreSede();
+					matrizDatos[cont][0] = String.valueOf(marcadoresDAO.getListaMarcadores().get(j).getValorApuesta());
+					matrizDatos[cont][1] = sdf.format(fecha);
+					matrizDatos[cont][2] = marcadoresDAO.getListaMarcadores().get(j).getNombreSede();
 					cont++;
 				}
 			}
 		}
-		return salida;
+//
+//		for (int i = 0; i < balotoDAO.getListaBaloto().size(); i++) {
+//			System.out.println(balotoDAO.getListaBaloto().get(i).getNombreSede());
+//			System.out.println(balotoDAO.getListaBaloto().get(i).getValorApuesta());
+//
+//		}
+//		for (int i = 0; i < superastroDAO.getListaSuperastro().size(); i++) {
+//			System.out.println(superastroDAO.getListaSuperastro().get(i).getNombreSede());
+//			System.out.println(superastroDAO.getListaSuperastro().get(i).getValorApuesta());
+//
+//		}
+//		for (int i = 0; i < marcadoresDAO.getListaMarcadores().size(); i++) {
+//			System.out.println(marcadoresDAO.getListaMarcadores().get(i).getNombreSede());
+//			System.out.println(marcadoresDAO.getListaMarcadores().get(i).getValorApuesta());
+//		}
+		cont = 0;
+		String[][] salida = new String[matrizDatos.length][3];
+		for (int i = 0; i < salida.length; i++) {
+			double valor = 0;
+			cont = 0;
+			if (!matrizDatos[i][1].equals("")) {
+				salida[i][1] = matrizDatos[i][1];
+				salida[i][2] = matrizDatos[i][2];
+				for (int j = 0; j < salida.length; j++) {
+					if (matrizDatos[i][1].equals(matrizDatos[j][1]) && matrizDatos[i][2].equals(matrizDatos[j][2])) {
+						valor += Double.parseDouble(matrizDatos[j][0]);
+						if (cont == 0) {
+							salida[i][0] = String.valueOf(valor);
+							cont++;
+						} else {
+							matrizDatos[j][1] = "";
+							matrizDatos[j][2] = "";
+							salida[i][0] = String.valueOf(valor);
+						}
+					}
+				}
+			}
+		}
+		System.out.println(Arrays.deepToString(salida));
 
+		return salida;
 	}
 
 	@SuppressWarnings("deprecation")
