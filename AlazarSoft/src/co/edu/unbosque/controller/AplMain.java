@@ -15,7 +15,6 @@ public class AplMain {
 		} catch (InstantiationException e) {
 		} catch (IllegalAccessException e) {
 		}
-
 		@SuppressWarnings("unused")
 		Controller control = new Controller();
 	}
