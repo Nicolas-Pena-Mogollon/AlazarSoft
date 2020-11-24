@@ -3,6 +3,7 @@ package co.edu.unbosque.view;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.swing.JButton;
@@ -94,12 +95,15 @@ public class PanelExportarInformacion extends JPanel {
 	}
 
 	public void cargarReporteTabla(String[] titulos, String[][] data) {
+		tablaModelo.setRowCount(0);
+		tablaModelo.setColumnCount(0);
 		for (int i = 0; i < titulos.length; i++) {
 			tablaModelo.addColumn(titulos[i]);
 		}
 		for (int i = 0; i < data.length; i++) {
 			tablaModelo.addRow(data[i]);
 		}
+		System.out.println(Arrays.deepToString(data));
 		this.tablaInformacion.repaint();
 		this.tablaInformacion.revalidate();
 	}

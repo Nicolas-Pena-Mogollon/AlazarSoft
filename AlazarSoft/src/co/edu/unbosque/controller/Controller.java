@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import co.edu.unbosque.model.CasaDeApuestas;
 import co.edu.unbosque.model.CedulaException;
@@ -158,7 +159,6 @@ public class Controller implements ActionListener {
 				}
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
 				vista.mostrarMensajeError("No se pudo exportar el PDF" + "\n" + e1);
 			}
 
@@ -182,6 +182,24 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelCasaApuestas().getPanelDatosJuegos().getCOMMAND_REGISTRAR_DATOS_JUEGO())) {
 			this.gestionarJuegos();
+		} else if (e.getActionCommand()
+				.equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_MOSTRARTABLA())) {
+			String opcionReporte = vista.getPanelConsultasReportes().getPanelExportarInformacion()
+					.getComboOpcionExportar().getSelectedItem().toString();
+			try {
+				String[][] data = casaApuestas.generarInformacionReportesPantalla(
+						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar()
+								.getSelectedItem().toString(),
+						vista.getPanelConsultasReportes().getPanelExportarInformacion().getCampoTextoFecha().getText(),
+						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
+								.getSelectedItem().toString());
+				System.out.println(Arrays.deepToString(data));
+				vista.getPanelConsultasReportes().getPanelExportarInformacion()
+						.cargarReporteTabla(casaApuestas.obtenerTitulosReportes(opcionReporte), data);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				vista.mostrarMensajeError("No se pudo acceder a la información" + "\n" + e1);
+			}
 		}
 //		} else {
 //			vista.mostrarMensajeError("Debe registrar los datos de la casa de apuestas");

@@ -1,5 +1,6 @@
 package co.edu.unbosque.model;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import co.edu.unbosque.model.persistence.ArchivoConfiguracionCasaApuestas;
@@ -62,7 +63,7 @@ public class CasaDeApuestas {
 	}
 
 	@SuppressWarnings("deprecation")
-	public String[][] generarDatosPDFClientes(String tipoReporte, String fecha, String tipoFiltro)
+	public String[][] generarDatosReportes(String tipoReporte, String fecha, String tipoFiltro)
 			throws ParseException {
 		String[][] matrizMadre = new String[apuestas.getBalotoDAO().getListaBaloto().size()
 				+ apuestas.getSuperastroDAO().getListaSuperastro().size()
@@ -288,6 +289,24 @@ public class CasaDeApuestas {
 		}
 	}
 
+	public String[] obtenerTitulosReportes(String tipoReporte) {
+		if (tipoReporte.equals("Listado de clientes por sede")) {
+			String[] salida = { "Fecha", "Sede", "Cédula", "Nombre" };
+			return salida;
+		} else if (tipoReporte.equals("Valor total de apuestas por cliente")) {
+			String[] salida = { "Fecha", "Cédula", "Nombre", "Valor" };
+			return salida;
+		} else if (tipoReporte.equals("Detalle de apuestas realizadas por cliente y sede")) {
+			String[] salida = { "Fecha", "Sede", "Cédula", "Nombre", "Tipo de apuesta", "Valor" };
+			return salida;
+		} else if (tipoReporte.equals("Total de apuestas por sede y tipo de juego")) {
+			String[] salida = { "Fecha", "Sede", "Tipo de apuesta", "Valor" };
+			return salida;
+		} else {
+			return null;
+		}
+	}
+
 	public String[][] quitarCamposNull(String[][] matrizPrincipal) {
 		if (matrizPrincipal.length != 0) {
 			int contadorSinNull = 0;
@@ -397,10 +416,16 @@ public class CasaDeApuestas {
 		return salida;
 	}
 
+	public String[][] generarInformacionReportesPantalla(String tipoReporte, String fecha, String tipoFiltro)
+			throws ParseException{
+		return this.apuestas
+				.quicksortRecursivo(this.generarDatosReportes(tipoReporte, fecha, tipoFiltro));
+	}
+
 	public boolean exportar(String tipoReporte, String fecha, String tipoFiltro, String tipoArchivo)
 			throws ParseException {
 		String[][] datos = this.apuestas
-				.quicksortRecursivo(this.generarDatosPDFClientes(tipoReporte, fecha, tipoFiltro));
+				.quicksortRecursivo(this.generarDatosReportes(tipoReporte, fecha, tipoFiltro));
 		if (datos.length > 0) {
 			if (tipoArchivo.equals("PDF")) {
 				archivoPDF.exportar(datos, tipoReporte);
@@ -538,6 +563,20 @@ public class CasaDeApuestas {
 	 */
 	public void setArchivoPDF(ArchivoPDF archivoPDF) {
 		this.archivoPDF = archivoPDF;
+	}
+
+	/**
+	 * @return the archivoExcel
+	 */
+	public ArchivoExcel getArchivoExcel() {
+		return archivoExcel;
+	}
+
+	/**
+	 * @param archivoExcel the archivoExcel to set
+	 */
+	public void setArchivoExcel(ArchivoExcel archivoExcel) {
+		this.archivoExcel = archivoExcel;
 	}
 
 	/**
