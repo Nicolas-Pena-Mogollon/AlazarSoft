@@ -63,6 +63,8 @@ public class ApostadoresTest {
 	public void testEditarApostador() {
 		assertNotEquals("El apostador debio ser editado", apostador.getApostadorDao().editarApostador("1193499871",
 				"Nicolás", "Usaquén", "Cra 7B #153A-14", "3103655035"));
+		apostador.getApostadorDao().eliminarApostador(apostador1.getCedula());
+
 	}
 
 	@Test
