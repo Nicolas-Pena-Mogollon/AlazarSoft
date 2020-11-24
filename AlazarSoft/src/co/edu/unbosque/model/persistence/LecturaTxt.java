@@ -1,3 +1,6 @@
+/**
+ * Paquete persistencia
+ */
 package co.edu.unbosque.model.persistence;
 
 import java.io.BufferedReader;
@@ -5,11 +8,20 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Clase LecturaTxt
+ */
 public class LecturaTxt {
 
 	private final String rutaArchivo = "./Data/Planes_de_premiacion.txt";
 	private File fileTxt;
 
+	/**
+	 * Estede método se encarga de leer la información que se encuentra dentro del
+	 * archivo de texto.
+	 * 
+	 * @return retorna un arreglo con todos los datos del archivo de texto.
+	 */
 	public String[] leerArchivo() {
 		String[] salida = new String[3];
 		salida[0] = "";

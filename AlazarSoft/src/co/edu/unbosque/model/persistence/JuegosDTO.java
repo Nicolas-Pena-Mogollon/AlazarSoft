@@ -1,32 +1,40 @@
+/**
+ * Paquete persistencia
+ */
 package co.edu.unbosque.model.persistence;
 
 import java.io.Serializable;
 
-public class JuegosDTO implements Serializable{
-	
-	/**
-	 * 
-	 */
+/**
+ * Clase JuegosDTO
+ */
+public class JuegosDTO implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	private String nombreJuego = "";
 	private String tipoJuego = "";
 	private long presupuesto = 0;
-	
-	public JuegosDTO() {
-		
-	}
-	
+
 	/**
-	 * @param nombreJuego
-	 * @param tipoJuego
-	 * @param presupuesto
+	 * Constructor vacio
+	 */
+
+	public JuegosDTO() {
+
+	}
+
+	/**
+	 * Constructor específico.
+	 * 
+	 * @param nombreJuego, es el nombre del juego; nombreJuego != null.
+	 * @param tipoJuego,   es el tipo de juego; tipoJuego != null.
+	 * @param presupuesto, es el presupuesto del juego; presupuesto != null.
 	 */
 	public JuegosDTO(String nombreJuego, String tipoJuego, long presupuesto) {
 		this.nombreJuego = nombreJuego;
 		this.tipoJuego = tipoJuego;
 		this.presupuesto = presupuesto;
 	}
-
 
 	/**
 	 * @return the nombreJuego
@@ -69,8 +77,5 @@ public class JuegosDTO implements Serializable{
 	public void setPresupuesto(long presupuesto) {
 		this.presupuesto = presupuesto;
 	}
-	
-	
-	
-	
+
 }

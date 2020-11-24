@@ -1,18 +1,37 @@
+/**
+ * Paquete persistencia
+ */
 package co.edu.unbosque.model.persistence;
 
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Clase BalotoDAO
+ */
 public class BalotoDAO {
 
 	private ArchivoApuesta archivo;
 	private ArrayList<BalotoDTO> listaBaloto;
+
+	/**
+	 * Constructor vacio
+	 */
 
 	public BalotoDAO() {
 		this.archivo = new ArchivoApuesta();
 		this.archivo.asignarRutaArchivoBaloto(this.archivo.getRUTA_BALOTO());
 		this.listaBaloto = this.archivo.leerArchivoBaloto(this.archivo.getFileBaloto());
 	}
+
+	/**
+	 * Este método se encarga de buscar dentro del arrayList de apuestasBaloto la
+	 * apuesta exacta.
+	 * 
+	 * @param cedula, es la cedula del apostador; cedula != null.
+	 * @param fecha,  es la fecha de la apuesta; fecha != null.
+	 * @return retorna la apuesta.
+	 */
 
 	public BalotoDTO buscarApuesta(String cedula, Date fecha) {
 		BalotoDTO encontrado = null;
@@ -24,6 +43,19 @@ public class BalotoDAO {
 		return encontrado;
 	}
 
+	/**
+	 * Este método se encarga de crear la apuesta con todos los datos
+	 * correspondientes.
+	 * 
+	 * @param nombre,       es el nombre de la sede en donde se realiza la apuesta;
+	 *                      nombre != null.
+	 * @param cedula,       es la cedula del apostador; cedula != null.
+	 * @param fecha,        es la fecha de la apuesta; fecha != null.
+	 * @param valorApuesta, es el precio de la apuesta; valorApuesta != null.
+	 * @param numeroJuego,  es el número de juego del baloto; numeroJuego != null.
+	 * @return retorna true si el registro se ha realizado correctamente.
+	 */
+
 	public boolean crearApuestas(String nombre, String cedula, Date fecha, double valorApuesta, String numeroJuego) {
 		BalotoDTO balotoDTO;
 		balotoDTO = new BalotoDTO(nombre, cedula, fecha, valorApuesta, numeroJuego);
@@ -31,6 +63,15 @@ public class BalotoDAO {
 		archivo.escribirArchivoBaloto(listaBaloto);
 		return true;
 	}
+
+	/**
+	 * Este método se encarga de eliminar la apuesta.
+	 * 
+	 * @param cedula, es la cedula del apostador; cedula != null.
+	 * @param fecha,  es la fecha de la apuesta a borrar; fecha != null. @return,
+	 *                retorna true si la apuesta se ha eliminado correctamente,
+	 *                retorna false si la apuesta no se encuentra registrada.
+	 */
 
 	public boolean eliminarApuesta(String cedula, Date fecha) {
 		boolean verificar = false;
@@ -44,6 +85,18 @@ public class BalotoDAO {
 		}
 		return verificar;
 	}
+
+	/**
+	 * Este método se encarga de editar la apuesta.
+	 * 
+	 * @param cedula,       es la cedula del apostador; cedula != null.
+	 * @param fecha,        es la fecha de la apuesta; fecha != null.
+	 * @param nombreSede,   es el nombre de la sede en donde se realizo la apuesta;
+	 *                      nombreSede != null.
+	 * @param valorApuesta, es el valor de la apuesta; valorApuesta != null.
+	 * @return retorna true si la moficicación se ha realizado correctamente,
+	 *         retorna false si la apuesta no se encuentra registrada.
+	 */
 
 	public boolean editarApuesta(String cedula, Date fecha, String nombreSede, double valorApuesta) {
 		boolean verificar = false;
