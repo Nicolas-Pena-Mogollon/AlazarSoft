@@ -3,7 +3,6 @@ package co.edu.unbosque.test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -20,7 +19,6 @@ public class BalotoTest {
 	ArrayList<BalotoDTO> ListaBaloto;
 	BalotoDTO baloto1;
 	Date fecha;
-	SimpleDateFormat formato;
 
 	@Before
 	public void setUp() throws Exception {

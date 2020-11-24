@@ -3,7 +3,6 @@ package co.edu.unbosque.test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -20,14 +19,13 @@ public class SuperastroTest {
 	ArrayList<SuperastroDTO> listaSuperastro;
 	SuperastroDTO superAstro1;
 	Date fecha;
-	SimpleDateFormat formato;
 
 
 	@Before
 	public void setUp() throws Exception {
-		fecha = new Date();
 		superastroDao = new SuperastroDAO();
 		listaSuperastro = superastroDao.getListaSuperastro();
+		fecha = new Date();
 		superAstro1 = new SuperastroDTO("Usaquén", "1000149678", fecha, 50000.00, "1 2 3 4", "Escorpio");
 		System.out.println("SetUp hecho");
 	}

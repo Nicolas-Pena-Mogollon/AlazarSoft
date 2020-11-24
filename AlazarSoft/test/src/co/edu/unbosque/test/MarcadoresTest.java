@@ -3,7 +3,6 @@ package co.edu.unbosque.test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,7 +18,6 @@ public class MarcadoresTest {
 	ArrayList<MarcadoresDTO> listaMarcadores;
 	MarcadoresDTO marcador1;
 	Date fecha;
-	SimpleDateFormat formato;
 
 	@Before
 	public void setUp() throws Exception {
