@@ -216,4 +216,28 @@ public class PanelExportarInformacion extends JPanel {
 		return COMMAND_MOSTRARTABLA;
 	}
 
+	public JTable getTablaInformacion() {
+		return tablaInformacion;
+	}
+
+	public void setTablaInformacion(JTable tablaInformacion) {
+		this.tablaInformacion = tablaInformacion;
+	}
+
+	public DefaultTableModel getTablaModelo() {
+		return tablaModelo;
+	}
+
+	public void setTablaModelo(DefaultTableModel tablaModelo) {
+		this.tablaModelo = tablaModelo;
+	}
+
+	public JScrollPane getScroll() {
+		return scroll;
+	}
+
+	public void setScroll(JScrollPane scroll) {
+		this.scroll = scroll;
+	}
+
 }

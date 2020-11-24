@@ -76,7 +76,7 @@ public class View extends JFrame {
 		panelConsultasReportes.getPanelGraficoVentasSedes().getBotonMostrarSedesMayoresVentas()
 				.addActionListener(control);
 		panelConsultasReportes.getPanelHistoricoVentas().getBotonMostrarHistoricoVentas().addActionListener(control);
-
+		panelConsultasReportes.getPanelExportarInformacion().getBotonMostrarInfo().addActionListener(control);
 	}
 
 	public void mostrarMensajeError(String message) {
