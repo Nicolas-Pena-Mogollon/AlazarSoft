@@ -41,7 +41,7 @@ public class ArchivoApuesta {
 	}
 
 	/**
-	 * se encarga de escribir en el archivo la informacion que recibe de la lista de
+	 * Se encarga de escribir en el archivo la informacion que recibe de la lista de
 	 * apuestas de baloto. <b>pre</b> Que exista la lista de apuestas de baloto y el
 	 * archivo<br>
 	 * <b>post</b>Se agrega correctamente la apuesta al archivo<br>
