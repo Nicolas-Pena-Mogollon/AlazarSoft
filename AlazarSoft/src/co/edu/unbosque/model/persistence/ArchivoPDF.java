@@ -11,10 +11,10 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class ArchivoPDF extends ArchivoExportar {
 
 	private static final Font chapterFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 26, Font.BOLDITALIC);
-	public final String RUTA_REPORTEPDF_CLIENTES = "./Export/reporteClientesSede.pdf";
-	public final String RUTA_REPORTEPDF_TOTAL_APUESTAS_CLIENTES = "./Export/reporteApuestasClientes.pdf";
-	public final String RUTA_REPORTE_DETALLES_APUESTAS_POR_CLIENTE = "./Export/reporteApuestasClienteSede.pdf";
-	public final String RUTA_REPORTE_TOTAL_APUESTAS_POR_SEDE = "./Export/reporteTotalApuestasSedeJuego.pdf";
+	private final String RUTA_REPORTEPDF_CLIENTES = "./Export/reporteClientesSede.pdf";
+	private final String RUTA_REPORTEPDF_TOTAL_APUESTAS_CLIENTES = "./Export/reporteApuestasClientes.pdf";
+	private final String RUTA_REPORTE_DETALLES_APUESTAS_POR_CLIENTE = "./Export/reporteApuestasClienteSede.pdf";
+	private final String RUTA_REPORTE_TOTAL_APUESTAS_POR_SEDE = "./Export/reporteTotalApuestasSedeJuego.pdf";
 	private PdfPTable tablaPDF;
 	private File file;
 	private FileOutputStream fos;
@@ -56,15 +56,9 @@ public class ArchivoPDF extends ArchivoExportar {
 			this.llenarTitulos(titulosSeleccionados);
 
 			for (int i = 0; i < data.length; i++) {
-//				PdfPCell celdaFecha = new PdfPCell(new Phrase(fechaComoCadena));
-//				celdaFecha.setHorizontalAlignment(Element.ALIGN_RIGHT);
 				for (int j = 0; j < data[i].length; j++) {
 					tablaPDF.addCell(data[i][j]);
 				}
-				// Para alinear las cifras y fechas toca así
-//				PdfPCell celdaCilindraje = new PdfPCell(new Phrase(listaCompra.get(i).getMoto().getCilindraje() + ""));
-//				celdaCilindraje.setHorizontalAlignment(Element.ALIGN_RIGHT);
-//				tablaPDF.addCell(celdaCilindraje);
 			}
 			capitulo.add(tablaPDF);
 			document.add(capitulo);

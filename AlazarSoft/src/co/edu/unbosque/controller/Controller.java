@@ -5,9 +5,6 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.itextpdf.text.log.SysoLogger;
-
 import co.edu.unbosque.model.CasaDeApuestas;
 import co.edu.unbosque.model.CedulaException;
 import co.edu.unbosque.model.CelularException;
@@ -126,12 +123,13 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_EXPORTARPDF())) {
 			try {
-				boolean resultado = casaApuestas.generarInformacionPdf(
+				boolean resultado = casaApuestas.exportar(
 						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar()
 								.getSelectedItem().toString(),
 						vista.getPanelConsultasReportes().getPanelExportarInformacion().getCampoTextoFecha().getText(),
 						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
-								.getSelectedItem().toString());
+								.getSelectedItem().toString(),
+						"PDF");
 				if (resultado) {
 					vista.mostrarMensajeInformacion("Se ha generado el archivo PDF");
 				} else {
@@ -142,6 +140,28 @@ public class Controller implements ActionListener {
 				e1.printStackTrace();
 				vista.mostrarMensajeError("No se pudo exportar el PDF" + "\n" + e1);
 			}
+		} else if (e.getActionCommand()
+				.equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_EXPORTAREXCEL())) {
+
+			try {
+				boolean resultado = casaApuestas.exportar(
+						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar()
+								.getSelectedItem().toString(),
+						vista.getPanelConsultasReportes().getPanelExportarInformacion().getCampoTextoFecha().getText(),
+						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
+								.getSelectedItem().toString(),
+						"EXCEL");
+				if (resultado) {
+					vista.mostrarMensajeInformacion("Se ha generado el archivo Excel");
+				} else {
+					vista.mostrarMensajeInformacion("No hay información para mostrar");
+				}
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				vista.mostrarMensajeError("No se pudo exportar el PDF" + "\n" + e1);
+			}
+
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelConsultasReportes().getPanelHistoricoVentas().getCOMMAND_HISTORICO_VENTAS())) {
 			String[][] data = casaApuestas
