@@ -317,6 +317,84 @@ public class Apuesta {
 		return cont;
 	}
 
+	public int[] numerosBaloto() {
+		int[] resultado = new int[45];
+		int[] numeroJuego = new int[6];
+		for (int i = 0; i < 45; i++) {
+			int rnd = (int) Math.floor(Math.random() * (45 - 1 + 1) + 1);
+			resultado[i] = rnd;
+		}
+		for (int i1 = 0; i1 < 45; i1++) {
+			for (int i2 = 0; i2 < 45; i2++) {
+				if (resultado[i1] == resultado[i2] && i1 != i2) {
+					int rnd = (int) Math.floor(Math.random() * (45 - 1 + 1) + 1);
+					resultado[i1] = rnd;
+					i1 = 0;
+				}
+			}
+		}
+		for (int i = 0; i < numeroJuego.length; i++) {
+			numeroJuego[i] = resultado[i];
+		}
+		return numeroJuego;
+	}
+
+	public int[] numerosZodiaco() {
+		int[] resultado = new int[9];
+		int[] numeroJuego = new int[4];
+		for (int i = 0; i < 9; i++) {
+			int rnd = (int) Math.floor(Math.random() * (9 - 0 + 1) + 0);
+			resultado[i] = rnd;
+		}
+		for (int i = 0; i < numeroJuego.length; i++) {
+			numeroJuego[i] = resultado[i];
+		}
+		return numeroJuego;
+	}
+
+	public String[] signo() {
+		String[] signo = new String[12];
+		String[] elegido = new String[1];
+		int rnd = (int) Math.floor(Math.random() * (11 - 0 + 1) + 0);
+		signo[0] = "Aries";
+		signo[1] = "Tauro";
+		signo[2] = "Geminis";
+		signo[3] = "Cancer";
+		signo[4] = "Leo";
+		signo[5] = "Virgo";
+		signo[6] = "Libra";
+		signo[7] = "Escorpio";
+		signo[8] = "Sagitario";
+		signo[9] = "Capricornio";
+		signo[10] = "Acuario";
+		signo[11] = "Piscis";
+		elegido[0] = signo[rnd];
+		return elegido;
+	}
+
+	public String numeroGanadorSuperastro(int[] numeros, String[] signo) {
+		String numeroJuego = "";
+		int uno = numeros[0];
+		int dos = numeros[1];
+		int tres = numeros[2];
+		int cuatro = numeros[3];
+		String zodiaco = signo[0];
+		numeroJuego = uno + "-" + dos + "-" + tres + "-" + cuatro + "-" + zodiaco;
+		return numeroJuego;
+	}
+
+	public String numeroGanadorBaloto(int[] numeros) {
+		String numeroJuego = "";
+		int uno = numeros[0];
+		int dos = numeros[1];
+		int tres = numeros[2];
+		int cuatro = numeros[3];
+		int cinco = numeros[4];
+		int seis = numeros[5];
+		numeroJuego = uno + "-" + dos + "-" + tres + "-" + cuatro + "-" + cinco + "-" + seis;
+		return numeroJuego;
+	}
+
 	/**
 	 * @return the balotoDAO
 	 */

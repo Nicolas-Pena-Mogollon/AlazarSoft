@@ -307,6 +307,28 @@ public class CasaDeApuestas {
 		}
 	}
 
+	public int numeroGanadorBaloto(String numero, String cedula) {
+		int cont = 0;
+		for (int i = 0; i < this.apuestas.getBalotoDAO().getListaBaloto().size(); i++) {
+			if (numero.equals(this.apuestas.getBalotoDAO().getListaBaloto().get(i).getNumeroJuego())
+					&& cedula.equals(this.apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula())) {
+				cont++;
+			}
+		}
+		return cont;
+	}
+
+	public String[][] obtenerCincoApostadoresGanadores() {
+		String[][] salida = new String[5][3];
+		int[] ganador = new int[3];
+		String[] arregloBaloto = new String[this.apuestas.getBalotoDAO().getListaBaloto().size()];
+		
+		for (int i = 0; i < arregloBaloto.length; i++) {
+			
+		}
+		return salida;
+	}
+
 	public String[][] obtenerCincoSedesConMayorVenta() {
 		String[][] salida = new String[5][3];
 		double[] valorTotalSedes = new double[this.sede.getSedesDao().getDataSedes().size()];
