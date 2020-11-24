@@ -41,169 +41,178 @@ public class Controller implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		// Arreglar esto
-//		if (casaApuestas.getNombreCasaApuestas() != null && casaApuestas.getNumeroSedes() != 0
-//				&& casaApuestas.getPresupuestoTotal() != null && e.getActionCommand()
-//						.equals(vista.getPanelCasaApuestas().getPanelIngresoCasaApuestas().getCOMMAND_INGRESAR())) {
-		if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_CONFIGURACION_CASA_APUESTAS())) {
-			vista.getSplitPane().setRightComponent(vista.getPanelCasaApuestas());
-		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_SEDES())) {
-			vista.getSplitPane().setRightComponent(vista.getPanelSede());
-		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_APOSTADORES())) {
-			vista.getSplitPane().setRightComponent(vista.getPanelApostadores());
-		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_APUESTAS())) {
-			vista.getSplitPane().setRightComponent(vista.getPanelApuestas());
-		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_PLANES_PREMIACION())) {
-			vista.getSplitPane().setRightComponent(vista.getPanelPremiacion());
-		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_CONSULTA_REPORTES())) {
-			vista.getSplitPane().setRightComponent(vista.getPanelConsultasReportes());
-		} else if (e.getActionCommand()
-				.equals(vista.getPanelApuestas().getPanelCrearApuesta().getCOMMAND_CAMBIAR_TIPO_APUESTA())) {
-			vista.getPanelApuestas().getPanelCrearApuesta().cambiarPanel();
-		} else if (e.getActionCommand()
-				.equals(vista.getPanelCasaApuestas().getPanelIngresoCasaApuestas().getCOMMAND_INGRESAR())) {
-			this.gestionarConfiguracionCasaApuestas();
-		} else if (e.getActionCommand().equals(vista.getPanelSede().getPanelSedeCrear().getCOMMAND_GUARDAR())) {
-			this.gestionarSedes();
-		} else if (e.getActionCommand()
-				.equals(vista.getPanelApostadores().getPanelCrearApostador().getCOMMAND_CREAR_APOSTADOR())) {
-			this.gestionarApostadoresRegistro();
-		} else if (e.getActionCommand()
-				.equals(vista.getPanelApostadores().getPanelActualizarBorrarApostador().getCOMMAND_BORRAR())) {
-			this.gestionarApostadoresEliminar();
-		} else if (e.getActionCommand()
-				.equals(vista.getPanelApostadores().getPanelActualizarBorrarApostador().getCOMMAND_ACTUALIZAR())) {
-			this.gestionarApostadoresActualizar();
-		} else if (e.getActionCommand().equals(vista.getPanelApostadores().getPanelInformacionApostadores()
-				.getCOMMAND_LEER_INFORMACION_APOSTADORES())) {
-			vista.getPanelApostadores().getPanelInformacionApostadores()
-					.actualizarTablaApostadores(casaApuestas.getApostadores().generarTablaApostador());
-		} else if (e.getActionCommand()
-				.equals(vista.getPanelApuestas().getPanelCrearApuesta().getCOMMAND_REGISTRAR_APUESTA())) {
-			String apuesta = vista.getPanelApuestas().getPanelCrearApuesta().getComboTiposApuesta().getSelectedItem()
-					.toString();
-			if (apuesta.equals("Baloto")) {
-				this.gestionarApuestasBaloto();
-			} else if (apuesta.equals("Super Astro")) {
-				this.gestionarApuestasSuperastro();
-			} else if (apuesta.equals("Fútbol")) {
-				this.gestionarApuestasFutbol();
-			} else if (apuesta.equals("Seleccione el tipo de apuesta")) {
-				vista.mostrarMensajeError("Escoja el tipo de apuesta");
-			}
-		} else if (e.getActionCommand()
-				.equals(vista.getPanelApuestas().getPanelModificarApuesta().getCOMMAND_MODIFICAR_APUESTA())) {
-			String apuesta = vista.getPanelApuestas().getPanelModificarApuesta().getComboTiposApuesta()
-					.getSelectedItem().toString();
-			if (apuesta.equals("Baloto")) {
-				this.gestionarApuestasBalotoModificar();
-			} else if (apuesta.equals("Super Astro")) {
-				this.gestionarApuestasSuperastroModificar();
-			} else if (apuesta.equals("Fútbol")) {
-				this.gestionarApuestasMarcadoresModificar();
-			} else if (apuesta.equals("Seleccione el tipo de apuesta")) {
-				vista.mostrarMensajeError("Escoja el tipo de apuesta");
-			}
-		} else if (e.getActionCommand().equals(
-				vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getCOMMAND_LEER_INFORMACION_APUESTAS())) {
-			if (vista.getPanelApuestas().getPanelMostrarBorrarApuesta().verificarDatos()) {
-				vista.getPanelApuestas().getPanelMostrarBorrarApuesta()
-						.actualizarTablaApuestas(casaApuestas.getApuestas().generarTablaApuestas(
-								vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getComboTipoApuesta()
-										.getSelectedItem().toString(),
-								vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getComboSede().getSelectedItem()
-										.toString()));
-			} else {
-				vista.mostrarMensajeError("Se deben escoger todas las opciones");
-			}
-		} else if (e.getActionCommand().equals(
-				vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getCOMMAND_BORRAR_INFORMACION_APUESTAS())) {
-			this.gestionarBorrarApuesta();
-		} else if (e.getActionCommand()
-				.equals(vista.getPanelSede().getPanelSedeModificar().getCOMMAND_ACTUALIZAR_SEDE())) {
-			this.gestionarSedesActualizar();
-		} else if (e.getActionCommand()
-				.equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_EXPORTARPDF())) {
-			try {
-				boolean resultado = casaApuestas.exportar(
-						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar()
-								.getSelectedItem().toString(),
-						vista.getPanelConsultasReportes().getPanelExportarInformacion().getCampoTextoFecha().getText(),
-						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
-								.getSelectedItem().toString(),
-						"PDF");
-				if (resultado) {
-					vista.mostrarMensajeInformacion("Se ha generado el archivo PDF");
-				} else {
-					vista.mostrarMensajeInformacion("No hay información para mostrar");
-				}
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-				vista.mostrarMensajeError("No se pudo exportar el PDF" + "\n" + e1);
-			}
-		} else if (e.getActionCommand()
-				.equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_EXPORTAREXCEL())) {
+		System.out.println(casaApuestas.getNombreCasaApuestas());
+		System.out.println(casaApuestas.getNumeroSedes());
+		System.out.println(casaApuestas.getPresupuestoTotal());
 
-			try {
-				boolean resultado = casaApuestas.exportar(
-						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar()
-								.getSelectedItem().toString(),
-						vista.getPanelConsultasReportes().getPanelExportarInformacion().getCampoTextoFecha().getText(),
-						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
-								.getSelectedItem().toString(),
-						"EXCEL");
-				if (resultado) {
-					vista.mostrarMensajeInformacion("Se ha generado el archivo Excel");
-				} else {
-					vista.mostrarMensajeInformacion("No hay información para mostrar");
+		if ((casaApuestas.getNombreCasaApuestas() != null && casaApuestas.getNumeroSedes() != 0
+				&& casaApuestas.getPresupuestoTotal() != 0)
+				|| e.getActionCommand()
+						.equals(vista.getPanelCasaApuestas().getPanelIngresoCasaApuestas().getCOMMAND_INGRESAR())) {
+			if (e.getActionCommand()
+					.equals(vista.getPanelMenuCasaApuestas().getCOMMAND_CONFIGURACION_CASA_APUESTAS())) {
+				vista.getSplitPane().setRightComponent(vista.getPanelCasaApuestas());
+			} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_SEDES())) {
+				vista.getSplitPane().setRightComponent(vista.getPanelSede());
+			} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_APOSTADORES())) {
+				vista.getSplitPane().setRightComponent(vista.getPanelApostadores());
+			} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_APUESTAS())) {
+				vista.getSplitPane().setRightComponent(vista.getPanelApuestas());
+			} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_PLANES_PREMIACION())) {
+				vista.getSplitPane().setRightComponent(vista.getPanelPremiacion());
+			} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_CONSULTA_REPORTES())) {
+				vista.getSplitPane().setRightComponent(vista.getPanelConsultasReportes());
+			} else if (e.getActionCommand()
+					.equals(vista.getPanelApuestas().getPanelCrearApuesta().getCOMMAND_CAMBIAR_TIPO_APUESTA())) {
+				vista.getPanelApuestas().getPanelCrearApuesta().cambiarPanel();
+			} else if (e.getActionCommand()
+					.equals(vista.getPanelCasaApuestas().getPanelIngresoCasaApuestas().getCOMMAND_INGRESAR())) {
+				this.gestionarConfiguracionCasaApuestas();
+			} else if (e.getActionCommand().equals(vista.getPanelSede().getPanelSedeCrear().getCOMMAND_GUARDAR())) {
+				this.gestionarSedes();
+			} else if (e.getActionCommand()
+					.equals(vista.getPanelApostadores().getPanelCrearApostador().getCOMMAND_CREAR_APOSTADOR())) {
+				this.gestionarApostadoresRegistro();
+			} else if (e.getActionCommand()
+					.equals(vista.getPanelApostadores().getPanelActualizarBorrarApostador().getCOMMAND_BORRAR())) {
+				this.gestionarApostadoresEliminar();
+			} else if (e.getActionCommand()
+					.equals(vista.getPanelApostadores().getPanelActualizarBorrarApostador().getCOMMAND_ACTUALIZAR())) {
+				this.gestionarApostadoresActualizar();
+			} else if (e.getActionCommand().equals(vista.getPanelApostadores().getPanelInformacionApostadores()
+					.getCOMMAND_LEER_INFORMACION_APOSTADORES())) {
+				vista.getPanelApostadores().getPanelInformacionApostadores()
+						.actualizarTablaApostadores(casaApuestas.getApostadores().generarTablaApostador());
+			} else if (e.getActionCommand()
+					.equals(vista.getPanelApuestas().getPanelCrearApuesta().getCOMMAND_REGISTRAR_APUESTA())) {
+				String apuesta = vista.getPanelApuestas().getPanelCrearApuesta().getComboTiposApuesta()
+						.getSelectedItem().toString();
+				if (apuesta.equals("Baloto")) {
+					this.gestionarApuestasBaloto();
+				} else if (apuesta.equals("Super Astro")) {
+					this.gestionarApuestasSuperastro();
+				} else if (apuesta.equals("Fútbol")) {
+					this.gestionarApuestasFutbol();
+				} else if (apuesta.equals("Seleccione el tipo de apuesta")) {
+					vista.mostrarMensajeError("Escoja el tipo de apuesta");
 				}
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				vista.mostrarMensajeError("No se pudo exportar el PDF" + "\n" + e1);
-			}
+			} else if (e.getActionCommand()
+					.equals(vista.getPanelApuestas().getPanelModificarApuesta().getCOMMAND_MODIFICAR_APUESTA())) {
+				String apuesta = vista.getPanelApuestas().getPanelModificarApuesta().getComboTiposApuesta()
+						.getSelectedItem().toString();
+				if (apuesta.equals("Baloto")) {
+					this.gestionarApuestasBalotoModificar();
+				} else if (apuesta.equals("Super Astro")) {
+					this.gestionarApuestasSuperastroModificar();
+				} else if (apuesta.equals("Fútbol")) {
+					this.gestionarApuestasMarcadoresModificar();
+				} else if (apuesta.equals("Seleccione el tipo de apuesta")) {
+					vista.mostrarMensajeError("Escoja el tipo de apuesta");
+				}
+			} else if (e.getActionCommand().equals(
+					vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getCOMMAND_LEER_INFORMACION_APUESTAS())) {
+				if (vista.getPanelApuestas().getPanelMostrarBorrarApuesta().verificarDatos()) {
+					vista.getPanelApuestas().getPanelMostrarBorrarApuesta()
+							.actualizarTablaApuestas(casaApuestas.getApuestas().generarTablaApuestas(
+									vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getComboTipoApuesta()
+											.getSelectedItem().toString(),
+									vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getComboSede()
+											.getSelectedItem().toString()));
+				} else {
+					vista.mostrarMensajeError("Se deben escoger todas las opciones");
+				}
+			} else if (e.getActionCommand().equals(
+					vista.getPanelApuestas().getPanelMostrarBorrarApuesta().getCOMMAND_BORRAR_INFORMACION_APUESTAS())) {
+				this.gestionarBorrarApuesta();
+			} else if (e.getActionCommand()
+					.equals(vista.getPanelSede().getPanelSedeModificar().getCOMMAND_ACTUALIZAR_SEDE())) {
+				this.gestionarSedesActualizar();
+			} else if (e.getActionCommand()
+					.equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_EXPORTARPDF())) {
+				try {
+					boolean resultado = casaApuestas.exportar(
+							vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar()
+									.getSelectedItem().toString(),
+							vista.getPanelConsultasReportes().getPanelExportarInformacion().getCampoTextoFecha()
+									.getText(),
+							vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
+									.getSelectedItem().toString(),
+							"PDF");
+					if (resultado) {
+						vista.mostrarMensajeInformacion("Se ha generado el archivo PDF");
+					} else {
+						vista.mostrarMensajeInformacion("No hay información para mostrar");
+					}
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					vista.mostrarMensajeError("No se pudo exportar el PDF" + "\n" + e1);
+				}
+			} else if (e.getActionCommand().equals(
+					vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_EXPORTAREXCEL())) {
 
-		} else if (e.getActionCommand()
-				.equals(vista.getPanelConsultasReportes().getPanelHistoricoVentas().getCOMMAND_HISTORICO_VENTAS())) {
-			String[][] data = casaApuestas
-					.quitarCamposNull(casaApuestas.getApuestas().obtenerInformacionHistoricoVentas());
-			if (data.length != 0) {
-				vista.getPanelConsultasReportes().getPanelHistoricoVentas().recibirInfomacion(data);
-			} else {
-				vista.mostrarMensajeError("No hay información para mostrar");
+				try {
+					boolean resultado = casaApuestas.exportar(
+							vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar()
+									.getSelectedItem().toString(),
+							vista.getPanelConsultasReportes().getPanelExportarInformacion().getCampoTextoFecha()
+									.getText(),
+							vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
+									.getSelectedItem().toString(),
+							"EXCEL");
+					if (resultado) {
+						vista.mostrarMensajeInformacion("Se ha generado el archivo Excel");
+					} else {
+						vista.mostrarMensajeInformacion("No hay información para mostrar");
+					}
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					vista.mostrarMensajeError("No se pudo exportar el PDF" + "\n" + e1);
+				}
+
+			} else if (e.getActionCommand().equals(
+					vista.getPanelConsultasReportes().getPanelHistoricoVentas().getCOMMAND_HISTORICO_VENTAS())) {
+				String[][] data = casaApuestas
+						.quitarCamposNull(casaApuestas.getApuestas().obtenerInformacionHistoricoVentas());
+				if (data.length != 0) {
+					vista.getPanelConsultasReportes().getPanelHistoricoVentas().recibirInfomacion(data);
+				} else {
+					vista.mostrarMensajeError("No hay información para mostrar");
+				}
+			} else if (e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficoVentasSedes()
+					.getCOMMAND_GRAFICA_SEDES_MAYORES_VENTAS())) {
+				String[][] data = casaApuestas.obtenerCincoSedesConMayorVenta();
+				if (data[0][0] != null) {
+					vista.getPanelConsultasReportes().getPanelGraficoVentasSedes().recibirInfomacion(data);
+				} else {
+					vista.mostrarMensajeError("No hay información para mostrar");
+				}
+			} else if (e.getActionCommand()
+					.equals(vista.getPanelCasaApuestas().getPanelDatosJuegos().getCOMMAND_REGISTRAR_DATOS_JUEGO())) {
+				this.gestionarJuegos();
+			} else if (e.getActionCommand().equals(
+					vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_MOSTRARTABLA())) {
+				String opcionReporte = vista.getPanelConsultasReportes().getPanelExportarInformacion()
+						.getComboOpcionExportar().getSelectedItem().toString();
+				try {
+					String[][] data = casaApuestas.generarInformacionReportesPantalla(
+							vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar()
+									.getSelectedItem().toString(),
+							vista.getPanelConsultasReportes().getPanelExportarInformacion().getCampoTextoFecha()
+									.getText(),
+							vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
+									.getSelectedItem().toString());
+					System.out.println(Arrays.deepToString(data));
+					vista.getPanelConsultasReportes().getPanelExportarInformacion()
+							.cargarReporteTabla(casaApuestas.obtenerTitulosReportes(opcionReporte), data);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					vista.mostrarMensajeError("No se pudo acceder a la información" + "\n" + e1);
+				}
 			}
-		} else if (e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficoVentasSedes()
-				.getCOMMAND_GRAFICA_SEDES_MAYORES_VENTAS())) {
-			String[][] data = casaApuestas.obtenerCincoSedesConMayorVenta();
-			if (data[0][0] != null) {
-				vista.getPanelConsultasReportes().getPanelGraficoVentasSedes().recibirInfomacion(data);
-			} else {
-				vista.mostrarMensajeError("No hay información para mostrar");
-			}
-		} else if (e.getActionCommand()
-				.equals(vista.getPanelCasaApuestas().getPanelDatosJuegos().getCOMMAND_REGISTRAR_DATOS_JUEGO())) {
-			this.gestionarJuegos();
-		} else if (e.getActionCommand()
-				.equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_MOSTRARTABLA())) {
-			String opcionReporte = vista.getPanelConsultasReportes().getPanelExportarInformacion()
-					.getComboOpcionExportar().getSelectedItem().toString();
-			try {
-				String[][] data = casaApuestas.generarInformacionReportesPantalla(
-						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar()
-								.getSelectedItem().toString(),
-						vista.getPanelConsultasReportes().getPanelExportarInformacion().getCampoTextoFecha().getText(),
-						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
-								.getSelectedItem().toString());
-				System.out.println(Arrays.deepToString(data));
-				vista.getPanelConsultasReportes().getPanelExportarInformacion()
-						.cargarReporteTabla(casaApuestas.obtenerTitulosReportes(opcionReporte), data);
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				vista.mostrarMensajeError("No se pudo acceder a la información" + "\n" + e1);
-			}
+		} else {
+			vista.mostrarMensajeError("Debe registrar los datos de la casa de apuestas");
 		}
-//		} else {
-//			vista.mostrarMensajeError("Debe registrar los datos de la casa de apuestas");
-//		}
 	}
 
 	public void gestionarConfiguracionCasaApuestas() {
@@ -211,7 +220,7 @@ public class Controller implements ActionListener {
 				.verificarEntradasIngresoDatosJuegos();
 		if (entradas[0].equals("0")) {
 			casaApuestas.guardarConfiguracionCasaDeApuestas(entradas[1], Integer.parseInt(entradas[2]),
-					Long.parseLong(entradas[3]));
+					Double.parseDouble(entradas[3]));
 			vista.mostrarMensajeInformacion(entradas[4]);
 		} else {
 			vista.mostrarMensajeError(entradas[1]);
@@ -466,11 +475,7 @@ public class Controller implements ActionListener {
 	public void gestionarSedes() {
 		String[] entradas = vista.getPanelSede().getPanelSedeCrear().verificarEntradasIngresoSedes();
 		if (entradas[0].equals("0")) {
-			System.out.println(casaApuestas.getNumeroSedes());
-			System.out.println(casaApuestas.getSede().getSedesDao().getDataSedes().size());
-			if (casaApuestas.getNumeroSedes() >= casaApuestas.getSede().getSedesDao().getDataSedes().size()) {
-				vista.mostrarMensajeError("Ha excedido el número de sedes configurado");
-			} else {
+			if (casaApuestas.getSede().getSedesDao().getDataSedes().size() <= casaApuestas.getNumeroSedes()) {
 				SedesDTO sede = new SedesDTO(this.casaApuestas.getSede().generarIdSede(), entradas[1],
 						Integer.parseInt(entradas[2]));
 				this.casaApuestas.getSede().getSedesDao().crearSede(sede);
@@ -484,11 +489,12 @@ public class Controller implements ActionListener {
 						.llenarComboSedes(this.casaApuestas.getSede().obtenerSedes());
 				vista.getPanelSede().getPanelSedeModificar()
 						.cargarCombo(this.casaApuestas.getSede().getSedesDao().leerSede());
+			} else {
+				vista.mostrarMensajeError("Ha excedido el número de sedes configurado");
 			}
 		} else {
 			vista.mostrarMensajeError(entradas[1]);
 		}
-
 	}
 
 	public void gestionarSedesActualizar() {

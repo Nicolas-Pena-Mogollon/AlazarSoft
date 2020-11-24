@@ -3,9 +3,7 @@ package co.edu.unbosque.view;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -103,7 +101,6 @@ public class PanelExportarInformacion extends JPanel {
 		for (int i = 0; i < data.length; i++) {
 			tablaModelo.addRow(data[i]);
 		}
-		System.out.println(Arrays.deepToString(data));
 		this.tablaInformacion.repaint();
 		this.tablaInformacion.revalidate();
 	}

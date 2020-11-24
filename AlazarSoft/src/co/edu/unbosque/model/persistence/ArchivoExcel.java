@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 
 public class ArchivoExcel extends ArchivoExportar {
+	
 	private final String RUTA_REPORTEPDF_CLIENTES = "./Export/reporteClientesSede.xls";
 	private final String RUTA_REPORTEPDF_TOTAL_APUESTAS_CLIENTES = "./Export/reporteApuestasClientes.xls";
 	private final String RUTA_REPORTE_DETALLES_APUESTAS_POR_CLIENTE = "./Export/reporteApuestasClienteSede.xls";

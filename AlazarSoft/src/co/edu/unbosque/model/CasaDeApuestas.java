@@ -1,6 +1,5 @@
 package co.edu.unbosque.model;
 
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import co.edu.unbosque.model.persistence.ArchivoConfiguracionCasaApuestas;
@@ -43,11 +42,12 @@ public class CasaDeApuestas {
 		} else {
 			this.nombreCasaApuestas = null;
 			this.numeroSedes = 0;
-			this.presupuestoTotal = 0l;
+			this.presupuestoTotal = 0;
 		}
 	}
 
-	public void guardarConfiguracionCasaDeApuestas(String nombre, int numeroSedes, Long presupuestoTotal) {
+	public void guardarConfiguracionCasaDeApuestas(String nombre, int numeroSedes, double presupuestoTotal) {
+		System.out.println(nombre+numeroSedes+presupuestoTotal);
 		if (!nombre.equals("")) {
 			this.nombreCasaApuestas = nombre;
 		}
