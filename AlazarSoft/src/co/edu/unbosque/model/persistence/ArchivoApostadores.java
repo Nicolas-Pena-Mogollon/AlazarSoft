@@ -68,7 +68,6 @@ public class ArchivoApostadores {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 
 	}
 
@@ -103,7 +102,7 @@ public class ArchivoApostadores {
 	 * Este metodo se encarga de asignar la ruta del archivo e inicializar
 	 * fileArchivo
 	 * 
-	 * @param ruta
+	 * @param ruta, es la ruta del archivo; ruta != null.
 	 */
 	public void asignarRutaArchivoApostadores(String ruta) {
 		fileArchivo = new File(ruta);

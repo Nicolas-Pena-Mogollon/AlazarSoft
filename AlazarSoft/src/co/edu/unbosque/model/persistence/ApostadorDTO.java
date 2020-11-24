@@ -1,8 +1,14 @@
+/**
+ * Paquete persistencia
+ */
 package co.edu.unbosque.model.persistence;
 
 import java.io.Serializable;
 
-public class ApostadorDTO implements Serializable{
+/**
+ * Clase ApostadorDTO
+ */
+public class ApostadorDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	String nombre = "";

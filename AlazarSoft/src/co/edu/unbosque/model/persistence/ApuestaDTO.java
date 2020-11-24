@@ -1,20 +1,36 @@
+/**
+ * Paquete persistencia
+ */
 package co.edu.unbosque.model.persistence;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class ApuestaDTO implements Serializable{
+/**
+ * Clase ApuestaDTO
+ */
+public class ApuestaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	protected String nombreSede = "";
 	protected String cedula = "";
 	protected Date fecha = null;
 	protected double valorApuesta = 0;
-	
+
+	/**
+	 * Constructor vacio
+	 */
 	public ApuestaDTO() {
-		
+
 	}
-	
-	
+
+	/**
+	 * Constructor específico
+	 * 
+	 * @param nombreSede,   es el nombre de la sede; sede != null.
+	 * @param cedula,       es la cedula del apostador; cedula != null.
+	 * @param fecha,        es la fecha de la apuesta; fecha != null.
+	 * @param valorApuesta, es el valor de la apuesta; != null.
+	 */
 
 	public ApuestaDTO(String nombreSede, String cedula, Date fecha, double valorApuesta) {
 		this.nombreSede = nombreSede;
@@ -22,8 +38,6 @@ public class ApuestaDTO implements Serializable{
 		this.fecha = fecha;
 		this.valorApuesta = valorApuesta;
 	}
-
-
 
 	/**
 	 * @return the nombreSede
@@ -80,6 +94,5 @@ public class ApuestaDTO implements Serializable{
 	public void setValorApuesta(double valorApuesta) {
 		this.valorApuesta = valorApuesta;
 	}
-	
-	
+
 }

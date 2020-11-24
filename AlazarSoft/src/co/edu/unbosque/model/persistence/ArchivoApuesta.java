@@ -1,5 +1,5 @@
 /**
- * paquete persistencia, encargado de la permanencia de informacion en el programa
+ * Paquete persistencia
  */
 package co.edu.unbosque.model.persistence;
 
@@ -13,7 +13,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
- * Clase Archivo
+ * Clase ArchivoApuesta
  */
 public class ArchivoApuesta {
 
@@ -42,14 +42,13 @@ public class ArchivoApuesta {
 
 	/**
 	 * se encarga de escribir en el archivo la informacion que recibe de la lista de
-	 * apostadores. <b>pre</b> Que exista la lista de apostadores y el archivo<br>
-	 * <b>post</b>Se agrega correctamente el apostador al archivo<br>
+	 * apuestas de baloto. <b>pre</b> Que exista la lista de apuestas de baloto y el
+	 * archivo<br>
+	 * <b>post</b>Se agrega correctamente la apuesta al archivo<br>
 	 * 
-	 * @param apostador, es la lista de apostadores de donde se tomará la
-	 *                   información para escribirla en el archivo; apostador !=
+	 * @param balotoDTO, es la lista de apuestas de baloto de donde se tomará la
+	 *                   información para escribirla en el archivo; balotoDTO !=
 	 *                   null.
-	 * @param file,      es el archivo en donde se guardará toda la información de
-	 *                   los apostadores.
 	 */
 	public void escribirArchivoBaloto(ArrayList<BalotoDTO> balotoDTO) {
 		if (!fileBaloto.exists()) {
@@ -71,13 +70,13 @@ public class ArchivoApuesta {
 	}
 
 	/**
-	 * Este metodo se encarga de leer la lista de apostadores del archivo.
+	 * Este metodo se encarga de leer la lista de apuestas de baloto del archivo.
 	 * <b>pre</b> Que exista el archivo<br>
-	 * <b>Devuelve la lista de apostadores del archivo</b><br>
+	 * <b>Devuelve la lista de apuestas de baloto del archivo</b><br>
 	 * 
 	 * @param file, es el archivo en donde sen encuentran los apostadores; file !=
 	 *              null.
-	 * @return retorna la lista de apostadores del archivo.
+	 * @return retorna la lista de apuestas de baloto del archivo.
 	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<BalotoDTO> leerArchivoBaloto(File file) {
@@ -98,15 +97,14 @@ public class ArchivoApuesta {
 	}
 
 	/**
-	 * se encarga de escribir en el archivo la informacion que recibe de la lista de
-	 * apostadores. <b>pre</b> Que exista la lista de apostadores y el archivo<br>
-	 * <b>post</b>Se agrega correctamente el apostador al archivo<br>
+	 * Se encarga de escribir en el archivo la informacion que recibe de la lista de
+	 * apuestas de superastro. <b>pre</b> Que exista la lista de apuestas de
+	 * superastro y el archivo<br>
+	 * <b>post</b>Se agrega correctamente la apuesta de superastro al archivo<br>
 	 * 
-	 * @param apostador, es la lista de apostadores de donde se tomará la
-	 *                   información para escribirla en el archivo; apostador !=
-	 *                   null.
-	 * @param file,      es el archivo en donde se guardará toda la información de
-	 *                   los apostadores.
+	 * @param superastroDTO, es la lista de apuestas de superastro de donde se
+	 *                       tomará la información para escribirla en el archivo;
+	 *                       superastroDTO != null.
 	 */
 	public void escribirArchivoSuperastro(ArrayList<SuperastroDTO> superastroDTO) {
 		if (!fileSuperastro.exists()) {
@@ -129,13 +127,13 @@ public class ArchivoApuesta {
 	}
 
 	/**
-	 * Este metodo se encarga de leer la lista de apostadores del archivo.
-	 * <b>pre</b> Que exista el archivo<br>
-	 * <b>Devuelve la lista de apostadores del archivo</b><br>
+	 * Este metodo se encarga de leer la lista de apuestas de superastro del
+	 * archivo. <b>pre</b> Que exista el archivo<br>
+	 * <b>Devuelve la lista de apuestas de superastro del archivo</b><br>
 	 * 
-	 * @param file, es el archivo en donde sen encuentran los apostadores; file !=
-	 *              null.
-	 * @return retorna la lista de apostadores del archivo.
+	 * @param file, es el archivo en donde sen encuentran las apuestas de
+	 *              superastro; file != null.
+	 * @return retorna la lista de apuestas de superastro del archivo.
 	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<SuperastroDTO> leerArchivoSuperastro(File file) {
@@ -156,15 +154,14 @@ public class ArchivoApuesta {
 	}
 
 	/**
-	 * se encarga de escribir en el archivo la informacion que recibe de la lista de
-	 * apostadores. <b>pre</b> Que exista la lista de apostadores y el archivo<br>
-	 * <b>post</b>Se agrega correctamente el apostador al archivo<br>
+	 * Se encarga de escribir en el archivo la informacion que recibe de la lista de
+	 * apuestas de marcadores. <b>pre</b> Que exista la lista de apuestas de
+	 * marcadores y el archivo<br>
+	 * <b>post</b>Se agrega correctamente la apuesta de marcadores al archivo<br>
 	 * 
-	 * @param apostador, es la lista de apostadores de donde se tomará la
-	 *                   información para escribirla en el archivo; apostador !=
-	 *                   null.
-	 * @param file,      es el archivo en donde se guardará toda la información de
-	 *                   los apostadores.
+	 * @param marcadoresDTO, es la lista de apuestas de marcadores de donde se
+	 *                       tomará la información para escribirla en el archivo;
+	 *                       marcadoresDTO != null.
 	 */
 	public void escribirArchivoMarcadores(ArrayList<MarcadoresDTO> marcadoresDTO) {
 		if (!fileMarcador.exists()) {
@@ -189,13 +186,13 @@ public class ArchivoApuesta {
 	}
 
 	/**
-	 * Este metodo se encarga de leer la lista de apostadores del archivo.
-	 * <b>pre</b> Que exista el archivo<br>
-	 * <b>Devuelve la lista de apostadores del archivo</b><br>
+	 * Este metodo se encarga de leer la lista de apuestas de marcadores del
+	 * archivo. <b>pre</b> Que exista el archivo<br>
+	 * <b>Devuelve la lista de apuestas de marcadores del archivo</b><br>
 	 * 
-	 * @param file, es el archivo en donde sen encuentran los apostadores; file !=
-	 *              null.
-	 * @return retorna la lista de apostadores del archivo.
+	 * @param file, es el archivo en donde sen encuentran las apuestas de
+	 *              marcadores; file != null.
+	 * @return retorna la lista de apuestas de marcadores del archivo.
 	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<MarcadoresDTO> leerArchivoMarcadores(File file) {
@@ -215,13 +212,32 @@ public class ArchivoApuesta {
 		return marcadoresDTO;
 	}
 
+	/**
+	 * Este metodo se encarga de asignar la ruta del archivo e inicializar
+	 * fileBaloto
+	 * 
+	 * @param ruta, es la ruta del archivo; ruta != null.
+	 */
 	public void asignarRutaArchivoBaloto(String ruta) {
 		fileBaloto = new File(ruta);
 	}
 
+	/**
+	 * Este metodo se encarga de asignar la ruta del archivo e inicializar
+	 * fileSuperastro
+	 * 
+	 * @param ruta, es la ruta del archivo; ruta != null.
+	 */
 	public void asignarRutaArchivoSupeastro(String ruta) {
 		fileSuperastro = new File(ruta);
 	}
+
+	/**
+	 * Este metodo se encarga de asignar la ruta del archivo e inicializar
+	 * fileMarcador
+	 * 
+	 * @param ruta, es la ruta del archivo; ruta != null.
+	 */
 
 	public void asignarRutaArchivoMarcador(String ruta) {
 		fileMarcador = new File(ruta);
