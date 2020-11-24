@@ -2,7 +2,9 @@ package co.edu.unbosque.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import co.edu.unbosque.model.persistence.ArchivoConfiguracionCasaApuestas;
+import co.edu.unbosque.model.persistence.ArchivoExcel;
 import co.edu.unbosque.model.persistence.ArchivoPDF;
 import co.edu.unbosque.model.persistence.LecturaTxt;
 
@@ -13,34 +15,22 @@ public class CasaDeApuestas {
 	private Apuesta apuestas;
 	private String nombreCasaApuestas;
 	private int numeroSedes;
-	private double presupuestoTotal;
+	private Long presupuestoTotal;
 	private ArchivoConfiguracionCasaApuestas archivoConfiguracionCasaApuestas;
 	private ArchivoPDF archivoPDF;
+	private ArchivoExcel archivoExcel;
 	private Juego juego;
 	private LecturaTxt planesPremiacion;
+	private Informe informe;
 
 	public CasaDeApuestas() {
 		this.archivoConfiguracionCasaApuestas = new ArchivoConfiguracionCasaApuestas();
 		this.apostadores = new Apostador();
 		this.apuestas = new Apuesta();
 		this.sede = new Sede();
-		this.archivoPDF = new ArchivoPDF();
 		this.juego = new Juego();
 		this.planesPremiacion = new LecturaTxt();
-		this.leerConfiguracion();
-	}
-
-	public void leerConfiguracion() {
-		String[] datos = this.archivoConfiguracionCasaApuestas.leerConfiguracionCasaApuestas();
-		if (datos[0] != null) {
-			this.nombreCasaApuestas = datos[0];
-			this.numeroSedes = Integer.parseInt(datos[1]);
-			this.presupuestoTotal = Double.parseDouble(datos[2]);
-		} else {
-			this.nombreCasaApuestas = null;
-			this.numeroSedes = 0;
-			this.presupuestoTotal = 0l;
-		}
+		this.informe = new Informe("", "", null);
 	}
 
 	public void guardarConfiguracionCasaDeApuestas(String nombre, int numeroSedes, Long presupuestoTotal) {
@@ -58,276 +48,25 @@ public class CasaDeApuestas {
 		archivoConfiguracionCasaApuestas.escribirConfiguracionCasaApuestas(datos);
 	}
 
-	@SuppressWarnings("deprecation")
-	public String[][] generarDatosPDFClientes(String tipoReporte, String fecha, String tipoFiltro)
-			throws ParseException {
-		String[][] matrizMadre = new String[apuestas.getBalotoDAO().getListaBaloto().size()
-				+ apuestas.getSuperastroDAO().getListaSuperastro().size()
-				+ apuestas.getMarcadoresDAO().getListaMarcadores().size()][6];
-		SimpleDateFormat dateUno = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
-		int cont = 0;
-		for (int i = 0; i < apuestas.getBalotoDAO().getListaBaloto().size(); i++) {
-			if (tipoFiltro.equals("día, mes y año")) {
-				if (dateUno.parse(fecha)
-						.getDay() == (apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha().getDay())
-						&& dateUno.parse(fecha)
-								.getMonth() == (apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha().getMonth())
-						&& dateUno.parse(fecha)
-								.getYear() == (apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha().getYear())) {
-					matrizMadre[cont][0] = dateUno.format(apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha());
-					matrizMadre[cont][1] = apuestas.getBalotoDAO().getListaBaloto().get(i).getNombreSede();
-					matrizMadre[cont][2] = apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula();
-					matrizMadre[cont][3] = buscarNombreApostador(
-							apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula());// Nombre
-					matrizMadre[cont][4] = "Baloto";
-					matrizMadre[cont][5] = String
-							.valueOf(apuestas.getBalotoDAO().getListaBaloto().get(i).getValorApuesta());
-					cont++;
-				}
-			} else if (tipoFiltro.equals("mes y año")) {
-				if (dateUno.parse(fecha)
-						.getMonth() == (apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha().getMonth())
-						&& dateUno.parse(fecha)
-								.getYear() == (apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha().getYear())) {
-					matrizMadre[cont][0] = dateUno.format(apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha());
-					matrizMadre[cont][1] = apuestas.getBalotoDAO().getListaBaloto().get(i).getNombreSede();
-					matrizMadre[cont][2] = apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula();
-					matrizMadre[cont][3] = buscarNombreApostador(
-							apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula());
-					matrizMadre[cont][4] = "Baloto";
-					matrizMadre[cont][5] = String
-							.valueOf(apuestas.getBalotoDAO().getListaBaloto().get(i).getValorApuesta());
-					cont++;
-				}
-			} else if (tipoFiltro.equals("año")) {
-				if (dateUno.parse(fecha)
-						.getYear() == (apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha().getYear())) {
-					matrizMadre[cont][0] = dateUno.format(apuestas.getBalotoDAO().getListaBaloto().get(i).getFecha());
-					matrizMadre[cont][1] = apuestas.getBalotoDAO().getListaBaloto().get(i).getNombreSede();
-					matrizMadre[cont][2] = apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula();
-					matrizMadre[cont][3] = buscarNombreApostador(
-							apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula());
-					matrizMadre[cont][4] = "Baloto";
-					matrizMadre[cont][5] = String
-							.valueOf(apuestas.getBalotoDAO().getListaBaloto().get(i).getValorApuesta());
-					cont++;
-				}
-			}
+	public boolean exportarInformePDF(){
+		this.archivoPDF = new ArchivoPDF();
+		try {
+			archivoPDF.exportar(informe);
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
-		for (int i = 0; i < apuestas.getSuperastroDAO().getListaSuperastro().size(); i++) {
-			if (tipoFiltro.equals("día, mes y año")) {
-				if (dateUno.parse(fecha)
-						.getDay() == (apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha().getDay())
-						&& dateUno.parse(fecha)
-								.getMonth() == (apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha()
-										.getMonth())
-						&& dateUno.parse(fecha).getYear() == (apuestas.getSuperastroDAO().getListaSuperastro().get(i)
-								.getFecha().getYear())) {
-					matrizMadre[cont][0] = dateUno
-							.format(apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha());
-					matrizMadre[cont][1] = apuestas.getSuperastroDAO().getListaSuperastro().get(i).getNombreSede();
-					matrizMadre[cont][2] = apuestas.getSuperastroDAO().getListaSuperastro().get(i).getCedula();
-					matrizMadre[cont][3] = buscarNombreApostador(
-							apuestas.getSuperastroDAO().getListaSuperastro().get(i).getCedula());
-					matrizMadre[cont][4] = "Super Astro";
-					matrizMadre[cont][5] = String
-							.valueOf(apuestas.getSuperastroDAO().getListaSuperastro().get(i).getValorApuesta());
-					cont++;
-				}
-			} else if (tipoFiltro.equals("mes y año")) {
-				if (dateUno.parse(fecha)
-						.getMonth() == (apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha().getMonth())
-						&& dateUno.parse(fecha).getYear() == (apuestas.getSuperastroDAO().getListaSuperastro().get(i)
-								.getFecha().getYear())) {
-					matrizMadre[cont][0] = dateUno
-							.format(apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha());
-					matrizMadre[cont][1] = apuestas.getSuperastroDAO().getListaSuperastro().get(i).getNombreSede();
-					matrizMadre[cont][2] = apuestas.getSuperastroDAO().getListaSuperastro().get(i).getCedula();
-					matrizMadre[cont][3] = buscarNombreApostador(
-							apuestas.getSuperastroDAO().getListaSuperastro().get(i).getCedula());
-					matrizMadre[cont][4] = "Super Astro";
-					matrizMadre[cont][5] = String
-							.valueOf(apuestas.getSuperastroDAO().getListaSuperastro().get(i).getValorApuesta());
-					cont++;
-				}
-			} else if (tipoFiltro.equals("año")) {
-				if (dateUno.parse(fecha)
-						.getYear() == (apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha().getYear())) {
-					matrizMadre[cont][0] = dateUno
-							.format(apuestas.getSuperastroDAO().getListaSuperastro().get(i).getFecha());
-					matrizMadre[cont][1] = apuestas.getSuperastroDAO().getListaSuperastro().get(i).getNombreSede();
-					matrizMadre[cont][2] = apuestas.getSuperastroDAO().getListaSuperastro().get(i).getCedula();
-					matrizMadre[cont][3] = buscarNombreApostador(
-							apuestas.getSuperastroDAO().getListaSuperastro().get(i).getCedula());
-					matrizMadre[cont][4] = "Super Astro";
-					matrizMadre[cont][5] = String
-							.valueOf(apuestas.getSuperastroDAO().getListaSuperastro().get(i).getValorApuesta());
-					cont++;
-				}
-			}
+}
+	
+	public boolean exportarInformeEXCEL(){
+		this.archivoExcel = new ArchivoExcel();
+		try {
+			archivoExcel.exportar(informe);
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
-		for (int i = 0; i < apuestas.getMarcadoresDAO().getListaMarcadores().size(); i++) {
-			if (tipoFiltro.equals("día, mes y año")) {
-				if (dateUno.parse(fecha)
-						.getDay() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha().getDay())
-						&& dateUno.parse(fecha)
-								.getMonth() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha()
-										.getMonth())
-						&& dateUno.parse(fecha).getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(i)
-								.getFecha().getYear())) {
-					matrizMadre[cont][0] = dateUno
-							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha());
-					matrizMadre[cont][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getNombreSede();
-					matrizMadre[cont][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getCedula();
-					matrizMadre[cont][3] = buscarNombreApostador(
-							apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getCedula());
-					matrizMadre[cont][4] = "Fútbol";
-					matrizMadre[cont][5] = String
-							.valueOf(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getValorApuesta());
-					cont++;
-				}
-			} else if (tipoFiltro.equals("mes y año")) {
-				if (dateUno.parse(fecha)
-						.getMonth() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha().getMonth())
-						&& dateUno.parse(fecha).getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(i)
-								.getFecha().getYear())) {
-					matrizMadre[i][0] = dateUno
-							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha());
-					matrizMadre[cont][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getNombreSede();
-					matrizMadre[cont][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getCedula();
-					matrizMadre[cont][3] = buscarNombreApostador(
-							apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getCedula());
-					matrizMadre[cont][4] = "Fútbol";
-					matrizMadre[cont][5] = String
-							.valueOf(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getValorApuesta());
-					cont++;
-				}
-			} else if (tipoFiltro.equals("año")) {
-				if (dateUno.parse(fecha).equals(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha())) {
-					matrizMadre[cont][0] = dateUno
-							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha());
-					matrizMadre[cont][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getNombreSede();
-					matrizMadre[cont][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getCedula();
-					matrizMadre[cont][3] = buscarNombreApostador(
-							apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getCedula());
-					matrizMadre[cont][4] = "Fútbol";
-					matrizMadre[cont][5] = String
-							.valueOf(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getValorApuesta());
-					cont++;
-				}
-			}
-		}
-		String[][] salidaSinNull = this.quitarCamposNull(matrizMadre);
-
-		if (tipoReporte.equals("Listado de clientes por sede")) {
-			String[][] reporteClientes = new String[salidaSinNull.length][4];
-			for (int i = 0; i < reporteClientes.length; i++) {
-				reporteClientes[i][0] = salidaSinNull[i][0];
-				reporteClientes[i][1] = salidaSinNull[i][1];
-				reporteClientes[i][2] = salidaSinNull[i][2];
-				reporteClientes[i][3] = salidaSinNull[i][3];
-			}
-			return reporteClientes;
-		} else if (tipoReporte.equals("Valor total de apuestas por cliente")) {
-			String[][] reporteValorApuestasClientes = new String[salidaSinNull.length][4];
-			for (int i = 0; i < reporteValorApuestasClientes.length; i++) {
-				reporteValorApuestasClientes[i][0] = salidaSinNull[i][0];
-				reporteValorApuestasClientes[i][1] = salidaSinNull[i][2];
-				reporteValorApuestasClientes[i][2] = salidaSinNull[i][3];
-				reporteValorApuestasClientes[i][3] = salidaSinNull[i][5];
-			}
-			return reporteValorApuestasClientes;
-		} else if (tipoReporte.equals("Detalle de apuestas realizadas por cliente y sede")) {
-			String[][] reporteDetalleApuestasClienteSede = new String[salidaSinNull.length][6];
-			for (int i = 0; i < reporteDetalleApuestasClienteSede.length; i++) {
-				reporteDetalleApuestasClienteSede[i][0] = salidaSinNull[i][0];
-				reporteDetalleApuestasClienteSede[i][1] = salidaSinNull[i][1];
-				reporteDetalleApuestasClienteSede[i][2] = salidaSinNull[i][2];
-				reporteDetalleApuestasClienteSede[i][3] = salidaSinNull[i][3];
-				reporteDetalleApuestasClienteSede[i][4] = salidaSinNull[i][4];
-				reporteDetalleApuestasClienteSede[i][5] = salidaSinNull[i][5];
-			}
-			return reporteDetalleApuestasClienteSede;
-		} else {
-			String[][] apuestasSedesTipo = new String[salidaSinNull.length][4];
-			for (int i = 0; i < apuestasSedesTipo.length; i++) {
-				apuestasSedesTipo[i][0] = salidaSinNull[i][0];
-				apuestasSedesTipo[i][1] = salidaSinNull[i][1];
-				apuestasSedesTipo[i][2] = salidaSinNull[i][4];
-				apuestasSedesTipo[i][3] = salidaSinNull[i][5];
-			}
-			cont = 0;
-			String[][] reporteTotalApuestasSedeTipo = new String[apuestasSedesTipo.length][4];
-			for (int i = 0; i < reporteTotalApuestasSedeTipo.length; i++) {
-				cont = 0;
-				double valor = 0;
-				if (!apuestasSedesTipo[i][1].equals("")) {
-					reporteTotalApuestasSedeTipo[i][0] = apuestasSedesTipo[i][0];
-					reporteTotalApuestasSedeTipo[i][1] = apuestasSedesTipo[i][1];
-					reporteTotalApuestasSedeTipo[i][2] = apuestasSedesTipo[i][2];
-					for (int j = i; j < reporteTotalApuestasSedeTipo.length; j++) {
-						if (apuestasSedesTipo[i][1].equals(apuestasSedesTipo[j][1])
-								&& apuestasSedesTipo[i][2].equals(apuestasSedesTipo[j][2])) {
-							valor += Double.parseDouble(apuestasSedesTipo[i][3]);
-							if (cont == 0) {
-								reporteTotalApuestasSedeTipo[i][3] = String.valueOf(valor);
-								cont++;
-							} else {
-								apuestasSedesTipo[j][1] = "";
-								apuestasSedesTipo[j][3] = "0";
-								reporteTotalApuestasSedeTipo[i][3] = String.valueOf(valor);
-							}
-						}
-					}
-				}
-			}
-			return quitarCamposNull(reporteTotalApuestasSedeTipo);
-		}
-	}
-
-	public String[][] quitarCamposNull(String[][] matrizPrincipal) {
-		if (matrizPrincipal.length != 0) {
-			int contadorSinNull = 0;
-			for (int i = 0; i < matrizPrincipal.length; i++) {
-				if (matrizPrincipal[i][0] != null) {
-					contadorSinNull++;
-				}
-			}
-			String[][] matrizSalida = new String[contadorSinNull][matrizPrincipal[0].length];
-			contadorSinNull = 0;
-			for (int i = 0; i < matrizPrincipal.length; i++) {
-				if (matrizPrincipal[i][0] != null) {
-					matrizSalida[contadorSinNull] = matrizPrincipal[i];
-					contadorSinNull++;
-				}
-			}
-			return matrizSalida;
-		} else {
-			return matrizPrincipal;
-		}
-	}
-
-	public int numeroGanadorBaloto(String numero, String cedula) {
-		int cont = 0;
-		for (int i = 0; i < this.apuestas.getBalotoDAO().getListaBaloto().size(); i++) {
-			if (numero.equals(this.apuestas.getBalotoDAO().getListaBaloto().get(i).getNumeroJuego())
-					&& cedula.equals(this.apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula())) {
-				cont++;
-			}
-		}
-		return cont;
-	}
-
-	public String[][] obtenerCincoApostadoresGanadores() {
-		String[][] salida = new String[5][3];
-		int[] ganador = new int[3];
-		String[] arregloBaloto = new String[this.apuestas.getBalotoDAO().getListaBaloto().size()];
-		
-		for (int i = 0; i < arregloBaloto.length; i++) {
-			
-		}
-		return salida;
-	}
+}
 
 	public String[][] obtenerCincoSedesConMayorVenta() {
 		String[][] salida = new String[5][3];
@@ -365,6 +104,7 @@ public class CasaDeApuestas {
 
 		for (int i = 0; i < valorTotalSedes.length; i++) {
 			for (int j = 0; j < valorTotalSedes.length; j++) {
+
 				if (valorTotalSedes[i] > valorTotalSedes[j]) {
 					String tempSede = arregloSedes[i];
 					arregloSedes[i] = arregloSedes[j];
@@ -380,31 +120,24 @@ public class CasaDeApuestas {
 			salida[i][1] = "" + (i + 1);
 			salida[i][2] = arregloSedes[i];
 		}
-
-		return this.quitarCamposNull(salida);
-	}
-
-	private String buscarNombreApostador(String cedula) {
-		String salida = "";
-		for (int i = 0; i < this.apostadores.getApostadorDao().getListaApostador().size(); i++) {
-			if (cedula.equals(this.apostadores.getApostadorDao().getListaApostador().get(i).getCedula())) {
-				salida = this.apostadores.getApostadorDao().getListaApostador().get(i).getNombre();
-			}
-		}
 		return salida;
 	}
 
-	public boolean generarInformacionPdf(String tipoReporte, String fecha, String tipoFiltro) throws ParseException {
-		String[][] datos = this.apuestas
-				.quicksortRecursivo(this.generarDatosPDFClientes(tipoReporte, fecha, tipoFiltro));
-		if (datos.length > 0) {
-			archivoPDF.exportar(datos, tipoReporte);
-			return true;
-		} else {
-			return false;
+	private String[] buscarDatosApostador(String cedula) {
+		String[] salida = new String[3];
+		for (int i = 0; i < this.apostadores.getApostadorDao().getListaApostador().size(); i++) {
+			if (cedula.equals(this.apostadores.getApostadorDao().getListaApostador().get(i).getCedula())) {
+				salida[0] = this.apostadores.getApostadorDao().getListaApostador().get(i).getNombre();
+				salida[1] = this.apostadores.getApostadorDao().getListaApostador().get(i).getCelular();
+				salida[2] = this.apostadores.getApostadorDao().getListaApostador().get(i).getDireccion();
+			}
+
 		}
+		return salida;
+
 	}
 
+	
 	/**
 	 * @return the apostadores
 	 */
@@ -450,14 +183,14 @@ public class CasaDeApuestas {
 	/**
 	 * @return the presupuestoTotal
 	 */
-	public double getPresupuestoTotal() {
+	public Long getPresupuestoTotal() {
 		return presupuestoTotal;
 	}
 
 	/**
 	 * @param presupuestoTotal the presupuestoTotal to set
 	 */
-	public void setPresupuestoTotal(double presupuestoTotal) {
+	public void setPresupuestoTotal(Long presupuestoTotal) {
 		this.presupuestoTotal = presupuestoTotal;
 	}
 
@@ -545,4 +278,19 @@ public class CasaDeApuestas {
 	public void setPlanesPremiacion(LecturaTxt planesPremiacion) {
 		this.planesPremiacion = planesPremiacion;
 	}
+
+	public Informe getInforme() {
+		return informe;
+	}
+
+	public void setInforme(Informe informe) {
+		this.informe = informe;
+	}
+
+	public void borrarInforme() {
+		this.informe.setTitulo("");
+		this.informe.setDesccripción("");
+		this.informe.setTablaDatos(null);
+	}
+	
 }

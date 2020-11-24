@@ -10,7 +10,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import com.formdev.flatlaf.util.ScaledImageIcon;
 
@@ -19,88 +23,81 @@ public class PanelExportarInformacion extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private final String COMMAND_EXPORTARPDF = "EXPORTARPDF";
 	private final String COMMAND_EXPORTAREXCEL = "EXPORTAREXCEL";
-	private JLabel etiquetaOpcionExportar;
-	private JLabel etiquetaFiltroFecha;
-	private JLabel etiquetaFecha;
-	private JComboBox<String> comboOpcionExportar;
-	private JComboBox<String> comboFiltroFecha;
-	private JTextField campoTextoFecha;
-	private JPanel panelOpcionesExportar;
+	
+
+	private PanelInformeClientePorSede panelInformeClientePorSede;
+	private PanelInformeApuestasPorCliente panelInformeApuestasPorCliente;
+	private PanelInformeApuestasPorClienteSede panelInformeApuestasPorClienteSede;
+	private PanelInformeApuestasPorSede panelInformeApuestasPorSede;
+	
+	private JTabbedPane panelTipoReporte;
 	private JPanel panelBotones;
 	private JButton botonExportarPDF;
 	private JButton botonExportarExcel;
+	
+	private JTable tablaInformacionApostadores;
+	private DefaultTableModel modeloTablaApostadores;
+	private JScrollPane scrollTablaInformacionApostadores;
+
 
 	public PanelExportarInformacion() {
 		setLayout(new BorderLayout());
 
-		panelOpcionesExportar = new JPanel(new GridLayout(3, 2));
-		etiquetaFiltroFecha = new JLabel("Escoja el filtrado por fecha");
-		etiquetaOpcionExportar = new JLabel("Información a exportar");
-		etiquetaFecha = new JLabel("Escriba la fecha en formato dd/mm/yyyy");
+		panelTipoReporte = new JTabbedPane();
+		
+		
+		
+		panelInformeClientePorSede = new PanelInformeClientePorSede();
+		panelInformeApuestasPorCliente = new PanelInformeApuestasPorCliente();
+		panelInformeApuestasPorClienteSede = new PanelInformeApuestasPorClienteSede();
+		panelInformeApuestasPorSede = new PanelInformeApuestasPorSede();
+		
 
-		comboFiltroFecha = new JComboBox<String>();
-		comboFiltroFecha.addItem("Seleccione");
-		comboFiltroFecha.addItem("día, mes y año");
-		comboFiltroFecha.addItem("mes y año");
-		comboFiltroFecha.addItem("año");
+		modeloTablaApostadores = new DefaultTableModel();
+		modeloTablaApostadores.fireTableStructureChanged();
+		tablaInformacionApostadores = new JTable(modeloTablaApostadores);
+		tablaInformacionApostadores.setEnabled(false);
 
-		comboOpcionExportar = new JComboBox<String>();
-		comboOpcionExportar.addItem("Seleccione");
-		comboOpcionExportar.addItem("Listado de clientes por sede");
-		comboOpcionExportar.addItem("Valor total de apuestas por cliente");
-		comboOpcionExportar.addItem("Detalle de apuestas realizadas por cliente y sede");
-		comboOpcionExportar.addItem("Total de apuestas por sede y tipo de juego");
-		SimpleDateFormat dateF = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
-		campoTextoFecha = new JTextField(dateF.format(new Date()));
+		modeloTablaApostadores.addColumn("Sin informe");
+		scrollTablaInformacionApostadores = new JScrollPane(tablaInformacionApostadores);
 
-		panelOpcionesExportar.add(etiquetaOpcionExportar);
-		panelOpcionesExportar.add(comboOpcionExportar);
-		panelOpcionesExportar.add(etiquetaFiltroFecha);
-		panelOpcionesExportar.add(comboFiltroFecha);
-		panelOpcionesExportar.add(etiquetaFecha);
-		panelOpcionesExportar.add(campoTextoFecha);
 
 		panelBotones = new JPanel(new GridLayout(1, 2));
-		botonExportarPDF = new JButton("Exportar PDF");
+		botonExportarPDF = new JButton("Exportar a pdf");
 		botonExportarPDF.setActionCommand(COMMAND_EXPORTARPDF);
-		botonExportarExcel = new JButton("Exportar Excel");
+		botonExportarExcel = new JButton("Exportar a excel");
 		botonExportarExcel.setActionCommand(COMMAND_EXPORTAREXCEL);
 
 		panelBotones.add(botonExportarPDF);
 		panelBotones.add(botonExportarExcel);
+		
+		panelTipoReporte.add(panelInformeClientePorSede, "Cliente por sede");
+		panelTipoReporte.add(panelInformeApuestasPorCliente, "Apuestas por cliente");
+		panelTipoReporte.add(panelInformeApuestasPorClienteSede, "Apuestas por cliente y sede");
+		panelTipoReporte.add(panelInformeApuestasPorSede, "Apuestas por sede");
 
-		add(panelOpcionesExportar, BorderLayout.PAGE_START);
-		add(panelBotones, BorderLayout.CENTER);
+		add(panelTipoReporte, BorderLayout.NORTH);
+		add(scrollTablaInformacionApostadores, BorderLayout.CENTER);
+		add(panelBotones, BorderLayout.SOUTH);
 
 	}
 
-	/**
-	 * @return the comboOpcionExportar
-	 */
-	public JComboBox<String> getComboOpcionExportar() {
-		return comboOpcionExportar;
+
+
+	
+	public PanelInformeClientePorSede getPanelInformeClientePorSede() {
+		return panelInformeClientePorSede;
 	}
 
-	/**
-	 * @param comboOpcionExportar the comboOpcionExportar to set
-	 */
-	public void setComboOpcionExportar(JComboBox<String> comboOpcionExportar) {
-		this.comboOpcionExportar = comboOpcionExportar;
+
+
+
+	public void setPanelInformeClientePorSede(PanelInformeClientePorSede panelInformeClientePorSede) {
+		this.panelInformeClientePorSede = panelInformeClientePorSede;
 	}
 
-	/**
-	 * @return the comboFiltroFecha
-	 */
-	public JComboBox<String> getComboFiltroFecha() {
-		return comboFiltroFecha;
-	}
 
-	/**
-	 * @param comboFiltroFecha the comboFiltroFecha to set
-	 */
-	public void setComboFiltroFecha(JComboBox<String> comboFiltroFecha) {
-		this.comboFiltroFecha = comboFiltroFecha;
-	}
+
 
 	/**
 	 * @return the botonExportarPDF
@@ -144,18 +141,63 @@ public class PanelExportarInformacion extends JPanel {
 		return COMMAND_EXPORTAREXCEL;
 	}
 
-	/**
-	 * @return the campoTextoFecha
-	 */
-	public JTextField getCampoTextoFecha() {
-		return campoTextoFecha;
+
+
+
+	public DefaultTableModel getModeloTablaApostadores() {
+		return modeloTablaApostadores;
 	}
 
-	/**
-	 * @param campoTextoFecha the campoTextoFecha to set
-	 */
-	public void setCampoTextoFecha(JTextField campoTextoFecha) {
-		this.campoTextoFecha = campoTextoFecha;
+
+
+
+	public void setModeloTablaApostadores(DefaultTableModel modeloTablaApostadores) {
+		this.modeloTablaApostadores = modeloTablaApostadores;
 	}
+
+
+
+
+	public JTable getTablaInformacionApostadores() {
+		return tablaInformacionApostadores;
+	}
+
+
+
+
+	public void setTablaInformacionApostadores(JTable tablaInformacionApostadores) {
+		this.tablaInformacionApostadores = tablaInformacionApostadores;
+	}
+
+
+
+
+	public JScrollPane getScrollTablaInformacionApostadores() {
+		return scrollTablaInformacionApostadores;
+	}
+
+
+
+
+	public void setScrollTablaInformacionApostadores(JScrollPane scrollTablaInformacionApostadores) {
+		this.scrollTablaInformacionApostadores = scrollTablaInformacionApostadores;
+	}
+
+
+
+
+	public PanelInformeApuestasPorCliente getPanelInformeApuestasPorCliente() {
+		return panelInformeApuestasPorCliente;
+	}
+
+
+
+
+	public void setPanelInformeApuestasPorCliente(PanelInformeApuestasPorCliente panelInformeApuestasPorCliente) {
+		this.panelInformeApuestasPorCliente = panelInformeApuestasPorCliente;
+	}
+
+	
+	
 
 }

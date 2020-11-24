@@ -4,14 +4,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-import com.itextpdf.text.log.SysoLogger;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
 
 import co.edu.unbosque.model.CasaDeApuestas;
 import co.edu.unbosque.model.CedulaException;
 import co.edu.unbosque.model.CelularException;
+import co.edu.unbosque.model.persistence.ApostadorDTO;
+import co.edu.unbosque.model.persistence.ApuestaDTO;
 import co.edu.unbosque.model.persistence.SedesDTO;
+import co.edu.unbosque.view.PanelInformeApuestasPorCliente;
 import co.edu.unbosque.view.View;
 
 public class Controller implements ActionListener {
@@ -31,21 +39,18 @@ public class Controller implements ActionListener {
 		vista.getPanelSede().getPanelSedeModificar().cargarCombo(this.casaApuestas.getSede().getSedesDao().leerSede());
 		vista.getPanelApuestas().getPanelModificarApuesta()
 				.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
-		vista.getPanelApuestas().getPanelMostrarBorrarApuesta().llenarComboSedes(casaApuestas.getSede().obtenerSedes());
+		vista.getPanelApuestas().getPanelMostrarBorrarApuesta().llenarComboSedes(casaApuestas.getSede().ObtenerSedes());
 		vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
 				.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
 		vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaFutbol()
 				.cargarCombo(this.casaApuestas.getSede().cargarPartido());
 		vista.getPanelPremiacion().llenarInformacion(casaApuestas.getPlanesPremiacion().leerArchivo());
+		vista.getPanelConsultasReportes().getPanelExportarInformacion().getPanelInformeClientePorSede().cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		// Arreglar esto
-//		if (casaApuestas.getNombreCasaApuestas() != null && casaApuestas.getNumeroSedes() != 0
-//				&& casaApuestas.getPresupuestoTotal() != null && e.getActionCommand()
-//						.equals(vista.getPanelCasaApuestas().getPanelIngresoCasaApuestas().getCOMMAND_INGRESAR())) {
 		if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_CONFIGURACION_CASA_APUESTAS())) {
 			vista.getSplitPane().setRightComponent(vista.getPanelCasaApuestas());
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_SEDES())) {
@@ -55,7 +60,7 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_GESTION_APUESTAS())) {
 			vista.getSplitPane().setRightComponent(vista.getPanelApuestas());
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_PLANES_PREMIACION())) {
-			vista.getSplitPane().setRightComponent(vista.getPanelPremiacion());
+			 vista.getSplitPane().setRightComponent(vista.getPanelPremiacion());
 		} else if (e.getActionCommand().equals(vista.getPanelMenuCasaApuestas().getCOMMAND_CONSULTA_REPORTES())) {
 			vista.getSplitPane().setRightComponent(vista.getPanelConsultasReportes());
 		} else if (e.getActionCommand()
@@ -63,18 +68,18 @@ public class Controller implements ActionListener {
 			vista.getPanelApuestas().getPanelCrearApuesta().cambiarPanel();
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelCasaApuestas().getPanelIngresoCasaApuestas().getCOMMAND_INGRESAR())) {
-			this.gestionarConfiguracionCasaApuestas();
+			this.coordinarConfiguracionCasaApuestas();
 		} else if (e.getActionCommand().equals(vista.getPanelSede().getPanelSedeCrear().getCOMMAND_GUARDAR())) {
-			this.gestionarSedes();
+			this.gestionSedes();
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelApostadores().getPanelCrearApostador().getCOMMAND_CREAR_APOSTADOR())) {
-			this.gestionarApostadoresRegistro();
+			this.gestionApostadoresRegistro();
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelApostadores().getPanelActualizarBorrarApostador().getCOMMAND_BORRAR())) {
-			this.gestionarApostadoresEliminar();
+			this.gestionApostadoresEliminar();
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelApostadores().getPanelActualizarBorrarApostador().getCOMMAND_ACTUALIZAR())) {
-			this.gestionarApostadoresActualizar();
+			this.gestionApostadoresActualizar();
 		} else if (e.getActionCommand().equals(vista.getPanelApostadores().getPanelInformacionApostadores()
 				.getCOMMAND_LEER_INFORMACION_APOSTADORES())) {
 			vista.getPanelApostadores().getPanelInformacionApostadores()
@@ -84,11 +89,11 @@ public class Controller implements ActionListener {
 			String apuesta = vista.getPanelApuestas().getPanelCrearApuesta().getComboTiposApuesta().getSelectedItem()
 					.toString();
 			if (apuesta.equals("Baloto")) {
-				this.gestionarApuestasBaloto();
+				this.gestionApuestasBaloto();
 			} else if (apuesta.equals("Super Astro")) {
-				this.gestionarApuestasSuperastro();
+				this.gestionApuestasSuperastro();
 			} else if (apuesta.equals("Fútbol")) {
-				this.gestionarApuestasFutbol();
+				this.gestionApuestasFutbol();
 			} else if (apuesta.equals("Seleccione el tipo de apuesta")) {
 				vista.mostrarMensajeError("Escoja el tipo de apuesta");
 			}
@@ -97,9 +102,9 @@ public class Controller implements ActionListener {
 			String apuesta = vista.getPanelApuestas().getPanelModificarApuesta().getComboTiposApuesta()
 					.getSelectedItem().toString();
 			if (apuesta.equals("Baloto")) {
-				this.gestionarApuestasBalotoModificar();
+				this.gestionApuestasBalotoModificar();
 			} else if (apuesta.equals("Super Astro")) {
-				this.gestionarApuestasSuperastroModificar();
+				this.gestionApuestasSuperastroModificar();
 			} else if (apuesta.equals("Fútbol")) {
 				this.gestionarApuestasMarcadoresModificar();
 			} else if (apuesta.equals("Seleccione el tipo de apuesta")) {
@@ -123,52 +128,172 @@ public class Controller implements ActionListener {
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelSede().getPanelSedeModificar().getCOMMAND_ACTUALIZAR_SEDE())) {
 			this.gestionarSedesActualizar();
-		} else if (e.getActionCommand()
+		}else if (e.getActionCommand()
+				.equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_EXPORTAREXCEL())) {
+				this.exportarExcel();
+		}else if (e.getActionCommand()
 				.equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_EXPORTARPDF())) {
-			try {
-				boolean resultado = casaApuestas.generarInformacionPdf(
-						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar()
-								.getSelectedItem().toString(),
-						vista.getPanelConsultasReportes().getPanelExportarInformacion().getCampoTextoFecha().getText(),
-						vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
-								.getSelectedItem().toString());
-				if (resultado) {
-					vista.mostrarMensajeInformacion("Se ha generado el archivo PDF");
-				} else {
-					vista.mostrarMensajeInformacion("No hay información para mostrar");
-				}
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-				vista.mostrarMensajeError("No se pudo exportar el PDF" + "\n" + e1);
-			}
+				this.exportarPDF();				
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelConsultasReportes().getPanelHistoricoVentas().getCOMMAND_HISTORICO_VENTAS())) {
-			String[][] data = casaApuestas
-					.quitarCamposNull(casaApuestas.getApuestas().obtenerInformacionHistoricoVentas());
-			if (data.length != 0) {
-				vista.getPanelConsultasReportes().getPanelHistoricoVentas().recibirInfomacion(data);
-			} else {
-				vista.mostrarMensajeError("No hay información para mostrar");
-			}
+			vista.getPanelConsultasReportes().getPanelHistoricoVentas()
+					.recibirInfomacion(casaApuestas.getApuestas().obtenerInformacionHistoricoVentas());
 		} else if (e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficoVentasSedes()
 				.getCOMMAND_GRAFICA_SEDES_MAYORES_VENTAS())) {
-			String[][] data = casaApuestas.obtenerCincoSedesConMayorVenta();
-			if (data[0][0] != null) {
-				vista.getPanelConsultasReportes().getPanelGraficoVentasSedes().recibirInfomacion(data);
-			} else {
-				vista.mostrarMensajeError("No hay información para mostrar");
-			}
+			vista.getPanelConsultasReportes().getPanelGraficoVentasSedes()
+					.recibirInfomacion(casaApuestas.obtenerCincoSedesConMayorVenta());
 		} else if (e.getActionCommand()
 				.equals(vista.getPanelCasaApuestas().getPanelDatosJuegos().getCOMMAND_REGISTRAR_DATOS_JUEGO())) {
 			this.gestionarJuegos();
+		}else if (e.getActionCommand()
+				.equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getPanelInformeClientePorSede().getCOMMAND_LIMPIAR_INFORME())) {
+				this.limpiarConsultaREportes();
+		}else if (e.getActionCommand()
+				.equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getPanelInformeClientePorSede().getCOMMAND_INFORME_CLIENTE_POR_SEDE())) {
+				this.generarInformeClientesPorSede();
+		}else if (e.getActionCommand()
+				.equals(vista.getPanelConsultasReportes().getPanelExportarInformacion().getPanelInformeApuestasPorCliente().getCOMMAND_INFORME_APUESTAS_POR_CLIENTE())) {
+				try {
+					this.generarInformeApuestasPorCliente();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		}
-//		} else {
-//			vista.mostrarMensajeError("Debe registrar los datos de la casa de apuestas");
-//		}
+		
 	}
 
-	public void gestionarConfiguracionCasaApuestas() {
+	private void generarInformeApuestasPorCliente() throws ParseException {
+		
+		SimpleDateFormat dateF = new SimpleDateFormat("dd/MM/yyyy");
+		PanelInformeApuestasPorCliente panelInformes = vista.getPanelConsultasReportes().getPanelExportarInformacion().getPanelInformeApuestasPorCliente();
+		
+		if (panelInformes.getCampoTextoCliente().getText().equals("")) {
+			vista.mostrarMensajeError("Debes ingresar un numero de identificaciòn para cliente");
+		} else {
+			String idCliente = panelInformes.getCampoTextoCliente().getText();
+			String FechaInicio = panelInformes.getCampoTextoFechaInicio().getText();
+			Date date = dateF.parse("26/10/1985");
+
+			if (dateF.parse(FechaInicio) != null) {
+				String FechaFin = panelInformes.getCampoTextoFechaFin().getText();
+				
+				if (dateF.parse(FechaFin) != null) {
+					
+					Date fechaInicio =  dateF.parse(FechaInicio);
+					Date fechaFin =  dateF.parse(FechaFin);
+					
+					if (fechaInicio.before(fechaFin) ) {
+						
+						String[][] apuestas = casaApuestas.getApuestas().generarTablaApuestasPorCliente(idCliente, fechaInicio, fechaFin);
+						
+					} else {
+						vista.mostrarMensajeError("La fecha desde es mayor que la fecha hasta");
+					}
+					
+					
+				} else {
+					vista.mostrarMensajeError("Error en formato de fecha fin");
+				}
+
+			}else{
+				vista.mostrarMensajeError("Error en formato de fecha de inicio");
+			}
+		}
+		
+	}
+
+	private void generarInformeClientesPorSede() {
+		if (vista.getPanelConsultasReportes().getPanelExportarInformacion().getPanelInformeClientePorSede().getComboSede().getSelectedIndex() == 0) {
+			vista.mostrarMensajeError("Debes escoger una sede para la consulta");
+			this.limpiarConsultaREportes();
+		} else {
+
+			this.limpiarConsultaREportes();
+			ArrayList<ApostadorDTO> apostadores = casaApuestas.getApostadores().getApostadorDao().apostadoresPorSede(vista.getPanelConsultasReportes().getPanelExportarInformacion().getPanelInformeClientePorSede().getComboSede().getSelectedItem().toString());
+			
+			if (apostadores.size() > 0) {
+				TableColumnModel modeloColumnas= vista.getPanelConsultasReportes().getPanelExportarInformacion().getTablaInformacionApostadores().getColumnModel();
+				DefaultTableModel modelo = vista.getPanelConsultasReportes().getPanelExportarInformacion().getModeloTablaApostadores();
+				vista.getPanelConsultasReportes().getPanelExportarInformacion().getModeloTablaApostadores().setColumnCount(5);
+				modeloColumnas.getColumn(0).setHeaderValue("Cedula");
+				modeloColumnas.getColumn(1).setHeaderValue("Nombres");
+				modeloColumnas.getColumn(2).setHeaderValue("Celular");
+				modeloColumnas.getColumn(3).setHeaderValue("Direcciòn");
+				modeloColumnas.getColumn(4).setHeaderValue("Sede");
+				
+				casaApuestas.getInforme().setTitulo("Listado de clientes por sede");
+				casaApuestas.getInforme().setDesccripción("Informa de clientes para la sede " + vista.getPanelConsultasReportes().getPanelExportarInformacion().getPanelInformeClientePorSede().getComboSede().getSelectedItem().toString());
+				String[][] data =  new String[apostadores.size()+1][5];
+				
+				data[0][0] = "Cedula";
+				data[0][1] = "Nombres";
+				data[0][2] = "Celular";
+				data[0][3] = "Direcciòn";
+				data[0][4] = "Sede";
+				
+				for (int i = 0; i < apostadores.size(); i++) {
+				
+					data[i+1][0] = apostadores.get(i).getCedula();
+					data[i+1][1] = apostadores.get(i).getNombre();
+					data[i+1][2] = apostadores.get(i).getCelular();
+					data[i+1][3] = apostadores.get(i).getDireccion();
+					data[i+1][4] = apostadores.get(i).getSede();
+					modelo.addRow(data[i+1]);
+					
+				}
+				
+				casaApuestas.getInforme().setTablaDatos(data);
+				
+				
+			} else {
+				vista.mostrarMensajeError("No hay datos para esta consulta");
+			}
+			
+		
+		}
+	}
+	
+	private void exportarExcel() {
+		if (casaApuestas.getInforme().getTablaDatos() == null) {
+			vista.mostrarMensajeError("No hay datos por exportar");
+		} else {
+			try {
+				casaApuestas.exportarInformeEXCEL();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				vista.mostrarMensajeError("Imposible generar archivo error: " + e1);
+			}
+		}
+		
+	}
+
+	private void exportarPDF() {
+		
+		if (casaApuestas.getInforme().getTablaDatos() == null) {
+			vista.mostrarMensajeError("No hay datos por exportar");
+		} else {
+			try {
+				casaApuestas.exportarInformePDF();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				vista.mostrarMensajeError("Imposible generar archivo error: " + e1);
+			}
+		}
+		
+	}
+
+	private void limpiarConsultaREportes() {
+		TableColumnModel modeloColumnas= vista.getPanelConsultasReportes().getPanelExportarInformacion().getTablaInformacionApostadores().getColumnModel();
+		DefaultTableModel modelo = vista.getPanelConsultasReportes().getPanelExportarInformacion().getModeloTablaApostadores();
+		vista.getPanelConsultasReportes().getPanelExportarInformacion().getModeloTablaApostadores().setColumnCount(1);
+		modeloColumnas.getColumn(0).setHeaderValue("Vacio");
+		modelo.setRowCount(0);
+	}
+
+	public void coordinarConfiguracionCasaApuestas() {
 		String[] entradas = vista.getPanelCasaApuestas().getPanelIngresoCasaApuestas()
 				.verificarEntradasIngresoDatosJuegos();
 		if (entradas[0].equals("0")) {
@@ -181,7 +306,7 @@ public class Controller implements ActionListener {
 		vista.getPanelCasaApuestas().getPanelIngresoCasaApuestas().borrarCamposIngresoCasaApuestas();
 	}
 
-	public void gestionarApostadoresRegistro() {
+	public void gestionApostadoresRegistro() {
 		if (vista.getPanelApostadores().getPanelCrearApostador().verificarCamposVacios()) {
 			String sede = vista.getPanelApostadores().getPanelCrearApostador().getComboSede().getSelectedItem()
 					.toString();
@@ -221,7 +346,7 @@ public class Controller implements ActionListener {
 
 	}
 
-	public void gestionarApostadoresEliminar() {
+	public void gestionApostadoresEliminar() {
 
 		String cedula = vista.getPanelApostadores().getPanelActualizarBorrarApostador().getCampoTextoCedula().getText();
 		try {
@@ -244,7 +369,7 @@ public class Controller implements ActionListener {
 
 	}
 
-	public void gestionarApostadoresActualizar() {
+	public void gestionApostadoresActualizar() {
 		String[] entradas = vista.getPanelApostadores().getPanelActualizarBorrarApostador()
 				.verificarEntradasActualizarInformacionApostador();
 		if (entradas[0].equals("0")) {
@@ -266,7 +391,7 @@ public class Controller implements ActionListener {
 
 	}
 
-	public void gestionarApuestasBaloto() {
+	public void gestionApuestasBaloto() {
 		vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
 				.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
 		if (vista.getPanelApuestas().getPanelCrearApuesta().verificarCamposBaloto()) {
@@ -328,7 +453,7 @@ public class Controller implements ActionListener {
 		}
 	}
 
-	public void gestionarApuestasSuperastro() {
+	public void gestionApuestasSuperastro() {
 		vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
 				.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
 		if (vista.getPanelApuestas().getPanelCrearApuesta().verificarCamposSuperAstro()) {
@@ -384,7 +509,7 @@ public class Controller implements ActionListener {
 
 	}
 
-	public void gestionarApuestasFutbol() {
+	public void gestionApuestasFutbol() {
 		vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
 				.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
 		if (vista.getPanelApuestas().getPanelCrearApuesta().verificarCamposFutbol()) {
@@ -425,28 +550,18 @@ public class Controller implements ActionListener {
 		}
 	}
 
-	public void gestionarSedes() {
+	public void gestionSedes() {
 		String[] entradas = vista.getPanelSede().getPanelSedeCrear().verificarEntradasIngresoSedes();
 		if (entradas[0].equals("0")) {
-			System.out.println(casaApuestas.getNumeroSedes());
-			System.out.println(casaApuestas.getSede().getSedesDao().getDataSedes().size());
-			if (casaApuestas.getNumeroSedes() >= casaApuestas.getSede().getSedesDao().getDataSedes().size()) {
-				vista.mostrarMensajeError("Ha excedido el número de sedes configurado");
-			} else {
-				SedesDTO sede = new SedesDTO(this.casaApuestas.getSede().generarIdSede(), entradas[1],
-						Integer.parseInt(entradas[2]));
-				this.casaApuestas.getSede().getSedesDao().crearSede(sede);
-				vista.mostrarMensajeInformacion("Se ha agregado la sede correctamente");
-				vista.getPanelSede().getPanelSedeCrear().borrarCamposTxt();
-				vista.getPanelApostadores().getPanelCrearApostador()
-						.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
-				vista.getPanelApostadores().getPanelActualizarBorrarApostador()
-						.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
-				vista.getPanelApuestas().getPanelMostrarBorrarApuesta()
-						.llenarComboSedes(this.casaApuestas.getSede().obtenerSedes());
-				vista.getPanelSede().getPanelSedeModificar()
-						.cargarCombo(this.casaApuestas.getSede().getSedesDao().leerSede());
-			}
+			SedesDTO sede = new SedesDTO(this.casaApuestas.getSede().generarIdSede(), entradas[1],
+					Integer.parseInt(entradas[2]));
+			this.casaApuestas.getSede().getSedesDao().crearSede(sede);
+			vista.mostrarMensajeInformacion("Se ha agregado la sede correctammente");
+			vista.getPanelSede().getPanelSedeCrear().borrarCamposTxt();
+			vista.getPanelApostadores().getPanelCrearApostador()
+					.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
+			vista.getPanelSede().getPanelSedeModificar()
+					.cargarCombo(this.casaApuestas.getSede().getSedesDao().leerSede());
 		} else {
 			vista.mostrarMensajeError(entradas[1]);
 		}
@@ -465,7 +580,7 @@ public class Controller implements ActionListener {
 			vista.getPanelApuestas().getPanelModificarApuesta()
 					.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
 			vista.getPanelApuestas().getPanelMostrarBorrarApuesta()
-					.llenarComboSedes(casaApuestas.getSede().obtenerSedes());
+					.llenarComboSedes(casaApuestas.getSede().ObtenerSedes());
 			vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
 					.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
 			vista.getPanelSede().getPanelSedeModificar()
@@ -475,7 +590,7 @@ public class Controller implements ActionListener {
 		}
 	}
 
-	public void gestionarApuestasBalotoModificar() {
+	public void gestionApuestasBalotoModificar() {
 		if (this.vista.getPanelApuestas().getPanelModificarApuesta().verificarCampos()) {
 			SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
 			String fechaString = vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoFecha().getText();
@@ -507,7 +622,7 @@ public class Controller implements ActionListener {
 
 	}
 
-	public void gestionarApuestasSuperastroModificar() {
+	public void gestionApuestasSuperastroModificar() {
 		if (this.vista.getPanelApuestas().getPanelModificarApuesta().verificarCampos()) {
 			SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
 			String fechaString = vista.getPanelApuestas().getPanelModificarApuesta().getCampoTextoFecha().getText();
@@ -606,14 +721,14 @@ public class Controller implements ActionListener {
 					.parseLong(vista.getPanelCasaApuestas().getPanelDatosJuegos().getCampoTextoPresupuesto().getText());
 			if (this.casaApuestas.getJuego()
 					.verificarPresupuesto(this.casaApuestas.getJuego().getJuegosDAO().getListaJuegos(), presupuesto)) {
-				vista.mostrarMensajeError("No se puede sobrepasar el presupuesto total" + "\nPresupuesto disponible: "
-						+ this.casaApuestas.getJuego()
+				vista.mostrarMensajeError(
+						"No se puede sobrepasar el presupuesto total" + "\nPresupuesto disponible: " + this.casaApuestas.getJuego()
 								.presupuestoDisponible(this.casaApuestas.getJuego().getJuegosDAO().getListaJuegos()));
 			} else {
 				if (this.casaApuestas.getJuego().getJuegosDAO().agregarJuego(nombreJuego, tipoJuego, presupuesto)) {
 					vista.mostrarMensajeInformacion("Se ha agregado correctamente");
 					vista.getPanelCasaApuestas().getPanelDatosJuegos().limpiarCampos();
-
+					
 				} else {
 					vista.mostrarMensajeError("No se pueden repetir juegos");
 				}

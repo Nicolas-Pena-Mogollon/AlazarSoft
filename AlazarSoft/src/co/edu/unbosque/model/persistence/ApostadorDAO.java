@@ -42,6 +42,28 @@ public class ApostadorDAO {
 		return encontrado;
 
 	}
+	
+	/**
+	 * Se encarga de buscar dentro del ArrayList de apostadores, el apostador exacto
+	 * con que está identificando la cedula. <b>pre</b> Que exista la lista en la
+	 * cual se van a buscar los apostadores <br>
+	 * <b>post</b> Que haya un lugar donde se pueda enviar el apostador dentro de la
+	 * lista <br>
+	 * 
+	 * @param cedula, es la cedula del apostador; cedula != null
+	 * @return Devuelve el objeto apostador.
+	 */
+	public ArrayList<ApostadorDTO> apostadoresPorSede(String sede) {
+		ArrayList<ApostadorDTO> apostadores = new ArrayList<ApostadorDTO>();
+		
+		for (int i = 0; i < listaApostador.size(); i++) {
+			if (sede.equals(listaApostador.get(i).getSede())) {
+				apostadores.add(listaApostador.get(i)) ;
+			}
+		}
+		return apostadores;
+
+	}
 
 	/**
 	 * Se encarga de agregar los apostadores dentro del archivo. <b>pre</b> Que

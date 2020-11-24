@@ -76,6 +76,11 @@ public class View extends JFrame {
 		panelConsultasReportes.getPanelGraficoVentasSedes().getBotonMostrarSedesMayoresVentas()
 				.addActionListener(control);
 		panelConsultasReportes.getPanelHistoricoVentas().getBotonMostrarHistoricoVentas().addActionListener(control);
+		panelConsultasReportes.getPanelExportarInformacion().getPanelInformeClientePorSede().getBotonGenerarInforme().addActionListener(control);
+		panelConsultasReportes.getPanelExportarInformacion().getPanelInformeClientePorSede().getBotonLimpiarInforme().addActionListener(control);
+		panelConsultasReportes.getPanelExportarInformacion().getPanelInformeApuestasPorCliente().getBotonGenerarInforme().addActionListener(control);
+		panelConsultasReportes.getPanelExportarInformacion().getPanelInformeApuestasPorCliente().getBotonLimpiarInforme().addActionListener(control);
+
 
 	}
 

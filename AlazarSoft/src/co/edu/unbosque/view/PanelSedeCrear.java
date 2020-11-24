@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -16,7 +15,7 @@ public class PanelSedeCrear extends JPanel {
 	private final String COMMAND_GUARDAR = "GUARDAR_DATOS_SEDE";
 	private JLabel etiquetaNombreSede;
 	private JLabel etiquetaNumeroEmpleado;
-	private JComboBox<String> comboNombreSede;
+	private JTextField campoTextoNombreSede;
 	private JTextField campoTextoNumeroEmpleado;
 	private JButton botonSede;
 	private JPanel panelSede;
@@ -31,33 +30,11 @@ public class PanelSedeCrear extends JPanel {
 		etiquetaNombreSede = new JLabel("Ubicación de la Sede: ");
 		etiquetaNumeroEmpleado = new JLabel("Número de empleados: ");
 
-		comboNombreSede = new JComboBox<String>();
-		comboNombreSede.addItem("Seleccione");
-		comboNombreSede.addItem("Antonio Nariño");
-		comboNombreSede.addItem("Barrios Unidos");
-		comboNombreSede.addItem("Bosa");
-		comboNombreSede.addItem("Chapinero");
-		comboNombreSede.addItem("Ciudad Bolívar");
-		comboNombreSede.addItem("Engativá");
-		comboNombreSede.addItem("Fontibón");
-		comboNombreSede.addItem("Kennedy");
-		comboNombreSede.addItem("La Candelaria");
-		comboNombreSede.addItem("Los Mártires");
-		comboNombreSede.addItem("Puente Aranda");
-		comboNombreSede.addItem("Rafael Uribe Uribe");
-		comboNombreSede.addItem("San Cristóbal");
-		comboNombreSede.addItem("Santa Fe");
-		comboNombreSede.addItem("Suba");
-		comboNombreSede.addItem("Sumapaz");
-		comboNombreSede.addItem("Teusaquillo");
-		comboNombreSede.addItem("Tunjuelito");
-		comboNombreSede.addItem("Usaquén");
-		comboNombreSede.addItem("Usme");
-
+		campoTextoNombreSede = new JTextField();
 		campoTextoNumeroEmpleado = new JTextField();
 
 		panelSede.add(etiquetaNombreSede);
-		panelSede.add(comboNombreSede);
+		panelSede.add(campoTextoNombreSede);
 
 		panelSede.add(etiquetaNumeroEmpleado);
 		panelSede.add(campoTextoNumeroEmpleado);
@@ -65,7 +42,7 @@ public class PanelSedeCrear extends JPanel {
 		botonSede = new JButton("Crear Registro");
 		botonSede.setActionCommand(COMMAND_GUARDAR);
 
-		this.add(panelSede, BorderLayout.PAGE_START);
+		this.add(panelSede, BorderLayout.CENTER);
 		this.add(botonSede, BorderLayout.PAGE_END);
 
 	}
@@ -73,8 +50,8 @@ public class PanelSedeCrear extends JPanel {
 	public String[] verificarEntradasIngresoSedes() {
 		String[] salida = new String[4];
 		salida[0] = "0";
-		if (!comboNombreSede.getSelectedItem().equals("Seleccione") && !campoTextoNumeroEmpleado.getText().equals("")) {
-			String ubicacion = String.valueOf(comboNombreSede.getSelectedItem());
+		if (!campoTextoNombreSede.getText().equals("") && !campoTextoNumeroEmpleado.getText().equals("")) {
+			String ubicacion = campoTextoNombreSede.getText();
 			String numEmpleados = campoTextoNumeroEmpleado.getText();
 			try {
 				if (Integer.parseInt(numEmpleados) <= 0) {
@@ -95,59 +72,63 @@ public class PanelSedeCrear extends JPanel {
 		}
 		return salida;
 	}
-
+	
 	public void borrarCamposTxt() {
-		comboNombreSede.setSelectedIndex(0);
+		campoTextoNombreSede.setText("");
 		campoTextoNumeroEmpleado.setText("");
 	}
 
-	/**
-	 * @return the comboNombreSede
-	 */
-	public JComboBox<String> getComboNombreSede() {
-		return comboNombreSede;
+	public JLabel getEtiquetaNombreSede() {
+		return etiquetaNombreSede;
 	}
 
-	/**
-	 * @param comboNombreSede the comboNombreSede to set
-	 */
-	public void setComboNombreSede(JComboBox<String> comboNombreSede) {
-		this.comboNombreSede = comboNombreSede;
+	public void setEtiquetaNombreSede(JLabel etiquetaNombreSede) {
+		this.etiquetaNombreSede = etiquetaNombreSede;
 	}
 
-	/**
-	 * @return the campoTextoNumeroEmpleado
-	 */
+	public JLabel getEtiquetaNumeroEmpleado() {
+		return etiquetaNumeroEmpleado;
+	}
+
+	public void setEtiquetaNumeroEmpleado(JLabel etiquetaNumeroEmpleado) {
+		this.etiquetaNumeroEmpleado = etiquetaNumeroEmpleado;
+	}
+
+	public JTextField getCampoTextoNombreSede() {
+		return campoTextoNombreSede;
+	}
+
+	public void setCampoTextoNombreSede(JTextField campoTextoNombreSede) {
+		this.campoTextoNombreSede = campoTextoNombreSede;
+	}
+
 	public JTextField getCampoTextoNumeroEmpleado() {
 		return campoTextoNumeroEmpleado;
 	}
 
-	/**
-	 * @param campoTextoNumeroEmpleado the campoTextoNumeroEmpleado to set
-	 */
 	public void setCampoTextoNumeroEmpleado(JTextField campoTextoNumeroEmpleado) {
 		this.campoTextoNumeroEmpleado = campoTextoNumeroEmpleado;
 	}
 
-	/**
-	 * @return the botonSede
-	 */
 	public JButton getBotonSede() {
 		return botonSede;
 	}
 
-	/**
-	 * @param botonSede the botonSede to set
-	 */
 	public void setBotonSede(JButton botonSede) {
 		this.botonSede = botonSede;
 	}
 
-	/**
-	 * @return the cOMMAND_GUARDAR
-	 */
+	public JPanel getPanelSede() {
+		return panelSede;
+	}
+
+	public void setPanelSede(JPanel panelSede) {
+		this.panelSede = panelSede;
+	}
+
 	public String getCOMMAND_GUARDAR() {
 		return COMMAND_GUARDAR;
 	}
-
+	
+	
 }

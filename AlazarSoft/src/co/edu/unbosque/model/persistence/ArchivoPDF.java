@@ -1,115 +1,99 @@
 package co.edu.unbosque.model.persistence;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-public class ArchivoPDF extends ArchivoExportar {
+import co.edu.unbosque.model.Informe;
+
+public class ArchivoPDF {
 
 	private static final Font chapterFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 26, Font.BOLDITALIC);
-	public final String RUTA_REPORTEPDF_CLIENTES = "./Export/reporteClientesSede.pdf";
-	public final String RUTA_REPORTEPDF_TOTAL_APUESTAS_CLIENTES = "./Export/reporteApuestasClientes.pdf";
-	public final String RUTA_REPORTE_DETALLES_APUESTAS_POR_CLIENTE = "./Export/reporteApuestasClienteSede.pdf";
-	public final String RUTA_REPORTE_TOTAL_APUESTAS_POR_SEDE = "./Export/reporteTotalApuestasSedeJuego.pdf";
+	private static final Font paragraphFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 20, Font.NORMAL);
+	
+	public final String RUTA_EXPORT = "./Export/PDF/";
+	
+	private Paragraph parrafo;
 	private PdfPTable tablaPDF;
+	private PdfPCell celdaTitulo;
 	private File file;
 	private FileOutputStream fos;
+	private Document document;
+	
+	
 
+	
 	public ArchivoPDF() {
-		tablaPDF = new PdfPTable(1);
-		this.verificarDirectorio();
+		super();
 	}
 
-	/**
-	 * Método encargado de recibir una lista de clientes para escribir la
-	 * información en el archivo PDF correspondiente
-	 * 
-	 * @param data
-	 * @param tipoReporte
-	 */
-	@Override
-	public void exportar(String[][] data, String tipoReporte) {
-		// TODO Auto-generated method stub
-		String[] titulosSeleccionados = this.verificarTipoReporte(tipoReporte);
-		Document document = new Document();
-		document.setPageSize(PageSize.LEGAL.rotate());
+
+
+
+	public void exportar(Informe informe) {
+	
+		// We create the document and set the file name.        
+		// Creamos el documento e indicamos el nombre del fichero.
+		
+		String[][] data = informe.getTablaDatos();
 		try {
-			fos = new FileOutputStream(file);
-			PdfWriter.getInstance(document, fos).setInitialLeading(20);
-			// Se abre el documento
-			document.open();
-			// Título
-			Chunk titulo = new Chunk(tipoReporte + "\n\n", chapterFont);
-			Paragraph parrafo = new Paragraph(titulo);
-			parrafo.setAlignment(Element.ALIGN_CENTER);
-			// Capítulo
-			Chapter capitulo = new Chapter(parrafo, 1);
-			capitulo.setNumberDepth(0);
+		    Document document = new Document();
+		    try {
+		    	file = new File(this.RUTA_EXPORT + informe.getTitulo() + ".pdf");
+		    	
+		        PdfWriter.getInstance(document, new FileOutputStream(file));
+		    } catch (FileNotFoundException fileNotFoundException) {
+		        System.out.println("(No se encontró el fichero para generar el pdf)" + fileNotFoundException);
+		    }
+		    document.open();
+		 
+		    
+		    document.addTitle(informe.getTitulo());
+		    
+			 // First page
+			 // Primera página 
+			 Chunk chunk = new Chunk(informe.getTitulo(), chapterFont);
+			 chunk.setBackground(BaseColor.GRAY);
+			 // Let's create de first Chapter (Creemos el primer capítulo)
+			 Chapter chapter = new Chapter(new Paragraph(chunk), 1);
+			 chapter.setNumberDepth(0);
+			 chapter.add(new Paragraph(informe.getDesccripción(), paragraphFont));
+			 
+			 document.add(chapter);
 
-//			// Se crea la tabla
-			tablaPDF = new PdfPTable(data[0].length);
-			tablaPDF.setWidthPercentage(100);
-			this.llenarTitulos(titulosSeleccionados);
+		
+			Integer numColumns = data[0].length;
+			Integer numRows = data.length;
 
-			for (int i = 0; i < data.length; i++) {
-//				PdfPCell celdaFecha = new PdfPCell(new Phrase(fechaComoCadena));
-//				celdaFecha.setHorizontalAlignment(Element.ALIGN_RIGHT);
-				for (int j = 0; j < data[i].length; j++) {
-					tablaPDF.addCell(data[i][j]);
-				}
-				// Para alinear las cifras y fechas toca así
-//				PdfPCell celdaCilindraje = new PdfPCell(new Phrase(listaCompra.get(i).getMoto().getCilindraje() + ""));
-//				celdaCilindraje.setHorizontalAlignment(Element.ALIGN_RIGHT);
-//				tablaPDF.addCell(celdaCilindraje);
+			PdfPTable table = new PdfPTable(numColumns); 
+
+			PdfPCell columnHeader;
+			                
+			for (int column = 0; column < numColumns; column++) {
+			    columnHeader = new PdfPCell(new Phrase(data[0][column]));
+			    columnHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+			    table.addCell(columnHeader);
 			}
-			capitulo.add(tablaPDF);
-			document.add(capitulo);
+			table.setHeaderRows(1);
+
+			for (int row = 1; row < numRows; row++) {
+			    for (int column = 0; column < numColumns; column++) {
+			        table.addCell(data[row][column]);
+			    }
+			}
+
+			document.add(table);
 			document.close();
-			fos.close();
-		} catch (DocumentException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	@Override
-	public String[] verificarTipoReporte(String tipoReporte) {
-		if (tipoReporte.equals("Listado de clientes por sede")) {
-			file = new File(RUTA_REPORTEPDF_CLIENTES);
-			return titulosReportePDFClientes;
-		} else if (tipoReporte.equals("Valor total de apuestas por cliente")) {
-			file = new File(RUTA_REPORTEPDF_TOTAL_APUESTAS_CLIENTES);
-			return titulosValorTotalApuestasCliente;
-		} else if (tipoReporte.equals("Detalle de apuestas realizadas por cliente y sede")) {
-			file = new File(RUTA_REPORTE_DETALLES_APUESTAS_POR_CLIENTE);
-			return titulosDetalleApuestasRealizadasClienteSede;
-		} else if (tipoReporte.equals("Total de apuestas por sede y tipo de juego")) {
-			file = new File(RUTA_REPORTE_TOTAL_APUESTAS_POR_SEDE);
-			return titulosTotalApuestasSedeTipoJuego;
-		} else {
-			return null;
+		 
+		} catch (DocumentException documentException) {
+		    System.out.println("The file not exists (Se ha producido un error al generar un documento): " + documentException);
 		}
 	}
 
-	@Override
-	public void llenarTitulos(String[] titulos) {
-		// TODO Auto-generated method stub
-		for (int i = 0; i < titulos.length; i++) {
-			PdfPCell celdaTitulo = new PdfPCell(new Phrase(titulos[i]));
-			celdaTitulo.setBackgroundColor(new BaseColor(194, 210, 214));
-			tablaPDF.addCell(celdaTitulo);
-		}
-	}
 
-	private void verificarDirectorio() {
-		File f = new File("./Export");
-		if (!f.exists()) {
-			f.mkdir();
-		}
-	}
+
 }
