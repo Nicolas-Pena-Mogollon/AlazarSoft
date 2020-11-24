@@ -41,10 +41,6 @@ public class Controller implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		// Arreglar esto
-		System.out.println(casaApuestas.getNombreCasaApuestas());
-		System.out.println(casaApuestas.getNumeroSedes());
-		System.out.println(casaApuestas.getPresupuestoTotal());
-
 		if ((casaApuestas.getNombreCasaApuestas() != null && casaApuestas.getNumeroSedes() != 0
 				&& casaApuestas.getPresupuestoTotal() != 0)
 				|| e.getActionCommand()
