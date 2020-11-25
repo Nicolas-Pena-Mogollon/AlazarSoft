@@ -11,7 +11,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
 import co.edu.unbosque.model.persistence.SedesDTO;
+
+/**
+ * Clase PanelActualizarBorrarApostador
+ */
 
 public class PanelActualizarBorrarApostador extends JPanel {
 
@@ -33,6 +38,10 @@ public class PanelActualizarBorrarApostador extends JPanel {
 	private JButton botonBorrar;
 	private JPanel panelIngreso;
 	private JPanel panelBotones;
+
+	/**
+	 * Constructor con inicialización de atributos
+	 */
 
 	public PanelActualizarBorrarApostador() {
 
@@ -86,6 +95,12 @@ public class PanelActualizarBorrarApostador extends JPanel {
 
 	}
 
+	/**
+	 * Verifica que el ingreso de datos para la actualización sea correcto
+	 * 
+	 * @return salida Un array con al información tomada y correcta.
+	 */
+
 	public String[] verificarEntradasActualizarInformacionApostador() {
 		String[] salida = new String[6];
 		salida[0] = "0";
@@ -104,6 +119,12 @@ public class PanelActualizarBorrarApostador extends JPanel {
 		return salida;
 	}
 
+	/**
+	 * Verifica que el ingreso de datos para el borrado sea correcto
+	 * 
+	 * @return salida Un array con al información tomada y correcta.
+	 */
+
 	public String[] verificarEntradasBorrarInformacionApostador() {
 		String[] salida = new String[3];
 		salida[0] = "0";
@@ -115,8 +136,13 @@ public class PanelActualizarBorrarApostador extends JPanel {
 			salida[1] = "Los campos deben ser completados";
 		}
 		return salida;
-		
+
 	}
+
+	/**
+	 * Asigna valores vacios en los JTextfield
+	 * 
+	 */
 
 	public void borrarCampos() {
 		this.campoTextoNombre.setText("");
@@ -125,6 +151,10 @@ public class PanelActualizarBorrarApostador extends JPanel {
 		this.campoTextoCelular.setText("");
 		this.comboSede.setSelectedIndex(0);
 	}
+
+	/**
+	 * Llena el combobox con los valores de las sedes
+	 */
 
 	public void cargarComboBox(ArrayList<SedesDTO> sede) {
 		this.comboSede.removeAllItems();

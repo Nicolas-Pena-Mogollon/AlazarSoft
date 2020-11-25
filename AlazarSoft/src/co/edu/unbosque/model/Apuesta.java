@@ -5,7 +5,6 @@ package co.edu.unbosque.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -297,8 +296,11 @@ public class Apuesta {
 	}
 
 	/**
+	 * Obtiene los datos de los juegos registrados los ultimos cinco dias y hace la
+	 * sumatoria de los valores si son de la misma fecha y del mismo tipo de juego
 	 * 
-	 * @return salida
+	 * @return salida Retorna una matriz que contiene los datos de los valores
+	 *         totales por juego de los ultimos cinco dias
 	 */
 
 	@SuppressWarnings("deprecation")
@@ -373,6 +375,12 @@ public class Apuesta {
 
 		return salida;
 	}
+
+	/**
+	 * Cuenta la cantidad de registros de juegos durante los ultimos cinco dias
+	 * 
+	 * @return 
+	 */
 
 	@SuppressWarnings("deprecation")
 	private int contarRegistrosUltimosCincoDias() {
@@ -490,14 +498,29 @@ public class Apuesta {
 		return numeroJuego;
 	}
 
+	public boolean partidoGanador(String[] partido, String resulado) {
+		boolean verificar = false;
+		String data = "";
+		for (int i = 0; i < partido.length; i++) {
+			data = partido[i] + "-" + resulado;
+		}
+		for (int i = 0; i < this.marcadoresDAO.getListaMarcadores().size(); i++) {
+			if (data.equals(this.marcadoresDAO.getListaMarcadores().get(i).getPartido() + "-"
+					+ this.marcadoresDAO.getListaMarcadores().get(i).getPartido())) {
+				verificar = true;
+			} else {
+				verificar = false;
+			}
+		}
+		return verificar;
+	}
+
 	public boolean ganadorApuestaBaloto(String numero) {
 		boolean verificar = false;
 		for (int i = 0; i < this.balotoDAO.getListaBaloto().size(); i++) {
 			String[] parts = this.balotoDAO.getListaBaloto().get(i).getNumeroJuego().split("-");
 			String[] parts2 = numero.split("-");
-			System.out.println(Arrays.toString(parts));
-			System.out.println(Arrays.toString(parts2));
-
+		
 			if (parts[0].equals(parts2[0]) || parts[1].equals(parts2[1]) || parts[2].equals(parts2[2])
 					|| parts[3].equals(parts2[3]) || parts[4].equals(parts2[4]) || parts[5].equals(parts2[5])) {
 				verificar = true;
@@ -513,8 +536,6 @@ public class Apuesta {
 					+ this.superastroDAO.getListaSuperastro().get(i).getSigno();
 			String[] parts = apuesta.split("-");
 			String[] parts2 = numero.split("-");
-			System.out.println(Arrays.toString(parts));
-			System.out.println(Arrays.toString(parts2));
 
 			if ((parts[0].equals(parts2[0]) && parts[4].equals(parts2[4]))
 					|| (parts[1].equals(parts2[1]) && parts[4].equals(parts2[4]))
@@ -524,11 +545,6 @@ public class Apuesta {
 			}
 		}
 		return verificar;
-	}
-
-	public boolean ganadorApuestaMarcador() {
-		boolean verificar = false;
-		return false;
 	}
 
 	/**

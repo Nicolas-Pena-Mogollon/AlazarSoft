@@ -3,7 +3,6 @@ package co.edu.unbosque.view;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -12,6 +11,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import co.edu.unbosque.model.persistence.SedesDTO;
+
+/**
+ * Clase PanelCrearApostador
+ */
 
 public class PanelCrearApostador extends JPanel {
 
@@ -32,6 +35,10 @@ public class PanelCrearApostador extends JPanel {
 	private JPanel panelIngreso;
 	private JPanel panelBotones;
 
+	/**
+	 * Constructor con inicialización de atributos
+	 */
+	
 	public PanelCrearApostador() {
 		setBorder(new TitledBorder("Añadir apostadores"));
 		setLayout(new BorderLayout());
@@ -95,7 +102,7 @@ public class PanelCrearApostador extends JPanel {
 			return false;
 		}
 	}
-	
+
 	public void limpiarCampos() {
 		campoTextoCedula.setText("");
 		campoTextoCelular.setText("");
@@ -104,54 +111,205 @@ public class PanelCrearApostador extends JPanel {
 		comboSede.setSelectedIndex(0);
 	}
 
+	/**
+	 * @return the etiquetaNombre
+	 */
+	public JLabel getEtiquetaNombre() {
+		return etiquetaNombre;
+	}
+
+	/**
+	 * @param etiquetaNombre the etiquetaNombre to set
+	 */
+	public void setEtiquetaNombre(JLabel etiquetaNombre) {
+		this.etiquetaNombre = etiquetaNombre;
+	}
+
+	/**
+	 * @return the etiquetaCedula
+	 */
+	public JLabel getEtiquetaCedula() {
+		return etiquetaCedula;
+	}
+
+	/**
+	 * @param etiquetaCedula the etiquetaCedula to set
+	 */
+	public void setEtiquetaCedula(JLabel etiquetaCedula) {
+		this.etiquetaCedula = etiquetaCedula;
+	}
+
+	/**
+	 * @return the etiquetaSede
+	 */
+	public JLabel getEtiquetaSede() {
+		return etiquetaSede;
+	}
+
+	/**
+	 * @param etiquetaSede the etiquetaSede to set
+	 */
+	public void setEtiquetaSede(JLabel etiquetaSede) {
+		this.etiquetaSede = etiquetaSede;
+	}
+
+	/**
+	 * @return the etiquetaDireccion
+	 */
+	public JLabel getEtiquetaDireccion() {
+		return etiquetaDireccion;
+	}
+
+	/**
+	 * @param etiquetaDireccion the etiquetaDireccion to set
+	 */
+	public void setEtiquetaDireccion(JLabel etiquetaDireccion) {
+		this.etiquetaDireccion = etiquetaDireccion;
+	}
+
+	/**
+	 * @return the etiquetaCelular
+	 */
+	public JLabel getEtiquetaCelular() {
+		return etiquetaCelular;
+	}
+
+	/**
+	 * @param etiquetaCelular the etiquetaCelular to set
+	 */
+	public void setEtiquetaCelular(JLabel etiquetaCelular) {
+		this.etiquetaCelular = etiquetaCelular;
+	}
+
+	/**
+	 * @return the campoTextoCedula
+	 */
 	public JTextField getCampoTextoCedula() {
 		return campoTextoCedula;
 	}
 
+	/**
+	 * @param campoTextoCedula the campoTextoCedula to set
+	 */
 	public void setCampoTextoCedula(JTextField campoTextoCedula) {
 		this.campoTextoCedula = campoTextoCedula;
 	}
 
+	/**
+	 * @return the campoTextoNombre
+	 */
 	public JTextField getCampoTextoNombre() {
 		return campoTextoNombre;
 	}
 
+	/**
+	 * @param campoTextoNombre the campoTextoNombre to set
+	 */
 	public void setCampoTextoNombre(JTextField campoTextoNombre) {
 		this.campoTextoNombre = campoTextoNombre;
 	}
 
+	/**
+	 * @return the campoTextoDireccion
+	 */
 	public JTextField getCampoTextoDireccion() {
 		return campoTextoDireccion;
 	}
 
+	/**
+	 * @param campoTextoDireccion the campoTextoDireccion to set
+	 */
 	public void setCampoTextoDireccion(JTextField campoTextoDireccion) {
 		this.campoTextoDireccion = campoTextoDireccion;
 	}
 
+	/**
+	 * @return the campoTextoCelular
+	 */
 	public JTextField getCampoTextoCelular() {
 		return campoTextoCelular;
 	}
 
+	/**
+	 * @param campoTextoCelular the campoTextoCelular to set
+	 */
 	public void setCampoTextoCelular(JTextField campoTextoCelular) {
 		this.campoTextoCelular = campoTextoCelular;
 	}
 
+	/**
+	 * @return the comboSede
+	 */
 	public JComboBox<String> getComboSede() {
 		return comboSede;
 	}
 
+	/**
+	 * @param comboSede the comboSede to set
+	 */
 	public void setComboSede(JComboBox<String> comboSede) {
 		this.comboSede = comboSede;
 	}
 
+	/**
+	 * @return the scrollSede
+	 */
+	public JScrollPane getScrollSede() {
+		return scrollSede;
+	}
+
+	/**
+	 * @param scrollSede the scrollSede to set
+	 */
+	public void setScrollSede(JScrollPane scrollSede) {
+		this.scrollSede = scrollSede;
+	}
+
+	/**
+	 * @return the botonCrearApostador
+	 */
 	public JButton getBotonCrearApostador() {
 		return botonCrearApostador;
 	}
 
+	/**
+	 * @param botonCrearApostador the botonCrearApostador to set
+	 */
 	public void setBotonCrearApostador(JButton botonCrearApostador) {
 		this.botonCrearApostador = botonCrearApostador;
 	}
 
+	/**
+	 * @return the panelIngreso
+	 */
+	public JPanel getPanelIngreso() {
+		return panelIngreso;
+	}
+
+	/**
+	 * @param panelIngreso the panelIngreso to set
+	 */
+	public void setPanelIngreso(JPanel panelIngreso) {
+		this.panelIngreso = panelIngreso;
+	}
+
+	/**
+	 * @return the panelBotones
+	 */
+	public JPanel getPanelBotones() {
+		return panelBotones;
+	}
+
+	/**
+	 * @param panelBotones the panelBotones to set
+	 */
+	public void setPanelBotones(JPanel panelBotones) {
+		this.panelBotones = panelBotones;
+	}
+
+	/**
+	 * @return the cOMMAND_CREAR_APOSTADOR
+	 */
 	public String getCOMMAND_CREAR_APOSTADOR() {
 		return COMMAND_CREAR_APOSTADOR;
 	}

@@ -2,7 +2,20 @@ package co.edu.unbosque.view;
 
 import javax.swing.JTabbedPane;
 
+/**
+ * Clase PanelConsultasReportes
+ */
+
 public class PanelConsultasReportes extends JTabbedPane {
+
+	/**
+	 * Asociacion clase PanelExportarInformacion 
+	 * Asociacion clase PanelHistoricoVentas
+	 * Asociacion clase PanelGraficoVentasSedes
+	 * Asociacion clase PanelGraficaClientes
+	 * Asociacion clase PanelGraficoApuestas
+	 * 
+	 */
 
 	private static final long serialVersionUID = 1L;
 	private PanelExportarInformacion panelExportarInformacion;
@@ -10,6 +23,10 @@ public class PanelConsultasReportes extends JTabbedPane {
 	private PanelGraficoVentasSedes panelGraficoVentasSedes;
 	private PanelGraficaClientes panelGraficaClientes;
 	private PanelGraficoApuestas panelGraficoApuestas;
+
+	/**
+	 * Constructor con inicialización de atributos
+	 */
 
 	public PanelConsultasReportes() {
 

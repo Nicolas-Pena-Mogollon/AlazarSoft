@@ -2,12 +2,26 @@ package co.edu.unbosque.view;
 
 import javax.swing.JTabbedPane;
 
+/**
+ * Clase PanelApuestas
+ */
+
 public class PanelApuestas extends JTabbedPane {
+
+	/**
+	 * Asociacion clase PanelCrearApuesta 
+	 * Asociacion clase PanelModificarApuesta
+	 * Asociacion clase PanelMostrarBorrarApuesta
+	 */
 
 	private static final long serialVersionUID = 1L;
 	private PanelCrearApuesta panelCrearApuesta;
 	private PanelModificarApuesta panelModificarApuesta;
 	private PanelMostrarBorrarApuesta panelMostrarBorrarApuesta;
+
+	/**
+	 * Constructor con inicialización de atributos
+	 */
 
 	public PanelApuestas() {
 		panelCrearApuesta = new PanelCrearApuesta();
