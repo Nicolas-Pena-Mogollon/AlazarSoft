@@ -51,7 +51,7 @@ public class JuegosDAO {
 	 *         false si el juego ya se encuentra registrado;
 	 */
 
-	public boolean agregarJuego(String nombreJuego, String tipoJuego, long presupuesto) {
+	public boolean agregarJuego(String nombreJuego, String tipoJuego, double presupuesto) {
 		boolean verificar = false;
 		JuegosDTO juegos;
 		juegos = new JuegosDTO(nombreJuego, tipoJuego, presupuesto);

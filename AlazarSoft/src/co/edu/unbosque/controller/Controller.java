@@ -18,6 +18,7 @@ public class Controller implements ActionListener {
 	private View vista;
 
 	public Controller() {
+
 		casaApuestas = new CasaDeApuestas();
 		vista = new View(this);
 		vista.getPanelApostadores().getPanelCrearApostador()
@@ -40,7 +41,6 @@ public class Controller implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		// Arreglar esto
 		if ((casaApuestas.getNombreCasaApuestas() != null && casaApuestas.getNumeroSedes() != 0
 				&& casaApuestas.getPresupuestoTotal() != 0)
 				|| e.getActionCommand()
@@ -485,6 +485,12 @@ public class Controller implements ActionListener {
 						.llenarComboSedes(this.casaApuestas.getSede().obtenerSedes());
 				vista.getPanelSede().getPanelSedeModificar()
 						.cargarCombo(this.casaApuestas.getSede().getSedesDao().leerSede());
+				vista.getPanelApuestas().getPanelModificarApuesta()
+						.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
+				vista.getPanelApuestas().getPanelMostrarBorrarApuesta()
+						.llenarComboSedes(casaApuestas.getSede().obtenerSedes());
+				vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
+						.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
 			} else {
 				vista.mostrarMensajeError("Ha excedido el número de sedes configurado");
 			}
@@ -510,6 +516,10 @@ public class Controller implements ActionListener {
 					.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
 			vista.getPanelSede().getPanelSedeModificar()
 					.cargarCombo(this.casaApuestas.getSede().getSedesDao().leerSede());
+			vista.getPanelApostadores().getPanelCrearApostador()
+					.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
+			vista.getPanelApostadores().getPanelActualizarBorrarApostador()
+					.cargarComboBox(this.casaApuestas.getSede().getSedesDao().leerSede());
 		} else {
 			vista.mostrarMensajeError(entradas[1]);
 		}
@@ -642,8 +652,8 @@ public class Controller implements ActionListener {
 					.getSelectedItem().toString();
 			String tipoJuego = vista.getPanelCasaApuestas().getPanelDatosJuegos().getComboTiposDeJuego()
 					.getSelectedItem().toString();
-			long presupuesto = Long
-					.parseLong(vista.getPanelCasaApuestas().getPanelDatosJuegos().getCampoTextoPresupuesto().getText());
+			double presupuesto = Double.parseDouble(
+					vista.getPanelCasaApuestas().getPanelDatosJuegos().getCampoTextoPresupuesto().getText());
 			if (this.casaApuestas.getJuego()
 					.verificarPresupuesto(this.casaApuestas.getJuego().getJuegosDAO().getListaJuegos(), presupuesto)) {
 				vista.mostrarMensajeError("No se puede sobrepasar el presupuesto total" + "\nPresupuesto disponible: "

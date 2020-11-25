@@ -34,12 +34,12 @@ public class Juego {
 	 * @return retorna true si se ha sobrepasado el presupuesto total, retorna false
 	 *         si no ha sobrepasado el presupuesto total.
 	 */
-	public boolean verificarPresupuesto(ArrayList<JuegosDTO> lista, long presupuesto) {
+	public boolean verificarPresupuesto(ArrayList<JuegosDTO> lista, double presupuesto) {
 		boolean verificar = false;
-		long suma = 0;
-		long total = 0;
+		double suma = 0;
+		double total = 0;
 		String[] datos = archivo.leerConfiguracionCasaApuestas();
-		long maximo = Long.parseLong(datos[2]);
+		double maximo = Double.parseDouble(datos[2]);
 		for (int i = 0; i < lista.size(); i++) {
 			suma += lista.get(i).getPresupuesto();
 		}
@@ -61,11 +61,11 @@ public class Juego {
 	 * @return retorna el presupuesto disponible de la casa de apuestas.
 	 */
 
-	public long presupuestoDisponible(ArrayList<JuegosDTO> lista) {
-		long presupuesto = 0;
-		long suma = 0;
+	public double presupuestoDisponible(ArrayList<JuegosDTO> lista) {
+		double presupuesto = 0;
+		double suma = 0;
 		String[] datos = archivo.leerConfiguracionCasaApuestas();
-		long maximo = Long.parseLong(datos[2]);
+		double maximo = Double.parseDouble(datos[2]);
 		for (int i = 0; i < lista.size(); i++) {
 			suma += lista.get(i).getPresupuesto();
 		}

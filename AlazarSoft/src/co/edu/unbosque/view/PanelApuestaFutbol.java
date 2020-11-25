@@ -19,7 +19,7 @@ public class PanelApuestaFutbol extends JPanel {
 
 	public PanelApuestaFutbol() {
 		setLayout(new GridLayout());
-		setBorder(new TitledBorder("Apuesta baloto"));
+		setBorder(new TitledBorder("Apuesta Marcadores"));
 
 		etiquetaPartidos = new JLabel("Local Vs Visitante");
 		etiquetaResultado = new JLabel("Resultado ganador");
@@ -45,7 +45,7 @@ public class PanelApuestaFutbol extends JPanel {
 		for (int i = 0; i < partidos.length; i++) {
 			comboPartidos.addItem(partidos[i]);
 		}
-		
+
 	}
 
 	public JComboBox<String> getComboPartidos() {

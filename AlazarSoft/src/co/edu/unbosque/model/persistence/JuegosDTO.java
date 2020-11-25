@@ -13,7 +13,7 @@ public class JuegosDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String nombreJuego = "";
 	private String tipoJuego = "";
-	private long presupuesto = 0;
+	private double presupuesto = 0;
 
 	/**
 	 * Constructor vacio
@@ -30,7 +30,7 @@ public class JuegosDTO implements Serializable {
 	 * @param tipoJuego,   es el tipo de juego; tipoJuego != null.
 	 * @param presupuesto, es el presupuesto del juego; presupuesto != null.
 	 */
-	public JuegosDTO(String nombreJuego, String tipoJuego, long presupuesto) {
+	public JuegosDTO(String nombreJuego, String tipoJuego, double presupuesto) {
 		this.nombreJuego = nombreJuego;
 		this.tipoJuego = tipoJuego;
 		this.presupuesto = presupuesto;
@@ -67,14 +67,14 @@ public class JuegosDTO implements Serializable {
 	/**
 	 * @return the presupuesto
 	 */
-	public long getPresupuesto() {
+	public double getPresupuesto() {
 		return presupuesto;
 	}
 
 	/**
 	 * @param presupuesto the presupuesto to set
 	 */
-	public void setPresupuesto(long presupuesto) {
+	public void setPresupuesto(double presupuesto) {
 		this.presupuesto = presupuesto;
 	}
 

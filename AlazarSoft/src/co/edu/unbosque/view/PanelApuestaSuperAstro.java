@@ -22,7 +22,7 @@ public class PanelApuestaSuperAstro extends JPanel {
 	private JPanel panelCamposDeTextoNumero;
 
 	public PanelApuestaSuperAstro() {
-		setBorder(new TitledBorder("Apuesta baloto"));
+		setBorder(new TitledBorder("Apuesta Super Astro"));
 		setLayout(new GridLayout(1, 2));
 
 		SignoZodiacal = new JComboBox<String>();
