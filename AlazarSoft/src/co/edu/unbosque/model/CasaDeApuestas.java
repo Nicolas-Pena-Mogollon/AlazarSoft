@@ -335,7 +335,11 @@ public class CasaDeApuestas {
 				this.apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula();
 				cont++;
 			}
-			if (numeroSuperastro.equals(this.apuestas.getSuperastroDAO().getListaSuperastro().get(i).getNumeroJuego())) {
+
+		}
+		for (int i = 0; i < this.apuestas.getSuperastroDAO().getListaSuperastro().size(); i++) {
+			if (numeroSuperastro
+					.equals(this.apuestas.getSuperastroDAO().getListaSuperastro().get(i).getNumeroJuego())) {
 				this.apuestas.getSuperastroDAO().getListaSuperastro().get(i).getCedula();
 				cont++;
 			}
