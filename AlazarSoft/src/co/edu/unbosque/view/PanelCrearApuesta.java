@@ -17,7 +17,16 @@ import javax.swing.border.TitledBorder;
 
 import co.edu.unbosque.model.persistence.SedesDTO;
 
+/**
+ * Clase PanelCrearApuesta
+ */
 public class PanelCrearApuesta extends JPanel {
+
+	/**
+	 * Asociacion clase PanelApuestaBaloto Asociacion clase PanelApuestaSuperAstro
+	 * Asociacion clase PanelApuestaFutbol
+	 * 
+	 */
 
 	private static final long serialVersionUID = 1L;
 	private final String COMMAND_REGISTRAR_APUESTA = "REGISTRAR_APUESTA";
@@ -39,6 +48,10 @@ public class PanelCrearApuesta extends JPanel {
 	private PanelApuestaBaloto panelApuestaBaloto;
 	private PanelApuestaSuperAstro panelApuestaSuperAstro;
 	private PanelApuestaFutbol panelApuestaFutbol;
+
+	/**
+	 * Constructor con inicialización de atributos
+	 */
 
 	public PanelCrearApuesta() {
 		setBorder(new TitledBorder("Registro de apuestas"));
@@ -90,6 +103,12 @@ public class PanelCrearApuesta extends JPanel {
 		this.add(botonGuardarApuestaBaloto, BorderLayout.PAGE_END);
 	}
 
+	/**
+	 * Se carga el Combobox con los valores de la sede
+	 * 
+	 * @param sede
+	 */
+
 	public void cargarComboBox(ArrayList<SedesDTO> sede) {
 		this.comboSede.removeAllItems();
 		this.comboSede.addItem("Seleccione");
@@ -97,6 +116,12 @@ public class PanelCrearApuesta extends JPanel {
 			this.comboSede.addItem(sede.get(i).getUbicacion() + sede.get(i).getIdUbicacion());
 		}
 	}
+
+	/**
+	 * Verifica que los campos de texto de Baloto esten con valores
+	 * 
+	 * @return verificar
+	 */
 
 	public boolean verificarCamposBaloto() {
 		boolean verificar = false;
@@ -116,6 +141,10 @@ public class PanelCrearApuesta extends JPanel {
 		return verificar;
 	}
 
+	/**
+	 * Limpia los campos de texto y borra los valores que tengan en la interfaz
+	 */
+
 	public void limpiarCamposBaloto() {
 		campoTextoCedula.setText("");
 		comboSede.setSelectedIndex(0);
@@ -129,6 +158,11 @@ public class PanelCrearApuesta extends JPanel {
 		panelApuestaBaloto.getCampoTextoSextoNumero().setText("");
 	}
 
+	/**
+	 * Verifica que los campos de texto de SuperAstro esten con valores
+	 * 
+	 * @return verificar
+	 */
 	public boolean verificarCamposSuperAstro() {
 		boolean verificar = false;
 		if (!campoTextoCedula.getText().equals("Seleccione") && !comboSede.getSelectedItem().equals("Seleccione")
@@ -146,6 +180,10 @@ public class PanelCrearApuesta extends JPanel {
 		return verificar;
 	}
 
+	/**
+	 * Limpia los campos de texto y borra los valores que tengan en la interfaz
+	 */
+
 	public void limpiarCamposSuperAstro() {
 		campoTextoCedula.setText("");
 		comboSede.setSelectedIndex(0);
@@ -158,6 +196,11 @@ public class PanelCrearApuesta extends JPanel {
 		panelApuestaSuperAstro.getSignoZodiacal().setSelectedIndex(0);
 	}
 
+	/**
+	 * Verifica que los campos de texto de Marcadores de fútbol esten con valores
+	 * 
+	 * @return verificar
+	 */
 	public boolean verificarCamposFutbol() {
 		boolean verificar = false;
 		if (!campoTextoCedula.getText().equals("Seleccione") && !comboSede.getSelectedItem().equals("Seleccione")
@@ -172,6 +215,9 @@ public class PanelCrearApuesta extends JPanel {
 		return verificar;
 	}
 
+	/**
+	 * Limpia los campos de texto y borra los valores que tengan en la interfaz
+	 */
 	public void limpiarCamposFutbol() {
 		campoTextoCedula.setText("");
 		;
@@ -182,6 +228,11 @@ public class PanelCrearApuesta extends JPanel {
 		panelApuestaFutbol.getComboOpcionResultado().setSelectedIndex(0);
 	}
 
+	/**
+	 * Cambia de panel para guardar los datos de cada apuesta. <b> pre</> Necesita
+	 * haber llenado todos los datos para guardar yn hechizo
+	 */
+
 	public void cambiarPanel() {
 		if (comboTiposApuesta.getSelectedItem().equals("Baloto"))
 			panelContenedorDividido.setBottomComponent(panelApuestaBaloto);
@@ -191,6 +242,17 @@ public class PanelCrearApuesta extends JPanel {
 			panelContenedorDividido.setBottomComponent(panelApuestaFutbol);
 	}
 
+	/**
+	 * Crea el mensaje que mostrara los parametros usados en modo de recibo
+	 * 
+	 * @param fecha
+	 * @param sede
+	 * @param cedula
+	 * @param valor
+	 * @param numeroJuego
+	 * @return
+	 */
+
 	public String facturaBaloto(String fecha, String sede, String cedula, double valor, String numeroJuego) {
 		String factura = "";
 		factura += "Fecha: " + fecha + "\n" + "Sede: " + sede + "\n" + "Cédula: " + cedula + "\n" + "Valor: " + valor
@@ -198,14 +260,49 @@ public class PanelCrearApuesta extends JPanel {
 		return factura;
 	}
 
+	/**
+	 * * Crea el mensaje que mostrara los parametros usados en modo de recibo
+	 * 
+	 * @param fecha
+	 * @param sede
+	 * @param cedula
+	 * @param valor
+	 * @param numeroJuego
+	 * @param signo
+	 * @return
+	 */
+
 	public String facturaSuperastro(String fecha, String sede, String cedula, double valor, String numeroJuego,
 			String signo) {
+
+		/**
+		 * * Crea el mensaje que mostrara los parametros usados en modo de recibo
+		 * 
+		 * @param fecha
+		 * @param sede
+		 * @param cedula
+		 * @param valor
+		 * @param numeroJuego
+		 * @param signo
+		 * @return
+		 */
 		String factura = "";
 		factura += "Fecha: " + fecha + "\n" + "Sede: " + sede + "\n" + "Cédula: " + cedula + "\n" + "Valor: " + valor
 				+ "\n" + "NumeroJuego: " + numeroJuego + "\n" + "Signo: " + signo + "\n";
 		return factura;
 	}
 
+	/**
+	 * * Crea el mensaje que mostrara los parametros usados en modo de recibo
+	 * 
+	 * @param fecha
+	 * @param sede
+	 * @param cedula
+	 * @param valor
+	 * @param numeroJuego
+	 * @param signo
+	 * @return
+	 */
 	public String facturaFutbol(String fecha, String sede, String cedula, double valor, String partido,
 			String resultado) {
 		String factura = "";
