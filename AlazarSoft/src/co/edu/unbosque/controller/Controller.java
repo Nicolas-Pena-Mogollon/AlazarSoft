@@ -197,7 +197,6 @@ public class Controller implements ActionListener {
 									.getText(),
 							vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
 									.getSelectedItem().toString());
-					System.out.println(Arrays.deepToString(data));
 					vista.getPanelConsultasReportes().getPanelExportarInformacion()
 							.cargarReporteTabla(casaApuestas.obtenerTitulosReportes(opcionReporte), data);
 				} catch (ParseException e1) {

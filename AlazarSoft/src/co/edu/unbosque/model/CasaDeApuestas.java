@@ -2,6 +2,8 @@ package co.edu.unbosque.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+
 import co.edu.unbosque.model.persistence.ArchivoConfiguracionCasaApuestas;
 import co.edu.unbosque.model.persistence.ArchivoExcel;
 import co.edu.unbosque.model.persistence.ArchivoPDF;
@@ -194,7 +196,7 @@ public class CasaDeApuestas {
 						.getMonth() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha().getMonth())
 						&& dateUno.parse(fecha).getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(i)
 								.getFecha().getYear())) {
-					matrizMadre[i][0] = dateUno
+					matrizMadre[cont][0] = dateUno
 							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha());
 					matrizMadre[cont][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getNombreSede();
 					matrizMadre[cont][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getCedula();
@@ -206,7 +208,8 @@ public class CasaDeApuestas {
 					cont++;
 				}
 			} else if (tipoFiltro.equals("año")) {
-				if (dateUno.parse(fecha).equals(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha())) {
+				if (dateUno.parse(fecha).getYear() == apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha()
+						.getYear()) {
 					matrizMadre[cont][0] = dateUno
 							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha());
 					matrizMadre[cont][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getNombreSede();
