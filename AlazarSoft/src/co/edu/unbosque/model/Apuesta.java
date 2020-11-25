@@ -5,7 +5,6 @@ package co.edu.unbosque.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -297,8 +296,11 @@ public class Apuesta {
 	}
 
 	/**
+	 * Obtiene los datos de los juegos registrados los ultimos cinco dias y hace la
+	 * sumatoria de los valores si son de la misma fecha y del mismo tipo de juego
 	 * 
-	 * @return salida
+	 * @return salida Retorna una matriz que contiene los datos de los valores
+	 *         totales por juego de los ultimos cinco dias
 	 */
 
 	@SuppressWarnings("deprecation")
@@ -373,6 +375,12 @@ public class Apuesta {
 
 		return salida;
 	}
+
+	/**
+	 * Cuenta la cantidad de registros de juegos durante los ultimos cinco dias
+	 * 
+	 * @return 
+	 */
 
 	@SuppressWarnings("deprecation")
 	private int contarRegistrosUltimosCincoDias() {
