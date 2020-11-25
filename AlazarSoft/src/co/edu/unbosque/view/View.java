@@ -11,16 +11,13 @@ import co.edu.unbosque.controller.Controller;
  * Clase View
  */
 
-public class View extends JFrame {
+public class View extends JFrame implements InterfazView {
 
 	/**
-	 * Asociacion clase PanelCasaApuestas 
-	 * Asociacion clase PanelMenuCasaApuestas
-	 * Asociacion clase PanelApostadores 
-	 * Asociacion clase PanelApuestas 
-	 * Asociacion clase PanelSede 
-	 * Asociacion clase PanelPremiacion
-	 * Asociacion clasePanelConsultasReportes
+	 * Asociacion clase PanelCasaApuestas Asociacion clase PanelMenuCasaApuestas
+	 * Asociacion clase PanelApostadores Asociacion clase PanelApuestas Asociacion
+	 * clase PanelSede Asociacion clase PanelPremiacion Asociacion
+	 * clasePanelConsultasReportes
 	 * 
 	 */
 
@@ -49,7 +46,7 @@ public class View extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setVisible(true);
-
+		
 		panelCasaApuestas = new PanelCasaApuestas();
 		panelApostadores = new PanelApostadores();
 		panelSede = new PanelSede();
@@ -74,7 +71,7 @@ public class View extends JFrame {
 	 * 
 	 * @param control
 	 */
-
+	@Override
 	public void asignarOyentes(Controller control) {
 		panelMenuCasaApuestas.getBotonConfiguracionCasaApuestas().addActionListener(control);
 		panelMenuCasaApuestas.getBotonGestionSedes().addActionListener(control);
@@ -112,25 +109,9 @@ public class View extends JFrame {
 	 * 
 	 * @param message
 	 */
-
+	@Override
 	public void mostrarMensajeError(String message) {
 		JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
-	}
-
-	/**
-	 * Envia un mensaje de advertencia por medio de un JOptionPane
-	 * 
-	 * @return
-	 */
-
-	public boolean mostrarMensajeAdvertencia() {
-		int entrada = JOptionPane.showConfirmDialog(null, "", "Advertencia", JOptionPane.YES_NO_OPTION,
-				JOptionPane.WARNING_MESSAGE);
-		if (entrada == 0) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	/**
@@ -138,7 +119,7 @@ public class View extends JFrame {
 	 * 
 	 * @param message
 	 */
-
+	@Override
 	public void mostrarMensajeInformacion(String message) {
 		JOptionPane.showMessageDialog(null, message, "Información", JOptionPane.INFORMATION_MESSAGE);
 	}
