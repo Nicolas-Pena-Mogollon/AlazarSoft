@@ -16,6 +16,10 @@ public class LecturaTxt {
 	private final String rutaArchivo = "./Data/Planes_de_premiacion.txt";
 	private File fileTxt;
 
+	public LecturaTxt(File fileTxt) {
+		fileTxt = new File("./Data/Planes_de_premiacion.txt");
+	}
+
 	/**
 	 * Estede método se encarga de leer la información que se encuentra dentro del
 	 * archivo de texto.
