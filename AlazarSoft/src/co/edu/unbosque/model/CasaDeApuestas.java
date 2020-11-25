@@ -64,6 +64,7 @@ public class CasaDeApuestas {
 	 * @param nombre
 	 * @param numeroSedes
 	 * @param presupuestoTotal
+	 * 
 	 */
 	public void guardarConfiguracionCasaDeApuestas(String nombre, int numeroSedes, double presupuestoTotal) {
 
