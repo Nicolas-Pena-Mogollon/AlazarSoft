@@ -58,6 +58,7 @@ public class View extends JFrame {
 	}
 
 	/**
+	 * Asigna los actionListener a los botones para darles acción
 	 * 
 	 * @param control
 	 */
