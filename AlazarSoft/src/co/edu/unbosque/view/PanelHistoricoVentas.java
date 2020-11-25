@@ -10,6 +10,10 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+/**
+ * Clase PanelHistoricoVentas
+ */
+
 public class PanelHistoricoVentas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -18,6 +22,10 @@ public class PanelHistoricoVentas extends JPanel {
 	private ChartPanel chartPanel;
 	private DefaultCategoryDataset dataHistorico;
 	private JFreeChart grafico;
+
+	/**
+	 * Constructor con inicialización de atributos
+	 */
 
 	public PanelHistoricoVentas() {
 		setBorder(new TitledBorder("Historico ventas por sede de los últimos 5 días"));
@@ -34,6 +42,12 @@ public class PanelHistoricoVentas extends JPanel {
 		add(botonMostrarHistoricoVentas, BorderLayout.PAGE_END);
 
 	}
+
+	/**
+	 * Recibe la información para añadirla a las gráficas
+	 * 
+	 * @param informacion
+	 */
 
 	public void recibirInfomacion(String[][] informacion) {
 		for (int i = 0; i < informacion.length; i++) {

@@ -10,6 +10,10 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+/**
+ * Clase PanelGraficoApuestas
+ */
+
 public class PanelGraficoApuestas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -19,6 +23,10 @@ public class PanelGraficoApuestas extends JPanel {
 	private DefaultCategoryDataset dataGraficoApuestas;
 	private JFreeChart graficoApuestas;
 
+	/**
+	 * Constructor con inicialización de atributos
+	 */
+	
 	public PanelGraficoApuestas() {
 		setBorder(new TitledBorder("Top 3 de los tipos de apuesta con mayores ganadores"));
 		setLayout(new BorderLayout());
@@ -32,7 +40,13 @@ public class PanelGraficoApuestas extends JPanel {
 		add(botonMostrarGraficoApuestas, BorderLayout.PAGE_END);
 
 	}
-
+	
+	/**
+	 * Recibe la información para añadirla a las gráficas
+	 * 
+	 * @param informacion
+	 */
+	
 	public void recibirInfomacion(String[][] informacion) {
 		for (int i = 0; i < informacion.length; i++)
 			dataGraficoApuestas.addValue(Double.parseDouble(informacion[i][0]), informacion[i][1], informacion[i][2]);

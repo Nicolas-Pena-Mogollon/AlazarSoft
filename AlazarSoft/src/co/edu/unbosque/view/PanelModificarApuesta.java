@@ -13,6 +13,9 @@ import javax.swing.border.TitledBorder;
 
 import co.edu.unbosque.model.persistence.SedesDTO;
 
+/**
+ * Clase PanelModificarApuesta
+ */
 public class PanelModificarApuesta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -30,6 +33,10 @@ public class PanelModificarApuesta extends JPanel {
 	private JTextField campoTextoValorApuesta;
 	private JButton botonModificarApuesta;
 	private JPanel panelIngreso;
+
+	/**
+	 * Constructor con inicialización de atributos
+	 */
 
 	public PanelModificarApuesta() {
 		setBorder(new TitledBorder("Modificar apuestas"));
@@ -72,6 +79,12 @@ public class PanelModificarApuesta extends JPanel {
 		add(botonModificarApuesta, BorderLayout.PAGE_END);
 	}
 
+	/**
+	 * Verifica los datos de entrada y se asegura que todos esten llenos para
+	 * retornar el valor
+	 * 
+	 * @return verificar
+	 */
 	public boolean verificarCampos() {
 		boolean verificar = false;
 		if (!campoTextoCedula.getText().equals("") && !campoTextoValorApuesta.getText().equals("")
@@ -84,6 +97,11 @@ public class PanelModificarApuesta extends JPanel {
 		return verificar;
 	}
 
+	/**
+	 * Llena el combobox con los valores de las sedes
+	 * 
+	 * @param sede
+	 */
 	public void cargarComboBox(ArrayList<SedesDTO> sede) {
 		this.comboSede.removeAllItems();
 		this.comboSede.addItem("Seleccione");
@@ -91,6 +109,10 @@ public class PanelModificarApuesta extends JPanel {
 			this.comboSede.addItem(sede.get(i).getUbicacion() + sede.get(i).getIdUbicacion());
 		}
 	}
+
+	/**
+	 * Limpia los campos de texto y borra los valores que tengan en la interfaz
+	 */
 
 	public void limpiarCampos() {
 		campoTextoCedula.setText("");

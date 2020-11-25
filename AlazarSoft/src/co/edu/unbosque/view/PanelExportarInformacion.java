@@ -13,6 +13,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * Clase PanelExportarInformacion
+ */
+
 public class PanelExportarInformacion extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -35,6 +39,9 @@ public class PanelExportarInformacion extends JPanel {
 	private DefaultTableModel tablaModelo;
 	private JScrollPane scroll;
 
+	/**
+	 * Constructor con inicialización de atributos
+	 */
 	public PanelExportarInformacion() {
 		setLayout(new BorderLayout());
 
@@ -91,6 +98,14 @@ public class PanelExportarInformacion extends JPanel {
 		add(panelBotones, BorderLayout.PAGE_END);
 
 	}
+
+	/**
+	 * Llena los valore de las tablas que luego seran exportadas para que aparezcan
+	 * en pantalla
+	 * 
+	 * @param titulos
+	 * @param data
+	 */
 
 	public void cargarReporteTabla(String[] titulos, String[][] data) {
 		tablaModelo.setRowCount(0);

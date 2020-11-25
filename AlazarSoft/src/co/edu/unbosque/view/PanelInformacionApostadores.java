@@ -9,6 +9,10 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * Clase PanelInformacionApostadores
+ */
+
 public class PanelInformacionApostadores extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -17,6 +21,10 @@ public class PanelInformacionApostadores extends JPanel {
 	private JTable tablaInformacionApostadores;
 	private DefaultTableModel modeloTablaApostadores;
 	private JScrollPane scrollTablaInformacionApostadores;
+
+	/**
+	 * Constructor con inicialización de atributos
+	 */
 
 	public PanelInformacionApostadores() {
 		setBorder(new TitledBorder("Información apostadores"));
@@ -43,6 +51,12 @@ public class PanelInformacionApostadores extends JPanel {
 
 	}
 
+	/**
+	 * Toma un array bidimensional con los datos de los apostadores y los agrega a
+	 * la tabla
+	 * 
+	 * @param data
+	 */
 	public void actualizarTablaApostadores(String[][] data) {
 		modeloTablaApostadores.setRowCount(0);
 		for (int i = 0; i < data.length; i++) {

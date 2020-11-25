@@ -11,6 +11,10 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * Clase PanelMostrarBorrarApuesta
+ */
+
 public class PanelMostrarBorrarApuesta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -27,6 +31,10 @@ public class PanelMostrarBorrarApuesta extends JPanel {
 	private JScrollPane scrollTablaInformacionApuestas;
 	private JPanel panelBotones;
 	private JPanel panelCombos;
+
+	/**
+	 * Constructor con inicialización de atributos
+	 */
 
 	public PanelMostrarBorrarApuesta() {
 		setBorder(new TitledBorder("Información y borrado de apuestas"));
@@ -76,6 +84,12 @@ public class PanelMostrarBorrarApuesta extends JPanel {
 		this.add(panelBotones, BorderLayout.PAGE_END);
 	}
 
+	/**
+	 * Toma los datos de un array unidimensional y lo llena de los datos de la sede
+	 * 
+	 * @param data
+	 */
+
 	public void llenarComboSedes(String[] data) {
 		comboSede.removeAllItems();
 		comboSede.addItem("Seleccione la sede");
@@ -84,12 +98,24 @@ public class PanelMostrarBorrarApuesta extends JPanel {
 		}
 	}
 
+	/**
+	 * Recibe la información para añadirlay actualizar la tabla
+	 * 
+	 * @param informacion
+	 */
+
 	public void actualizarTablaApuestas(String[][] data) {
 		modeloTablaApuestas.setRowCount(0);
 		for (int i = 0; i < data.length; i++) {
 			modeloTablaApuestas.addRow(data[i]);
 		}
 	}
+
+	/**
+	 * Verifica que los datos en los combobox hayan sido seleccionados
+	 * 
+	 * @return
+	 */
 
 	public boolean verificarDatos() {
 		if (!this.comboSede.getSelectedItem().equals("Seleccione la sede")
@@ -102,6 +128,12 @@ public class PanelMostrarBorrarApuesta extends JPanel {
 		}
 	}
 
+	/**
+	 * Verifica los datos de las tablas y que correspondan a las categorias cuando
+	 * son seleccionados
+	 * 
+	 * @return
+	 */
 	public int verificarDatosTabla() {
 		if (this.tablaInformacionApuestas.getSelectedRows().length == 1) {
 			String[] cont = String
@@ -122,6 +154,12 @@ public class PanelMostrarBorrarApuesta extends JPanel {
 		}
 	}
 
+	/**
+	 * Obtiene los datos de las tablas y los convierte en un string para luego poder
+	 * pasar la información
+	 * 
+	 * @return
+	 */
 	public String[] obtenerDatosTabla() {
 		String[] salida = new String[4];
 		salida[0] = "0";
