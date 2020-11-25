@@ -328,11 +328,19 @@ public class CasaDeApuestas {
 		}
 	}
 
-	public int numeroGanadorBaloto(String numero, String cedula) {
+	public int numeroGanadorBaloto(String numeroBaloto, String numeroSuperastro) {
 		int cont = 0;
 		for (int i = 0; i < this.apuestas.getBalotoDAO().getListaBaloto().size(); i++) {
-			if (numero.equals(this.apuestas.getBalotoDAO().getListaBaloto().get(i).getNumeroJuego())
-					&& cedula.equals(this.apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula())) {
+			if (numeroBaloto.equals(this.apuestas.getBalotoDAO().getListaBaloto().get(i).getNumeroJuego())) {
+				this.apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula();
+				cont++;
+			}
+
+		}
+		for (int i = 0; i < this.apuestas.getSuperastroDAO().getListaSuperastro().size(); i++) {
+			if (numeroSuperastro
+					.equals(this.apuestas.getSuperastroDAO().getListaSuperastro().get(i).getNumeroJuego())) {
+				this.apuestas.getSuperastroDAO().getListaSuperastro().get(i).getCedula();
 				cont++;
 			}
 		}
