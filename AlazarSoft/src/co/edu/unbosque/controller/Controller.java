@@ -204,7 +204,8 @@ public class Controller implements ActionListener {
 					vista.mostrarMensajeError("No se pudo acceder a la información" + "\n" + e1);
 				}
 			}else if(e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficaClientes().getCOMMAND_GRAFICA_CLIENTES_MAYORES_APUESTAS())) {
-//			String[][] data = casaApuestas.obtenerCincoApostadoresGanadores(this.casaApuestas.numeroGanadorBaloto(this.casaApuestas.getApuestas().numerosBaloto(), this.casaApuestas.getApuestas().numeroGanadorSuperastro(this.casaApuestas.getApuestas().num, signo)), numeroSuperastro)
+				
+//				String[][] data = casaApuestas.obtenerCincoApostadoresGanadores();
 //				if (data[0][0] != null) {
 //					vista.getPanelConsultasReportes().getPanelGraficoVentasSedes().recibirInfomacion(data);
 //		} else {

@@ -321,21 +321,7 @@ public class Apuesta {
 				}
 			}
 		}
-//
-//		for (int i = 0; i < balotoDAO.getListaBaloto().size(); i++) {
-//			System.out.println(balotoDAO.getListaBaloto().get(i).getNombreSede());
-//			System.out.println(balotoDAO.getListaBaloto().get(i).getValorApuesta());
-//
-//		}
-//		for (int i = 0; i < superastroDAO.getListaSuperastro().size(); i++) {
-//			System.out.println(superastroDAO.getListaSuperastro().get(i).getNombreSede());
-//			System.out.println(superastroDAO.getListaSuperastro().get(i).getValorApuesta());
-//
-//		}
-//		for (int i = 0; i < marcadoresDAO.getListaMarcadores().size(); i++) {
-//			System.out.println(marcadoresDAO.getListaMarcadores().get(i).getNombreSede());
-//			System.out.println(marcadoresDAO.getListaMarcadores().get(i).getValorApuesta());
-//		}
+
 		cont = 0;
 		String[][] salida = new String[matrizDatos.length][3];
 		for (int i = 0; i < salida.length; i++) {
