@@ -378,7 +378,7 @@ public class Apuesta {
 	/**
 	 * Cuenta la cantidad de registros de juegos durante los ultimos cinco dias
 	 * 
-	 * @return
+	 * @return retorna la canatidad de juegos registrados.
 	 */
 
 	@SuppressWarnings("deprecation")
@@ -419,6 +419,11 @@ public class Apuesta {
 		return cont;
 	}
 
+	/**
+	 * Este metodo se encarga de llenar un arreglo con números de 1 - 45.
+	 * 
+	 * @return retorna un arreglo con los 45 elementos sin que se repitan.
+	 */
 	public int[] numerosBaloto() {
 		int[] resultado = new int[45];
 		int[] numeroJuego = new int[6];
@@ -441,6 +446,11 @@ public class Apuesta {
 		return numeroJuego;
 	}
 
+	/**
+	 * Este método se encarga de llenar un arreglo con números de 0 a 9.
+	 * 
+	 * @return retorna un arreglo con los 10 elementos sin repetir.
+	 */
 	public int[] numerosZodiaco() {
 		int[] resultado = new int[9];
 		int[] numeroJuego = new int[4];
@@ -454,6 +464,11 @@ public class Apuesta {
 		return numeroJuego;
 	}
 
+	/**
+	 * Este método se encarga de elegir un signo del zodiaco aleatoriamente.
+	 * 
+	 * @return retorna un arreglo con el zodiaco elegido aleatoriamente.
+	 */
 	public String[] signo() {
 		String[] signo = new String[12];
 		String[] elegido = new String[1];
@@ -474,6 +489,13 @@ public class Apuesta {
 		return elegido;
 	}
 
+	/**
+	 * Este método se encarga de generar un numero de superastro aleatoriamente.
+	 * 
+	 * @param numeros, son los cuatro numeros a jugar; numeros != null.
+	 * @param signo,   es el signo a jugar; signo != null.
+	 * @return retorna un String indicando el número de juego.
+	 */
 	public String numeroGanadorSuperastro(int[] numeros, String[] signo) {
 		String numeroJuego = "";
 		int uno = numeros[0];
@@ -485,6 +507,13 @@ public class Apuesta {
 		return numeroJuego;
 	}
 
+	/**
+	 * Este método se encarga de generar un número de juego aleatoriamente para
+	 * baloto.
+	 * 
+	 * @param numeros, es el numero de juego; numeros != null.
+	 * @return retorna un String indicando el numero de juego.
+	 */
 	public String numeroGanadorBaloto(int[] numeros) {
 		String numeroJuego = "";
 		int uno = numeros[0];
@@ -497,6 +526,15 @@ public class Apuesta {
 		return numeroJuego;
 	}
 
+	/**
+	 * Este método se encarga de hacer la comparación con los apostadores para su
+	 * respectivo premio.
+	 * 
+	 * @param partido,   es el partido a jugar; partido != null.
+	 * @param resultado, es el resultado esperado; resultado != null.
+	 * @return retorna true si algún apostador acerto, retorna false si ningún
+	 *         apostador acerto.
+	 */
 	public boolean partidoGanador(String[] partido, String resultado) {
 		boolean verificar = false;
 		String data[] = new String[partido.length];
@@ -514,6 +552,14 @@ public class Apuesta {
 		return verificar;
 	}
 
+	/**
+	 * Este método se encarga de verificar si algún apostador acerto por lo menos un
+	 * número de baloto;
+	 * 
+	 * @param numero, es el número a verificar; numero != null.s
+	 * @return retorna true si algún apostador acerto, retorna false si ningún
+	 *         apostador acerto.
+	 */
 	public boolean ganadorApuestaBaloto(String numero) {
 		boolean verificar = false;
 		String[] parts = this.numeroGanadorBaloto(this.numerosBaloto()).split("-");
@@ -525,6 +571,13 @@ public class Apuesta {
 		return verificar;
 	}
 
+	/**
+	 * Este método se encarga de verificar si algún apostador acerto en superastro.
+	 * 
+	 * @param numero, es el numero a jugar más el signo.
+	 * @return retorna true si algún apostador acerto, retorna false si ningún
+	 *         apostador acerto.s
+	 */
 	public boolean ganadorApuestaSuperastro(String numero) {
 		boolean verificar = false;
 		String apuesta = this.numeroGanadorSuperastro(this.numerosZodiaco(), this.signo());

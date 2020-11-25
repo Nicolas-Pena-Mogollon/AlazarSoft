@@ -1,3 +1,6 @@
+/**
+ * Paquete modelo
+ */
 package co.edu.unbosque.model;
 
 import java.text.ParseException;
@@ -7,6 +10,9 @@ import co.edu.unbosque.model.persistence.ArchivoExcel;
 import co.edu.unbosque.model.persistence.ArchivoPDF;
 import co.edu.unbosque.model.persistence.LecturaTxt;
 
+/**
+ * Clase CasaDeApuestas
+ */
 public class CasaDeApuestas {
 
 	private Apostador apostadores;
@@ -21,6 +27,9 @@ public class CasaDeApuestas {
 	private Juego juego;
 	private LecturaTxt planesPremiacion;
 
+	/**
+	 * Constructor vacio
+	 */
 	public CasaDeApuestas() {
 		this.archivoConfiguracionCasaApuestas = new ArchivoConfiguracionCasaApuestas();
 		this.apostadores = new Apostador();
@@ -29,9 +38,13 @@ public class CasaDeApuestas {
 		this.archivoPDF = new ArchivoPDF();
 		this.archivoExcel = new ArchivoExcel();
 		this.juego = new Juego();
-		this.planesPremiacion = new LecturaTxt();
+		this.planesPremiacion = new LecturaTxt(this);
 		this.leerConfiguracion();
 	}
+
+	/**
+	 * Este método se encarga de leer las cofiguraciones de la casa de apuestas.
+	 */
 
 	public void leerConfiguracion() {
 		String[] datos = this.archivoConfiguracionCasaApuestas.leerConfiguracionCasaApuestas();
@@ -45,7 +58,13 @@ public class CasaDeApuestas {
 			this.presupuestoTotal = 0;
 		}
 	}
-
+	
+	/**
+	 * Este metodo se encarga de editar la configuración de la clase de apuestas.
+	 * @param nombre
+	 * @param numeroSedes
+	 * @param presupuestoTotal
+	 */
 	public void guardarConfiguracionCasaDeApuestas(String nombre, int numeroSedes, double presupuestoTotal) {
 
 		if (!nombre.equals("")) {
@@ -61,7 +80,15 @@ public class CasaDeApuestas {
 				String.valueOf(this.presupuestoTotal) };
 		archivoConfiguracionCasaApuestas.escribirConfiguracionCasaApuestas(datos);
 	}
-
+	
+	/**
+	 * 
+	 * @param tipoReporte
+	 * @param fecha
+	 * @param tipoFiltro
+	 * @return
+	 * @throws ParseException
+	 */
 	@SuppressWarnings("deprecation")
 	public String[][] generarDatosReportes(String tipoReporte, String fecha, String tipoFiltro) throws ParseException {
 		String[][] matrizMadre = new String[apuestas.getBalotoDAO().getListaBaloto().size()
