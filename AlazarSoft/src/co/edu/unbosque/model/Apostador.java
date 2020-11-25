@@ -92,6 +92,7 @@ public class Apostador {
 		} else if (cedula.length() <= 10 && cedula.length() > 5 ) {
 		} else {
 			throw new CedulaException("Cedula incorrecta");
+			
 		}
 	}	
 
