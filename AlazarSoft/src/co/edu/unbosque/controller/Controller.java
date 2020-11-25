@@ -417,6 +417,7 @@ public class Controller implements ActionListener {
 								.getSignoZodiacal().getSelectedItem().toString();
 						if (this.casaApuestas.getApuestas().verificarRangoNumerosSuperastro(primerNumero, segundoNumero,
 								tercerNumero, cuartoNumero)) {
+							
 							vista.mostrarMensajeError("El rango de los números debe estar entre 0 - 9");
 						} else {
 							if (valorApuesta < 0) {
