@@ -1,3 +1,6 @@
+/**
+ * Paquete vista
+ */
 package co.edu.unbosque.view;
 
 import javax.swing.JTabbedPane;
