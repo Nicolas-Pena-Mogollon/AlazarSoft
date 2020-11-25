@@ -48,7 +48,6 @@ public class ArchivoJuegos {
 		}
 		try {
 			fileArchivo.delete();
-			System.out.println(fileArchivo);
 			salida = new ObjectOutputStream(new FileOutputStream(fileArchivo));
 			salida.writeObject(juegos);
 			salida.close();

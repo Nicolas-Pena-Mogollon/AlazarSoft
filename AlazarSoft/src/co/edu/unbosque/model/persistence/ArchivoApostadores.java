@@ -59,7 +59,6 @@ public class ArchivoApostadores {
 		}
 		try {
 			fileArchivo.delete();
-			System.out.println(fileArchivo);
 			salida = new ObjectOutputStream(new FileOutputStream(fileArchivo));
 			salida.writeObject(apostador);
 			salida.close();

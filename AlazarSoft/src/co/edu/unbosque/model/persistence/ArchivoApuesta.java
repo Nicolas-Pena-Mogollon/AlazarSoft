@@ -60,7 +60,6 @@ public class ArchivoApuesta {
 		}
 		try {
 			fileBaloto.delete();
-			System.out.println(fileBaloto);
 			salida = new ObjectOutputStream(new FileOutputStream(fileBaloto));
 			salida.writeObject(balotoDTO);
 			salida.close();
