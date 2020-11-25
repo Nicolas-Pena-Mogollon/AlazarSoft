@@ -350,8 +350,8 @@ public class Controller implements ActionListener {
 								.getPanelApuestaBaloto().getCampoTextoQuintoNumero().getText());
 						int sextoNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
 								.getPanelApuestaBaloto().getCampoTextoSextoNumero().getText());
-						String numeroJuego = primerNumero + " - " + segundoNumero + " - " + tercerNumero + " - "
-								+ cuartoNumero + " - " + quintoNumero + " - " + sextoNumero;
+						String numeroJuego = primerNumero + "-" + segundoNumero + "-" + tercerNumero + "-"
+								+ cuartoNumero + "-" + quintoNumero + "-" + sextoNumero;
 						if (this.casaApuestas.getApuestas().verificarNumerosIgualesBaloto(primerNumero, segundoNumero,
 								tercerNumero, cuartoNumero, quintoNumero, sextoNumero)) {
 							vista.mostrarMensajeError("Los números no se pueden repetir");
