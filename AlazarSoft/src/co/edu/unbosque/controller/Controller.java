@@ -212,8 +212,7 @@ public class Controller implements ActionListener {
 			} else if (e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficaClientes()
 					.getCOMMAND_GRAFICA_CLIENTES_MAYORES_APUESTAS())) {
 				String[][] data = casaApuestas.generarCincoClientesMayoresApuestas();
-				System.out.println(Arrays.deepToString(data));
-				if (data[0][0] != null) {
+				if (data.length != 0) {
 					vista.getPanelConsultasReportes().getPanelGraficaClientes().recibirInfomacion(data);
 				} else {
 					vista.mostrarMensajeError("No hay información para mostrar");
@@ -221,7 +220,7 @@ public class Controller implements ActionListener {
 			} else if (e.getActionCommand().equals(
 					vista.getPanelConsultasReportes().getPanelGraficoApuestas().getCOMMAND_GRAFICA_APUESTAS())) {
 				String[][] data = casaApuestas.generarTresTiposApuestaMayoresGanadores();
-				if (data[0][0] != null) {
+				if (data.length != 0) {
 					vista.getPanelConsultasReportes().getPanelGraficoApuestas().recibirInfomacion(data);
 				} else {
 					vista.mostrarMensajeError("No hay información para mostrar");
