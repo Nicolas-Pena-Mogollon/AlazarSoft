@@ -344,12 +344,16 @@ public class Controller implements ActionListener {
 						} else {
 							if (!this.casaApuestas.getApuestas().verificarRangoNumerosBaloto(primerNumero,
 									segundoNumero, tercerNumero, cuartoNumero, quintoNumero, sextoNumero)) {
-								if (this.casaApuestas.getApuestas().getBalotoDAO().crearApuestas(sede, cedula, fecha,
-										valorApuesta, numeroJuego)) {
-									vista.mostrarMensajeInformacion("Se ha agregado correctamente");
-									vista.mostrarMensajeInformacion(vista.getPanelApuestas().getPanelCrearApuesta()
-											.facturaBaloto(fechaString, sede, cedula, valorApuesta, numeroJuego));
-									vista.getPanelApuestas().getPanelCrearApuesta().limpiarCamposBaloto();
+								if (valorApuesta < 0) {
+									vista.mostrarMensajeError("No puede ingresar números menores a cero");
+								} else {
+									if (this.casaApuestas.getApuestas().getBalotoDAO().crearApuestas(sede, cedula,
+											fecha, valorApuesta, numeroJuego)) {
+										vista.mostrarMensajeInformacion("Se ha agregado correctamente");
+										vista.mostrarMensajeInformacion(vista.getPanelApuestas().getPanelCrearApuesta()
+												.facturaBaloto(fechaString, sede, cedula, valorApuesta, numeroJuego));
+										vista.getPanelApuestas().getPanelCrearApuesta().limpiarCamposBaloto();
+									}
 								}
 							} else {
 								vista.mostrarMensajeError("El rango de los números debe estar entre 1 - 45");
@@ -401,13 +405,17 @@ public class Controller implements ActionListener {
 								tercerNumero, cuartoNumero)) {
 							vista.mostrarMensajeError("El rango de los números debe estar entre 0 - 9");
 						} else {
-							if (this.casaApuestas.getApuestas().getSuperastroDAO().crearApuestas(sede, cedula, fecha,
-									valorApuesta, numeroJuego, signo)) {
-								vista.mostrarMensajeInformacion("Se ha agregado correctamente");
-								vista.mostrarMensajeInformacion(
-										vista.getPanelApuestas().getPanelCrearApuesta().facturaSuperastro(fechaString,
-												sede, cedula, valorApuesta, numeroJuego, signo));
-								vista.getPanelApuestas().getPanelCrearApuesta().limpiarCamposSuperAstro();
+							if (valorApuesta < 0) {
+								vista.mostrarMensajeError("No puede ingresar números menores a cero");
+							} else {
+								if (this.casaApuestas.getApuestas().getSuperastroDAO().crearApuestas(sede, cedula,
+										fecha, valorApuesta, numeroJuego, signo)) {
+									vista.mostrarMensajeInformacion("Se ha agregado correctamente");
+									vista.mostrarMensajeInformacion(
+											vista.getPanelApuestas().getPanelCrearApuesta().facturaSuperastro(
+													fechaString, sede, cedula, valorApuesta, numeroJuego, signo));
+									vista.getPanelApuestas().getPanelCrearApuesta().limpiarCamposSuperAstro();
+								}
 							}
 						}
 					} catch (NumberFormatException e) {
@@ -445,12 +453,16 @@ public class Controller implements ActionListener {
 								.getComboPartidos().getSelectedItem().toString();
 						String resultado = vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaFutbol()
 								.getComboOpcionResultado().getSelectedItem().toString();
-						if (this.casaApuestas.getApuestas().getMarcadoresDAO().crearApuestas(sede, cedula, fecha,
-								valorApuesta, partido, resultado)) {
-							vista.mostrarMensajeInformacion("Se ha agregado correctamente");
-							vista.mostrarMensajeInformacion(vista.getPanelApuestas().getPanelCrearApuesta()
-									.facturaFutbol(fechaString, sede, cedula, valorApuesta, partido, resultado));
-							vista.getPanelApuestas().getPanelCrearApuesta().limpiarCamposFutbol();
+						if (valorApuesta < 0) {
+							vista.mostrarMensajeError("No puede ingresar números menores a cero");
+						} else {
+							if (this.casaApuestas.getApuestas().getMarcadoresDAO().crearApuestas(sede, cedula, fecha,
+									valorApuesta, partido, resultado)) {
+								vista.mostrarMensajeInformacion("Se ha agregado correctamente");
+								vista.mostrarMensajeInformacion(vista.getPanelApuestas().getPanelCrearApuesta()
+										.facturaFutbol(fechaString, sede, cedula, valorApuesta, partido, resultado));
+								vista.getPanelApuestas().getPanelCrearApuesta().limpiarCamposFutbol();
+							}
 						}
 					} catch (NumberFormatException e) {
 						vista.mostrarMensajeError("Ingresó un caracter no permitido para los números");
