@@ -14,6 +14,10 @@ import javax.swing.border.TitledBorder;
 
 import co.edu.unbosque.model.persistence.SedesDTO;
 
+/**
+ * Clase PanelSedeModificar
+ */
+
 public class PanelSedeModificar extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -25,6 +29,10 @@ public class PanelSedeModificar extends JPanel {
 	private JScrollPane scrollId;
 	private JButton botonActualizar;
 	private JPanel panelSedeModificar;
+
+	/**
+	 * Constructor con inicialización de atributos
+	 */
 
 	public PanelSedeModificar() {
 		setBorder(new TitledBorder("Actualizar información de la sede"));
@@ -53,10 +61,21 @@ public class PanelSedeModificar extends JPanel {
 
 	}
 
+	/**
+	 * Asigna valores vacios a los JTextField
+	 */
+
 	public void borrarCampos() {
 		campoTextoEmpleado.setText("");
 		comboIdUbicacion.setSelectedIndex(0);
 	}
+
+	/**
+	 * Toma la información de un array unidimensional con las id y llenar el
+	 * combobox
+	 * 
+	 * @param data
+	 */
 
 	public void cargarId(String[] data) {
 		comboIdUbicacion.removeAllItems();
@@ -64,6 +83,13 @@ public class PanelSedeModificar extends JPanel {
 		for (int i = 0; i < data.length; i++)
 			comboIdUbicacion.addItem(data[i]);
 	}
+
+	/**
+	 * Verifica que los campos de texto y el combobox tengan valores y almacena los
+	 * datos en un array unidimensional para luego retornarlos
+	 * 
+	 * @return
+	 */
 
 	public String[] verificarEntradasActualizarSedes() {
 		String[] salida = new String[3];
@@ -89,6 +115,12 @@ public class PanelSedeModificar extends JPanel {
 		return salida;
 	}
 
+	/**
+	 * Toma la información del Arraylist de las Sedes y asigna los valores de la id
+	 * y la ubicación al combobox
+	 * 
+	 * @param lista
+	 */
 	public void cargarCombo(ArrayList<SedesDTO> lista) {
 		comboIdUbicacion.removeAllItems();
 		comboIdUbicacion.addItem("Seleccione");
