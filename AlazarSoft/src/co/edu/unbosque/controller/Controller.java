@@ -197,7 +197,6 @@ public class Controller implements ActionListener {
 									.getText(),
 							vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
 									.getSelectedItem().toString());
-					System.out.println(Arrays.deepToString(data));
 					vista.getPanelConsultasReportes().getPanelExportarInformacion()
 							.cargarReporteTabla(casaApuestas.obtenerTitulosReportes(opcionReporte), data);
 				} catch (ParseException e1) {
@@ -470,7 +469,7 @@ public class Controller implements ActionListener {
 	public void gestionarSedes() {
 		String[] entradas = vista.getPanelSede().getPanelSedeCrear().verificarEntradasIngresoSedes();
 		if (entradas[0].equals("0")) {
-			if (casaApuestas.getSede().getSedesDao().getDataSedes().size() <= casaApuestas.getNumeroSedes()) {
+			if (casaApuestas.getSede().getSedesDao().getDataSedes().size() < casaApuestas.getNumeroSedes()) {
 				SedesDTO sede = new SedesDTO(this.casaApuestas.getSede().generarIdSede(), entradas[1],
 						Integer.parseInt(entradas[2]));
 				this.casaApuestas.getSede().getSedesDao().crearSede(sede);
@@ -490,6 +489,8 @@ public class Controller implements ActionListener {
 						.llenarComboSedes(casaApuestas.getSede().obtenerSedes());
 				vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
 						.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
+				vista.getPanelApostadores().getPanelCrearApostador()
+						.cargarComboBox(casaApuestas.getSede().getSedesDao().leerSede());
 			} else {
 				vista.mostrarMensajeError("Ha excedido el número de sedes configurado");
 			}

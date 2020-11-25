@@ -2,6 +2,8 @@ package co.edu.unbosque.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+
 import co.edu.unbosque.model.persistence.ArchivoConfiguracionCasaApuestas;
 import co.edu.unbosque.model.persistence.ArchivoExcel;
 import co.edu.unbosque.model.persistence.ArchivoPDF;
@@ -68,7 +70,7 @@ public class CasaDeApuestas {
 				+ apuestas.getSuperastroDAO().getListaSuperastro().size()
 				+ apuestas.getMarcadoresDAO().getListaMarcadores().size()][6];
 		SimpleDateFormat dateUno = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
-		
+
 		int cont = 0;
 		for (int i = 0; i < apuestas.getBalotoDAO().getListaBaloto().size(); i++) {
 			if (tipoFiltro.equals("día, mes y año")) {
@@ -195,7 +197,7 @@ public class CasaDeApuestas {
 						.getMonth() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha().getMonth())
 						&& dateUno.parse(fecha).getYear() == (apuestas.getMarcadoresDAO().getListaMarcadores().get(i)
 								.getFecha().getYear())) {
-					matrizMadre[i][0] = dateUno
+					matrizMadre[cont][0] = dateUno
 							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha());
 					matrizMadre[cont][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getNombreSede();
 					matrizMadre[cont][2] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getCedula();
@@ -207,7 +209,8 @@ public class CasaDeApuestas {
 					cont++;
 				}
 			} else if (tipoFiltro.equals("año")) {
-				if (dateUno.parse(fecha).equals(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha())) {
+				if (dateUno.parse(fecha).getYear() == apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha()
+						.getYear()) {
 					matrizMadre[cont][0] = dateUno
 							.format(apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getFecha());
 					matrizMadre[cont][1] = apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getNombreSede();
@@ -348,15 +351,62 @@ public class CasaDeApuestas {
 		return cont;
 	}
 
-	public String[][] obtenerCincoApostadoresGanadores() {
+	public String[][] obtenerCincoApostadoresGanadores(String numeroBaloto, String numeroSuperastro) {
 		String[][] salida = new String[5][3];
-		int[] ganador = new int[3];
+		int[] ganador = new int[this.numeroGanadorBaloto(numeroBaloto, numeroSuperastro)];
 		String[] arregloBaloto = new String[this.apuestas.getBalotoDAO().getListaBaloto().size()];
+		String[] arregloSedes = new String[this.sede.getSedesDao().getDataSedes().size()];
 
-		for (int i = 0; i < arregloBaloto.length; i++) {
-
+		for (int i = 0; i < this.sede.getSedesDao().getDataSedes().size(); i++) {
+			for (int j = 0; j < this.apuestas.getBalotoDAO().getListaBaloto().size(); j++) {
+				if (this.apuestas.getBalotoDAO().getListaBaloto().get(j).getNombreSede()
+						.equals(this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
+								+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion())) {
+					ganador[i] = (int) (ganador[i]
+							+ this.apuestas.getBalotoDAO().getListaBaloto().get(j).getValorApuesta());
+				}
+			}
+			for (int j = 0; j < this.apuestas.getSuperastroDAO().getListaSuperastro().size(); j++) {
+				if (this.apuestas.getSuperastroDAO().getListaSuperastro().get(j).getNombreSede()
+						.equals(this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
+								+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion())) {
+					ganador[i] = (int) (ganador[i]
+							+ this.apuestas.getSuperastroDAO().getListaSuperastro().get(j).getValorApuesta());
+				}
+			}
+			for (int j = 0; j < this.apuestas.getMarcadoresDAO().getListaMarcadores().size(); j++) {
+				if (this.apuestas.getMarcadoresDAO().getListaMarcadores().get(j).getNombreSede()
+						.equals(this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
+								+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion())) {
+					ganador[i] = (int) (ganador[i]
+							+ this.apuestas.getMarcadoresDAO().getListaMarcadores().get(j).getValorApuesta());
+				}
+			}
+			arregloSedes[i] = this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
+					+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion();
 		}
-		return salida;
+
+		for (int i = 0; i < ganador.length; i++) {
+			System.out.println(ganador[i]);
+			for (int j = 0; j < ganador.length; j++) {
+				if (ganador[i] > ganador[j]) {
+					String tempSede = arregloSedes[i];
+					arregloSedes[i] = arregloSedes[j];
+					arregloSedes[j] = tempSede;
+					int tempValor = ganador[i];
+					ganador[i] = ganador[j];
+					ganador[j] = tempValor;
+				}
+			}
+		}
+		for (int i = 0; i < ganador.length; i++) {
+			if (i < 5) {
+				salida[i][0] = String.valueOf(ganador[i]);
+				salida[i][1] = "";
+				salida[i][2] = arregloSedes[i];
+			}
+		}
+		return this.quitarCamposNull(salida);
 	}
 
 	public String[][] obtenerCincoSedesConMayorVenta() {
