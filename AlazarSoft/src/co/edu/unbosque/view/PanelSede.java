@@ -8,7 +8,8 @@ import javax.swing.JTabbedPane;
 
 public class PanelSede extends JTabbedPane {
 	/**
-	 * Asociacion clase PanelSedeCrear Asociacion clase PanelSedeModificar
+	 * Asociacion clase PanelSedeCrear 
+	 * Asociacion clase PanelSedeModificar
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
