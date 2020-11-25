@@ -46,7 +46,7 @@ public class View extends JFrame implements InterfazView {
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setVisible(true);
-
+		
 		panelCasaApuestas = new PanelCasaApuestas();
 		panelApostadores = new PanelApostadores();
 		panelSede = new PanelSede();
