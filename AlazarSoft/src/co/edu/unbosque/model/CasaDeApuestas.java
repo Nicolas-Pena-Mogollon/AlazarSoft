@@ -2,6 +2,8 @@ package co.edu.unbosque.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+
 import co.edu.unbosque.model.persistence.ArchivoConfiguracionCasaApuestas;
 import co.edu.unbosque.model.persistence.ArchivoExcel;
 import co.edu.unbosque.model.persistence.ArchivoPDF;
@@ -329,7 +331,7 @@ public class CasaDeApuestas {
 		}
 	}
 
-	public String[][] generarCincoClientesMayoresApuestas(String numeroBaloto, String numeroSuperastro) {
+	public String[][] generarCincoClientesMayoresApuestas() {
 		String[][] ganadores = new String[this.apostadores.getApostadorDao().getListaApostador().size() * 3][3];
 		int cont = 0;
 		for (int i = 0; i < this.apostadores.getApostadorDao().getListaApostador().size(); i++) {
@@ -375,8 +377,10 @@ public class CasaDeApuestas {
 			ganadores[pos][1] = "";
 			for (int j = 0; j < this.apuestas.getMarcadoresDAO().getListaMarcadores().size(); j++) {
 				if (this.apostadores.getApostadorDao().getListaApostador().get(i).getCedula()
-						.equals(this.apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getCedula())) {
-					cont++;
+						.equals(this.apuestas.getMarcadoresDAO().getListaMarcadores().get(j).getCedula())) {
+					if (this.apuestas.partidoGanador(this.sede.cargarPartido(), "Local")) {
+						cont++;
+					}
 				}
 			}
 			ganadores[pos][2] = String.valueOf(cont);
@@ -409,7 +413,7 @@ public class CasaDeApuestas {
 		String[][] temp = new String[1][3];
 		for (int i = 0; i < matrizSinNull.length; i++) {
 			for (int j = 0; j < matrizSinNull.length; j++) {
-				if (Integer.parseInt(matrizSinNull[i][2]) > Integer.parseInt(matrizSinNull[j][2])) {
+				if (Double.parseDouble(matrizSinNull[i][2]) > Double.parseDouble(matrizSinNull[j][2])) {
 					temp[0] = matrizSinNull[i];
 					matrizSinNull[i] = matrizSinNull[j];
 					matrizSinNull[j] = temp[0];
@@ -417,13 +421,15 @@ public class CasaDeApuestas {
 			}
 		}
 		String[][] matrizDeResultados = new String[5][3];
-		for (int i = 0; i < 5; i++) {
-			matrizDeResultados[i] = matrizSinNull[i];
+		for (int i = 0; i < matrizSinNull.length; i++) {
+			if (i < 5) {
+				matrizDeResultados[i] = matrizSinNull[i];
+			}
 		}
-		return matrizDeResultados;
+		return this.quitarCamposNull(matrizDeResultados);
 	}
 
-	public String[][] generarTresTiposApuestaMayoresGanadores(String numeroBaloto, String numeroSuperastro) {
+	public String[][] generarTresTiposApuestaMayoresGanadores() {
 
 		String[][] ganadores = new String[3][3];
 		int cont = 0;
@@ -433,7 +439,7 @@ public class CasaDeApuestas {
 				cont++;
 			}
 		}
-		
+
 		ganadores[0][0] = "Baloto";
 		ganadores[0][1] = "";
 		ganadores[0][2] = String.valueOf(cont);
@@ -449,7 +455,14 @@ public class CasaDeApuestas {
 		ganadores[1][1] = "";
 		ganadores[1][2] = String.valueOf(cont);
 
-		return new String[1][1];
+		cont = 0;
+		for (int i = 0; i < this.apuestas.getMarcadoresDAO().getListaMarcadores().size(); i++) {
+			if (this.apuestas.partidoGanador(this.sede.cargarPartido(), "Local")) {
+				cont++;
+			}
+		}
+
+		return ganadores;
 	}
 
 	public String[][] obtenerCincoSedesConMayorVenta() {
