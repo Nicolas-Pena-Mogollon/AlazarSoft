@@ -2,8 +2,6 @@ package co.edu.unbosque.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-
 import co.edu.unbosque.model.persistence.ArchivoConfiguracionCasaApuestas;
 import co.edu.unbosque.model.persistence.ArchivoExcel;
 import co.edu.unbosque.model.persistence.ArchivoPDF;
