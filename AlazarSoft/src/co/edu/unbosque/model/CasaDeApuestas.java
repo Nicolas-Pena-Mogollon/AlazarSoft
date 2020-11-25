@@ -449,7 +449,6 @@ public class CasaDeApuestas {
 					this.apuestas.getSuperastroDAO().getListaSuperastro().get(i).getNumeroJuego() + "-"
 							+ this.apuestas.getSuperastroDAO().getListaSuperastro().get(i).getSigno())) {
 				cont++;
-
 			}
 		}
 		ganadores[1][0] = "Super Astro";
