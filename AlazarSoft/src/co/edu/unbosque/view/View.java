@@ -47,6 +47,7 @@ public class View extends JFrame {
 		this.setSize(870, 300);
 		this.setTitle("Casa de apuestas");
 		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		this.setVisible(true);
 
 		panelCasaApuestas = new PanelCasaApuestas();
