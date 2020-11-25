@@ -490,6 +490,23 @@ public class Apuesta {
 		return numeroJuego;
 	}
 
+	public boolean partidoGanador(String[] partido, String resulado) {
+		boolean verificar = false;
+		String data = "";
+		for (int i = 0; i < partido.length; i++) {
+			data = partido[i] + "-" + resulado;
+		}
+		for (int i = 0; i < this.marcadoresDAO.getListaMarcadores().size(); i++) {
+			if (data.equals(this.marcadoresDAO.getListaMarcadores().get(i).getPartido() + "-"
+					+ this.marcadoresDAO.getListaMarcadores().get(i).getPartido())) {
+				verificar = true;
+			} else {
+				verificar = false;
+			}
+		}
+		return verificar;
+	}
+
 	public boolean ganadorApuestaBaloto(String numero) {
 		boolean verificar = false;
 		for (int i = 0; i < this.balotoDAO.getListaBaloto().size(); i++) {
