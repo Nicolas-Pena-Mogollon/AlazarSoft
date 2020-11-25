@@ -411,12 +411,13 @@ public class Controller implements ActionListener {
 								.getPanelApuestaSuperAstro().getCampoTextoTercerNumero().getText());
 						int cuartoNumero = Integer.parseInt(vista.getPanelApuestas().getPanelCrearApuesta()
 								.getPanelApuestaSuperAstro().getCampoTextoCuartoNumero().getText());
-						String numeroJuego = primerNumero + " - " + segundoNumero + " - " + tercerNumero + " - "
+						String numeroJuego = primerNumero + "-" + segundoNumero + "-" + tercerNumero + "-"
 								+ cuartoNumero;
 						String signo = vista.getPanelApuestas().getPanelCrearApuesta().getPanelApuestaSuperAstro()
 								.getSignoZodiacal().getSelectedItem().toString();
 						if (this.casaApuestas.getApuestas().verificarRangoNumerosSuperastro(primerNumero, segundoNumero,
 								tercerNumero, cuartoNumero)) {
+							
 							vista.mostrarMensajeError("El rango de los números debe estar entre 0 - 9");
 						} else {
 							if (valorApuesta < 0) {
