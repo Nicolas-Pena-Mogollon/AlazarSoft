@@ -20,8 +20,8 @@ import org.apache.poi.ss.usermodel.Font;
 
 public class ArchivoExcel extends ArchivoExportar {
 
-	private final String RUTA_REPORTEPDF_CLIENTES = "./Export/reporteClientesSede.xls";
-	private final String RUTA_REPORTEPDF_TOTAL_APUESTAS_CLIENTES = "./Export/reporteApuestasClientes.xls";
+	private final String RUTA_REPORTEEXCEL_CLIENTES = "./Export/reporteClientesSede.xls";
+	private final String RUTA_REPORTEEXCEL_TOTAL_APUESTAS_CLIENTES = "./Export/reporteApuestasClientes.xls";
 	private final String RUTA_REPORTE_DETALLES_APUESTAS_POR_CLIENTE = "./Export/reporteApuestasClienteSede.xls";
 	private final String RUTA_REPORTE_TOTAL_APUESTAS_POR_SEDE = "./Export/reporteTotalApuestasSedeJuego.xls";
 	private File file;
@@ -83,10 +83,10 @@ public class ArchivoExcel extends ArchivoExportar {
 	@Override
 	public String[] verificarTipoReporte(String tipoReporte) {
 		if (tipoReporte.equals("Listado de clientes por sede")) {
-			file = new File(RUTA_REPORTEPDF_CLIENTES);
+			file = new File(RUTA_REPORTEEXCEL_CLIENTES);
 			return titulosReportePDFClientes;
 		} else if (tipoReporte.equals("Valor total de apuestas por cliente")) {
-			file = new File(RUTA_REPORTEPDF_TOTAL_APUESTAS_CLIENTES);
+			file = new File(RUTA_REPORTEEXCEL_TOTAL_APUESTAS_CLIENTES);
 			return titulosValorTotalApuestasCliente;
 		} else if (tipoReporte.equals("Detalle de apuestas realizadas por cliente y sede")) {
 			file = new File(RUTA_REPORTE_DETALLES_APUESTAS_POR_CLIENTE);

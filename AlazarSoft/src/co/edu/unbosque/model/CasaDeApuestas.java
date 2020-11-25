@@ -38,7 +38,7 @@ public class CasaDeApuestas {
 		this.archivoPDF = new ArchivoPDF();
 		this.archivoExcel = new ArchivoExcel();
 		this.juego = new Juego();
-		this.planesPremiacion = new LecturaTxt(this);
+		this.planesPremiacion = new LecturaTxt();
 		this.leerConfiguracion();
 	}
 

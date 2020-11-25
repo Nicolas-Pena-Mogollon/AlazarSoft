@@ -16,8 +16,8 @@ public class LecturaTxt {
 	private final String rutaArchivo = "./Data/Planes_de_premiacion.txt";
 	private File fileTxt;
 
-	public LecturaTxt(File fileTxt) {
-		this.fileTxt = fileTxt;
+	public LecturaTxt() {
+		fileTxt = new File(rutaArchivo);
 	}
 
 	/**
@@ -32,7 +32,6 @@ public class LecturaTxt {
 		salida[1] = "";
 		salida[2] = "";
 		String linea = "";
-		fileTxt = new File(rutaArchivo);
 		try {
 			FileReader fr = new FileReader(fileTxt);
 			BufferedReader br = new BufferedReader(fr);
