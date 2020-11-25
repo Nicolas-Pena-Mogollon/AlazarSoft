@@ -18,7 +18,6 @@ public class Controller implements ActionListener {
 	private View vista;
 
 	public Controller() {
-
 		casaApuestas = new CasaDeApuestas();
 		vista = new View(this);
 		vista.getPanelApostadores().getPanelCrearApostador()
