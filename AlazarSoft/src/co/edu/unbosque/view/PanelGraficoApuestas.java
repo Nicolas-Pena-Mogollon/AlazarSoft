@@ -1,3 +1,6 @@
+/**
+ * Paquete vista
+ */
 package co.edu.unbosque.view;
 
 import java.awt.BorderLayout;
@@ -70,6 +73,7 @@ public class PanelGraficoApuestas extends JPanel {
 	 * @return the cOMMAND_GRAFICA_APUESTAS
 	 */
 	public String getCOMMAND_GRAFICA_APUESTAS() {
+		
 		return COMMAND_GRAFICA_APUESTAS;
 	}
 
