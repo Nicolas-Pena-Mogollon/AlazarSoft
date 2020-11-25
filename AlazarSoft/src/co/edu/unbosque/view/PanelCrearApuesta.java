@@ -274,18 +274,6 @@ public class PanelCrearApuesta extends JPanel {
 
 	public String facturaSuperastro(String fecha, String sede, String cedula, double valor, String numeroJuego,
 			String signo) {
-
-		/**
-		 * * Crea el mensaje que mostrara los parametros usados en modo de recibo
-		 * 
-		 * @param fecha
-		 * @param sede
-		 * @param cedula
-		 * @param valor
-		 * @param numeroJuego
-		 * @param signo
-		 * @return
-		 */
 		String factura = "";
 		factura += "Fecha: " + fecha + "\n" + "Sede: " + sede + "\n" + "Cédula: " + cedula + "\n" + "Valor: " + valor
 				+ "\n" + "NumeroJuego: " + numeroJuego + "\n" + "Signo: " + signo + "\n";
