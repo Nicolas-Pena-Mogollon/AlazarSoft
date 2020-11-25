@@ -17,7 +17,7 @@ public class LecturaTxt {
 	private File fileTxt;
 
 	public LecturaTxt(File fileTxt) {
-		fileTxt = new File("./Data/Planes_de_premiacion.txt");
+		this.fileTxt = fileTxt;
 	}
 
 	/**
