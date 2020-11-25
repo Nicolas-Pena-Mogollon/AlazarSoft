@@ -63,17 +63,11 @@ public class SedesDAO {
 	 * @param empleados,   es el número de empleados a editar; empleados != null.
 	 * @return retorna un mensaje indicando la correcta modificación.
 	 */
-	public String actualizarSede(int IdUbicacion, String ubicacion, int empleados) {
+	public String actualizarSede(int IdUbicacion, int empleados) {
 		for (int i = 0; i < dataSedes.size(); i++) {
 			if (IdUbicacion == dataSedes.get(i).getIdUbicacion()) {
-				if (!ubicacion.equals("")) {
-					dataSedes.get(i).setUbicacion(ubicacion);
-					;
-				}
-				if (empleados != -8) {
+				if (empleados <= 0) {
 					dataSedes.get(i).setEmpleados(empleados);
-					;
-
 				}
 			}
 		}

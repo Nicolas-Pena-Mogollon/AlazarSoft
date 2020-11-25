@@ -58,7 +58,7 @@ public class SedesTest {
 
 	@Test
 	public void testActualizarSede() {
-		assertNotEquals("La sede debio actualizarse", sede.getSedesDao().actualizarSede(2, "Teusaquillo", 54), sede1);
+		assertNotEquals("La sede debio actualizarse", sede.getSedesDao().actualizarSede(2, 54), sede1);
 	}
 
 	@After

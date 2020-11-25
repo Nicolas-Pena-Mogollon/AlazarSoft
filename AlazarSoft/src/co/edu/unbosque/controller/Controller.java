@@ -501,8 +501,9 @@ public class Controller implements ActionListener {
 	public void gestionarSedesActualizar() {
 		String[] entradas = vista.getPanelSede().getPanelSedeModificar().verificarEntradasActualizarSedes();
 		if (entradas[0].equals("0")) {
-			this.casaApuestas.getSede().getSedesDao().actualizarSede(Integer.parseInt(entradas[3]), entradas[1],
-					Integer.parseInt(entradas[2]));
+			String[] ubicacionConNombre = entradas[2].split("-");
+			this.casaApuestas.getSede().getSedesDao().actualizarSede(Integer.parseInt(ubicacionConNombre[0]),
+					Integer.parseInt(entradas[1]));
 			vista.mostrarMensajeInformacion("Se ha editado correctamente");
 			vista.getPanelSede().getPanelSedeModificar().borrarCampos();
 			vista.getPanelSede().getPanelSedeModificar()

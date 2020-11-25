@@ -18,10 +18,8 @@ public class PanelSedeModificar extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final String COMMAND_ACTUALIZAR_SEDE = "ACTUALIZAR_INFO_SEDES";
-	private JLabel etiquetaUbicacion;
 	private JLabel etiquetaId;
 	private JLabel etiquetaEmpleado;
-	private JTextField campoTextoUbicacion;
 	private JTextField campoTextoEmpleado;
 	private JComboBox<String> comboIdUbicacion;
 	private JScrollPane scrollId;
@@ -32,23 +30,17 @@ public class PanelSedeModificar extends JPanel {
 		setBorder(new TitledBorder("Actualizar información de la sede"));
 		setLayout(new BorderLayout());
 		panelSedeModificar = new JPanel();
-		panelSedeModificar.setLayout(new GridLayout(3, 2));
+		panelSedeModificar.setLayout(new GridLayout(2, 2));
 
 		etiquetaId = new JLabel("Seleccione el id de la ubicación: ");
-		etiquetaUbicacion = new JLabel("Ubicación de la sede: ");
 		etiquetaEmpleado = new JLabel("Número de empleados: ");
 
 		comboIdUbicacion = new JComboBox<String>();
 		scrollId = new JScrollPane(comboIdUbicacion);
-
-		campoTextoUbicacion = new JTextField();
 		campoTextoEmpleado = new JTextField();
 
 		panelSedeModificar.add(etiquetaId);
 		panelSedeModificar.add(scrollId);
-
-		panelSedeModificar.add(etiquetaUbicacion);
-		panelSedeModificar.add(campoTextoUbicacion);
 
 		panelSedeModificar.add(etiquetaEmpleado);
 		panelSedeModificar.add(campoTextoEmpleado);
@@ -62,7 +54,6 @@ public class PanelSedeModificar extends JPanel {
 	}
 
 	public void borrarCampos() {
-		campoTextoUbicacion.setText("");
 		campoTextoEmpleado.setText("");
 		comboIdUbicacion.setSelectedIndex(0);
 	}
@@ -75,105 +66,82 @@ public class PanelSedeModificar extends JPanel {
 	}
 
 	public String[] verificarEntradasActualizarSedes() {
-		String[] salida = new String[4];
+		String[] salida = new String[3];
 		salida[0] = "0";
-		if ((!campoTextoUbicacion.getText().equals("") && !campoTextoEmpleado.getText().equals("")
-				&& !comboIdUbicacion.getSelectedItem().equals("Seleccione"))) {
-			salida[1] = campoTextoUbicacion.getText();
-			salida[2] = campoTextoEmpleado.getText();
-			salida[3] = String.valueOf(comboIdUbicacion.getSelectedItem());
+		if ((!campoTextoEmpleado.getText().equals("") && !comboIdUbicacion.getSelectedItem().equals("Seleccione"))) {
+			try {
+				if (Integer.parseInt(campoTextoEmpleado.getText()) <= 0) {
+					salida[0] = "1";
+					salida[1] = "El número de empleados debe ser mayor de cero";
+				} else {
+					salida[1] = campoTextoEmpleado.getText();
+					salida[2] = String.valueOf(comboIdUbicacion.getSelectedItem());
+				}
+
+			} catch (NumberFormatException e) {
+				salida[0] = "1";
+				salida[1] = "Valor ingresado incorrecto";
+			}
 		} else {
 			salida[0] = "1";
 			salida[1] = "Los campos deben ser completados";
 		}
 		return salida;
 	}
-	
+
 	public void cargarCombo(ArrayList<SedesDTO> lista) {
 		comboIdUbicacion.removeAllItems();
 		comboIdUbicacion.addItem("Seleccione");
 		for (int i = 0; i < lista.size(); i++) {
-			comboIdUbicacion.addItem("" + lista.get(i).getIdUbicacion());
+			comboIdUbicacion.addItem(lista.get(i).getIdUbicacion() + "-" + lista.get(i).getUbicacion());
 		}
 	}
-	
 
-	public JLabel getEtiquetaUbicacion() {
-		return etiquetaUbicacion;
-	}
-
-	public void setEtiquetaUbicacion(JLabel etiquetaUbicacion) {
-		this.etiquetaUbicacion = etiquetaUbicacion;
-	}
-
-	public JLabel getEtiquetaId() {
-		return etiquetaId;
-	}
-
-	public void setEtiquetaId(JLabel etiquetaId) {
-		this.etiquetaId = etiquetaId;
-	}
-
-	public JLabel getEtiquetaEmpleado() {
-		return etiquetaEmpleado;
-	}
-
-	public void setEtiquetaEmpleado(JLabel etiquetaEmpleado) {
-		this.etiquetaEmpleado = etiquetaEmpleado;
-	}
-
-	public JTextField getCampoTextoUbicacion() {
-		return campoTextoUbicacion;
-	}
-
-	public void setCampoTextoUbicacion(JTextField campoTextoUbicacion) {
-		this.campoTextoUbicacion = campoTextoUbicacion;
-	}
-
+	/**
+	 * @return the campoTextoEmpleado
+	 */
 	public JTextField getCampoTextoEmpleado() {
 		return campoTextoEmpleado;
 	}
 
+	/**
+	 * @param campoTextoEmpleado the campoTextoEmpleado to set
+	 */
 	public void setCampoTextoEmpleado(JTextField campoTextoEmpleado) {
 		this.campoTextoEmpleado = campoTextoEmpleado;
 	}
 
+	/**
+	 * @return the comboIdUbicacion
+	 */
 	public JComboBox<String> getComboIdUbicacion() {
 		return comboIdUbicacion;
 	}
 
+	/**
+	 * @param comboIdUbicacion the comboIdUbicacion to set
+	 */
 	public void setComboIdUbicacion(JComboBox<String> comboIdUbicacion) {
 		this.comboIdUbicacion = comboIdUbicacion;
 	}
 
-	public JScrollPane getScrollId() {
-		return scrollId;
-	}
-
-	public void setScrollId(JScrollPane scrollId) {
-		this.scrollId = scrollId;
-	}
-
+	/**
+	 * @return the botonActualizar
+	 */
 	public JButton getBotonActualizar() {
 		return botonActualizar;
 	}
 
+	/**
+	 * @param botonActualizar the botonActualizar to set
+	 */
 	public void setBotonActualizar(JButton botonActualizar) {
 		this.botonActualizar = botonActualizar;
 	}
 
-	public JPanel getPanelSedeModificar() {
-		return panelSedeModificar;
-	}
-
-	public void setPanelSedeModificar(JPanel panelSedeModificar) {
-		this.panelSedeModificar = panelSedeModificar;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
+	/**
+	 * @return the cOMMAND_ACTUALIZAR_SEDE
+	 */
 	public String getCOMMAND_ACTUALIZAR_SEDE() {
 		return COMMAND_ACTUALIZAR_SEDE;
 	}
