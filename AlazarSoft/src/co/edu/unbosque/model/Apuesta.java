@@ -498,6 +498,47 @@ public class Apuesta {
 		return numeroJuego;
 	}
 
+	public boolean ganadorApuestaBaloto(String numero) {
+		boolean verificar = false;
+		for (int i = 0; i < this.balotoDAO.getListaBaloto().size(); i++) {
+			String[] parts = this.balotoDAO.getListaBaloto().get(i).getNumeroJuego().split("-");
+			String[] parts2 = numero.split("-");
+			System.out.println(Arrays.toString(parts));
+			System.out.println(Arrays.toString(parts2));
+
+			if (parts[0].equals(parts2[0]) || parts[1].equals(parts2[1]) || parts[2].equals(parts2[2])
+					|| parts[3].equals(parts2[3]) || parts[4].equals(parts2[4]) || parts[5].equals(parts2[5])) {
+				verificar = true;
+			}
+		}
+		return verificar;
+	}
+
+	public boolean ganadorApuestaSuperastro(String numero) {
+		boolean verificar = false;
+		for (int i = 0; i < this.superastroDAO.getListaSuperastro().size(); i++) {
+			String apuesta = this.superastroDAO.getListaSuperastro().get(i).getNumeroJuego() + "-"
+					+ this.superastroDAO.getListaSuperastro().get(i).getSigno();
+			String[] parts = apuesta.split("-");
+			String[] parts2 = numero.split("-");
+			System.out.println(Arrays.toString(parts));
+			System.out.println(Arrays.toString(parts2));
+
+			if ((parts[0].equals(parts2[0]) && parts[4].equals(parts2[4]))
+					|| (parts[1].equals(parts2[1]) && parts[4].equals(parts2[4]))
+					|| (parts[2].equals(parts2[2]) && parts[4].equals(parts2[4]))
+					|| (parts[3].equals(parts2[3]) && parts[4].equals(parts2[4]))) {
+				verificar = true;
+			}
+		}
+		return verificar;
+	}
+
+	public boolean ganadorApuestaMarcador() {
+		boolean verificar = false;
+		return false;
+	}
+
 	/**
 	 * @return the balotoDAO
 	 */
