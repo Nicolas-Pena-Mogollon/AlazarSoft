@@ -189,19 +189,25 @@ public class Controller implements ActionListener {
 					vista.getPanelConsultasReportes().getPanelExportarInformacion().getCOMMAND_MOSTRARTABLA())) {
 				String opcionReporte = vista.getPanelConsultasReportes().getPanelExportarInformacion()
 						.getComboOpcionExportar().getSelectedItem().toString();
-				try {
-					String[][] data = casaApuestas.generarInformacionReportesPantalla(
-							vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar()
-									.getSelectedItem().toString(),
-							vista.getPanelConsultasReportes().getPanelExportarInformacion().getCampoTextoFecha()
-									.getText(),
-							vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
-									.getSelectedItem().toString());
-					vista.getPanelConsultasReportes().getPanelExportarInformacion()
-							.cargarReporteTabla(casaApuestas.obtenerTitulosReportes(opcionReporte), data);
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					vista.mostrarMensajeError("No se pudo acceder a la información" + "\n" + e1);
+				if (!opcionReporte.equals("Seleccione")
+						&& !vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
+								.getSelectedItem().toString().equals("Seleccione")) {
+					try {
+						String[][] data = casaApuestas.generarInformacionReportesPantalla(
+								vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboOpcionExportar()
+										.getSelectedItem().toString(),
+								vista.getPanelConsultasReportes().getPanelExportarInformacion().getCampoTextoFecha()
+										.getText(),
+								vista.getPanelConsultasReportes().getPanelExportarInformacion().getComboFiltroFecha()
+										.getSelectedItem().toString());
+						vista.getPanelConsultasReportes().getPanelExportarInformacion()
+								.cargarReporteTabla(casaApuestas.obtenerTitulosReportes(opcionReporte), data);
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						vista.mostrarMensajeError("No se pudo acceder a la información" + "\n" + e1);
+					}
+				} else {
+					vista.mostrarMensajeError("Complete los campos");
 				}
 			} else if (e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficaClientes()
 					.getCOMMAND_GRAFICA_CLIENTES_MAYORES_APUESTAS())) {
@@ -212,7 +218,8 @@ public class Controller implements ActionListener {
 				} else {
 					vista.mostrarMensajeError("No hay información para mostrar");
 				}
-			}else if (e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficoApuestas().getCOMMAND_GRAFICA_APUESTAS())) {
+			} else if (e.getActionCommand().equals(
+					vista.getPanelConsultasReportes().getPanelGraficoApuestas().getCOMMAND_GRAFICA_APUESTAS())) {
 				String[][] data = casaApuestas.generarTresTiposApuestaMayoresGanadores();
 				if (data[0][0] != null) {
 					vista.getPanelConsultasReportes().getPanelGraficoApuestas().recibirInfomacion(data);
@@ -418,7 +425,7 @@ public class Controller implements ActionListener {
 								.getSignoZodiacal().getSelectedItem().toString();
 						if (this.casaApuestas.getApuestas().verificarRangoNumerosSuperastro(primerNumero, segundoNumero,
 								tercerNumero, cuartoNumero)) {
-							
+
 							vista.mostrarMensajeError("El rango de los números debe estar entre 0 - 9");
 						} else {
 							if (valorApuesta < 0) {
