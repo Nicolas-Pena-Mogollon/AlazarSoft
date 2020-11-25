@@ -347,15 +347,62 @@ public class CasaDeApuestas {
 		return cont;
 	}
 
-	public String[][] obtenerCincoApostadoresGanadores() {
+	public String[][] obtenerCincoApostadoresGanadores(String numeroBaloto, String numeroSuperastro) {
 		String[][] salida = new String[5][3];
-		int[] ganador = new int[3];
+		int[] ganador = new int[this.numeroGanadorBaloto(numeroBaloto, numeroSuperastro)];
 		String[] arregloBaloto = new String[this.apuestas.getBalotoDAO().getListaBaloto().size()];
+		String[] arregloSedes = new String[this.sede.getSedesDao().getDataSedes().size()];
 
-		for (int i = 0; i < arregloBaloto.length; i++) {
-
+		for (int i = 0; i < this.sede.getSedesDao().getDataSedes().size(); i++) {
+			for (int j = 0; j < this.apuestas.getBalotoDAO().getListaBaloto().size(); j++) {
+				if (this.apuestas.getBalotoDAO().getListaBaloto().get(j).getNombreSede()
+						.equals(this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
+								+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion())) {
+					ganador[i] = (int) (ganador[i]
+							+ this.apuestas.getBalotoDAO().getListaBaloto().get(j).getValorApuesta());
+				}
+			}
+			for (int j = 0; j < this.apuestas.getSuperastroDAO().getListaSuperastro().size(); j++) {
+				if (this.apuestas.getSuperastroDAO().getListaSuperastro().get(j).getNombreSede()
+						.equals(this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
+								+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion())) {
+					ganador[i] = (int) (ganador[i]
+							+ this.apuestas.getSuperastroDAO().getListaSuperastro().get(j).getValorApuesta());
+				}
+			}
+			for (int j = 0; j < this.apuestas.getMarcadoresDAO().getListaMarcadores().size(); j++) {
+				if (this.apuestas.getMarcadoresDAO().getListaMarcadores().get(j).getNombreSede()
+						.equals(this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
+								+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion())) {
+					ganador[i] = (int) (ganador[i]
+							+ this.apuestas.getMarcadoresDAO().getListaMarcadores().get(j).getValorApuesta());
+				}
+			}
+			arregloSedes[i] = this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
+					+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion();
 		}
-		return salida;
+
+		for (int i = 0; i < ganador.length; i++) {
+			System.out.println(ganador[i]);
+			for (int j = 0; j < ganador.length; j++) {
+				if (ganador[i] > ganador[j]) {
+					String tempSede = arregloSedes[i];
+					arregloSedes[i] = arregloSedes[j];
+					arregloSedes[j] = tempSede;
+					int tempValor = ganador[i];
+					ganador[i] = ganador[j];
+					ganador[j] = tempValor;
+				}
+			}
+		}
+		for (int i = 0; i < ganador.length; i++) {
+			if (i < 5) {
+				salida[i][0] = String.valueOf(ganador[i]);
+				salida[i][1] = "";
+				salida[i][2] = arregloSedes[i];
+			}
+		}
+		return this.quitarCamposNull(salida);
 	}
 
 	public String[][] obtenerCincoSedesConMayorVenta() {
