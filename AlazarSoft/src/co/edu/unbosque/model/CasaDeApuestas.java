@@ -433,6 +433,7 @@ public class CasaDeApuestas {
 				cont++;
 			}
 		}
+		
 		ganadores[0][0] = "Baloto";
 		ganadores[0][1] = "";
 		ganadores[0][2] = String.valueOf(cont);
