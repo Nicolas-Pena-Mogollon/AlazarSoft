@@ -177,7 +177,7 @@ public class Controller implements ActionListener {
 			} else if (e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficoVentasSedes()
 					.getCOMMAND_GRAFICA_SEDES_MAYORES_VENTAS())) {
 				String[][] data = casaApuestas.obtenerCincoSedesConMayorVenta();
-				if (data[0][0] != null) {
+				if (data.length != 0) {
 					vista.getPanelConsultasReportes().getPanelGraficoVentasSedes().recibirInfomacion(data);
 				} else {
 					vista.mostrarMensajeError("No hay información para mostrar");

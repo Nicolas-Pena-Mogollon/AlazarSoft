@@ -62,7 +62,7 @@ public class Apostador {
 	/**
 	 * Este método se encarga de verificar correctamente el formato del celular a
 	 * registrar. <b>pre</b>Que exista el número telefónico a verificar<br>
-	 * <b>post</b>Atrapa la exepción correspondiente<br>
+	 * <b>post</b>Atrapa la excepción correspondiente<br>
 	 * 
 	 * @param celular, es el celular a verificar; celular != null.
 	 * @throws CelularException Excepción celular.

@@ -78,6 +78,15 @@ public class Apuesta {
 		return salida;
 	}
 
+	/**
+	 * Cuenta la cantidad de registros para una misma sede y tipo de apuesta.
+	 * <b>pre</b> que hayan apuestas registradas </br>
+	 * 
+	 * @param tipoApuesta
+	 * @param sede
+	 * @return cont Retorna la cantidad de apuestas para una misma sede y tipo de
+	 *         apuesta
+	 */
 	private int contarDatosTipoApuestaYSede(String tipoApuesta, String sede) {
 		int cont = 0;
 		if (tipoApuesta.equals("Super Astro")) {
@@ -97,6 +106,16 @@ public class Apuesta {
 		}
 		return cont;
 	}
+
+	/**
+	 * Genera un arreglo bidimensional con las apuestas realizadas de un mismo tipo
+	 * y una misma sede
+	 * 
+	 * @param tipoApuesta
+	 * @param sede
+	 * @return salida Retorna el arreglo bidimensional con los tipos de datos que
+	 *         solicita
+	 */
 
 	public String[][] generarTablaApuestas(String tipoApuesta, String sede) {
 		String[][] salida = new String[this.contarDatosTipoApuestaYSede(tipoApuesta, sede)][4];
@@ -275,6 +294,11 @@ public class Apuesta {
 		}
 		return numeros;
 	}
+	
+	/**
+	 * 
+	 * @return salida
+	 */
 
 	@SuppressWarnings("deprecation")
 	public String[][] obtenerInformacionHistoricoVentas() {
@@ -345,7 +369,6 @@ public class Apuesta {
 				}
 			}
 		}
-		System.out.println(Arrays.deepToString(salida));
 
 		return salida;
 	}
