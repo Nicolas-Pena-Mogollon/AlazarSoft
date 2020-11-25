@@ -7,6 +7,10 @@ import javax.swing.JSplitPane;
 
 import co.edu.unbosque.controller.Controller;
 
+/**
+ * Clase View
+ */
+
 public class View extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -18,6 +22,12 @@ public class View extends JFrame {
 	private PanelPremiacion panelPremiacion;
 	private PanelConsultasReportes panelConsultasReportes;
 	private JSplitPane splitPane;
+
+	/**
+	 * Constructor con inicialización de atributos
+	 * 
+	 * @param control
+	 */
 
 	public View(Controller control) {
 
@@ -46,6 +56,11 @@ public class View extends JFrame {
 		repaint();
 		revalidate();
 	}
+
+	/**
+	 * 
+	 * @param control
+	 */
 
 	public void asignarOyentes(Controller control) {
 		panelMenuCasaApuestas.getBotonConfiguracionCasaApuestas().addActionListener(control);
@@ -79,9 +94,21 @@ public class View extends JFrame {
 		panelConsultasReportes.getPanelExportarInformacion().getBotonMostrarInfo().addActionListener(control);
 	}
 
+	/**
+	 * Envia un mensaje de error por medio de un JOptionPane
+	 * 
+	 * @param message
+	 */
+
 	public void mostrarMensajeError(String message) {
 		JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
 	}
+
+	/**
+	 * Envia un mensaje de advertencia por medio de un JOptionPane
+	 * 
+	 * @return
+	 */
 
 	public boolean mostrarMensajeAdvertencia() {
 		int entrada = JOptionPane.showConfirmDialog(null, "", "Advertencia", JOptionPane.YES_NO_OPTION,
@@ -92,6 +119,12 @@ public class View extends JFrame {
 			return false;
 		}
 	}
+
+	/**
+	 * Envia un mensaje de información por medio de un JOptionPane
+	 * 
+	 * @param message
+	 */
 
 	public void mostrarMensajeInformacion(String message) {
 		JOptionPane.showMessageDialog(null, message, "Información", JOptionPane.INFORMATION_MESSAGE);

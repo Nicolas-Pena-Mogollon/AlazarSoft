@@ -10,8 +10,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-public class PanelSedeCrear extends JPanel {
+/**
+ * Clase PanelSedeCrear
+ */
 
+public class PanelSedeCrear extends JPanel {
+	
 	private static final long serialVersionUID = 1L;
 	private final String COMMAND_GUARDAR = "GUARDAR_DATOS_SEDE";
 	private JLabel etiquetaNombreSede;
@@ -20,6 +24,10 @@ public class PanelSedeCrear extends JPanel {
 	private JTextField campoTextoNumeroEmpleado;
 	private JButton botonSede;
 	private JPanel panelSede;
+
+	/**
+	 * Constructor con inicialización de atributos
+	 */
 
 	public PanelSedeCrear() {
 
@@ -70,6 +78,13 @@ public class PanelSedeCrear extends JPanel {
 
 	}
 
+	/**
+	 * Verifica que los campos de texto y el combobox tengan valores y almacena los
+	 * datos en un array unidimensional para luego retornarlos
+	 * 
+	 * @return
+	 */
+
 	public String[] verificarEntradasIngresoSedes() {
 		String[] salida = new String[4];
 		salida[0] = "0";
@@ -95,6 +110,10 @@ public class PanelSedeCrear extends JPanel {
 		}
 		return salida;
 	}
+
+	/**
+	 * Asigna valores vacios a los JTextField
+	 */
 
 	public void borrarCamposTxt() {
 		comboNombreSede.setSelectedIndex(0);
