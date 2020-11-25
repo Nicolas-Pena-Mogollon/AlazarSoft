@@ -7,7 +7,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-
 import co.edu.unbosque.model.persistence.BalotoDAO;
 import co.edu.unbosque.model.persistence.MarcadoresDAO;
 import co.edu.unbosque.model.persistence.SuperastroDAO;
@@ -498,16 +497,16 @@ public class Apuesta {
 		return numeroJuego;
 	}
 
-	public boolean partidoGanador(String[] partido, String resulado) {
+	public boolean partidoGanador(String[] partido, String resultado) {
 		boolean verificar = false;
-		String data = "";
+		String data[] = new String[partido.length];
 		for (int i = 0; i < partido.length; i++) {
-			data = partido[i] + "-" + resulado;
+			data[i] = partido[i] + "-" + "Local";
 		}
-		for (int i = 0; i < this.marcadoresDAO.getListaMarcadores().size(); i++) {
-			if (data.equals(this.marcadoresDAO.getListaMarcadores().get(i).getPartido() + "-"
-					+ this.marcadoresDAO.getListaMarcadores().get(i).getResultado())) {
+		for (int i = 0; i < data.length; i++) {
+			if (data[i].equals(resultado)) {
 				verificar = true;
+				i = data.length;
 			} else {
 				verificar = false;
 			}
@@ -519,7 +518,6 @@ public class Apuesta {
 		boolean verificar = false;
 		String[] parts = this.numeroGanadorBaloto(this.numerosBaloto()).split("-");
 		String[] parts2 = numero.split("-");
-
 		if (parts[0].equals(parts2[0]) || parts[1].equals(parts2[1]) || parts[2].equals(parts2[2])
 				|| parts[3].equals(parts2[3]) || parts[4].equals(parts2[4]) || parts[5].equals(parts2[5])) {
 			verificar = true;
@@ -532,16 +530,11 @@ public class Apuesta {
 		String apuesta = this.numeroGanadorSuperastro(this.numerosZodiaco(), this.signo());
 		String[] parts = apuesta.split("-");
 		String[] parts2 = numero.split("-");
-
-		if ((parts[0].equals(parts2[0]) && parts[4].equals(parts2[4]))
-				|| (parts[1].equals(parts2[1]) && parts[4].equals(parts2[4]))
-				|| (parts[2].equals(parts2[2]) && parts[4].equals(parts2[4]))
-				|| (parts[3].equals(parts2[3]) && parts[4].equals(parts2[4]))) {
+		if ((parts[0].equals(parts2[0]) || parts[1].equals(parts2[1]) || parts[2].equals(parts2[2])
+				|| parts[3].equals(parts2[3])) && parts[4].equals(parts2[4])) {
 			verificar = true;
-
 		}
 		return verificar;
-		
 	}
 
 	/**

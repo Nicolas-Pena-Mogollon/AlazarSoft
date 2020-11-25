@@ -25,7 +25,7 @@ public class PanelApuestaFutbol extends JPanel {
 	 */
 
 	public PanelApuestaFutbol() {
-		setLayout(new GridLayout());
+		setLayout(new GridLayout(2,2));
 		setBorder(new TitledBorder("Apuesta Marcadores"));
 
 		etiquetaPartidos = new JLabel("Local Vs Visitante");
@@ -40,8 +40,8 @@ public class PanelApuestaFutbol extends JPanel {
 		comboOpcionResultado.addItem("Empate");
 
 		add(etiquetaPartidos);
-		add(etiquetaResultado);
 		add(scrollComboPartidos);
+		add(etiquetaResultado);
 		add(comboOpcionResultado);
 
 	}

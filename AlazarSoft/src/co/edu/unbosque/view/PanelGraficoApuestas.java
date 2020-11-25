@@ -33,7 +33,7 @@ public class PanelGraficoApuestas extends JPanel {
 		botonMostrarGraficoApuestas = new JButton("Mostrar gráfico");
 		botonMostrarGraficoApuestas.setActionCommand(COMMAND_GRAFICA_APUESTAS);
 		dataGraficoApuestas = new DefaultCategoryDataset();
-		graficoApuestas = ChartFactory.createBarChart("Top 3 de los tipos de apuesta con mayores ganadores", "Días",
+		graficoApuestas = ChartFactory.createBarChart("Top 3 de los tipos de apuesta con mayores ganadores", "",
 				"Ventas por día", dataGraficoApuestas, PlotOrientation.VERTICAL, true, true, false);
 		chartPanelGraficoApuestas = new ChartPanel(graficoApuestas);
 		add(chartPanelGraficoApuestas, BorderLayout.CENTER);
@@ -49,7 +49,7 @@ public class PanelGraficoApuestas extends JPanel {
 	
 	public void recibirInfomacion(String[][] informacion) {
 		for (int i = 0; i < informacion.length; i++)
-			dataGraficoApuestas.addValue(Double.parseDouble(informacion[i][0]), informacion[i][1], informacion[i][2]);
+			dataGraficoApuestas.addValue(Double.parseDouble(informacion[i][2]), informacion[i][1], informacion[i][0]);
 	}
 
 	/**

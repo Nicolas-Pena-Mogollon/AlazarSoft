@@ -2,8 +2,6 @@ package co.edu.unbosque.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-
 import co.edu.unbosque.model.persistence.ArchivoConfiguracionCasaApuestas;
 import co.edu.unbosque.model.persistence.ArchivoExcel;
 import co.edu.unbosque.model.persistence.ArchivoPDF;
@@ -49,7 +47,7 @@ public class CasaDeApuestas {
 	}
 
 	public void guardarConfiguracionCasaDeApuestas(String nombre, int numeroSedes, double presupuestoTotal) {
-		System.out.println(nombre + numeroSedes + presupuestoTotal);
+
 		if (!nombre.equals("")) {
 			this.nombreCasaApuestas = nombre;
 		}
@@ -378,7 +376,9 @@ public class CasaDeApuestas {
 			for (int j = 0; j < this.apuestas.getMarcadoresDAO().getListaMarcadores().size(); j++) {
 				if (this.apostadores.getApostadorDao().getListaApostador().get(i).getCedula()
 						.equals(this.apuestas.getMarcadoresDAO().getListaMarcadores().get(j).getCedula())) {
-					if (this.apuestas.partidoGanador(this.sede.cargarPartido(), "Local")) {
+					if (this.apuestas.partidoGanador(this.sede.cargarPartido(),
+							(this.apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getPartido() + "-"
+									+ this.apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getResultado()))) {
 						cont++;
 					}
 				}
@@ -386,17 +386,19 @@ public class CasaDeApuestas {
 			ganadores[pos][2] = String.valueOf(cont);
 			pos++;
 		}
+
 		String[][] matrizDeSumatoria = new String[ganadores.length][3];
 		cont = 0;
+
 		for (int i = 0; i < matrizDeSumatoria.length; i++) {
 			cont = 0;
 			double valor = 0;
 			if (!ganadores[i][0].equals("")) {
 				matrizDeSumatoria[i][0] = ganadores[i][0];
 				matrizDeSumatoria[i][1] = ganadores[i][1];
-				for (int j = i; j < matrizDeSumatoria.length; j++) {
+				for (int j = 0; j < matrizDeSumatoria.length; j++) {
 					if (ganadores[i][0].equals(ganadores[j][0])) {
-						valor += Double.parseDouble(ganadores[i][2]);
+						valor += Double.parseDouble(ganadores[j][2]);
 						if (cont == 0) {
 							matrizDeSumatoria[i][2] = String.valueOf(valor);
 							cont++;
@@ -409,6 +411,7 @@ public class CasaDeApuestas {
 				}
 			}
 		}
+
 		String[][] matrizSinNull = this.quitarCamposNull(matrizDeSumatoria);
 		String[][] temp = new String[1][3];
 		for (int i = 0; i < matrizSinNull.length; i++) {
@@ -457,10 +460,15 @@ public class CasaDeApuestas {
 
 		cont = 0;
 		for (int i = 0; i < this.apuestas.getMarcadoresDAO().getListaMarcadores().size(); i++) {
-			if (this.apuestas.partidoGanador(this.sede.cargarPartido(), "Local")) {
+			if (this.apuestas.partidoGanador(this.sede.cargarPartido(),
+					(this.apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getPartido() + "-"
+							+ this.apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getResultado()))) {
 				cont++;
 			}
 		}
+		ganadores[2][0] = "Fútbol";
+		ganadores[2][1] = "";
+		ganadores[2][2] = String.valueOf(cont);
 
 		return ganadores;
 	}

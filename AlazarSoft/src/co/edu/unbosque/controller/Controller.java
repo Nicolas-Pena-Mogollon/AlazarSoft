@@ -206,6 +206,7 @@ public class Controller implements ActionListener {
 			} else if (e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficaClientes()
 					.getCOMMAND_GRAFICA_CLIENTES_MAYORES_APUESTAS())) {
 				String[][] data = casaApuestas.generarCincoClientesMayoresApuestas();
+				System.out.println(Arrays.deepToString(data));
 				if (data[0][0] != null) {
 					vista.getPanelConsultasReportes().getPanelGraficaClientes().recibirInfomacion(data);
 				} else {
