@@ -13,7 +13,6 @@ import co.edu.unbosque.model.Sede;
 import co.edu.unbosque.model.persistence.SedesDTO;
 
 public class SedesTest {
-
 	Sede sede;
 	ArrayList<SedesDTO> sedesLista;
 	SedesDTO sede1;
@@ -28,7 +27,6 @@ public class SedesTest {
 	@Test
 	public void testGenerarId() {
 		assertNotNull("No pueden haber dos id iguales", sede.generarIdSede());
-
 	}
 
 	@Test
