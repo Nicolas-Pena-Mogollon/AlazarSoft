@@ -429,8 +429,8 @@ public class CasaDeApuestas {
 				if (this.apostadores.getApostadorDao().getListaApostador().get(i).getCedula()
 						.equals(this.apuestas.getMarcadoresDAO().getListaMarcadores().get(j).getCedula())) {
 					if (this.apuestas.partidoGanador(this.sede.cargarPartido(),
-							(this.apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getPartido() + "-"
-									+ this.apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getResultado()))) {
+							(this.apuestas.getMarcadoresDAO().getListaMarcadores().get(j).getPartido() + "-"
+									+ this.apuestas.getMarcadoresDAO().getListaMarcadores().get(j).getResultado()))) {
 						cont++;
 					}
 				}
