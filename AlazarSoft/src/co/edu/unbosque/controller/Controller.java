@@ -205,16 +205,19 @@ public class Controller implements ActionListener {
 				}
 			} else if (e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficaClientes()
 					.getCOMMAND_GRAFICA_CLIENTES_MAYORES_APUESTAS())) {
-				String baloto = this.casaApuestas.getApuestas()
-						.numeroGanadorBaloto(this.casaApuestas.getApuestas().numerosBaloto());
-				String superastro = this.casaApuestas.getApuestas().numeroGanadorSuperastro(
-						this.casaApuestas.getApuestas().numerosZodiaco(), this.casaApuestas.getApuestas().signo());
-//				String[][] data = casaApuestas.obtenerCincoApostadoresGanadores(baloto, superastro);
-//				if (data[0][0] != null) {
-//					vista.getPanelConsultasReportes().getPanelGraficaClientes().recibirInfomacion(data);
-//		} else {
-//					vista.mostrarMensajeError("No hay información para mostrar");
-//				}
+				String[][] data = casaApuestas.generarCincoClientesMayoresApuestas();
+				if (data[0][0] != null) {
+					vista.getPanelConsultasReportes().getPanelGraficaClientes().recibirInfomacion(data);
+				} else {
+					vista.mostrarMensajeError("No hay información para mostrar");
+				}
+			}else if (e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficoApuestas().getCOMMAND_GRAFICA_APUESTAS())) {
+				String[][] data = casaApuestas.generarTresTiposApuestaMayoresGanadores();
+				if (data[0][0] != null) {
+					vista.getPanelConsultasReportes().getPanelGraficoApuestas().recibirInfomacion(data);
+				} else {
+					vista.mostrarMensajeError("No hay información para mostrar");
+				}
 			}
 		} else {
 			vista.mostrarMensajeError("Debe registrar los datos de la casa de apuestas");

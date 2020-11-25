@@ -506,7 +506,7 @@ public class Apuesta {
 		}
 		for (int i = 0; i < this.marcadoresDAO.getListaMarcadores().size(); i++) {
 			if (data.equals(this.marcadoresDAO.getListaMarcadores().get(i).getPartido() + "-"
-					+ this.marcadoresDAO.getListaMarcadores().get(i).getPartido())) {
+					+ this.marcadoresDAO.getListaMarcadores().get(i).getResultado())) {
 				verificar = true;
 			} else {
 				verificar = false;
