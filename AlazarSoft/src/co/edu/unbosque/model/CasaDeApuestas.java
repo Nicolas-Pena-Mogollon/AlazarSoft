@@ -1,4 +1,4 @@
-	package co.edu.unbosque.model;
+package co.edu.unbosque.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,7 +47,7 @@ public class CasaDeApuestas {
 	}
 
 	public void guardarConfiguracionCasaDeApuestas(String nombre, int numeroSedes, double presupuestoTotal) {
-		System.out.println(nombre+numeroSedes+presupuestoTotal);
+		System.out.println(nombre + numeroSedes + presupuestoTotal);
 		if (!nombre.equals("")) {
 			this.nombreCasaApuestas = nombre;
 		}
@@ -63,8 +63,7 @@ public class CasaDeApuestas {
 	}
 
 	@SuppressWarnings("deprecation")
-	public String[][] generarDatosReportes(String tipoReporte, String fecha, String tipoFiltro)
-			throws ParseException {
+	public String[][] generarDatosReportes(String tipoReporte, String fecha, String tipoFiltro) throws ParseException {
 		String[][] matrizMadre = new String[apuestas.getBalotoDAO().getListaBaloto().size()
 				+ apuestas.getSuperastroDAO().getListaSuperastro().size()
 				+ apuestas.getMarcadoresDAO().getListaMarcadores().size()][6];
@@ -329,11 +328,15 @@ public class CasaDeApuestas {
 		}
 	}
 
-	public int numeroGanadorBaloto(String numero, String cedula) {
+	public int numeroGanadorBaloto(String numeroBaloto, String numeroSuperastro) {
 		int cont = 0;
 		for (int i = 0; i < this.apuestas.getBalotoDAO().getListaBaloto().size(); i++) {
-			if (numero.equals(this.apuestas.getBalotoDAO().getListaBaloto().get(i).getNumeroJuego())
-					&& cedula.equals(this.apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula())) {
+			if (numeroBaloto.equals(this.apuestas.getBalotoDAO().getListaBaloto().get(i).getNumeroJuego())) {
+				this.apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula();
+				cont++;
+			}
+			if (numeroSuperastro.equals(this.apuestas.getSuperastroDAO().getListaSuperastro().get(i).getNumeroJuego())) {
+				this.apuestas.getSuperastroDAO().getListaSuperastro().get(i).getCedula();
 				cont++;
 			}
 		}
@@ -417,15 +420,13 @@ public class CasaDeApuestas {
 	}
 
 	public String[][] generarInformacionReportesPantalla(String tipoReporte, String fecha, String tipoFiltro)
-			throws ParseException{
-		return this.apuestas
-				.quicksortRecursivo(this.generarDatosReportes(tipoReporte, fecha, tipoFiltro));
+			throws ParseException {
+		return this.apuestas.quicksortRecursivo(this.generarDatosReportes(tipoReporte, fecha, tipoFiltro));
 	}
 
 	public boolean exportar(String tipoReporte, String fecha, String tipoFiltro, String tipoArchivo)
 			throws ParseException {
-		String[][] datos = this.apuestas
-				.quicksortRecursivo(this.generarDatosReportes(tipoReporte, fecha, tipoFiltro));
+		String[][] datos = this.apuestas.quicksortRecursivo(this.generarDatosReportes(tipoReporte, fecha, tipoFiltro));
 		if (datos.length > 0) {
 			if (tipoArchivo.equals("PDF")) {
 				archivoPDF.exportar(datos, tipoReporte);
