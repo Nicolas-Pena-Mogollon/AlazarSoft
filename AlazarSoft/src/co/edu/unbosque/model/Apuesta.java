@@ -1,3 +1,6 @@
+/**
+ * Paquete modelo
+ */
 package co.edu.unbosque.model;
 
 import java.text.ParseException;
@@ -9,11 +12,18 @@ import co.edu.unbosque.model.persistence.BalotoDAO;
 import co.edu.unbosque.model.persistence.MarcadoresDAO;
 import co.edu.unbosque.model.persistence.SuperastroDAO;
 
+/**
+ * Clase Apuesta
+ */
 public class Apuesta {
 
 	private BalotoDAO balotoDAO;
 	private SuperastroDAO superastroDAO;
 	private MarcadoresDAO marcadoresDAO;
+
+	/**
+	 * Constructor vacio
+	 */
 
 	public Apuesta() {
 		balotoDAO = new BalotoDAO();
@@ -108,6 +118,19 @@ public class Apuesta {
 		return salida;
 	}
 
+	/**
+	 * Este método verifica que los número de juego de baloto se encuentren en un
+	 * rango de 1 - 45.
+	 * 
+	 * @param primerNumero,  es el primer número; primerNumero != null.
+	 * @param segundoNumero, es el segundo número; segundoNumero != null.
+	 * @param tercerNumero,  es el tercer número; tercerNumero != null.
+	 * @param cuartoNumero,  es el cuarto número; cuartoNumero!= null.
+	 * @param quintoNumero,  es el quinto número; quintoNumero != null.
+	 * @param sextoNumero,   es el sexto número; sextoNumero != null.
+	 * @return retorna true si algún número no se encuentra dentro del rango,
+	 *         retorna false si todos los números se encuentran dentro del rango.
+	 */
 	public boolean verificarRangoNumerosBaloto(int primerNumero, int segundoNumero, int tercerNumero, int cuartoNumero,
 			int quintoNumero, int sextoNumero) {
 		boolean verificar = false;
@@ -122,6 +145,19 @@ public class Apuesta {
 
 	}
 
+	/**
+	 * Este método se encarga de verificar que los números de juego de baloto no se
+	 * repitan.
+	 * 
+	 * @param primerNumero,  es el primer número; primerNumero != null.
+	 * @param segundoNumero, es el segundo número; segundoNumero != null.
+	 * @param tercerNumero,  es el tercer número; tercerNumero != null.
+	 * @param cuartoNumero,  es el cuarto número; cuartoNumero!= null.
+	 * @param quintoNumero,  es el quinto número; quintoNumero != null.
+	 * @param sextoNumero,   es el sexto número; sextoNumero != null.
+	 * @return retorna true si algún número se encuentra repetido, retorna false si
+	 *         ningún número está repetido.
+	 */
 	public boolean verificarNumerosIgualesBaloto(int primerNumero, int segundoNumero, int tercerNumero,
 			int cuartoNumero, int quintoNumero, int sextoNumero) {
 		boolean verificar = false;
@@ -138,6 +174,19 @@ public class Apuesta {
 		return verificar;
 	}
 
+	/**
+	 * Este método se encaga de verificar que los números de juego de Superastro se
+	 * encuentren en un rango de 0 -9.
+	 * 
+	 * @param primerNumero,  es el primer número; primerNumero != null.
+	 * @param segundoNumero, es el segundo número; segundoNumero != null.
+	 * @param tercerNumero,  es el tercer número; tercerNumero != null.
+	 * @param cuartoNumero,  es el cuarto número; cuartoNumero!= null.
+	 * @return retorna true si algún número no se encuentra dentro del rango
+	 *         indicado, retorna false si todos los números se encuentran dentro del
+	 *         rango indicado.
+	 */
+
 	public boolean verificarRangoNumerosSuperastro(int primerNumero, int segundoNumero, int tercerNumero,
 			int cuartoNumero) {
 		boolean verificar = false;
@@ -150,10 +199,26 @@ public class Apuesta {
 		return verificar;
 	}
 
+	/**
+	 * Método recursivo quicksort.
+	 * 
+	 * @param numeros, es la matriz de datos a organizar.
+	 * @return retorna la matriz ordenada por fecha.
+	 * @throws ParseException puede producir un error.
+	 */
 	public String[][] quicksortRecursivo(String[][] numeros) throws ParseException {
 		return quicksort2(numeros, 0, numeros.length - 1);
 	}
 
+	/**
+	 * Este método se encarga de organizar la matriz por fecha.
+	 * 
+	 * @param numeros, es la matriz a organizar. numeros != null.
+	 * @param izq,     es la primera posición a comparar.
+	 * @param der,     es la última posición a comparar dependiendo del pivote.
+	 * @return retorna la matriz ordenada por fecha.
+	 * @throws ParseException
+	 */
 	private String[][] quicksort2(String[][] numeros, int izq, int der) throws ParseException {
 		SimpleDateFormat simpleDate = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
 		if (izq >= der) {
