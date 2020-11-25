@@ -329,80 +329,126 @@ public class CasaDeApuestas {
 		}
 	}
 
-	public int numeroGanadorBaloto(String numeroBaloto, String numeroSuperastro) {
+	public String[][] generarCincoClientesMayoresApuestas(String numeroBaloto, String numeroSuperastro) {
+		String[][] ganadores = new String[this.apostadores.getApostadorDao().getListaApostador().size() * 3][3];
 		int cont = 0;
-		for (int i = 0; i < this.apuestas.getBalotoDAO().getListaBaloto().size(); i++) {
-			if (numeroBaloto.equals(this.apuestas.getBalotoDAO().getListaBaloto().get(i).getNumeroJuego())) {
-				this.apuestas.getBalotoDAO().getListaBaloto().get(i).getCedula();
-				cont++;
+		for (int i = 0; i < this.apostadores.getApostadorDao().getListaApostador().size(); i++) {
+			cont = 0;
+			ganadores[i][0] = this.apostadores.getApostadorDao().getListaApostador().get(i).getCedula();
+			ganadores[i][1] = "";
+			for (int j = 0; j < this.apuestas.getBalotoDAO().getListaBaloto().size(); j++) {
+				if (this.apostadores.getApostadorDao().getListaApostador().get(i).getCedula()
+						.equals(this.apuestas.getBalotoDAO().getListaBaloto().get(j).getCedula())) {
+					if (this.apuestas.ganadorApuestaBaloto(
+							this.apuestas.getBalotoDAO().getListaBaloto().get(j).getNumeroJuego())) {
+						cont++;
+					}
+				}
 			}
+			ganadores[i][2] = String.valueOf(cont);
+		}
 
+		int pos = this.apostadores.getApostadorDao().getListaApostador().size();
+		cont = 0;
+		for (int i = 0; i < this.apostadores.getApostadorDao().getListaApostador().size(); i++) {
+			cont = 0;
+			ganadores[pos][0] = this.apostadores.getApostadorDao().getListaApostador().get(i).getCedula();
+			ganadores[pos][1] = "";
+			for (int j = 0; j < this.apuestas.getSuperastroDAO().getListaSuperastro().size(); j++) {
+				if (this.apostadores.getApostadorDao().getListaApostador().get(i).getCedula()
+						.equals(this.apuestas.getSuperastroDAO().getListaSuperastro().get(j).getCedula())) {
+					if (this.apuestas.ganadorApuestaSuperastro(
+							this.apuestas.getSuperastroDAO().getListaSuperastro().get(j).getNumeroJuego() + "-"
+									+ this.apuestas.getSuperastroDAO().getListaSuperastro().get(j).getSigno())) {
+						cont++;
+					}
+				}
+			}
+			ganadores[pos][2] = String.valueOf(cont);
+			pos++;
 		}
-		for (int i = 0; i < this.apuestas.getSuperastroDAO().getListaSuperastro().size(); i++) {
-			if (numeroSuperastro
-					.equals(this.apuestas.getSuperastroDAO().getListaSuperastro().get(i).getNumeroJuego())) {
-				this.apuestas.getSuperastroDAO().getListaSuperastro().get(i).getCedula();
-				cont++;
+		pos = this.apostadores.getApostadorDao().getListaApostador().size() * 2;
+		cont = 0;
+		for (int i = 0; i < this.apostadores.getApostadorDao().getListaApostador().size(); i++) {
+			cont = 0;
+			ganadores[pos][0] = this.apostadores.getApostadorDao().getListaApostador().get(i).getCedula();
+			ganadores[pos][1] = "";
+			for (int j = 0; j < this.apuestas.getMarcadoresDAO().getListaMarcadores().size(); j++) {
+				if (this.apostadores.getApostadorDao().getListaApostador().get(i).getCedula()
+						.equals(this.apuestas.getMarcadoresDAO().getListaMarcadores().get(i).getCedula())) {
+					cont++;
+				}
+			}
+			ganadores[pos][2] = String.valueOf(cont);
+			pos++;
+		}
+		String[][] matrizDeSumatoria = new String[ganadores.length][3];
+		cont = 0;
+		for (int i = 0; i < matrizDeSumatoria.length; i++) {
+			cont = 0;
+			double valor = 0;
+			if (!ganadores[i][0].equals("")) {
+				matrizDeSumatoria[i][0] = ganadores[i][0];
+				matrizDeSumatoria[i][1] = ganadores[i][1];
+				for (int j = i; j < matrizDeSumatoria.length; j++) {
+					if (ganadores[i][0].equals(ganadores[j][0])) {
+						valor += Double.parseDouble(ganadores[i][2]);
+						if (cont == 0) {
+							matrizDeSumatoria[i][2] = String.valueOf(valor);
+							cont++;
+						} else {
+							ganadores[j][0] = "";
+							ganadores[j][1] = "";
+							matrizDeSumatoria[i][2] = String.valueOf(valor);
+						}
+					}
+				}
 			}
 		}
-		return cont;
+		String[][] matrizSinNull = this.quitarCamposNull(matrizDeSumatoria);
+		String[][] temp = new String[1][3];
+		for (int i = 0; i < matrizSinNull.length; i++) {
+			for (int j = 0; j < matrizSinNull.length; j++) {
+				if (Integer.parseInt(matrizSinNull[i][2]) > Integer.parseInt(matrizSinNull[j][2])) {
+					temp[0] = matrizSinNull[i];
+					matrizSinNull[i] = matrizSinNull[j];
+					matrizSinNull[j] = temp[0];
+				}
+			}
+		}
+		String[][] matrizDeResultados = new String[5][3];
+		for (int i = 0; i < 5; i++) {
+			matrizDeResultados[i] = matrizSinNull[i];
+		}
+		return matrizDeResultados;
 	}
 
-	public String[][] obtenerCincoApostadoresGanadores(String numeroBaloto, String numeroSuperastro) {
-		String[][] salida = new String[5][3];
-		int[] ganador = new int[this.numeroGanadorBaloto(numeroBaloto, numeroSuperastro)];
-		String[] arregloSedes = new String[this.sede.getSedesDao().getDataSedes().size()];
+	public String[][] generarTresTiposApuestaMayoresGanadores(String numeroBaloto, String numeroSuperastro) {
 
-		for (int i = 0; i < this.sede.getSedesDao().getDataSedes().size(); i++) {
-			for (int j = 0; j < this.apuestas.getBalotoDAO().getListaBaloto().size(); j++) {
-				if (this.apuestas.getBalotoDAO().getListaBaloto().get(j).getNombreSede()
-						.equals(this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
-								+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion())) {
-					ganador[i] = (int) (ganador[i]
-							+ this.apuestas.getBalotoDAO().getListaBaloto().get(j).getValorApuesta());
-				}
+		String[][] ganadores = new String[3][3];
+		int cont = 0;
+		for (int i = 0; i < this.apuestas.getBalotoDAO().getListaBaloto().size(); i++) {
+			if (this.apuestas
+					.ganadorApuestaBaloto(this.apuestas.getBalotoDAO().getListaBaloto().get(i).getNumeroJuego())) {
+				cont++;
 			}
-			for (int j = 0; j < this.apuestas.getSuperastroDAO().getListaSuperastro().size(); j++) {
-				if (this.apuestas.getSuperastroDAO().getListaSuperastro().get(j).getNombreSede()
-						.equals(this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
-								+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion())) {
-					ganador[i] = (int) (ganador[i]
-							+ this.apuestas.getSuperastroDAO().getListaSuperastro().get(j).getValorApuesta());
-				}
-			}
-			for (int j = 0; j < this.apuestas.getMarcadoresDAO().getListaMarcadores().size(); j++) {
-				if (this.apuestas.getMarcadoresDAO().getListaMarcadores().get(j).getNombreSede()
-						.equals(this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
-								+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion())) {
-					ganador[i] = (int) (ganador[i]
-							+ this.apuestas.getMarcadoresDAO().getListaMarcadores().get(j).getValorApuesta());
-				}
-			}
-			arregloSedes[i] = this.sede.getSedesDao().getDataSedes().get(i).getUbicacion()
-					+ this.sede.getSedesDao().getDataSedes().get(i).getIdUbicacion();
 		}
+		ganadores[0][0] = "Baloto";
+		ganadores[0][1] = "";
+		ganadores[0][2] = String.valueOf(cont);
+		cont = 0;
+		for (int i = 0; i < this.apuestas.getSuperastroDAO().getListaSuperastro().size(); i++) {
+			if (this.apuestas.ganadorApuestaSuperastro(
+					this.apuestas.getSuperastroDAO().getListaSuperastro().get(i).getNumeroJuego() + "-"
+							+ this.apuestas.getSuperastroDAO().getListaSuperastro().get(i).getSigno())) {
+				cont++;
+			}
+		}
+		ganadores[1][0] = "Super Astro";
+		ganadores[1][1] = "";
+		ganadores[1][2] = String.valueOf(cont);
 
-		for (int i = 0; i < ganador.length; i++) {
-			System.out.println(ganador[i]);
-			for (int j = 0; j < ganador.length; j++) {
-				if (ganador[i] > ganador[j]) {
-					String tempSede = arregloSedes[i];
-					arregloSedes[i] = arregloSedes[j];
-					arregloSedes[j] = tempSede;
-					int tempValor = ganador[i];
-					ganador[i] = ganador[j];
-					ganador[j] = tempValor;
-				}
-			}
-		}
-		for (int i = 0; i < ganador.length; i++) {
-			if (i < 5) {
-				salida[i][0] = String.valueOf(ganador[i]);
-				salida[i][1] = "";
-				salida[i][2] = arregloSedes[i];
-			}
-		}
-		return this.quitarCamposNull(salida);
+		return new String[1][1];
 	}
 
 	public String[][] obtenerCincoSedesConMayorVenta() {
@@ -440,7 +486,6 @@ public class CasaDeApuestas {
 		}
 
 		for (int i = 0; i < valorTotalSedes.length; i++) {
-			System.out.println(valorTotalSedes[i]);
 			for (int j = 0; j < valorTotalSedes.length; j++) {
 				if (valorTotalSedes[i] > valorTotalSedes[j]) {
 					String tempSede = arregloSedes[i];
