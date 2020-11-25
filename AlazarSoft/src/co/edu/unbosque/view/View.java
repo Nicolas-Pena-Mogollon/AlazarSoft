@@ -13,6 +13,17 @@ import co.edu.unbosque.controller.Controller;
 
 public class View extends JFrame {
 
+	/**
+	 * Asociacion clase PanelCasaApuestas 
+	 * Asociacion clase PanelMenuCasaApuestas
+	 * Asociacion clase PanelApostadores 
+	 * Asociacion clase PanelApuestas 
+	 * Asociacion clase PanelSede 
+	 * Asociacion clase PanelPremiacion
+	 * Asociacion clasePanelConsultasReportes
+	 * 
+	 */
+
 	private static final long serialVersionUID = 1L;
 	private PanelCasaApuestas panelCasaApuestas;
 	private PanelMenuCasaApuestas panelMenuCasaApuestas;

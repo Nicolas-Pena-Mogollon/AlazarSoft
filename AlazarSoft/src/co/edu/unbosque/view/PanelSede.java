@@ -7,6 +7,7 @@ import javax.swing.JTabbedPane;
  */
 
 public class PanelSede extends JTabbedPane {
+	
 	/**
 	 * Asociacion clase PanelSedeCrear 
 	 * Asociacion clase PanelSedeModificar
