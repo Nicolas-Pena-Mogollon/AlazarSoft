@@ -58,12 +58,14 @@ public class CasaDeApuestas {
 			this.presupuestoTotal = 0;
 		}
 	}
-	
+
 	/**
 	 * Este metodo se encarga de editar la configuración de la clase de apuestas.
-	 * @param nombre
-	 * @param numeroSedes
-	 * @param presupuestoTotal
+	 * 
+	 * @param nombre,           es el nombre de la sede; nombre != null.
+	 * @param numeroSedes,      es el numero de sedes; numeroSedes != null.
+	 * @param presupuestoTotal, es el presupuesto total de la casa de apuestas;
+	 *                          presupuestoTotal != null.
 	 * 
 	 */
 	public void guardarConfiguracionCasaDeApuestas(String nombre, int numeroSedes, double presupuestoTotal) {
@@ -81,14 +83,17 @@ public class CasaDeApuestas {
 				String.valueOf(this.presupuestoTotal) };
 		archivoConfiguracionCasaApuestas.escribirConfiguracionCasaApuestas(datos);
 	}
-	
+
 	/**
+	 * Este método se encarag de generar datos sobre los reportes y guardaelos en
+	 * una matriz.
 	 * 
-	 * @param tipoReporte
-	 * @param fecha
-	 * @param tipoFiltro
-	 * @return
-	 * @throws ParseException
+	 * @param tipoReporte, es el tipo de reporte a exportar; tipoReporte != null.
+	 * @param fecha,       es la fecha por la cual se va a flitrar. fecha != null.
+	 * @param tipoFiltro,  es el formato por la cual se va visualizar al momento de
+	 *                     exportarlo.
+	 * @return retorna una matriz con todos los datos generados.
+	 * @throws ParseException Se puede presentar una excepción.
 	 */
 	@SuppressWarnings("deprecation")
 	public String[][] generarDatosReportes(String tipoReporte, String fecha, String tipoFiltro) throws ParseException {
@@ -317,6 +322,12 @@ public class CasaDeApuestas {
 		}
 	}
 
+	/**
+	 * Este método se encarga de llenar los titulos a sus tablas correspondientes.
+	 * 
+	 * @param tipoReporte, es el tipo de reporte a identificar; tipoReporte!= null.
+	 * @return retorna un arreglo con los titulos correscpondientes.
+	 */
 	public String[] obtenerTitulosReportes(String tipoReporte) {
 		if (tipoReporte.equals("Listado de clientes por sede")) {
 			String[] salida = { "Fecha", "Sede", "Cédula", "Nombre" };
