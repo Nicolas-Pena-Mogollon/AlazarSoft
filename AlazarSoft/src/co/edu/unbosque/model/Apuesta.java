@@ -1,3 +1,6 @@
+/**
+ * paquete modelo
+ */
 package co.edu.unbosque.model;
 
 import java.text.ParseException;
@@ -9,18 +12,44 @@ import co.edu.unbosque.model.persistence.BalotoDAO;
 import co.edu.unbosque.model.persistence.MarcadoresDAO;
 import co.edu.unbosque.model.persistence.SuperastroDAO;
 
+/**
+ * Clase Apuesta
+ */
 public class Apuesta {
 
+	/**
+	 * Asociación clase BalotoDAO
+	 */
 	private BalotoDAO balotoDAO;
+	/**
+	 * Asociación clase SuperastroDAO
+	 */
 	private SuperastroDAO superastroDAO;
+	/**
+	 * Asociación clase MarcadoresDAO
+	 */
 	private MarcadoresDAO marcadoresDAO;
 
+	/**
+	 * Constructor Vacio
+	 */
 	public Apuesta() {
 		balotoDAO = new BalotoDAO();
 		superastroDAO = new SuperastroDAO();
 		marcadoresDAO = new MarcadoresDAO();
 	}
 
+	/**
+	 * Este método se encarga de identificar el tipo de apuesta a borrar para luego
+	 * borrarlo
+	 * 
+	 * @param tipoApuesta, es el tipo de apuesta
+	 * @param fecha,       es la fecha en la que se realizó la apuesta
+	 * @param cedula,      es el número que identifica al apostador y las apuestas
+	 *                     de este
+	 * @return retorna true si se puedo realizar el borrado de la apuesta
+	 * @throws ParseException
+	 */
 	public boolean borrarApuesta(String tipoApuesta, String fecha, String cedula) throws ParseException {
 		SimpleDateFormat dateF = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
 		boolean salida = false;

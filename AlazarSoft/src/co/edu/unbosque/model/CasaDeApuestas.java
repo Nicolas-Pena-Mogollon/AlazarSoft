@@ -68,6 +68,7 @@ public class CasaDeApuestas {
 				+ apuestas.getSuperastroDAO().getListaSuperastro().size()
 				+ apuestas.getMarcadoresDAO().getListaMarcadores().size()][6];
 		SimpleDateFormat dateUno = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
+		
 		int cont = 0;
 		for (int i = 0; i < apuestas.getBalotoDAO().getListaBaloto().size(); i++) {
 			if (tipoFiltro.equals("día, mes y año")) {
