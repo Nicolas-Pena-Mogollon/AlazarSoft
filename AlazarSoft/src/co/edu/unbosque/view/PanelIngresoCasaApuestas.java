@@ -8,6 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+/**
+ * Clase PanelIngresoCasaApuestas
+ */
+
 public class PanelIngresoCasaApuestas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -20,6 +24,10 @@ public class PanelIngresoCasaApuestas extends JPanel {
 	private JTextField campoTextoPresupuesto;
 	private JButton botonGuardar;
 	private JPanel panelIngreso;
+
+	/**
+	 * Constructor con inicialización de atributos
+	 */
 
 	public PanelIngresoCasaApuestas() {
 
@@ -52,6 +60,13 @@ public class PanelIngresoCasaApuestas extends JPanel {
 		this.add(botonGuardar, BorderLayout.PAGE_END);
 
 	}
+
+	/**
+	 * Verifica los datos de entrada y retorna un String unidimensional con los
+	 * valores correspondientes. Revisa que los datos de ingreso sean correctos
+	 * 
+	 * @return salida
+	 */
 
 	public String[] verificarEntradasIngresoDatosJuegos() {
 		String[] salida = new String[5];
@@ -112,6 +127,10 @@ public class PanelIngresoCasaApuestas extends JPanel {
 		}
 		return salida;
 	}
+
+	/**
+	 * Limpia los campos de texto y borra los valores que tengan en la interfaz
+	 */
 
 	public void borrarCamposIngresoCasaApuestas() {
 		this.campoTextoNombreCasaApuestas.setText("");

@@ -10,6 +10,9 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+/**
+ * Clase PanelGraficaClientes
+ */
 public class PanelGraficaClientes extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -18,6 +21,10 @@ public class PanelGraficaClientes extends JPanel {
 	private ChartPanel chartPanelClientesMayoresApuestas;
 	private DefaultCategoryDataset dataGraficaClientes;
 	private JFreeChart graficoClientes;
+
+	/**
+	 * Constructor con inicialización de atributos
+	 */
 
 	public PanelGraficaClientes() {
 		setBorder(new TitledBorder("Top 5 de los clientes con mayores apuestas ganadas"));
@@ -30,8 +37,13 @@ public class PanelGraficaClientes extends JPanel {
 		chartPanelClientesMayoresApuestas = new ChartPanel(graficoClientes);
 		add(chartPanelClientesMayoresApuestas, BorderLayout.CENTER);
 		add(botonMostrarClientesMayoresApuestas, BorderLayout.PAGE_END);
-
 	}
+
+	/**
+	 * Recibe la información para añadirla a las gráficas
+	 * 
+	 * @param informacion
+	 */
 
 	public void recibirInfomacion(String[][] informacion) {
 		for (int i = 0; i < informacion.length; i++)

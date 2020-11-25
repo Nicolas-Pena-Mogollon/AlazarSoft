@@ -10,6 +10,10 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+/**
+ * Clase PanelGraficoVentasSedes
+ */
+
 public class PanelGraficoVentasSedes extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -19,19 +23,29 @@ public class PanelGraficoVentasSedes extends JPanel {
 	private DefaultCategoryDataset dataGraficaMayoresVentas;
 	private JFreeChart graficoSedesMayoresApuestas;
 
+	/**
+	 * Constructor con inicialización de atributos
+	 */
+
 	public PanelGraficoVentasSedes() {
 		setBorder(new TitledBorder("Top 5 de las sedes con mayores ventas realizadas"));
 		setLayout(new BorderLayout());
 		botonMostrarSedesMayoresVentas = new JButton("Mostrar gráfico");
 		botonMostrarSedesMayoresVentas.setActionCommand(COMMAND_GRAFICA_SEDES_MAYORES_VENTAS);
 		dataGraficaMayoresVentas = new DefaultCategoryDataset();
-		graficoSedesMayoresApuestas = ChartFactory.createBarChart("Top 5 de las sedes con mayores ventas realizadas", "Días",
-				"Ventas por día", dataGraficaMayoresVentas, PlotOrientation.VERTICAL, true, true, false);
+		graficoSedesMayoresApuestas = ChartFactory.createBarChart("Top 5 de las sedes con mayores ventas realizadas",
+				"Días", "Ventas por día", dataGraficaMayoresVentas, PlotOrientation.VERTICAL, true, true, false);
 		chartPanel = new ChartPanel(graficoSedesMayoresApuestas);
 		add(chartPanel, BorderLayout.CENTER);
 		add(botonMostrarSedesMayoresVentas, BorderLayout.PAGE_END);
 
 	}
+
+	/**
+	 * Recibe la información para añadirla a las gráficas
+	 * 
+	 * @param informacion
+	 */
 
 	public void recibirInfomacion(String[][] informacion) {
 		for (int i = 0; i < informacion.length; i++)

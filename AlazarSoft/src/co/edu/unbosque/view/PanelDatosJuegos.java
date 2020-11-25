@@ -9,6 +9,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+/**
+ * Clase PanelDatosJuegos
+ */
+
 public class PanelDatosJuegos extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -21,6 +25,10 @@ public class PanelDatosJuegos extends JPanel {
 	private JComboBox<String> comboTiposDeJuego;
 	private JButton botonGuardarDatosJuego;
 	private JPanel panelCampos;
+
+	/**
+	 * Constructor con inicialización de atributos
+	 */
 
 	public PanelDatosJuegos() {
 		setBorder(new TitledBorder("Configurar los datos de juego"));
@@ -60,6 +68,12 @@ public class PanelDatosJuegos extends JPanel {
 
 	}
 
+	/**
+	 * Verifica que los campos no esten vacios
+	 * 
+	 * @return true
+	 */
+
 	public boolean verificarEntradas() {
 		boolean verificar = false;
 		if (!"Seleccione".equals(comboNombreJuego.getSelectedItem()) && !"".equals(campoTextoPresupuesto.getText())
@@ -71,12 +85,14 @@ public class PanelDatosJuegos extends JPanel {
 		return verificar;
 	}
 
+	/**
+	 * Limpia los campos de texto y borra los valores que tengan en la interfaz
+	 */
 	public void limpiarCampos() {
 		this.comboNombreJuego.setSelectedIndex(0);
 		this.campoTextoPresupuesto.setText("");
 		this.comboTiposDeJuego.setSelectedIndex(0);
 	}
-
 
 	/**
 	 * @return the comboNombreJuego
