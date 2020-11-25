@@ -351,7 +351,6 @@ public class CasaDeApuestas {
 	public String[][] obtenerCincoApostadoresGanadores(String numeroBaloto, String numeroSuperastro) {
 		String[][] salida = new String[5][3];
 		int[] ganador = new int[this.numeroGanadorBaloto(numeroBaloto, numeroSuperastro)];
-		String[] arregloBaloto = new String[this.apuestas.getBalotoDAO().getListaBaloto().size()];
 		String[] arregloSedes = new String[this.sede.getSedesDao().getDataSedes().size()];
 
 		for (int i = 0; i < this.sede.getSedesDao().getDataSedes().size(); i++) {

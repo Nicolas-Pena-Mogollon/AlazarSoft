@@ -203,14 +203,18 @@ public class Controller implements ActionListener {
 					// TODO Auto-generated catch block
 					vista.mostrarMensajeError("No se pudo acceder a la información" + "\n" + e1);
 				}
-			}else if(e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficaClientes().getCOMMAND_GRAFICA_CLIENTES_MAYORES_APUESTAS())) {
-				
-//				String[][] data = casaApuestas.obtenerCincoApostadoresGanadores();
-//				if (data[0][0] != null) {
-//					vista.getPanelConsultasReportes().getPanelGraficoVentasSedes().recibirInfomacion(data);
-//		} else {
-//					vista.mostrarMensajeError("No hay información para mostrar");
-//				}
+			} else if (e.getActionCommand().equals(vista.getPanelConsultasReportes().getPanelGraficaClientes()
+					.getCOMMAND_GRAFICA_CLIENTES_MAYORES_APUESTAS())) {
+				String baloto = this.casaApuestas.getApuestas()
+						.numeroGanadorBaloto(this.casaApuestas.getApuestas().numerosBaloto());
+				String superastro = this.casaApuestas.getApuestas().numeroGanadorSuperastro(
+						this.casaApuestas.getApuestas().numerosZodiaco(), this.casaApuestas.getApuestas().signo());
+				String[][] data = casaApuestas.obtenerCincoApostadoresGanadores(baloto, superastro);
+				if (data[0][0] != null) {
+					vista.getPanelConsultasReportes().getPanelGraficaClientes().recibirInfomacion(data);
+		} else {
+					vista.mostrarMensajeError("No hay información para mostrar");
+				}
 			}
 		} else {
 			vista.mostrarMensajeError("Debe registrar los datos de la casa de apuestas");
