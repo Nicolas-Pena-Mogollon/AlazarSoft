@@ -346,6 +346,13 @@ public class CasaDeApuestas {
 		}
 	}
 
+	/**
+	 * Este método se encarga de quitar los campos null de un arreglo bidimencional.
+	 * 
+	 * @param matrizPrincipal, es la matriz a la cual se l van a borrar los campos
+	 *                         null.
+	 * @return retorna una matriz sin campos null.s
+	 */
 	public String[][] quitarCamposNull(String[][] matrizPrincipal) {
 		if (matrizPrincipal.length != 0) {
 			int contadorSinNull = 0;
@@ -368,6 +375,12 @@ public class CasaDeApuestas {
 		}
 	}
 
+	/**
+	 * Este método se encarga de obtener los cinco clientes con las apuestas más
+	 * ganadas.
+	 * 
+	 * @return retorna toda la información respectiva con los cinco clientes.
+	 */
 	public String[][] generarCincoClientesMayoresApuestas() {
 		String[][] ganadores = new String[this.apostadores.getApostadorDao().getListaApostador().size() * 3][3];
 		int cont = 0;
@@ -471,6 +484,12 @@ public class CasaDeApuestas {
 		return this.quitarCamposNull(matrizDeResultados);
 	}
 
+	/**
+	 * Este método se encarga de obtener los tres tipos de apuestas en la cual se va
+	 * a obtener la cantidad de ganadores por cada una de estas.
+	 * 
+	 * @return retorna toda la información respectiva ya antes mencionada.
+	 */
 	public String[][] generarTresTiposApuestaMayoresGanadores() {
 
 		String[][] ganadores = new String[3][3];
@@ -512,6 +531,11 @@ public class CasaDeApuestas {
 		return ganadores;
 	}
 
+	/**
+	 * Este método se encarga de obtener las cinco sedes con mayor venta.
+	 * 
+	 * @return retorna una matriz con toda esta información.
+	 */
 	public String[][] obtenerCincoSedesConMayorVenta() {
 		String[][] salida = new String[5][3];
 		double[] valorTotalSedes = new double[this.sede.getSedesDao().getDataSedes().size()];
@@ -568,6 +592,12 @@ public class CasaDeApuestas {
 		return this.quitarCamposNull(salida);
 	}
 
+	/**
+	 * Este método se encarga de buscar el nombre del apostador con la cedula.
+	 * 
+	 * @param cedula, es la cedula del apostador != null.
+	 * @return retonar el nombre del apostador.
+	 */
 	private String buscarNombreApostador(String cedula) {
 		String salida = "";
 		for (int i = 0; i < this.apostadores.getApostadorDao().getListaApostador().size(); i++) {
@@ -578,11 +608,35 @@ public class CasaDeApuestas {
 		return salida;
 	}
 
+	/**
+	 * Este método se encarga de generar la información para mostrarlo en la
+	 * pantalla.
+	 * 
+	 * @param tipoReporte, es el tipo de reporte a mostrar; tipoReporte != null.
+	 * @param fecha,       es la fecha en la cual se va realizar la consulta; fecha
+	 *                     != null.
+	 * @param tipoFiltro,  es el tipo de filtro por el cual se va a realizar la
+	 *                     busqueda, tipoFiltro != null.
+	 * @return retorna toda la información por medio de una matriz.
+	 * @throws ParseException se puede presentar algún error en la fecha.
+	 */
 	public String[][] generarInformacionReportesPantalla(String tipoReporte, String fecha, String tipoFiltro)
 			throws ParseException {
 		return this.apuestas.quicksortRecursivo(this.generarDatosReportes(tipoReporte, fecha, tipoFiltro));
 	}
 
+	/**
+	 * Este método se encarga de exportar la información a forma pdf;
+	 * 
+	 * @param tipoReporte, es el tipo de reporte; tipoReporte != null.
+	 * @param fecha,       es la fecha en la cual se va realizar la consulta; fecha
+	 *                     != null.
+	 * @param tipoFiltro,  es el tipo de filtro por el cual se va a realizar la
+	 *                     exportación, tipoFiltro != null.
+	 * @param tipoArchivo, es el tipo de archivo a exportar; tipoArchivo != null.
+	 * @return retorna true si todo se encuentra bien.
+	 * @throws ParseException se puede presentar algún error en la fecha.
+	 */
 	public boolean exportar(String tipoReporte, String fecha, String tipoFiltro, String tipoArchivo)
 			throws ParseException {
 		String[][] datos = this.apuestas.quicksortRecursivo(this.generarDatosReportes(tipoReporte, fecha, tipoFiltro));
