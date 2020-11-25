@@ -1,10 +1,12 @@
+/**
+ * Paquete controller
+ */
 package co.edu.unbosque.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import co.edu.unbosque.model.CasaDeApuestas;
 import co.edu.unbosque.model.CedulaException;
@@ -12,11 +14,20 @@ import co.edu.unbosque.model.CelularException;
 import co.edu.unbosque.model.persistence.SedesDTO;
 import co.edu.unbosque.view.View;
 
+/**
+ * Clase Controller
+ */
 public class Controller implements ActionListener {
 
 	private CasaDeApuestas casaApuestas;
 	private View vista;
 
+	/**
+	 * Constructor vacio
+	 * 
+	 * Inicialización de elementos y se otorgan los valores a los componenetes de la
+	 * vista
+	 */
 	public Controller() {
 		casaApuestas = new CasaDeApuestas();
 		vista = new View(this);
@@ -231,6 +242,9 @@ public class Controller implements ActionListener {
 		}
 	}
 
+	/**
+	 * Gestiona la configuración de la casa de apuestas (Creación de parámetros)
+	 */
 	public void gestionarConfiguracionCasaApuestas() {
 		String[] entradas = vista.getPanelCasaApuestas().getPanelIngresoCasaApuestas()
 				.verificarEntradasIngresoDatosJuegos();
@@ -244,6 +258,9 @@ public class Controller implements ActionListener {
 		vista.getPanelCasaApuestas().getPanelIngresoCasaApuestas().borrarCamposIngresoCasaApuestas();
 	}
 
+	/**
+	 * Gestiona el registro del apostador
+	 */
 	public void gestionarApostadoresRegistro() {
 		if (vista.getPanelApostadores().getPanelCrearApostador().verificarCamposVacios()) {
 			String sede = vista.getPanelApostadores().getPanelCrearApostador().getComboSede().getSelectedItem()
@@ -284,6 +301,9 @@ public class Controller implements ActionListener {
 
 	}
 
+	/**
+	 * Gestiona la eliminación de los apostadores
+	 */
 	public void gestionarApostadoresEliminar() {
 
 		String cedula = vista.getPanelApostadores().getPanelActualizarBorrarApostador().getCampoTextoCedula().getText();
@@ -307,6 +327,9 @@ public class Controller implements ActionListener {
 
 	}
 
+	/**
+	 * Gestiona la actualización de los datos de los apostadores
+	 */
 	public void gestionarApostadoresActualizar() {
 		String[] entradas = vista.getPanelApostadores().getPanelActualizarBorrarApostador()
 				.verificarEntradasActualizarInformacionApostador();
@@ -329,6 +352,9 @@ public class Controller implements ActionListener {
 
 	}
 
+	/**
+	 * Gestiona la creación de las apuestas de baloto
+	 */
 	public void gestionarApuestasBaloto() {
 		vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
 				.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
@@ -395,6 +421,9 @@ public class Controller implements ActionListener {
 		}
 	}
 
+	/**
+	 * Gestiona la creación de las apuestas de Super astro
+	 */
 	public void gestionarApuestasSuperastro() {
 		vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
 				.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
@@ -456,6 +485,9 @@ public class Controller implements ActionListener {
 
 	}
 
+	/**
+	 * Gestiona la creación de las apuestas relacionadas con los partidos
+	 */
 	public void gestionarApuestasFutbol() {
 		vista.getPanelApuestas().getPanelCrearApuesta().getCampoTextoFecha()
 				.setText(vista.getPanelApuestas().getPanelCrearApuesta().hora());
@@ -501,6 +533,9 @@ public class Controller implements ActionListener {
 		}
 	}
 
+	/**
+	 * Gestiona la creación de las sedes
+	 */
 	public void gestionarSedes() {
 		String[] entradas = vista.getPanelSede().getPanelSedeCrear().verificarEntradasIngresoSedes();
 		if (entradas[0].equals("0")) {
@@ -534,6 +569,9 @@ public class Controller implements ActionListener {
 		}
 	}
 
+	/**
+	 * Gestiona la actualización de las sedes de la Casa de apuestas
+	 */
 	public void gestionarSedesActualizar() {
 		String[] entradas = vista.getPanelSede().getPanelSedeModificar().verificarEntradasActualizarSedes();
 		if (entradas[0].equals("0")) {
@@ -561,6 +599,9 @@ public class Controller implements ActionListener {
 		}
 	}
 
+	/**
+	 * Gestiona la modificación de las apuestas de baloto
+	 */
 	public void gestionarApuestasBalotoModificar() {
 		if (this.vista.getPanelApuestas().getPanelModificarApuesta().verificarCampos()) {
 			SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
@@ -593,6 +634,9 @@ public class Controller implements ActionListener {
 
 	}
 
+	/**
+	 * Gestiona la modificación de las apuestas de Super astro
+	 */
 	public void gestionarApuestasSuperastroModificar() {
 		if (this.vista.getPanelApuestas().getPanelModificarApuesta().verificarCampos()) {
 			SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
@@ -624,6 +668,10 @@ public class Controller implements ActionListener {
 
 	}
 
+	/**
+	 * Gestiona la modificación de las apuestas relacionadas con los partidos de
+	 * fútbol
+	 */
 	public void gestionarApuestasMarcadoresModificar() {
 		if (this.vista.getPanelApuestas().getPanelModificarApuesta().verificarCampos()) {
 			SimpleDateFormat formato = new SimpleDateFormat("hh: mm: ss a dd/MM/yyyy");
@@ -655,6 +703,9 @@ public class Controller implements ActionListener {
 		}
 	}
 
+	/**
+	 * Gestiona el borrado de las apuestas desde la tabla
+	 */
 	public void gestionarBorrarApuesta() {
 		if (vista.getPanelApuestas().getPanelMostrarBorrarApuesta().verificarDatosTabla() == 1) {
 			String[] info = vista.getPanelApuestas().getPanelMostrarBorrarApuesta().obtenerDatosTabla();
@@ -682,6 +733,9 @@ public class Controller implements ActionListener {
 								.getSelectedItem())));
 	}
 
+	/**
+	 * Gestiona la creación de juegos
+	 */
 	public void gestionarJuegos() {
 		if (vista.getPanelCasaApuestas().getPanelDatosJuegos().verificarEntradas()) {
 			String nombreJuego = vista.getPanelCasaApuestas().getPanelDatosJuegos().getComboNombreJuego()
@@ -708,5 +762,4 @@ public class Controller implements ActionListener {
 			vista.mostrarMensajeError("Campos necesarios");
 		}
 	}
-
 }
