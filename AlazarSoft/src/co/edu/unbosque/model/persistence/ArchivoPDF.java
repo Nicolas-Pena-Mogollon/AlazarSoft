@@ -1,5 +1,7 @@
 /**
  * Paquete persistencia
+ * 
+ * 
  */
 package co.edu.unbosque.model.persistence;
 
@@ -44,11 +46,11 @@ public class ArchivoPDF extends ArchivoExportar {
 			PdfWriter.getInstance(document, fos).setInitialLeading(20);
 			// Se abre el documento
 			document.open();
-			// Título
+			// Tï¿½tulo
 			Chunk titulo = new Chunk(tipoReporte + "\n\n", chapterFont);
 			Paragraph parrafo = new Paragraph(titulo);
 			parrafo.setAlignment(Element.ALIGN_CENTER);
-			// Capítulo
+			// Capï¿½tulo
 			Chapter capitulo = new Chapter(parrafo, 1);
 			capitulo.setNumberDepth(0);
 
@@ -103,7 +105,7 @@ public class ArchivoPDF extends ArchivoExportar {
 	}
 
 	/**
-	 * Este método se encarga de verificar la ruta en donde se va a crear al archivo
+	 * Este mï¿½todo se encarga de verificar la ruta en donde se va a crear al archivo
 	 * excel.
 	 */
 
